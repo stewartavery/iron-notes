@@ -28,7 +28,7 @@ func load<T: Decodable>(_ filename: String, as type: T.Type = T.self) -> T {
     
     do {
         let decoder = JSONDecoder()
-        let isoData = data
+        decoder.dateDecodingStrategy = .iso8601
 
         return try decoder.decode(T.self, from: data)
     } catch {
