@@ -9,26 +9,23 @@
 import SwiftUI
 
 struct WorkoutRow: View {
-    var label: String
-    var desc: String
-    var icon: String
-    var lastWorkout: Date
+    var workout: Workout
     
     var body: some View {
         
         HStack {
-            Image(self.icon)
+            Image(self.workout.iconName)
                 .resizable()
                 .frame(width: 50, height: 50)
                 .padding()
                 .border(Color.black, width: 1, cornerRadius: 5)
             
             VStack(alignment: .leading) {
-                Text(self.label)
+                Text(self.workout.name)
                     .font(.headline)
-                Text(self.desc)
+                Text(self.workout.desc)
                     .font(.subheadline)
-                Text("Last Workout: " + dayDifference(from: self.lastWorkout))
+                Text("Last Workout: " + self.workout.dayDifference(from: self.workout.lastWorkout))
                     .font(.subheadline)
                     .foregroundColor(.gray)
             }.padding(.leading, 10)
@@ -37,26 +34,12 @@ struct WorkoutRow: View {
     }
 }
 
-func dayDifference(from date : Date) -> String {
-    let calendar = Calendar.current
-    if calendar.isDateInYesterday(date) { return "Yesterday" }
-    else if calendar.isDateInToday(date) { return "Today" }
-    else if calendar.isDateInTomorrow(date) { return "Tomorrow" }
-    else {
-        let startOfNow = calendar.startOfDay(for: Date())
-        let startOfTimeStamp = calendar.startOfDay(for: date)
-        let components = calendar.dateComponents([.day], from: startOfNow, to: startOfTimeStamp)
-        let day = components.day!
-        if day < 1 { return "\(-day) days ago" }
-        else { return "In \(day) days" }
-    }
-}
 
 
 #if DEBUG
 struct WorkoutRow_Previews: PreviewProvider {
     static var previews: some View {
-        WorkoutRow(label: "Push", desc: "Bench press, shoulder press, tricep extension", icon: "dumbbell", lastWorkout: Date())
+        WorkoutRow(workout: workoutData[0])
     }
 }
 #endif

@@ -9,22 +9,20 @@
 import SwiftUI
 
 struct StartWorkoutList : View {
+    var workouts: [Workout]
+    
     var body: some View {
         NavigationView {
-            List {
-                WorkoutRow(label: "Push", desc: "Bench Press, Press, Extensions", icon: "dumbbell", lastWorkout: Date())
-                
-                WorkoutRow(label: "Pull", desc: "Deadlift, Barbell Row, Bicep Curl", icon: "arm-muscles-silhouette", lastWorkout: Date().advanced(by: -100000))
-                WorkoutRow(label: "Legs", desc: "Squats, RDL, Hack Squat", icon: "barbell", lastWorkout: Date().advanced(by: -200000))
-            }
-            .navigationBarItems(trailing:
-                    Button(action: {
-                        // Add action
-                    }, label: {
-                        Text("Add")
-                    })
-                )
-                .navigationBarTitle("Start Workout", displayMode: .large)
+            List(workouts) { workout in
+                WorkoutRow(workout: workout)
+            }.navigationBarItems(trailing:
+                Button(action: {
+                    // Add action
+                }, label: {
+                    Text("Add")
+                })
+            )
+            .navigationBarTitle("Start Workout", displayMode: .large)
         }
     }
 }
@@ -32,7 +30,7 @@ struct StartWorkoutList : View {
 #if DEBUG
 struct StartWorkoutuList_Preview : PreviewProvider {
     static var previews: some View {
-        StartWorkoutList()
+        StartWorkoutList(workouts: workoutData)
     }
 }
 #endif
