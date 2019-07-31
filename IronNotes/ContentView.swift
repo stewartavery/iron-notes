@@ -13,15 +13,12 @@ struct StartWorkoutList : View {
     
     var body: some View {
         NavigationView {
-            List(workouts) { workout in
-                WorkoutRow(workout: workout)
-            }.navigationBarItems(trailing:
-                Button(action: {
-                    // Add action
-                }, label: {
-                    Text("Add")
-                })
-            )
+            List {
+                ForEach(workouts) { workout in
+                    WorkoutRow(workout: workout)
+                }
+                AddWorkoutRow()
+            }
             .navigationBarTitle("Start Workout", displayMode: .large)
         }
     }

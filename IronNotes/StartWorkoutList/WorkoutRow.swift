@@ -12,7 +12,6 @@ struct WorkoutRow: View {
     var workout: Workout
     
     var body: some View {
-        
         HStack {
             Image(self.workout.iconName)
                 .resizable()
@@ -34,12 +33,11 @@ struct WorkoutRow: View {
     }
 }
 
-
-
 #if DEBUG
 struct WorkoutRow_Previews: PreviewProvider {
     static var previews: some View {
         WorkoutRow(workout: workoutData[0])
+
     }
 }
 #endif

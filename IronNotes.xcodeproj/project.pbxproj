@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6510C76D22E5303600A0DDE2 /* IronNotesContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6510C76C22E5303600A0DDE2 /* IronNotesContainer.swift */; };
 		6510C77022E5401600A0DDE2 /* WorkoutRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6510C76F22E5401600A0DDE2 /* WorkoutRow.swift */; };
+		652FB8C822F112EB0091D3D4 /* AddWorkoutRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652FB8C722F112EB0091D3D4 /* AddWorkoutRow.swift */; };
 		6530997922EA7CE50033C66A /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6530997822EA7CE50033C66A /* Workout.swift */; };
 		6530997C22EB101F0033C66A /* workoutData.json in Resources */ = {isa = PBXBuildFile; fileRef = 6530997B22EB101F0033C66A /* workoutData.json */; };
 		656BC14C22EE0A65000CB452 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656BC14B22EE0A65000CB452 /* Data.swift */; };
@@ -42,6 +43,7 @@
 /* Begin PBXFileReference section */
 		6510C76C22E5303600A0DDE2 /* IronNotesContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IronNotesContainer.swift; path = ../../../../../System/Volumes/Data/Users/savery/Development/IronNotes/IronNotes/IronNotesContainer.swift; sourceTree = "<group>"; };
 		6510C76F22E5401600A0DDE2 /* WorkoutRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WorkoutRow.swift; path = ../../../../../../System/Volumes/Data/Users/savery/Development/IronNotes/IronNotes/StartWorkoutList/WorkoutRow.swift; sourceTree = "<group>"; };
+		652FB8C722F112EB0091D3D4 /* AddWorkoutRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddWorkoutRow.swift; path = ../../../../../../System/Volumes/Data/Users/savery/Development/IronNotes/IronNotes/StartWorkoutList/AddWorkoutRow.swift; sourceTree = "<group>"; };
 		6530997822EA7CE50033C66A /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Workout.swift; path = ../../../../../../System/Volumes/Data/Users/savery/Development/IronNotes/IronNotes/Domain/Workout.swift; sourceTree = "<group>"; };
 		6530997B22EB101F0033C66A /* workoutData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = workoutData.json; path = ../../../../../../System/Volumes/Data/Users/savery/Development/IronNotes/IronNotes/Resources/workoutData.json; sourceTree = "<group>"; };
 		656BC14B22EE0A65000CB452 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Data.swift; path = ../../../../../../System/Volumes/Data/Users/savery/Development/IronNotes/IronNotes/Domain/Data.swift; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 			children = (
 				65FCC39422CD9DB5006D6868 /* ContentView.swift */,
 				6510C76F22E5401600A0DDE2 /* WorkoutRow.swift */,
+				652FB8C722F112EB0091D3D4 /* AddWorkoutRow.swift */,
 			);
 			path = StartWorkoutList;
 			sourceTree = "<group>";
@@ -309,6 +312,7 @@
 			files = (
 				656BC14C22EE0A65000CB452 /* Data.swift in Sources */,
 				65FCC39122CD9DB5006D6868 /* AppDelegate.swift in Sources */,
+				652FB8C822F112EB0091D3D4 /* AddWorkoutRow.swift in Sources */,
 				6510C77022E5401600A0DDE2 /* WorkoutRow.swift in Sources */,
 				65FCC39322CD9DB5006D6868 /* SceneDelegate.swift in Sources */,
 				65FCC39522CD9DB5006D6868 /* ContentView.swift in Sources */,
