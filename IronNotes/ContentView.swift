@@ -17,9 +17,12 @@ struct StartWorkoutList : View {
                 ForEach(workouts) { workout in
                     WorkoutRow(workout: workout)
                 }
+                // Think I'm going to remove the add workout row, doesn't make sense to optimize for
+                // this type of control
                 AddWorkoutRow()
             }
             .navigationBarTitle("Start Your Workout", displayMode: .large)
+            .accentColor(Color.green)
         }
     }
 }
