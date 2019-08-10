@@ -20,7 +20,7 @@ struct RowImage: View {
             .overlay(
                 RoundedRectangle(cornerRadius: 5)
                     .stroke(lineWidth: 0.5)
-                    .foregroundColor(Color.red)
+                    .foregroundColor(Color.gray)
         )
     }
 }
