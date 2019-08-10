@@ -10,7 +10,7 @@ import SwiftUI
 
 struct IronNotesContainer: View {
     var body: some View {
-        TabbedView {
+        TabView {
             StartWorkoutList(workouts: workoutData)
                 .font(.title)
                 .tabItem({

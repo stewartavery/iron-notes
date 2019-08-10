@@ -13,11 +13,7 @@ struct WorkoutRow: View {
     
     var body: some View {
         HStack {
-            Image(self.workout.iconName)
-                .resizable()
-                .frame(width: 50, height: 50)
-                .padding()
-                .border(Color.black, width: 1, cornerRadius: 5)
+            RowImage(iconName: workout.iconName)
             
             VStack(alignment: .leading) {
                 Text(self.workout.name)
@@ -37,9 +33,6 @@ struct WorkoutRow: View {
 struct WorkoutRow_Previews: PreviewProvider {
     static var previews: some View {
         WorkoutRow(workout: workoutData[0])
-
     }
 }
 #endif
-
-

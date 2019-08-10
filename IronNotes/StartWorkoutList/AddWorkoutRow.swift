@@ -11,15 +11,12 @@ import SwiftUI
 struct AddWorkoutRow: View {
     var body: some View {
         HStack {
-            Image("add")
-                .resizable()
-                .frame(width: 50, height: 50)
-                .padding()
-                .border(Color.black, width: 1, cornerRadius: 5)
+            RowImage(iconName: "add")
             
             VStack(alignment: .leading) {
-                Text("Add Workout")
+                Text("Add Workout...")
                     .font(.headline)
+                    .foregroundColor(.init(red: 230, green: 154, blue: 154))
             }.padding(.leading, 10)
         }
         .frame(height: 100)

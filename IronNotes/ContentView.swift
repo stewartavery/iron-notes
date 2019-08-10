@@ -19,7 +19,7 @@ struct StartWorkoutList : View {
                 }
                 AddWorkoutRow()
             }
-            .navigationBarTitle("Start Workout", displayMode: .large)
+            .navigationBarTitle("Start Your Workout", displayMode: .large)
         }
     }
 }
