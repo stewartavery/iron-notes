@@ -9,30 +9,30 @@
 import SwiftUI
 
 struct WorkoutRow: View {
-    var workout: Workout
-    
-    var body: some View {
-        HStack {
-            RowImage(iconName: workout.iconName)
-            
-            VStack(alignment: .leading) {
-                Text(self.workout.name)
-                    .font(.headline)
-                Text(self.workout.desc)
-                    .font(.subheadline)
-                Text("Last Workout: " + self.workout.dayDifference(from: self.workout.lastWorkout))
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
-            }.padding(.leading, 10)
-        }
-        .frame(height: 100)
+  var workout: Workout
+  
+  var body: some View {
+    HStack {
+      RowImage(iconName: workout.iconName)
+      
+      VStack(alignment: .leading) {
+        Text(self.workout.name)
+          .font(.headline)
+        Text(self.workout.desc)
+          .font(.subheadline)
+        Text("Last Workout: " + self.workout.dayDifference(from: self.workout.lastWorkout))
+          .font(.subheadline)
+          .foregroundColor(.gray)
+      }.padding(.leading, 10)
     }
+    .frame(height: 100)
+  }
 }
 
 #if DEBUG
 struct WorkoutRow_Previews: PreviewProvider {
-    static var previews: some View {
-        WorkoutRow(workout: workoutData[0])
-    }
+  static var previews: some View {
+    WorkoutRow(workout: workoutData[0])
+  }
 }
 #endif
