@@ -9,25 +9,31 @@
 import SwiftUI
 
 struct AddWorkoutRow: View {
-    var body: some View {
-        HStack {
-            RowImage(iconName: "add")
-            
-            VStack(alignment: .leading) {
-                Text("Add Workout...")
-                    .font(.headline)
-                    .foregroundColor(.init(red: 230, green: 154, blue: 154))
-            }.padding(.leading, 10)
-        }
-        .frame(height: 100)
+  var body: some View {
+    HStack {
+      RowImage(iconName: "add")
+      
+      VStack(alignment: .leading) {
+        Text("Add Workout...")
+          .font(.headline)
+          .foregroundColor(
+            .init(
+              red: 230,
+              green: 154,
+              blue: 154
+            )
+        )
+      }.padding(.leading, 10)
     }
+    .frame(height: 100)
+  }
 }
 
 #if DEBUG
 struct AddWorkoutRow_Previews: PreviewProvider {
-    static var previews: some View {
-        AddWorkoutRow()
-    }
+  static var previews: some View {
+    AddWorkoutRow()
+  }
 }
 #endif
 
