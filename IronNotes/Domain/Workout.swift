@@ -11,7 +11,7 @@ import SwiftUI
 struct Workout: Identifiable, Codable {
   var id: Int
   var name: String
-  var desc: String
+  var description: String
   var iconName: String /* this needs improvement */
   var lastWorkout: Date
   
