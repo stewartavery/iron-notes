@@ -2,21 +2,21 @@
   {
     "id": 0,
     "name": "Push",
-    "desc": "Bench Press, Press, Extensions",
+    "description": "Bench Press, Press, Extensions",
     "iconName": "dumbbell",
     "lastWorkout": "2019-07-28T07:50:53Z"
   },
   {
     "id": 1,
     "name": "Pull",
-    "desc": "Deadlift, Barbell Rows, Bicep Curls",
+    "description": "Deadlift, Barbell Rows, Bicep Curls",
     "iconName": "arm-muscles-silhouette",
     "lastWorkout": "2019-07-27T07:50:53Z"
   },
   {
     "id": 2,
     "name": "Legs",
-    "desc": "Squat, RDL, Hack Squat",
+    "description": "Squat, RDL, Hack Squat",
     "iconName": "barbell",
     "lastWorkout": "2017-07-26T07:50:53Z"
   }

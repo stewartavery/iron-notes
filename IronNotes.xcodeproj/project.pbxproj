@@ -13,6 +13,10 @@
 		652FB8C822F112EB0091D3D4 /* AddWorkoutRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652FB8C722F112EB0091D3D4 /* AddWorkoutRow.swift */; };
 		6530997922EA7CE50033C66A /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6530997822EA7CE50033C66A /* Workout.swift */; };
 		6530997C22EB101F0033C66A /* workoutData.json in Resources */ = {isa = PBXBuildFile; fileRef = 6530997B22EB101F0033C66A /* workoutData.json */; };
+		6544A4F023FA1ECB0039D705 /* NewWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6544A4EF23FA1ECB0039D705 /* NewWorkout.swift */; };
+		6544A4F223FA1FD70039D705 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6544A4F123FA1FD70039D705 /* Exercise.swift */; };
+		6544A4F423FA20AB0039D705 /* ExerciseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6544A4F323FA20AB0039D705 /* ExerciseType.swift */; };
+		654889C023FA1D6200D80727 /* ActiveWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654889BF23FA1D6100D80727 /* ActiveWorkout.swift */; };
 		656BC14C22EE0A65000CB452 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656BC14B22EE0A65000CB452 /* Data.swift */; };
 		65FCC39122CD9DB5006D6868 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FCC39022CD9DB5006D6868 /* AppDelegate.swift */; };
 		65FCC39322CD9DB5006D6868 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FCC39222CD9DB5006D6868 /* SceneDelegate.swift */; };
@@ -48,6 +52,10 @@
 		652FB8C722F112EB0091D3D4 /* AddWorkoutRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkoutRow.swift; sourceTree = "<group>"; };
 		6530997822EA7CE50033C66A /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
 		6530997B22EB101F0033C66A /* workoutData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = workoutData.json; sourceTree = "<group>"; };
+		6544A4EF23FA1ECB0039D705 /* NewWorkout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWorkout.swift; sourceTree = "<group>"; };
+		6544A4F123FA1FD70039D705 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
+		6544A4F323FA20AB0039D705 /* ExerciseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseType.swift; sourceTree = "<group>"; };
+		654889BF23FA1D6100D80727 /* ActiveWorkout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveWorkout.swift; sourceTree = "<group>"; };
 		656BC14B22EE0A65000CB452 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		65FCC38D22CD9DB5006D6868 /* IronNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IronNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65FCC39022CD9DB5006D6868 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -106,6 +114,8 @@
 			children = (
 				6530997822EA7CE50033C66A /* Workout.swift */,
 				656BC14B22EE0A65000CB452 /* Data.swift */,
+				6544A4F123FA1FD70039D705 /* Exercise.swift */,
+				6544A4F323FA20AB0039D705 /* ExerciseType.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -121,6 +131,7 @@
 		655A5CAF23F8D418000E5246 /* ActiveWorkout */ = {
 			isa = PBXGroup;
 			children = (
+				654889BF23FA1D6100D80727 /* ActiveWorkout.swift */,
 			);
 			path = ActiveWorkout;
 			sourceTree = "<group>";
@@ -128,6 +139,7 @@
 		655A5CB023F8D466000E5246 /* ConfigureWorkout */ = {
 			isa = PBXGroup;
 			children = (
+				6544A4EF23FA1ECB0039D705 /* NewWorkout.swift */,
 			);
 			path = ConfigureWorkout;
 			sourceTree = "<group>";
@@ -331,13 +343,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				656BC14C22EE0A65000CB452 /* Data.swift in Sources */,
+				654889C023FA1D6200D80727 /* ActiveWorkout.swift in Sources */,
 				65FCC39122CD9DB5006D6868 /* AppDelegate.swift in Sources */,
 				652FB8C822F112EB0091D3D4 /* AddWorkoutRow.swift in Sources */,
 				6514CB9A22FE5075002907BC /* RowImage.swift in Sources */,
+				6544A4F223FA1FD70039D705 /* Exercise.swift in Sources */,
+				6544A4F423FA20AB0039D705 /* ExerciseType.swift in Sources */,
 				6510C77022E5401600A0DDE2 /* WorkoutRow.swift in Sources */,
 				65FCC39322CD9DB5006D6868 /* SceneDelegate.swift in Sources */,
 				65FCC39522CD9DB5006D6868 /* ContentView.swift in Sources */,
 				6510C76D22E5303600A0DDE2 /* IronNotesContainer.swift in Sources */,
+				6544A4F023FA1ECB0039D705 /* NewWorkout.swift in Sources */,
 				6530997922EA7CE50033C66A /* Workout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

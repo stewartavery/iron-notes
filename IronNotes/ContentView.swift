@@ -10,16 +10,19 @@ import SwiftUI
 
 struct StartWorkoutList : View {
   var workouts: [Workout]
-    
+  
   var body: some View {
     NavigationView {
       List {
         ForEach(workouts) { workout in
-          WorkoutRow(workout: workout)
+          NavigationLink(destination: ActiveWorkout()) {
+            WorkoutRow(workout: workout)
+          }
         }
-        // Think I'm going to remove the add workout row, doesn't make sense to optimize for
-        // this type of control
-        AddWorkoutRow()
+        
+        NavigationLink(destination: NewWorkout()) {
+          AddWorkoutRow()
+        }
       }
       .navigationBarTitle("Start Your Workout", displayMode: .large)
       .accentColor(Color.green)

@@ -16,7 +16,13 @@ struct AddWorkoutRow: View {
       VStack(alignment: .leading) {
         Text("Add Workout...")
           .font(.headline)
-          .foregroundColor(.init(red: 230, green: 154, blue: 154))
+          .foregroundColor(
+            .init(
+              red: 230,
+              green: 154,
+              blue: 154
+            )
+        )
       }.padding(.leading, 10)
     }
     .frame(height: 100)
