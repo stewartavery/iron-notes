@@ -14,6 +14,7 @@ struct Workout: Identifiable, Codable {
   var description: String
   var iconName: String /* this needs improvement */
   var lastWorkout: Date
+  var routine: [Exercise]
   
   func dayDifference(from date : Date) -> String {
     let calendar = Calendar.current

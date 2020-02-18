@@ -11,6 +11,5 @@ import SwiftUI
 struct Exercise: Identifiable, Codable {
   var id: Int
   var meta: ExerciseMeta
-  var personalRecord: Int?
   var sets: [ExerciseSet]
 }
