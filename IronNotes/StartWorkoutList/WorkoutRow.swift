@@ -18,7 +18,7 @@ struct WorkoutRow: View {
       VStack(alignment: .leading) {
         Text(self.workout.name)
           .font(.headline)
-        Text(self.workout.desc)
+        Text(self.workout.description)
           .font(.subheadline)
         Text("Last Workout: " + self.workout.dayDifference(from: self.workout.lastWorkout))
           .font(.subheadline)

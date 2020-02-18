@@ -1,5 +1,5 @@
 //
-//  Exercise.swift
+//  ExerciseMeta.swift
 //  IronNotes
 //
 //  Created by Stewart Avery on 2/16/20.
@@ -8,8 +8,9 @@
 
 import SwiftUI
 
-struct Exercise: Identifiable, Codable {
+struct ExerciseMeta: Identifiable, Codable {
   var id: Int
-  var meta: ExerciseMeta
-  var sets: [ExerciseSet]
+  var name: String
+  var description: String
+  var exerciseType: ExerciseType
 }
