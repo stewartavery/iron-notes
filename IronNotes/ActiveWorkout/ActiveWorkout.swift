@@ -12,9 +12,7 @@ struct ActiveWorkout: View {
   var workout: Workout
   
   var body: some View {
-    VStack() {
-      WorkoutRow(workout: workout)
-  
+    NavigationView {
       List {
         ForEach(workout.routine) { exercise in
           Section(header: Text(exercise.meta.name)) {
@@ -28,6 +26,7 @@ struct ActiveWorkout: View {
           }
         }
       }
+      .navigationBarTitle(Text(self.workout.name), displayMode: .large)
     }
   }
   
