@@ -12,27 +12,27 @@ struct ActiveWorkout: View {
   var workout: Workout
   
   var body: some View {
-    NavigationView {
-      List {
-        ForEach(workout.routine) { exercise in
-          Section(header: Text(exercise.meta.name)) {
-            ForEach(exercise.sets) { exerciseSet in
-              HStack {
-                Text(String(exerciseSet.weight))
-                Spacer()
-                Text(String(exerciseSet.reps))
-              }
+    List {
+      ForEach(workout.routine) { exercise in
+        Section(header: Text(exercise.meta.name)) {
+          ForEach(exercise.sets) { exerciseSet in
+            HStack {
+              Text(String(exerciseSet.weight))
+              Spacer()
+              Text(String(exerciseSet.reps))
             }
           }
         }
       }
-      .navigationBarTitle(Text(self.workout.name), displayMode: .large)
     }
+    .navigationBarTitle(Text(self.workout.name), displayMode: .large)
   }
   
   struct ActiveWorkout_Previews: PreviewProvider {
     static var previews: some View {
-      ActiveWorkout(workout: workoutData[0])
+      NavigationView {
+        ActiveWorkout(workout: workoutData[0])
+      }
     }
   }
 }
