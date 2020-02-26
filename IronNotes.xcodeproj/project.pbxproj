@@ -13,6 +13,7 @@
 		652FB8C822F112EB0091D3D4 /* AddWorkoutRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652FB8C722F112EB0091D3D4 /* AddWorkoutRow.swift */; };
 		6530997922EA7CE50033C66A /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6530997822EA7CE50033C66A /* Workout.swift */; };
 		6530997C22EB101F0033C66A /* workoutData.json in Resources */ = {isa = PBXBuildFile; fileRef = 6530997B22EB101F0033C66A /* workoutData.json */; };
+		6540EFC723FE19180042D81F /* IronNotes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6540EFC523FE19180042D81F /* IronNotes.xcdatamodeld */; };
 		6544A4F023FA1ECB0039D705 /* NewWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6544A4EF23FA1ECB0039D705 /* NewWorkout.swift */; };
 		6544A4F223FA1FD70039D705 /* ExerciseMeta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6544A4F123FA1FD70039D705 /* ExerciseMeta.swift */; };
 		6544A4F423FA20AB0039D705 /* ExerciseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6544A4F323FA20AB0039D705 /* ExerciseType.swift */; };
@@ -54,6 +55,7 @@
 		652FB8C722F112EB0091D3D4 /* AddWorkoutRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkoutRow.swift; sourceTree = "<group>"; };
 		6530997822EA7CE50033C66A /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
 		6530997B22EB101F0033C66A /* workoutData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = workoutData.json; sourceTree = "<group>"; };
+		6540EFC623FE19180042D81F /* IronNotes.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = IronNotes.xcdatamodel; sourceTree = "<group>"; };
 		6544A4EF23FA1ECB0039D705 /* NewWorkout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWorkout.swift; sourceTree = "<group>"; };
 		6544A4F123FA1FD70039D705 /* ExerciseMeta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseMeta.swift; sourceTree = "<group>"; };
 		6544A4F323FA20AB0039D705 /* ExerciseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseType.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				6530997B22EB101F0033C66A /* workoutData.json */,
+				6540EFC523FE19180042D81F /* IronNotes.xcdatamodeld */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -363,6 +366,7 @@
 				6510C76D22E5303600A0DDE2 /* IronNotesContainer.swift in Sources */,
 				6544A4F023FA1ECB0039D705 /* NewWorkout.swift in Sources */,
 				6530997922EA7CE50033C66A /* Workout.swift in Sources */,
+				6540EFC723FE19180042D81F /* IronNotes.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -681,6 +685,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		6540EFC523FE19180042D81F /* IronNotes.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				6540EFC623FE19180042D81F /* IronNotes.xcdatamodel */,
+			);
+			currentVersion = 6540EFC623FE19180042D81F /* IronNotes.xcdatamodel */;
+			path = IronNotes.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 65FCC38522CD9DB5006D6868 /* Project object */;
 }
