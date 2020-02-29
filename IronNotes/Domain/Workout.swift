@@ -2,8 +2,8 @@
 //  Workout.swift
 //  IronNotes
 //
-//  Created by Stewart Avery on 2/29/20.
-//  Copyright © 2020 Stewart Avery. All rights reserved.
+//  Created by Stewart Avery on 7/25/19.
+//  Copyright © 2019 Stewart Avery. All rights reserved.
 //
 
 import SwiftUI
