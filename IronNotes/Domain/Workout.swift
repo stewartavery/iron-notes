@@ -2,21 +2,15 @@
 //  Workout.swift
 //  IronNotes
 //
-//  Created by Stewart Avery on 7/25/19.
-//  Copyright © 2019 Stewart Avery. All rights reserved.
+//  Created by Stewart Avery on 2/29/20.
+//  Copyright © 2020 Stewart Avery. All rights reserved.
 //
 
 import SwiftUI
+import CoreData
 
-struct Workout: Identifiable, Codable {
-  var id: Int
-  var name: String
-  var description: String
-  var iconName: String /* this needs improvement */
-  var lastWorkout: Date
-  var routine: [Exercise]
-  
-  func dayDifference(from date : Date) -> String {
+public class Workout: NSManagedObject {
+ func dayDifference(from date : Date) -> String {
     let calendar = Calendar.current
     if calendar.isDateInYesterday(date) { return "Yesterday" }
     else if calendar.isDateInToday(date) { return "Today" }

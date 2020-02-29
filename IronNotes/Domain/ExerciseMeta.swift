@@ -1,16 +1,21 @@
 //
-//  ExerciseMeta.swift
+//  ExerciseMeta2.swift
 //  IronNotes
 //
-//  Created by Stewart Avery on 2/16/20.
+//  Created by Stewart Avery on 2/29/20.
 //  Copyright © 2020 Stewart Avery. All rights reserved.
 //
 
 import SwiftUI
+import CoreData
 
-struct ExerciseMeta: Identifiable, Codable {
-  var id: Int
-  var name: String
-  var description: String
-  var exerciseType: ExerciseType
+public class ExerciseMeta: NSManagedObject {
+  var exerciseType: ExerciseType {
+      get {
+        return ExerciseType(rawValue: Int(self.exerciseTypeValue)) ?? .barbell
+      }
+      set {
+          self.exerciseTypeValue = Int16(newValue.rawValue)
+      }
+  }
 }

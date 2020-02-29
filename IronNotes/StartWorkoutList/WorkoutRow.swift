@@ -13,17 +13,17 @@ struct WorkoutRow: View {
   
   var body: some View {
     HStack {
-      RowImage(iconName: workout.iconName)
+      RowImage(iconName: self.workout.iconName ?? "test")
       
       VStack(alignment: .leading) {
         Text(self.workout.name)
           .font(.headline)
         Text(self.workout.description)
           .font(.subheadline)
-        Text("Last Workout: " + self.workout.dayDifference(from: self.workout.lastWorkout))
+        Text("Last Workout: " + self.workout.dayDifference(from: self.workout.lastWorkoutDate ?? Date()))
           .font(.subheadline)
           .foregroundColor(.gray)
-      }.padding(.leading, 10)
+      }.padding(.leading, CGFloat(10))
     }
     .frame(height: 100)
   }
@@ -32,7 +32,8 @@ struct WorkoutRow: View {
 #if DEBUG
 struct WorkoutRow_Previews: PreviewProvider {
   static var previews: some View {
-    WorkoutRow(workout: workoutData[0])
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    return ContentView().environment(\.managedObjectContext, context)
   }
 }
 #endif

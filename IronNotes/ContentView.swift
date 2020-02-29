@@ -9,7 +9,10 @@
 import SwiftUI
 
 struct StartWorkoutList : View {
-  var workouts: [Workout]
+  @Environment(\.managedObjectContext) var moc
+  @FetchRequest(entity: Workout.entity(), sortDescriptors: []) var workouts: FetchedResults<Workout>
+  
+//  var workouts: [Workout]
   
   var body: some View {
     NavigationView {
