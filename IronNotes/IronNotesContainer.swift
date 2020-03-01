@@ -11,7 +11,7 @@ import SwiftUI
 struct IronNotesContainer: View {
   var body: some View {
     TabView {
-      StartWorkoutList(workouts: workoutData)
+      StartWorkoutList()
         .font(.title)
         .tabItem({
           VStack {

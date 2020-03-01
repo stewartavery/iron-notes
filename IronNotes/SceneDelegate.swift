@@ -1,9 +1,9 @@
 //
 //  SceneDelegate.swift
-//  IronNotes
+//  wave-tuner
 //
-//  Created by Stewart Avery on 7/3/19.
-//  Copyright © 2019 Stewart Avery. All rights reserved.
+//  Created by Stewart Avery on 2/25/20.
+//  Copyright © 2020 Stewart Avery. All rights reserved.
 //
 
 import UIKit
@@ -15,7 +15,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   
   
   func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-    // Use this method to optionally configure and attach the UIWindow `window` tothe provided UIWindowScene `scene`.
+    // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
     // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
     // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
     
@@ -26,14 +26,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // Add `@Environment(\.managedObjectContext)` in the views that will need the context.
     let contentView = IronNotesContainer().environment(\.managedObjectContext, context)
     
-    
-    // Use a UIHostingController as window root view controller
+    // Use a UIHostingController as window root view controller.
     if let windowScene = scene as? UIWindowScene {
       let window = UIWindow(windowScene: windowScene)
       window.rootViewController = UIHostingController(rootView: contentView)
       self.window = window
       window.makeKeyAndVisible()
-      
     }
   }
   
@@ -63,6 +61,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // Called as the scene transitions from the foreground to the background.
     // Use this method to save data, release shared resources, and store enough scene-specific state information
     // to restore the scene back to its current state.
+    
+    // Save changes in the application's managed object context when the application transitions to the background.
+    (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
   }
   
   

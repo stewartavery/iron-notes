@@ -7,10 +7,15 @@
 //
 
 import SwiftUI
+import CoreData
 
-struct ExerciseMeta: Identifiable, Codable {
-  var id: Int
-  var name: String
-  var description: String
-  var exerciseType: ExerciseType
+public class ExerciseMeta: NSManagedObject {
+  var exerciseType: ExerciseType {
+      get {
+        return ExerciseType(rawValue: Int(self.exerciseTypeValue)) ?? .barbell
+      }
+      set {
+          self.exerciseTypeValue = Int16(newValue.rawValue)
+      }
+  }
 }

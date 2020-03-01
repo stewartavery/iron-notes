@@ -9,12 +9,15 @@
 import SwiftUI
 
 struct StartWorkoutList : View {
-  var workouts: [Workout]
+  @Environment(\.managedObjectContext) var moc
+  @FetchRequest(entity: Workout.entity(), sortDescriptors: []) var workouts: FetchedResults<Workout>
+  
+  //  var workouts: [Workout]
   
   var body: some View {
     NavigationView {
       List {
-        ForEach(workouts) { workout in
+        ForEach(workouts, id: \.id) { workout in
           NavigationLink(destination: ActiveWorkout(workout: workout)) {
             WorkoutRow(workout: workout)
           }
@@ -33,7 +36,9 @@ struct StartWorkoutList : View {
 #if DEBUG
 struct StartWorkoutuList_Preview : PreviewProvider {
   static var previews: some View {
-    StartWorkoutList(workouts: workoutData)
+  let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+  return StartWorkoutList().environment(\.managedObjectContext, context)
+  
   }
 }
 #endif

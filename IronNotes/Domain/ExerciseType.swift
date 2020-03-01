@@ -8,6 +8,6 @@
 
 import SwiftUI
 
-enum ExerciseType: String, Codable {
+enum ExerciseType: Int {
   case barbell, dumbbell, machine
 }

@@ -7,16 +7,10 @@
 //
 
 import SwiftUI
+import CoreData
 
-struct Workout: Identifiable, Codable {
-  var id: Int
-  var name: String
-  var description: String
-  var iconName: String /* this needs improvement */
-  var lastWorkout: Date
-  var routine: [Exercise]
-  
-  func dayDifference(from date : Date) -> String {
+public class Workout: NSManagedObject {
+ func dayDifference(from date : Date) -> String {
     let calendar = Calendar.current
     if calendar.isDateInYesterday(date) { return "Yesterday" }
     else if calendar.isDateInToday(date) { return "Today" }
