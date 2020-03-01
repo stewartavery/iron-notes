@@ -20,7 +20,7 @@
 		6569ECCD240A929E00E3BC0E /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6569ECCC240A929E00E3BC0E /* Workout.swift */; };
 		65FCC39122CD9DB5006D6868 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FCC39022CD9DB5006D6868 /* AppDelegate.swift */; };
 		65FCC39322CD9DB5006D6868 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FCC39222CD9DB5006D6868 /* SceneDelegate.swift */; };
-		65FCC39522CD9DB5006D6868 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FCC39422CD9DB5006D6868 /* ContentView.swift */; };
+		65FCC39522CD9DB5006D6868 /* StartWorkoutList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FCC39422CD9DB5006D6868 /* StartWorkoutList.swift */; };
 		65FCC39722CD9DB7006D6868 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65FCC39622CD9DB7006D6868 /* Assets.xcassets */; };
 		65FCC39A22CD9DB7006D6868 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65FCC39922CD9DB7006D6868 /* Preview Assets.xcassets */; };
 		65FCC39D22CD9DB7006D6868 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65FCC39B22CD9DB7006D6868 /* LaunchScreen.storyboard */; };
@@ -60,7 +60,7 @@
 		65FCC38D22CD9DB5006D6868 /* IronNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IronNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65FCC39022CD9DB5006D6868 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65FCC39222CD9DB5006D6868 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		65FCC39422CD9DB5006D6868 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContentView.swift; path = ../ContentView.swift; sourceTree = "<group>"; tabWidth = 4; };
+		65FCC39422CD9DB5006D6868 /* StartWorkoutList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StartWorkoutList.swift; path = ../StartWorkoutList.swift; sourceTree = "<group>"; tabWidth = 4; };
 		65FCC39622CD9DB7006D6868 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		65FCC39922CD9DB7006D6868 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		65FCC39C22CD9DB7006D6868 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -101,7 +101,7 @@
 		6510C76E22E532A000A0DDE2 /* StartWorkoutList */ = {
 			isa = PBXGroup;
 			children = (
-				65FCC39422CD9DB5006D6868 /* ContentView.swift */,
+				65FCC39422CD9DB5006D6868 /* StartWorkoutList.swift */,
 				6510C76F22E5401600A0DDE2 /* WorkoutRow.swift */,
 				652FB8C722F112EB0091D3D4 /* AddWorkoutRow.swift */,
 				6514CB9922FE5075002907BC /* RowImage.swift */,
@@ -350,7 +350,7 @@
 				6544A4F423FA20AB0039D705 /* ExerciseType.swift in Sources */,
 				6510C77022E5401600A0DDE2 /* WorkoutRow.swift in Sources */,
 				65FCC39322CD9DB5006D6868 /* SceneDelegate.swift in Sources */,
-				65FCC39522CD9DB5006D6868 /* ContentView.swift in Sources */,
+				65FCC39522CD9DB5006D6868 /* StartWorkoutList.swift in Sources */,
 				6510C76D22E5303600A0DDE2 /* IronNotesContainer.swift in Sources */,
 				6544A4F023FA1ECB0039D705 /* NewWorkout.swift in Sources */,
 				6540EFC723FE19180042D81F /* IronNotes.xcdatamodeld in Sources */,

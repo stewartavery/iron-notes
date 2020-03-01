@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Exercise" representedClassName="Exercise" parentEntity="Workout" syncable="YES" codeGenerationType="class">
+        <attribute name="exerciseId" attributeType="UUID" usesScalarValueType="NO"/>
         <relationship name="meta" maxCount="1" deletionRule="Nullify" destinationEntity="ExerciseMeta"/>
         <relationship name="sets" toMany="YES" deletionRule="Nullify" destinationEntity="ExerciseSet" inverseName="routines" inverseEntity="Workout"/>
     </entity>
@@ -11,6 +12,7 @@
         <attribute name="name" attributeType="String"/>
     </entity>
     <entity name="ExerciseSet" representedClassName="ExerciseSet" parentEntity="Exercise" syncable="YES" codeGenerationType="class">
+        <attribute name="exerciseSetId" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="reps" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="weight" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
@@ -23,9 +25,9 @@
         <relationship name="routines" toMany="YES" deletionRule="Cascade" destinationEntity="Exercise" inverseName="sets" inverseEntity="Exercise"/>
     </entity>
     <elements>
+        <element name="Exercise" positionX="-86.05859375" positionY="246.984375" width="128" height="88"/>
         <element name="ExerciseMeta" positionX="11.89453125" positionY="-145.52734375" width="128" height="103"/>
+        <element name="ExerciseSet" positionX="97.07421875" positionY="43.44140625" width="128" height="88"/>
         <element name="Workout" positionX="-274.30859375" positionY="-161.59375" width="128" height="133"/>
-        <element name="Exercise" positionX="-86.05859375" positionY="246.984375" width="128" height="73"/>
-        <element name="ExerciseSet" positionX="97.07421875" positionY="43.44140625" width="128" height="73"/>
     </elements>
 </model>

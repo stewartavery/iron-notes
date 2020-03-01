@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct WorkoutRow: View {
   var workout: Workout
@@ -16,11 +17,11 @@ struct WorkoutRow: View {
       RowImage(iconName: self.workout.iconName ?? "test")
       
       VStack(alignment: .leading) {
-        Text(self.workout.name)
+        Text(verbatim: self.workout.name ?? "Test Name")
           .font(.headline)
-        Text(self.workout.description)
+        Text(verbatim: self.workout.desc ?? "Test Description")
           .font(.subheadline)
-        Text("Last Workout: " + self.workout.dayDifference(from: self.workout.lastWorkoutDate ?? Date()))
+        Text(verbatim: "Last Workout: " + self.workout.dayDifference(from: self.workout.lastWorkoutDate ?? Date()))
           .font(.subheadline)
           .foregroundColor(.gray)
       }.padding(.leading, CGFloat(10))
@@ -33,7 +34,14 @@ struct WorkoutRow: View {
 struct WorkoutRow_Previews: PreviewProvider {
   static var previews: some View {
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    return ContentView().environment(\.managedObjectContext, context)
+    let workout = Workout(context: context)
+    workout.name = "Test"
+    workout.iconName = "barbell"
+    workout.desc = "Test Description"
+    workout.lastWorkoutDate = Date()
+    workout.routines = []
+    
+    return WorkoutRow(workout: workout)
   }
 }
 #endif
