@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Exercise" representedClassName=".Exercise" isAbstract="YES" syncable="YES" codeGenerationType="category">
+        <attribute name="desc" attributeType="String"/>
+        <attribute name="exerciseTypeValue" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" attributeType="String"/>
+    </entity>
+    <entity name="ExerciseDetail" representedClassName=".ExerciseDetail" parentEntity="Exercise" syncable="YES" codeGenerationType="class">
+        <attribute name="exerciseDetailId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="sets" toMany="YES" deletionRule="Nullify" destinationEntity="ExerciseSet" inverseName="exercise" inverseEntity="ExerciseSet"/>
+        <relationship name="workout" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Workout" inverseName="routines" inverseEntity="Workout"/>
+    </entity>
+    <entity name="ExerciseSet" representedClassName=".ExerciseSet" parentEntity="ExerciseDetail" syncable="YES" codeGenerationType="class">
+        <attribute name="exerciseSetId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="reps" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="weight" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="exercise" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ExerciseDetail" inverseName="sets" inverseEntity="ExerciseDetail"/>
+    </entity>
+    <entity name="Workout" representedClassName=".Workout" syncable="YES" codeGenerationType="category">
+        <attribute name="desc" optional="YES" attributeType="String"/>
+        <attribute name="iconName" attributeType="String"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="lastWorkoutDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="name" attributeType="String"/>
+        <relationship name="routines" toMany="YES" deletionRule="Cascade" destinationEntity="ExerciseDetail" inverseName="workout" inverseEntity="ExerciseDetail"/>
+    </entity>
+    <elements>
+        <element name="Exercise" positionX="11.89453125" positionY="-145.52734375" width="128" height="88"/>
+        <element name="ExerciseDetail" positionX="10.5390625" positionY="-14.6484375" width="128" height="88"/>
+        <element name="ExerciseSet" positionX="11.875" positionY="161.109375" width="128" height="103"/>
+        <element name="Workout" positionX="-274.30859375" positionY="-161.59375" width="128" height="133"/>
+    </elements>
+</model>

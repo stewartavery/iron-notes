@@ -21,12 +21,19 @@ struct WorkoutRow: View {
           .font(.headline)
         Text(verbatim: self.workout.desc ?? "Test Description")
           .font(.subheadline)
-        Text(verbatim: "Last Workout: " + self.workout.dayDifference(from: self.workout.lastWorkoutDate ?? Date()))
+        Text(verbatim: self.getWorkoutDate())
           .font(.subheadline)
           .foregroundColor(.gray)
       }.padding(.leading, CGFloat(10))
     }
     .frame(height: 100)
+  }
+  
+  func getWorkoutDate() -> String {
+    return "Last Workout: " +
+      self.workout.dayDifference(
+        from: self.workout.lastWorkoutDate ?? Date()
+    )
   }
 }
 
