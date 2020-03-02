@@ -1,5 +1,5 @@
 //
-//  ExerciseMeta.swift
+//  ExerciseDetail.swift
 //  IronNotes
 //
 //  Created by Stewart Avery on 2/16/20.
@@ -9,7 +9,7 @@
 import SwiftUI
 import CoreData
 
-public class ExerciseMeta: NSManagedObject {
+public class Exercise: NSManagedObject {
   var exerciseType: ExerciseType {
       get {
         return ExerciseType(rawValue: Int(self.exerciseTypeValue)) ?? .barbell

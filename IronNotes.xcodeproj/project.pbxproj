@@ -11,13 +11,13 @@
 		6510C77022E5401600A0DDE2 /* WorkoutRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6510C76F22E5401600A0DDE2 /* WorkoutRow.swift */; };
 		6514CB9A22FE5075002907BC /* RowImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6514CB9922FE5075002907BC /* RowImage.swift */; };
 		652FB8C822F112EB0091D3D4 /* AddWorkoutRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652FB8C722F112EB0091D3D4 /* AddWorkoutRow.swift */; };
-		6530997C22EB101F0033C66A /* workoutData.json in Resources */ = {isa = PBXBuildFile; fileRef = 6530997B22EB101F0033C66A /* workoutData.json */; };
 		6540EFC723FE19180042D81F /* IronNotes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6540EFC523FE19180042D81F /* IronNotes.xcdatamodeld */; };
 		6544A4F023FA1ECB0039D705 /* NewWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6544A4EF23FA1ECB0039D705 /* NewWorkout.swift */; };
 		6544A4F423FA20AB0039D705 /* ExerciseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6544A4F323FA20AB0039D705 /* ExerciseType.swift */; };
 		654889C023FA1D6200D80727 /* ActiveWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654889BF23FA1D6100D80727 /* ActiveWorkout.swift */; };
 		6569ECCB240A8EAB00E3BC0E /* ExerciseMeta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6569ECCA240A8EAB00E3BC0E /* ExerciseMeta.swift */; };
 		6569ECCD240A929E00E3BC0E /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6569ECCC240A929E00E3BC0E /* Workout.swift */; };
+		6569ECCF240CA36900E3BC0E /* ExerciseEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6569ECCE240CA36900E3BC0E /* ExerciseEditor.swift */; };
 		65FCC39122CD9DB5006D6868 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FCC39022CD9DB5006D6868 /* AppDelegate.swift */; };
 		65FCC39322CD9DB5006D6868 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FCC39222CD9DB5006D6868 /* SceneDelegate.swift */; };
 		65FCC39522CD9DB5006D6868 /* StartWorkoutList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FCC39422CD9DB5006D6868 /* StartWorkoutList.swift */; };
@@ -50,13 +50,13 @@
 		6510C76F22E5401600A0DDE2 /* WorkoutRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutRow.swift; sourceTree = "<group>"; };
 		6514CB9922FE5075002907BC /* RowImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowImage.swift; sourceTree = "<group>"; };
 		652FB8C722F112EB0091D3D4 /* AddWorkoutRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkoutRow.swift; sourceTree = "<group>"; };
-		6530997B22EB101F0033C66A /* workoutData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = workoutData.json; sourceTree = "<group>"; };
 		6540EFC623FE19180042D81F /* IronNotes.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = IronNotes.xcdatamodel; sourceTree = "<group>"; };
 		6544A4EF23FA1ECB0039D705 /* NewWorkout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWorkout.swift; sourceTree = "<group>"; };
 		6544A4F323FA20AB0039D705 /* ExerciseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseType.swift; sourceTree = "<group>"; };
 		654889BF23FA1D6100D80727 /* ActiveWorkout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveWorkout.swift; sourceTree = "<group>"; };
 		6569ECCA240A8EAB00E3BC0E /* ExerciseMeta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseMeta.swift; sourceTree = "<group>"; };
 		6569ECCC240A929E00E3BC0E /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
+		6569ECCE240CA36900E3BC0E /* ExerciseEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseEditor.swift; sourceTree = "<group>"; };
 		65FCC38D22CD9DB5006D6868 /* IronNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IronNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65FCC39022CD9DB5006D6868 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65FCC39222CD9DB5006D6868 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -112,6 +112,7 @@
 		6530997722EA7CAB0033C66A /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				6540EFC523FE19180042D81F /* IronNotes.xcdatamodeld */,
 				6544A4F323FA20AB0039D705 /* ExerciseType.swift */,
 				6569ECCA240A8EAB00E3BC0E /* ExerciseMeta.swift */,
 				6569ECCC240A929E00E3BC0E /* Workout.swift */,
@@ -119,19 +120,11 @@
 			path = Domain;
 			sourceTree = "<group>";
 		};
-		6530997A22EA7F7F0033C66A /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				6530997B22EB101F0033C66A /* workoutData.json */,
-				6540EFC523FE19180042D81F /* IronNotes.xcdatamodeld */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
 		655A5CAF23F8D418000E5246 /* ActiveWorkout */ = {
 			isa = PBXGroup;
 			children = (
 				654889BF23FA1D6100D80727 /* ActiveWorkout.swift */,
+				6569ECCE240CA36900E3BC0E /* ExerciseEditor.swift */,
 			);
 			path = ActiveWorkout;
 			sourceTree = "<group>";
@@ -170,7 +163,6 @@
 			children = (
 				655A5CB023F8D466000E5246 /* ConfigureWorkout */,
 				655A5CAF23F8D418000E5246 /* ActiveWorkout */,
-				6530997A22EA7F7F0033C66A /* Resources */,
 				6530997722EA7CAB0033C66A /* Domain */,
 				6510C76E22E532A000A0DDE2 /* StartWorkoutList */,
 				65FCC39022CD9DB5006D6868 /* AppDelegate.swift */,
@@ -315,7 +307,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				65FCC39D22CD9DB7006D6868 /* LaunchScreen.storyboard in Resources */,
-				6530997C22EB101F0033C66A /* workoutData.json in Resources */,
 				65FCC39A22CD9DB7006D6868 /* Preview Assets.xcassets in Resources */,
 				65FCC39722CD9DB7006D6868 /* Assets.xcassets in Resources */,
 			);
@@ -352,6 +343,7 @@
 				65FCC39322CD9DB5006D6868 /* SceneDelegate.swift in Sources */,
 				65FCC39522CD9DB5006D6868 /* StartWorkoutList.swift in Sources */,
 				6510C76D22E5303600A0DDE2 /* IronNotesContainer.swift in Sources */,
+				6569ECCF240CA36900E3BC0E /* ExerciseEditor.swift in Sources */,
 				6544A4F023FA1ECB0039D705 /* NewWorkout.swift in Sources */,
 				6540EFC723FE19180042D81F /* IronNotes.xcdatamodeld in Sources */,
 				6569ECCB240A8EAB00E3BC0E /* ExerciseMeta.swift in Sources */,
