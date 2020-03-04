@@ -7,17 +7,18 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct ExerciseEditor: View {
-  var exercise: ExerciseDetail
+  var exerciseDetail: ExerciseDetail
   
   var body: some View {
-    Section(header: Text(exercise.name ?? "")) {
-      ForEach(exercise.sets, id: \.exerciseSetId) { exerciseSet in
+    Section(header: Text(exerciseDetail.wrappedName)) {
+      ForEach(exerciseDetail.exerciseSetArray, id: \.self) { exerciseSet in
         HStack {
-          Text(String(exerciseSet.weight ?? 0))
+          Text(String(exerciseSet.weight))
           Spacer()
-          Text(String(exerciseSet.reps ?? 3))
+          Text(String(exerciseSet.reps))
         }
       }
     }

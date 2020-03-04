@@ -7,23 +7,28 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct ActiveWorkout: View {
   var workout: Workout
   
   var body: some View {
-    List {
-      ForEach(workout.routines, id: \.exerciseDetailId) { exercise in
-        ExerciseEditor(exercise: exercise)
+  List {
+    ForEach(workout.routinesArray, id: \.self) { exerciseDetail in
+      Group {
+        Text(exerciseDetail.wrappedName)
+        ExerciseEditor(exerciseDetail: exerciseDetail)
       }
     }
-    .navigationBarTitle(Text(workout.name ?? "Test workout"), displayMode: .large)
   }
+  .navigationBarTitle(Text(workout.wrappedName), displayMode: .large)
+  }
+}
   
 //  struct ActiveWorkout_Previews: PreviewProvider {
 //    static var previews: some View {
 //      EmptyView()
 //    }
 //  }
-}
+
 

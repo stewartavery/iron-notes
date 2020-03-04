@@ -14,12 +14,12 @@ struct WorkoutRow: View {
   
   var body: some View {
     HStack {
-      RowImage(iconName: self.workout.iconName ?? "test")
+      RowImage(iconName: self.workout.wrappedIconName)
       
       VStack(alignment: .leading) {
-        Text(verbatim: self.workout.name ?? "Test Name")
+        Text(verbatim: self.workout.wrappedName)
           .font(.headline)
-        Text(verbatim: self.workout.desc ?? "Test Description")
+        Text(verbatim: self.workout.wrappedDesc)
           .font(.subheadline)
         Text(verbatim: self.getWorkoutDate())
           .font(.subheadline)
@@ -32,7 +32,7 @@ struct WorkoutRow: View {
   func getWorkoutDate() -> String {
     return "Last Workout: " +
       self.workout.dayDifference(
-        from: self.workout.lastWorkoutDate ?? Date()
+        from: self.workout.wrappedLastWorkoutDate
     )
   }
 }

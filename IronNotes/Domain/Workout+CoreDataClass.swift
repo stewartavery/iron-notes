@@ -1,16 +1,18 @@
 //
-//  Workout.swift
+//  Workout+CoreDataClass.swift
 //  IronNotes
 //
-//  Created by Stewart Avery on 7/25/19.
-//  Copyright © 2019 Stewart Avery. All rights reserved.
+//  Created by Stewart Avery on 3/2/20.
+//  Copyright © 2020 Stewart Avery. All rights reserved.
+//
 //
 
-import SwiftUI
+import Foundation
 import CoreData
 
+
 public class Workout: NSManagedObject {
- func dayDifference(from date : Date) -> String {
+  func dayDifference(from date : Date) -> String {
     let calendar = Calendar.current
     if calendar.isDateInYesterday(date) { return "Yesterday" }
     else if calendar.isDateInToday(date) { return "Today" }

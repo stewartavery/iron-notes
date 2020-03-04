@@ -15,35 +15,22 @@
 		6544A4F023FA1ECB0039D705 /* NewWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6544A4EF23FA1ECB0039D705 /* NewWorkout.swift */; };
 		6544A4F423FA20AB0039D705 /* ExerciseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6544A4F323FA20AB0039D705 /* ExerciseType.swift */; };
 		654889C023FA1D6200D80727 /* ActiveWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654889BF23FA1D6100D80727 /* ActiveWorkout.swift */; };
-		6569ECCB240A8EAB00E3BC0E /* ExerciseMeta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6569ECCA240A8EAB00E3BC0E /* ExerciseMeta.swift */; };
-		6569ECCD240A929E00E3BC0E /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6569ECCC240A929E00E3BC0E /* Workout.swift */; };
 		6569ECCF240CA36900E3BC0E /* ExerciseEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6569ECCE240CA36900E3BC0E /* ExerciseEditor.swift */; };
+		65789B60240DEE37000ABE40 /* StartWorkoutList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65789B5F240DEE37000ABE40 /* StartWorkoutList.swift */; };
+		65789B71240DF213000ABE40 /* Workout+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65789B6D240DF213000ABE40 /* Workout+CoreDataClass.swift */; };
+		65789B73240DF213000ABE40 /* Exercise+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65789B6F240DF213000ABE40 /* Exercise+CoreDataClass.swift */; };
+		65789B79240DF2BA000ABE40 /* ExerciseSet+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65789B75240DF2BA000ABE40 /* ExerciseSet+CoreDataClass.swift */; };
+		65789B7B240DF2BA000ABE40 /* ExerciseDetail+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65789B77240DF2BA000ABE40 /* ExerciseDetail+CoreDataClass.swift */; };
+		65789B7F240F45F2000ABE40 /* ExerciseDetail+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65789B7D240F45F2000ABE40 /* ExerciseDetail+CoreDataProperties.swift */; };
+		65789B80240F45F2000ABE40 /* Workout+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65789B7E240F45F2000ABE40 /* Workout+CoreDataProperties.swift */; };
+		65789B83240F4686000ABE40 /* Exercise+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65789B81240F4686000ABE40 /* Exercise+CoreDataProperties.swift */; };
+		65789B84240F4686000ABE40 /* ExerciseSet+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65789B82240F4686000ABE40 /* ExerciseSet+CoreDataProperties.swift */; };
 		65FCC39122CD9DB5006D6868 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FCC39022CD9DB5006D6868 /* AppDelegate.swift */; };
 		65FCC39322CD9DB5006D6868 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FCC39222CD9DB5006D6868 /* SceneDelegate.swift */; };
-		65FCC39522CD9DB5006D6868 /* StartWorkoutList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FCC39422CD9DB5006D6868 /* StartWorkoutList.swift */; };
 		65FCC39722CD9DB7006D6868 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65FCC39622CD9DB7006D6868 /* Assets.xcassets */; };
 		65FCC39A22CD9DB7006D6868 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65FCC39922CD9DB7006D6868 /* Preview Assets.xcassets */; };
 		65FCC39D22CD9DB7006D6868 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65FCC39B22CD9DB7006D6868 /* LaunchScreen.storyboard */; };
-		65FCC3A822CD9DB7006D6868 /* IronNotesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FCC3A722CD9DB7006D6868 /* IronNotesTests.swift */; };
-		65FCC3B322CD9DB7006D6868 /* IronNotesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FCC3B222CD9DB7006D6868 /* IronNotesUITests.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		65FCC3A422CD9DB7006D6868 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 65FCC38522CD9DB5006D6868 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 65FCC38C22CD9DB5006D6868;
-			remoteInfo = IronNotes;
-		};
-		65FCC3AF22CD9DB7006D6868 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 65FCC38522CD9DB5006D6868 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 65FCC38C22CD9DB5006D6868;
-			remoteInfo = IronNotes;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		6510C76C22E5303600A0DDE2 /* IronNotesContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IronNotesContainer.swift; sourceTree = "<group>"; };
@@ -54,21 +41,25 @@
 		6544A4EF23FA1ECB0039D705 /* NewWorkout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWorkout.swift; sourceTree = "<group>"; };
 		6544A4F323FA20AB0039D705 /* ExerciseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseType.swift; sourceTree = "<group>"; };
 		654889BF23FA1D6100D80727 /* ActiveWorkout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveWorkout.swift; sourceTree = "<group>"; };
-		6569ECCA240A8EAB00E3BC0E /* ExerciseMeta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseMeta.swift; sourceTree = "<group>"; };
-		6569ECCC240A929E00E3BC0E /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
 		6569ECCE240CA36900E3BC0E /* ExerciseEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseEditor.swift; sourceTree = "<group>"; };
+		65789B5F240DEE37000ABE40 /* StartWorkoutList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StartWorkoutList.swift; path = IronNotes/StartWorkoutList.swift; sourceTree = SOURCE_ROOT; };
+		65789B6D240DF213000ABE40 /* Workout+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Workout+CoreDataClass.swift"; sourceTree = "<group>"; };
+		65789B6F240DF213000ABE40 /* Exercise+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Exercise+CoreDataClass.swift"; sourceTree = "<group>"; };
+		65789B75240DF2BA000ABE40 /* ExerciseSet+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExerciseSet+CoreDataClass.swift"; sourceTree = "<group>"; };
+		65789B77240DF2BA000ABE40 /* ExerciseDetail+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExerciseDetail+CoreDataClass.swift"; sourceTree = "<group>"; };
+		65789B7D240F45F2000ABE40 /* ExerciseDetail+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExerciseDetail+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		65789B7E240F45F2000ABE40 /* Workout+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Workout+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		65789B81240F4686000ABE40 /* Exercise+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Exercise+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		65789B82240F4686000ABE40 /* ExerciseSet+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExerciseSet+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		65FCC38D22CD9DB5006D6868 /* IronNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IronNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65FCC39022CD9DB5006D6868 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65FCC39222CD9DB5006D6868 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		65FCC39422CD9DB5006D6868 /* StartWorkoutList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StartWorkoutList.swift; path = ../StartWorkoutList.swift; sourceTree = "<group>"; tabWidth = 4; };
 		65FCC39622CD9DB7006D6868 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		65FCC39922CD9DB7006D6868 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		65FCC39C22CD9DB7006D6868 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		65FCC39E22CD9DB7006D6868 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		65FCC3A322CD9DB7006D6868 /* IronNotesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IronNotesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		65FCC3A722CD9DB7006D6868 /* IronNotesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IronNotesTests.swift; sourceTree = "<group>"; };
 		65FCC3A922CD9DB7006D6868 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		65FCC3AE22CD9DB7006D6868 /* IronNotesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IronNotesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		65FCC3B222CD9DB7006D6868 /* IronNotesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IronNotesUITests.swift; sourceTree = "<group>"; };
 		65FCC3B422CD9DB7006D6868 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -81,41 +72,45 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		65FCC3A022CD9DB7006D6868 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		65FCC3AB22CD9DB7006D6868 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		6510C76E22E532A000A0DDE2 /* StartWorkoutList */ = {
 			isa = PBXGroup;
 			children = (
-				65FCC39422CD9DB5006D6868 /* StartWorkoutList.swift */,
-				6510C76F22E5401600A0DDE2 /* WorkoutRow.swift */,
 				652FB8C722F112EB0091D3D4 /* AddWorkoutRow.swift */,
 				6514CB9922FE5075002907BC /* RowImage.swift */,
+				65789B5F240DEE37000ABE40 /* StartWorkoutList.swift */,
+				6510C76F22E5401600A0DDE2 /* WorkoutRow.swift */,
 			);
 			path = StartWorkoutList;
+			sourceTree = "<group>";
+		};
+		651DA276240DEAE300F5C9D0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				655A5CAF23F8D418000E5246 /* ActiveWorkout */,
+				6510C76E22E532A000A0DDE2 /* StartWorkoutList */,
+				655A5CB023F8D466000E5246 /* ConfigureWorkout */,
+				6510C76C22E5303600A0DDE2 /* IronNotesContainer.swift */,
+				65FCC39B22CD9DB7006D6868 /* LaunchScreen.storyboard */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		6530997722EA7CAB0033C66A /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				6540EFC523FE19180042D81F /* IronNotes.xcdatamodeld */,
+				65789B6F240DF213000ABE40 /* Exercise+CoreDataClass.swift */,
+				65789B81240F4686000ABE40 /* Exercise+CoreDataProperties.swift */,
+				65789B77240DF2BA000ABE40 /* ExerciseDetail+CoreDataClass.swift */,
+				65789B7D240F45F2000ABE40 /* ExerciseDetail+CoreDataProperties.swift */,
+				65789B75240DF2BA000ABE40 /* ExerciseSet+CoreDataClass.swift */,
+				65789B82240F4686000ABE40 /* ExerciseSet+CoreDataProperties.swift */,
 				6544A4F323FA20AB0039D705 /* ExerciseType.swift */,
-				6569ECCA240A8EAB00E3BC0E /* ExerciseMeta.swift */,
-				6569ECCC240A929E00E3BC0E /* Workout.swift */,
+				65789B6D240DF213000ABE40 /* Workout+CoreDataClass.swift */,
+				65789B7E240F45F2000ABE40 /* Workout+CoreDataProperties.swift */,
+				6540EFC523FE19180042D81F /* IronNotes.xcdatamodeld */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -138,6 +133,15 @@
 			sourceTree = "<group>";
 			tabWidth = 4;
 		};
+		65789B5E240DECBA000ABE40 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				65FCC39622CD9DB7006D6868 /* Assets.xcassets */,
+				65FCC39E22CD9DB7006D6868 /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		65FCC38422CD9DB5006D6868 = {
 			isa = PBXGroup;
 			children = (
@@ -152,8 +156,6 @@
 			isa = PBXGroup;
 			children = (
 				65FCC38D22CD9DB5006D6868 /* IronNotes.app */,
-				65FCC3A322CD9DB7006D6868 /* IronNotesTests.xctest */,
-				65FCC3AE22CD9DB7006D6868 /* IronNotesUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -161,17 +163,12 @@
 		65FCC38F22CD9DB5006D6868 /* IronNotes */ = {
 			isa = PBXGroup;
 			children = (
-				655A5CB023F8D466000E5246 /* ConfigureWorkout */,
-				655A5CAF23F8D418000E5246 /* ActiveWorkout */,
 				6530997722EA7CAB0033C66A /* Domain */,
-				6510C76E22E532A000A0DDE2 /* StartWorkoutList */,
+				651DA276240DEAE300F5C9D0 /* Views */,
+				65789B5E240DECBA000ABE40 /* Resources */,
+				65FCC39822CD9DB7006D6868 /* Preview Content */,
 				65FCC39022CD9DB5006D6868 /* AppDelegate.swift */,
 				65FCC39222CD9DB5006D6868 /* SceneDelegate.swift */,
-				65FCC39622CD9DB7006D6868 /* Assets.xcassets */,
-				65FCC39B22CD9DB7006D6868 /* LaunchScreen.storyboard */,
-				65FCC39E22CD9DB7006D6868 /* Info.plist */,
-				65FCC39822CD9DB7006D6868 /* Preview Content */,
-				6510C76C22E5303600A0DDE2 /* IronNotesContainer.swift */,
 			);
 			path = IronNotes;
 			sourceTree = "<group>";
@@ -222,42 +219,6 @@
 			productReference = 65FCC38D22CD9DB5006D6868 /* IronNotes.app */;
 			productType = "com.apple.product-type.application";
 		};
-		65FCC3A222CD9DB7006D6868 /* IronNotesTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 65FCC3BA22CD9DB7006D6868 /* Build configuration list for PBXNativeTarget "IronNotesTests" */;
-			buildPhases = (
-				65FCC39F22CD9DB7006D6868 /* Sources */,
-				65FCC3A022CD9DB7006D6868 /* Frameworks */,
-				65FCC3A122CD9DB7006D6868 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				65FCC3A522CD9DB7006D6868 /* PBXTargetDependency */,
-			);
-			name = IronNotesTests;
-			productName = IronNotesTests;
-			productReference = 65FCC3A322CD9DB7006D6868 /* IronNotesTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		65FCC3AD22CD9DB7006D6868 /* IronNotesUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 65FCC3BD22CD9DB7006D6868 /* Build configuration list for PBXNativeTarget "IronNotesUITests" */;
-			buildPhases = (
-				65FCC3AA22CD9DB7006D6868 /* Sources */,
-				65FCC3AB22CD9DB7006D6868 /* Frameworks */,
-				65FCC3AC22CD9DB7006D6868 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				65FCC3B022CD9DB7006D6868 /* PBXTargetDependency */,
-			);
-			name = IronNotesUITests;
-			productName = IronNotesUITests;
-			productReference = 65FCC3AE22CD9DB7006D6868 /* IronNotesUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -270,14 +231,6 @@
 				TargetAttributes = {
 					65FCC38C22CD9DB5006D6868 = {
 						CreatedOnToolsVersion = 11.0;
-					};
-					65FCC3A222CD9DB7006D6868 = {
-						CreatedOnToolsVersion = 11.0;
-						TestTargetID = 65FCC38C22CD9DB5006D6868;
-					};
-					65FCC3AD22CD9DB7006D6868 = {
-						CreatedOnToolsVersion = 11.0;
-						TestTargetID = 65FCC38C22CD9DB5006D6868;
 					};
 				};
 			};
@@ -295,8 +248,6 @@
 			projectRoot = "";
 			targets = (
 				65FCC38C22CD9DB5006D6868 /* IronNotes */,
-				65FCC3A222CD9DB7006D6868 /* IronNotesTests */,
-				65FCC3AD22CD9DB7006D6868 /* IronNotesUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -312,20 +263,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		65FCC3A122CD9DB7006D6868 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		65FCC3AC22CD9DB7006D6868 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -333,53 +270,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65789B80240F45F2000ABE40 /* Workout+CoreDataProperties.swift in Sources */,
 				654889C023FA1D6200D80727 /* ActiveWorkout.swift in Sources */,
+				65789B71240DF213000ABE40 /* Workout+CoreDataClass.swift in Sources */,
 				65FCC39122CD9DB5006D6868 /* AppDelegate.swift in Sources */,
 				652FB8C822F112EB0091D3D4 /* AddWorkoutRow.swift in Sources */,
-				6569ECCD240A929E00E3BC0E /* Workout.swift in Sources */,
+				65789B7B240DF2BA000ABE40 /* ExerciseDetail+CoreDataClass.swift in Sources */,
+				65789B60240DEE37000ABE40 /* StartWorkoutList.swift in Sources */,
+				65789B7F240F45F2000ABE40 /* ExerciseDetail+CoreDataProperties.swift in Sources */,
 				6514CB9A22FE5075002907BC /* RowImage.swift in Sources */,
 				6544A4F423FA20AB0039D705 /* ExerciseType.swift in Sources */,
+				65789B84240F4686000ABE40 /* ExerciseSet+CoreDataProperties.swift in Sources */,
+				65789B79240DF2BA000ABE40 /* ExerciseSet+CoreDataClass.swift in Sources */,
 				6510C77022E5401600A0DDE2 /* WorkoutRow.swift in Sources */,
 				65FCC39322CD9DB5006D6868 /* SceneDelegate.swift in Sources */,
-				65FCC39522CD9DB5006D6868 /* StartWorkoutList.swift in Sources */,
 				6510C76D22E5303600A0DDE2 /* IronNotesContainer.swift in Sources */,
 				6569ECCF240CA36900E3BC0E /* ExerciseEditor.swift in Sources */,
 				6544A4F023FA1ECB0039D705 /* NewWorkout.swift in Sources */,
+				65789B83240F4686000ABE40 /* Exercise+CoreDataProperties.swift in Sources */,
 				6540EFC723FE19180042D81F /* IronNotes.xcdatamodeld in Sources */,
-				6569ECCB240A8EAB00E3BC0E /* ExerciseMeta.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		65FCC39F22CD9DB7006D6868 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				65FCC3A822CD9DB7006D6868 /* IronNotesTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		65FCC3AA22CD9DB7006D6868 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				65FCC3B322CD9DB7006D6868 /* IronNotesUITests.swift in Sources */,
+				65789B73240DF213000ABE40 /* Exercise+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		65FCC3A522CD9DB7006D6868 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 65FCC38C22CD9DB5006D6868 /* IronNotes */;
-			targetProxy = 65FCC3A422CD9DB7006D6868 /* PBXContainerItemProxy */;
-		};
-		65FCC3B022CD9DB7006D6868 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 65FCC38C22CD9DB5006D6868 /* IronNotes */;
-			targetProxy = 65FCC3AF22CD9DB7006D6868 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		65FCC39B22CD9DB7006D6868 /* LaunchScreen.storyboard */ = {
@@ -515,12 +429,13 @@
 				DEVELOPMENT_ASSET_PATHS = "IronNotes/Preview\\ Content";
 				DEVELOPMENT_TEAM = 9UTE485Y3Y;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = IronNotes/Info.plist;
+				INFOPLIST_FILE = IronNotes/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = savery.IronNotes;
+				PRODUCT_BUNDLE_IDENTIFIER = com.savery.IronNotes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -535,93 +450,16 @@
 				DEVELOPMENT_ASSET_PATHS = "IronNotes/Preview\\ Content";
 				DEVELOPMENT_TEAM = 9UTE485Y3Y;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = IronNotes/Info.plist;
+				INFOPLIST_FILE = IronNotes/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = savery.IronNotes;
+				PRODUCT_BUNDLE_IDENTIFIER = com.savery.IronNotes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		65FCC3BB22CD9DB7006D6868 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = IronNotesTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = savery.IronNotesTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/IronNotes.app/IronNotes";
-			};
-			name = Debug;
-		};
-		65FCC3BC22CD9DB7006D6868 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = IronNotesTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = savery.IronNotesTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/IronNotes.app/IronNotes";
-			};
-			name = Release;
-		};
-		65FCC3BE22CD9DB7006D6868 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = IronNotesUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = savery.IronNotesUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = IronNotes;
-			};
-			name = Debug;
-		};
-		65FCC3BF22CD9DB7006D6868 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = IronNotesUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = savery.IronNotesUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = IronNotes;
 			};
 			name = Release;
 		};
@@ -642,24 +480,6 @@
 			buildConfigurations = (
 				65FCC3B822CD9DB7006D6868 /* Debug */,
 				65FCC3B922CD9DB7006D6868 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		65FCC3BA22CD9DB7006D6868 /* Build configuration list for PBXNativeTarget "IronNotesTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				65FCC3BB22CD9DB7006D6868 /* Debug */,
-				65FCC3BC22CD9DB7006D6868 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		65FCC3BD22CD9DB7006D6868 /* Build configuration list for PBXNativeTarget "IronNotesUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				65FCC3BE22CD9DB7006D6868 /* Debug */,
-				65FCC3BF22CD9DB7006D6868 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
