@@ -35,6 +35,8 @@ struct StartWorkoutList : View {
 struct StartWorkoutuList_Preview : PreviewProvider {
   static var previews: some View {
   let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+
   return StartWorkoutList().environment(\.managedObjectContext, context)
   
   }
