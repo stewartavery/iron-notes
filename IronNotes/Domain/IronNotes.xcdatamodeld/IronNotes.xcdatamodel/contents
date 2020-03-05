@@ -4,6 +4,11 @@
         <attribute name="desc" attributeType="String"/>
         <attribute name="exerciseTypeValue" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="name"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <entity name="ExerciseDetail" representedClassName=".ExerciseDetail" parentEntity="Exercise" syncable="YES">
         <attribute name="exerciseDetailIndex" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -23,6 +28,11 @@
         <attribute name="lastWorkoutDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String"/>
         <relationship name="routines" toMany="YES" deletionRule="Cascade" destinationEntity="ExerciseDetail" inverseName="workout" inverseEntity="ExerciseDetail"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="name"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <elements>
         <element name="Exercise" positionX="11.89453125" positionY="-145.52734375" width="128" height="88"/>
