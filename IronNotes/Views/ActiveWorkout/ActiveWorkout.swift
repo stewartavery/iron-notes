@@ -16,11 +16,42 @@ struct ActiveWorkout: View {
     List {
       ForEach(workout.routinesArray, id: \.self) { exerciseDetail in
         Group {
-          ExerciseEditor(exerciseDetail: exerciseDetail)
+          Section(header:
+            ActiveWorkoutSectionHeader(exerciseDetail: exerciseDetail)
+          ) {
+            ForEach(exerciseDetail.exerciseSetArray, id: \.self) { exerciseSet in
+              HStack {
+                VStack(alignment: .leading) {
+                  Text("Weight")
+                    .font(.headline)
+                  Text(String(exerciseSet.weight) + " lbs")
+                    .font(.subheadline)
+                }
+                Spacer()
+                VStack(alignment: .trailing) {
+                  Text("Reps")
+                    .font(.headline)
+                  Text(String(exerciseSet.reps))
+                    .font(.subheadline)
+                }
+              }
+            }.frame(height: 60)
+          }
         }
       }
+      .onDelete(perform: delete)
+      .onMove(perform: move)
     }
     .navigationBarTitle(Text(workout.wrappedName), displayMode: .large)
+    .navigationBarItems(trailing: EditButton())
+  }
+  
+  func delete(from source: IndexSet) {
+    //
+  }
+  
+  func move(from source: IndexSet, to destination: Int) {
+//      users.move(fromOffsets: source, toOffset: destination)
   }
 }
 
@@ -43,6 +74,12 @@ struct ActiveWorkout_Previews: PreviewProvider {
     exerciseSet.weight = 2
     exerciseDetail.addToSets(exerciseSet)
     
+    let exerciseSet5 = ExerciseSet(context: AppDelegate.viewContext)
+    exerciseSet.exerciseSetIndex = 0
+    exerciseSet.reps = 3
+    exerciseSet.weight = 2
+    exerciseDetail.addToSets(exerciseSet5)
+    
     workout.addToRoutines(exerciseDetail)
     
     let exerciseDetail2 = ExerciseDetail(context: AppDelegate.viewContext)
@@ -57,8 +94,23 @@ struct ActiveWorkout_Previews: PreviewProvider {
     
     workout.addToRoutines(exerciseDetail2)
     
-    return ActiveWorkout(workout: workout)
+    return NavigationView {
+        ActiveWorkout(workout: workout)
+    }
   }
 }
 
 
+
+struct ActiveWorkoutSectionHeader: View {
+  var exerciseDetail: ExerciseDetail
+  var body: some View {
+    let setTotal = exerciseDetail.exerciseSetArray.count
+    
+    return HStack {
+      Text(exerciseDetail.wrappedName)
+      Spacer()
+      Text("\(setTotal) Set\(setTotal == 1 ? "" : "s")")
+    }
+  }
+}
