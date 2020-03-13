@@ -17,27 +17,22 @@ struct ExerciseCard: View {
     VStack(alignment: .leading) {
       Text(exerciseDetail.wrappedName)
         .font(.headline)
-        .padding(.bottom, 20.0)
+        .foregroundColor(Color.red)
+        .padding(.bottom, 20)
       
-      Divider()
       
       ForEach(exerciseDetail.exerciseSetArray, id: \.self) { exerciseSet in
         VStack {
           HStack {
             VStack(alignment: .leading) {
-              Text("Weight")
-                .font(.headline)
               Text(String(exerciseSet.weight) + " lbs")
                 .font(.subheadline)
+              VStack(alignment: .trailing) {
+                Text(String(exerciseSet.reps) + " Reps")
+                  .font(.subheadline)
+              }
             }
             Spacer()
-            VStack(alignment: .trailing) {
-              Text("Reps")
-                .font(.headline)
-              Text(String(exerciseSet.reps))
-                .font(.subheadline)
-            }
-            
           }
           Divider()
           
@@ -48,12 +43,6 @@ struct ExerciseCard: View {
     .padding()
     .background(Color.white)
     .cornerRadius(10)
-    .overlay(
-      RoundedRectangle(cornerRadius: 10)
-        .stroke(Color(.sRGB, red: 150/255, green: 150/255, blue: 150/255, opacity: 0.1), lineWidth: 1)
-      
-    )
-      .padding([.top, .horizontal])
     
   }
 }
@@ -65,15 +54,15 @@ struct ExerciseCard_Previews: PreviewProvider {
     exerciseDetail.exerciseDetailIndex = 0
     
     let exerciseSet = ExerciseSet(context: AppDelegate.viewContext)
-    exerciseSet.exerciseSetIndex = 0
+    exerciseSet.exerciseSetIndex=0
     exerciseSet.reps = 3
-    exerciseSet.weight = 2
+    exerciseSet.weight = 135
     exerciseDetail.addToSets(exerciseSet)
     
     let exerciseSet2 = ExerciseSet(context: AppDelegate.viewContext)
-    exerciseSet.exerciseSetIndex = 0
-    exerciseSet.reps = 3
-    exerciseSet.weight = 2
+    exerciseSet.exerciseSetIndex = 1
+    exerciseSet2.reps = 3
+    exerciseSet2.weight = 225
     exerciseDetail.addToSets(exerciseSet2)
     
     return ExerciseCard(exerciseDetail: exerciseDetail)

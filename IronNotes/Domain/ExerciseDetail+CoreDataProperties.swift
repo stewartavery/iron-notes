@@ -26,7 +26,7 @@ extension ExerciseDetail {
     let set = sets as? Set<ExerciseSet> ?? []
     
     return set.sorted {
-      $0.exerciseSetIndex < $1.exerciseSetIndex
+      $0.exerciseSetIndex > $1.exerciseSetIndex
     }
   }
   
