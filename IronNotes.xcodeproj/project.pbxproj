@@ -15,6 +15,7 @@
 		6544A4F023FA1ECB0039D705 /* NewWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6544A4EF23FA1ECB0039D705 /* NewWorkout.swift */; };
 		6544A4F423FA20AB0039D705 /* ExerciseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6544A4F323FA20AB0039D705 /* ExerciseType.swift */; };
 		654889C023FA1D6200D80727 /* ActiveWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654889BF23FA1D6100D80727 /* ActiveWorkout.swift */; };
+		654EEC02241B2066006C917A /* ExerciseCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654EEC01241B2066006C917A /* ExerciseCard.swift */; };
 		65789B60240DEE37000ABE40 /* StartWorkoutList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65789B5F240DEE37000ABE40 /* StartWorkoutList.swift */; };
 		65789B71240DF213000ABE40 /* Workout+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65789B6D240DF213000ABE40 /* Workout+CoreDataClass.swift */; };
 		65789B73240DF213000ABE40 /* Exercise+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65789B6F240DF213000ABE40 /* Exercise+CoreDataClass.swift */; };
@@ -40,6 +41,7 @@
 		6544A4EF23FA1ECB0039D705 /* NewWorkout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWorkout.swift; sourceTree = "<group>"; };
 		6544A4F323FA20AB0039D705 /* ExerciseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseType.swift; sourceTree = "<group>"; };
 		654889BF23FA1D6100D80727 /* ActiveWorkout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveWorkout.swift; sourceTree = "<group>"; };
+		654EEC01241B2066006C917A /* ExerciseCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCard.swift; sourceTree = "<group>"; };
 		65789B5F240DEE37000ABE40 /* StartWorkoutList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StartWorkoutList.swift; path = IronNotes/StartWorkoutList.swift; sourceTree = SOURCE_ROOT; };
 		65789B6D240DF213000ABE40 /* Workout+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Workout+CoreDataClass.swift"; sourceTree = "<group>"; };
 		65789B6F240DF213000ABE40 /* Exercise+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Exercise+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				654889BF23FA1D6100D80727 /* ActiveWorkout.swift */,
+				654EEC01241B2066006C917A /* ExerciseCard.swift */,
 			);
 			path = ActiveWorkout;
 			sourceTree = "<group>";
@@ -282,6 +285,7 @@
 				6510C77022E5401600A0DDE2 /* WorkoutRow.swift in Sources */,
 				65FCC39322CD9DB5006D6868 /* SceneDelegate.swift in Sources */,
 				6510C76D22E5303600A0DDE2 /* IronNotesContainer.swift in Sources */,
+				654EEC02241B2066006C917A /* ExerciseCard.swift in Sources */,
 				6544A4F023FA1ECB0039D705 /* NewWorkout.swift in Sources */,
 				65789B83240F4686000ABE40 /* Exercise+CoreDataProperties.swift in Sources */,
 				6540EFC723FE19180042D81F /* IronNotes.xcdatamodeld in Sources */,

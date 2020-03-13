@@ -13,37 +13,23 @@ struct ActiveWorkout: View {
   var workout: Workout
   
   var body: some View {
-    List {
+
+    ScrollView {
       ForEach(workout.routinesArray, id: \.self) { exerciseDetail in
-        Group {
-          Section(header:
-            ActiveWorkoutSectionHeader(exerciseDetail: exerciseDetail)
-          ) {
-            ForEach(exerciseDetail.exerciseSetArray, id: \.self) { exerciseSet in
-              HStack {
-                VStack(alignment: .leading) {
-                  Text("Weight")
-                    .font(.headline)
-                  Text(String(exerciseSet.weight) + " lbs")
-                    .font(.subheadline)
-                }
-                Spacer()
-                VStack(alignment: .trailing) {
-                  Text("Reps")
-                    .font(.headline)
-                  Text(String(exerciseSet.reps))
-                    .font(.subheadline)
-                }
-              }
-            }.frame(height: 60)
-          }
-        }
+        ExerciseCard(exerciseDetail: exerciseDetail)
+        
       }
+      
       .onDelete(perform: delete)
       .onMove(perform: move)
     }
     .navigationBarTitle(Text(workout.wrappedName), displayMode: .large)
+      
     .navigationBarItems(trailing: EditButton())
+    .onAppear() {
+      UITableView.appearance().tableFooterView = UIView()
+      UITableView.appearance().separatorStyle = .none
+    }
   }
   
   func delete(from source: IndexSet) {
@@ -51,7 +37,7 @@ struct ActiveWorkout: View {
   }
   
   func move(from source: IndexSet, to destination: Int) {
-//      users.move(fromOffsets: source, toOffset: destination)
+    //      users.move(fromOffsets: source, toOffset: destination)
   }
 }
 
@@ -95,7 +81,7 @@ struct ActiveWorkout_Previews: PreviewProvider {
     workout.addToRoutines(exerciseDetail2)
     
     return NavigationView {
-        ActiveWorkout(workout: workout)
+      ActiveWorkout(workout: workout)
     }
   }
 }
