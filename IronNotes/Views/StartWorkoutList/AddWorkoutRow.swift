@@ -15,10 +15,11 @@ struct AddWorkoutRow: View {
       
       VStack(alignment: .leading) {
         Text("Add Workout...")
+          .foregroundColor(Color.orange)
           .font(.headline)
       }.padding(.leading, 10)
     }
-    .frame(height: 90)
+    .frame(height: 100)
   }
 }
 

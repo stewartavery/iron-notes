@@ -17,7 +17,7 @@ struct ExerciseCard: View {
     VStack(alignment: .leading) {
       Text(exerciseDetail.wrappedName)
         .font(.headline)
-        .foregroundColor(Color.red)
+        .foregroundColor(Color.orange)
         .padding(.bottom, 20)
       
       
