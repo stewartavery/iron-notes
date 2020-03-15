@@ -12,8 +12,9 @@ import CoreData
 struct ActiveWorkout: View {
   var workout: Workout
   
+
+  
   var body: some View {
-    
     ScrollView {
       VStack(alignment: .leading) {
         Text("Exercises")
@@ -37,6 +38,7 @@ struct ActiveWorkout_Previews: PreviewProvider {
   static var previews: some View {
     let workout = Workout(context: AppDelegate.viewContext)
     
+    workout.id = UUID()
     workout.name = "Extra Test Workout"
     workout.desc = "Really good workout!"
     workout.iconName = "barbell"
