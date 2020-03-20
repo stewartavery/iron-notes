@@ -23,23 +23,26 @@ struct NewWorkout: View {
           }
           Spacer()
           Text("New Workout")
-            .fontWeight(.bold)
+            .font(.headline)
           Spacer()
           Button(action: {self.isPresented.toggle()})  {
             Text("Done")
               .foregroundColor(Color.blue)
               .fontWeight(.bold)
           }
-        }.padding()
-          .padding(.bottom, 0)
+        }
         Spacer()
-        Divider()
-      }.frame(height: 45)
+      }.padding(.top, 20)
+        .padding(.leading, 20)
+        .padding(.trailing, 20)
+        .frame(height: 60)
+      
       Form {
         Section {
           TextField("Workout name", text: $name)
           TextField("Description", text: $description)
         }
+        
         Section {
           TextField("Other", text: $name)
         }

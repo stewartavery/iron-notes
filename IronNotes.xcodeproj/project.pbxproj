@@ -25,6 +25,7 @@
 		65789B80240F45F2000ABE40 /* Workout+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65789B7E240F45F2000ABE40 /* Workout+CoreDataProperties.swift */; };
 		65789B83240F4686000ABE40 /* Exercise+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65789B81240F4686000ABE40 /* Exercise+CoreDataProperties.swift */; };
 		65789B84240F4686000ABE40 /* ExerciseSet+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65789B82240F4686000ABE40 /* ExerciseSet+CoreDataProperties.swift */; };
+		65ED18A82424655F0047FFA3 /* MuscleGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65ED18A72424655F0047FFA3 /* MuscleGroup.swift */; };
 		65FCC39122CD9DB5006D6868 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FCC39022CD9DB5006D6868 /* AppDelegate.swift */; };
 		65FCC39322CD9DB5006D6868 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FCC39222CD9DB5006D6868 /* SceneDelegate.swift */; };
 		65FCC39722CD9DB7006D6868 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65FCC39622CD9DB7006D6868 /* Assets.xcassets */; };
@@ -51,6 +52,7 @@
 		65789B7E240F45F2000ABE40 /* Workout+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Workout+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		65789B81240F4686000ABE40 /* Exercise+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Exercise+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		65789B82240F4686000ABE40 /* ExerciseSet+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExerciseSet+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		65ED18A72424655F0047FFA3 /* MuscleGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuscleGroup.swift; sourceTree = "<group>"; };
 		65FCC38D22CD9DB5006D6868 /* IronNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IronNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65FCC39022CD9DB5006D6868 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65FCC39222CD9DB5006D6868 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 				65789B75240DF2BA000ABE40 /* ExerciseSet+CoreDataClass.swift */,
 				65789B82240F4686000ABE40 /* ExerciseSet+CoreDataProperties.swift */,
 				6544A4F323FA20AB0039D705 /* ExerciseType.swift */,
+				65ED18A72424655F0047FFA3 /* MuscleGroup.swift */,
 				65789B6D240DF213000ABE40 /* Workout+CoreDataClass.swift */,
 				65789B7E240F45F2000ABE40 /* Workout+CoreDataProperties.swift */,
 				6540EFC523FE19180042D81F /* IronNotes.xcdatamodeld */,
@@ -287,6 +290,7 @@
 				6510C76D22E5303600A0DDE2 /* IronNotesContainer.swift in Sources */,
 				654EEC02241B2066006C917A /* ExerciseCard.swift in Sources */,
 				6544A4F023FA1ECB0039D705 /* NewWorkout.swift in Sources */,
+				65ED18A82424655F0047FFA3 /* MuscleGroup.swift in Sources */,
 				65789B83240F4686000ABE40 /* Exercise+CoreDataProperties.swift in Sources */,
 				6540EFC723FE19180042D81F /* IronNotes.xcdatamodeld in Sources */,
 				65789B73240DF213000ABE40 /* Exercise+CoreDataClass.swift in Sources */,
