@@ -14,17 +14,25 @@ struct NewWorkout: View {
   @State var name: String = ""
   @State var description: String = ""
   var body: some View {
-    VStack {
-      ModalHeader(isPresented: $isPresented, title: "New Workout")
-      Form {
-        Section {
-          TextField("Workout name", text: $name)
-          TextField("Description", text: $description)
-        }
-        Section {
-          TextField("Other", text: $name)
+    NavigationView {
+      VStack {
+        Form {
+          Section {
+            TextField("Workout name", text: $name)
+            TextField("Description", text: $description)
+          }
+          Section {
+            TextField("Other", text: $name)
+          }
         }
       }
+      .navigationBarTitle(Text("New Workout"), displayMode: .inline)
+      .navigationBarItems(leading:
+        Button("Close") {
+          self.isPresented.toggle()
+        },trailing: Button("Done") {
+          self.isPresented.toggle()
+      })
     }
   }
 }

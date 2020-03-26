@@ -19,39 +19,48 @@ struct NewExercise: View {
   @State private var muscleGroup: MuscleGroup = MuscleGroup.abdominals
   
   var body: some View {
-    VStack {
-      ModalHeader(isPresented: $isPresented, title: "New Exercise")
-      Form {
-        Section {
-          TextField("Exercise name", text: $name)
-          TextField("Description", text: $description)
-        }
-        Section {
-          Picker(selection: $exerciseType, label: Text("Type of Exercise")) {
-            ForEach(ExerciseType.allCases, id: \.self) { e in
-              Text(e.rawValue)
+    NavigationView {
+      VStack {
+        Form {
+          Section {
+            TextField("Exercise name", text: $name)
+            TextField("Description", text: $description)
+          }
+          Section {
+            Picker(selection: $exerciseType, label: Text("Type of Exercise")) {
+              ForEach(ExerciseType.allCases, id: \.self) { e in
+                Text(e.rawValue)
+              }
             }
           }
-        }
-        Section {
-          Picker(selection: $muscleGroup, label: Text("Muscle Group")) {
-            ForEach(MuscleGroup.allCases, id: \.self) { m in
-              Text(m.rawValue)
+          Section {
+            Picker(selection: $muscleGroup, label: Text("Muscle Group")) {
+              ForEach(MuscleGroup.allCases, id: \.self) { m in
+                Text(m.rawValue)
+              }
             }
           }
+        }.onAppear() {
+          UITableView.appearance().tableFooterView = UIView()
+          UITableView.appearance().separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
         }
       }
+      .navigationBarTitle(Text("New Exercise"), displayMode: .inline)
+      .navigationBarItems(leading:
+        Button("Close") {
+          self.isPresented.toggle()
+        },trailing: Button("Done") {
+          self.isPresented.toggle()
+      })
     }
-    
   }
 }
 
 struct NewExercise_Previews: PreviewProvider {
   @State static var isModalPresented = true
   static var previews: some View {
-    NavigationView {
-      NewExercise(isPresented: $isModalPresented)
-    }
+    NewExercise(isPresented: $isModalPresented)
+    
   }
   
 }
