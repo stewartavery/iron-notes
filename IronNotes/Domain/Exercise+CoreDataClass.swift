@@ -20,4 +20,13 @@ public class Exercise: NSManagedObject {
           self.exerciseTypeValue = Int16(newValue.rawValue)
       }
   }
+  
+  var muscleGroup: MuscleGroup {
+      get {
+        return MuscleGroup(rawValue: Int(self.muscleGroupValue)) ?? .abdominals
+      }
+      set {
+          self.muscleGroupValue = Int16(newValue.rawValue)
+      }
+  }
 }

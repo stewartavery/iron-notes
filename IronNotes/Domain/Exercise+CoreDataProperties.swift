@@ -19,6 +19,7 @@ extension Exercise {
   
   @NSManaged public var desc: String?
   @NSManaged public var exerciseTypeValue: Int16
+  @NSManaged public var muscleGroupValue: Int16
   @NSManaged public var name: String?
   
   public var wrappedName: String {
