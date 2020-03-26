@@ -15,12 +15,8 @@ struct NewExercise: View {
   @State var name: String = ""
   @State var description: String = ""
   
-  @State private var selectedExerciseType = -1
-  @State private var selectedMuscleGroup = -1
-  
-  var exerciseTypeList = ["Barbell", "Dumbbell", "Machine"]
-  
-  var muscleGroupList = ["Abdominals", "Abductors", "Adductors", "Biceps", "Calves", "Chest", "Forearms", "Glutes", "Hamstrings", "Lats", "Lower Back", "Middle Back", "Neck", "Quadriceps", "Shoulders", "Traps", "Triceps"]
+  @State private var exerciseType: ExerciseType = ExerciseType.barbell
+  @State private var muscleGroup: MuscleGroup = MuscleGroup.abdominals
   
   var body: some View {
     VStack {
@@ -31,16 +27,16 @@ struct NewExercise: View {
           TextField("Description", text: $description)
         }
         Section {
-          Picker(selection: $selectedExerciseType, label: Text("Type of Exercise")) {
-            ForEach(0..<exerciseTypeList.count) {
-              Text(self.exerciseTypeList[$0])
+          Picker(selection: $exerciseType, label: Text("Type of Exercise")) {
+            ForEach(ExerciseType.allCases, id: \.self) { e in
+              Text(e.rawValue)
             }
           }
         }
         Section {
-          Picker(selection: $selectedMuscleGroup, label: Text("Muscle Group")) {
-            ForEach(0..<muscleGroupList.count) {
-              Text(self.muscleGroupList[$0])
+          Picker(selection: $muscleGroup, label: Text("Muscle Group")) {
+            ForEach(MuscleGroup.allCases, id: \.self) { m in
+              Text(m.rawValue)
             }
           }
         }
@@ -54,7 +50,6 @@ struct NewExercise_Previews: PreviewProvider {
   @State static var isModalPresented = true
   static var previews: some View {
     NavigationView {
-      
       NewExercise(isPresented: $isModalPresented)
     }
   }
