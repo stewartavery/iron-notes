@@ -8,6 +8,22 @@
 
 import SwiftUI
 
-enum MuscleGroup: Int {
-  case abdominals, abductors, adductors, biceps, calves, chest, forearms, glutes, hamstrings, lats, lower_back, middle_back, neck, quadriceps, shoulders, traps, triceps
+enum MuscleGroup: String, CaseIterable {
+  case abdominals = "Abdominals"
+  case abductors = "Abductors"
+  case adductors = "Adductors"
+  case biceps = "Biceps"
+  case calves = "Calves"
+  case chest = "Chest"
+  case forearms = "Forearms"
+  case glutes = "Glutes"
+  case hamstrings = "Hamstrings"
+  case lats = "Lats"
+  case lowerBack = "Lower Back"
+  case middleBack = "Middle Back"
+  case neck = "Neck"
+  case quadriceps = "Quadriceps"
+  case shoulders = "Shoulders"
+  case traps = "Traps"
+  case triceps = "Triceps"
 }

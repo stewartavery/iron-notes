@@ -2,8 +2,8 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Exercise" representedClassName=".Exercise" isAbstract="YES" syncable="YES">
         <attribute name="desc" attributeType="String"/>
-        <attribute name="exerciseTypeValue" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="muscleGroupValue" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="exerciseType" attributeType="String"/>
+        <attribute name="muscleGroup" optional="YES" attributeType="String"/>
         <attribute name="name" attributeType="String"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
