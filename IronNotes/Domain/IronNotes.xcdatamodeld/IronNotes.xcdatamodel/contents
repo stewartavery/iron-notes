@@ -3,6 +3,7 @@
     <entity name="Exercise" representedClassName=".Exercise" isAbstract="YES" syncable="YES">
         <attribute name="desc" attributeType="String"/>
         <attribute name="exerciseTypeValue" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="muscleGroupValue" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
@@ -35,7 +36,7 @@
         </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="Exercise" positionX="11.89453125" positionY="-145.52734375" width="128" height="88"/>
+        <element name="Exercise" positionX="11.89453125" positionY="-145.52734375" width="128" height="103"/>
         <element name="ExerciseDetail" positionX="10.5390625" positionY="-14.6484375" width="128" height="88"/>
         <element name="ExerciseSet" positionX="11.875" positionY="161.109375" width="128" height="103"/>
         <element name="Workout" positionX="-274.30859375" positionY="-161.59375" width="128" height="133"/>
