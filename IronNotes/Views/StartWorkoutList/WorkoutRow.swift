@@ -14,12 +14,12 @@ struct WorkoutRow: View {
   
   var body: some View {
     HStack {
-      RowImage(iconName: self.workout.wrappedIconName)
+      RowImage(iconName: self.workout.iconName)
       
       VStack(alignment: .leading) {
-        Text(verbatim: self.workout.wrappedName)
+        Text(verbatim: self.workout.name)
           .font(.headline)
-        Text(verbatim: self.workout.wrappedDesc)
+        Text(verbatim: self.workout.desc)
           .font(.subheadline)
         Text(verbatim: self.getWorkoutDate())
           .font(.subheadline)

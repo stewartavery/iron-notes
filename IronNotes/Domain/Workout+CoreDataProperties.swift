@@ -17,28 +17,17 @@ extension Workout {
     return NSFetchRequest<Workout>(entityName: "Workout")
   }
   
-  @NSManaged public var desc: String?
-  @NSManaged public var iconName: String?
+  @NSManaged public var desc: String
+  @NSManaged public var iconName: String
   @NSManaged public var id: UUID?
   @NSManaged public var lastWorkoutDate: Date?
-  @NSManaged public var name: String?
+  @NSManaged public var name: String
   @NSManaged public var routines: NSSet?
-  
-  public var wrappedDesc: String {
-    desc ?? "Unknown Description"
-  }
-  
-  public var wrappedIconName: String {
-    iconName ?? "barbell"
-  }
   
   public var wrappedLastWorkoutDate: Date {
     lastWorkoutDate ?? Date()
   }
   
-  public var wrappedName: String {
-    name ?? "Unknown Name"
-  }
   
   public var routinesArray: [ExerciseDetail] {
     let set = routines as? Set<ExerciseDetail> ?? []

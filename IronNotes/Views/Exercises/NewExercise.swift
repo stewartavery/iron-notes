@@ -11,12 +11,12 @@ import SwiftUI
 
 struct NewExercise: View {
   @Binding var isPresented: Bool
-  
-  @State var name: String = ""
-  @State var description: String = ""
-  
+    
+  @State private var name: String = ""
+  @State private var description: String = ""
   @State private var exerciseType: ExerciseType = ExerciseType.barbell
   @State private var muscleGroup: MuscleGroup = MuscleGroup.abdominals
+  
   
   var body: some View {
     NavigationView {
@@ -40,19 +40,30 @@ struct NewExercise: View {
               }
             }
           }
-        }.onAppear() {
-          UITableView.appearance().tableFooterView = UIView()
-          UITableView.appearance().separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
-        }
+        }.onAppear() { self.onAppear() }
       }
       .navigationBarTitle(Text("New Exercise"), displayMode: .inline)
       .navigationBarItems(leading:
-        Button("Close") {
+        Button("Cancel") {
           self.isPresented.toggle()
         },trailing: Button("Done") {
-          self.isPresented.toggle()
-      })
+          self.onComplete()
+        }.disabled(!self.dirty()))
     }
+  }
+  
+  func onComplete() {
+    Exercise.createExerciseFor(name: self.name, desc: self.description, muscleGroup: self.muscleGroup, exerciseType: self.exerciseType)
+    self.isPresented.toggle()
+  }
+  
+  func onAppear() {
+    UITableView.appearance().tableFooterView = UIView()
+    UITableView.appearance().separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
+  }
+  
+  func dirty() -> Bool {
+    return !self.name.isEmpty && !self.description.isEmpty
   }
 }
 
@@ -60,7 +71,6 @@ struct NewExercise_Previews: PreviewProvider {
   @State static var isModalPresented = true
   static var previews: some View {
     NewExercise(isPresented: $isModalPresented)
-    
   }
   
 }

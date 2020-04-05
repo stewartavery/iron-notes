@@ -15,7 +15,7 @@ struct ExerciseCard: View {
   
   var body: some View {
     VStack(alignment: .leading) {
-      Text(exerciseDetail.wrappedName)
+      Text(exerciseDetail.name)
         .font(.headline)
         .foregroundColor(Color.orange)
         .padding(.bottom, 20)

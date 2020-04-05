@@ -29,7 +29,7 @@ struct ActiveWorkout: View {
       .background(SwiftUI.Color.gray
         .opacity(0.2)
         .edgesIgnoringSafeArea(.all))
-      .navigationBarTitle(Text(workout.wrappedName), displayMode: .large)
+      .navigationBarTitle(Text(workout.name), displayMode: .large)
   }
   
 }
@@ -88,7 +88,7 @@ struct ActiveWorkoutSectionHeader: View {
     let setTotal = exerciseDetail.exerciseSetArray.count
     
     return HStack {
-      Text(exerciseDetail.wrappedName)
+      Text(exerciseDetail.name)
       Spacer()
       Text("\(setTotal) Set\(setTotal == 1 ? "" : "s")")
     }

@@ -17,17 +17,9 @@ extension Exercise {
     return NSFetchRequest<Exercise>(entityName: "Exercise")
   }
   
-  @NSManaged public var desc: String?
-  @NSManaged public var exerciseType: String?
-  @NSManaged public var muscleGroup: String?
-  @NSManaged public var name: String?
-  
-  public var wrappedName: String {
-    name ?? "Unknown Name"
-  }
-  
-  public var wrappedDesc: String {
-    desc ?? "Unknown Description"
-  }
+  @NSManaged public var desc: String
+  @NSManaged public var exerciseType: String
+  @NSManaged public var muscleGroup: String
+  @NSManaged public var name: String
   
 }
