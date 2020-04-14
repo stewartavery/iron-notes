@@ -20,6 +20,15 @@ struct IronNotesContainer: View {
           }
         })
         .tag(0)
+      ExerciseList()
+        .font(.title)
+        .tabItem({
+          VStack {
+            Image(systemName: "clock.fill")
+            Text("Exercise")
+          }
+        })
+        .tag(1)
       Text("History")
         .font(.title)
         .tabItem({
@@ -28,7 +37,7 @@ struct IronNotesContainer: View {
             Text("History")
           }
         })
-        .tag(1)
+        .tag(2)
       Text("Settings")
         .font(.title)
         .tabItem({
@@ -37,7 +46,7 @@ struct IronNotesContainer: View {
             Text("Settings")
           }
         })
-        .tag(2)
+        .tag(3)
       
     }
   }

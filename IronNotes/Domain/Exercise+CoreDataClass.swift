@@ -11,7 +11,7 @@ import Foundation
 import CoreData
 
 
-public class Exercise: NSManagedObject {%
+public class Exercise: NSManagedObject {
   class func newExercise() -> Exercise {
     return Exercise(context: AppDelegate.viewContext)
   }

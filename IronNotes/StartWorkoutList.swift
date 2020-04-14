@@ -39,7 +39,7 @@ struct StartWorkoutList : View {
 }
 
 #if DEBUG
-struct StartWorkoutuList_Preview : PreviewProvider {
+struct StartWorkoutList_Preview : PreviewProvider {
   static var previews: some View {
     
     StartWorkoutList().environment(\.managedObjectContext, AppDelegate.viewContext).onAppear {
@@ -80,7 +80,6 @@ struct StartWorkoutuList_Preview : PreviewProvider {
       //
       //      workout.addToRoutines(exerciseDetail2)
       
-      try! AppDelegate.viewContext.save()
     }
     
   }
