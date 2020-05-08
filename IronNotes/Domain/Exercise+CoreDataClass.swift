@@ -20,8 +20,8 @@ public class Exercise: NSManagedObject {
     let exercise = Exercise.newExercise()
     exercise.name = name
     exercise.desc = desc
-    exercise.muscleGroup = muscleGroup.rawValue
-    exercise.exerciseType = exerciseType.rawValue
+//    exercise.muscleGroup = muscleGroup.rawValue
+//    exercise.exerciseType = exerciseType.rawValue
     try! AppDelegate.viewContext.save()
   }
 }

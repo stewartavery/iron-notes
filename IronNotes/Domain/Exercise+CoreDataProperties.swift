@@ -19,7 +19,7 @@ extension Exercise {
   
   @NSManaged public var desc: String
   @NSManaged public var exerciseType: String
-  @NSManaged public var muscleGroup: String
+  @NSManaged public var muscleGroup: MuscleGroup
   @NSManaged public var name: String
   
 }

@@ -15,7 +15,7 @@ struct NewExercise: View {
   @State private var name: String = ""
   @State private var description: String = ""
   @State private var exerciseType: ExerciseType = ExerciseType.barbell
-  @State private var muscleGroup: MuscleGroup = MuscleGroup.abdominals
+//  @State private var muscleGroup: MuscleGroup = MuscleGroup.abdominals
   
   
   var body: some View {
@@ -33,13 +33,13 @@ struct NewExercise: View {
               }
             }
           }
-          Section {
-            Picker(selection: $muscleGroup, label: Text("Muscle Group")) {
-              ForEach(MuscleGroup.allCases, id: \.self) { m in
-                Text(m.rawValue)
-              }
-            }
-          }
+//          Section {
+//            Picker(selection: $muscleGroup, label: Text("Muscle Group")) {
+//              ForEach(MuscleGroup.allCases, id: \.self) { m in
+//                Text(m.rawValue)
+//              }
+//            }
+//          }
         }.onAppear() { self.onAppear() }
       }
       .navigationBarTitle(Text("New Exercise"), displayMode: .inline)
@@ -53,7 +53,7 @@ struct NewExercise: View {
   }
   
   func onComplete() {
-    Exercise.createExerciseFor(name: self.name, desc: self.description, muscleGroup: self.muscleGroup, exerciseType: self.exerciseType)
+//    Exercise.createExerciseFor(name: self.name, desc: self.description, muscleGroup: self.muscleGroup, exerciseType: self.exerciseType)
     self.isPresented.toggle()
   }
   

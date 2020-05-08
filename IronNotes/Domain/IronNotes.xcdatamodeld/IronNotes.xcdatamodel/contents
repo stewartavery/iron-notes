@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Exercise" representedClassName=".Exercise" isAbstract="YES" syncable="YES">
         <attribute name="desc" attributeType="String" defaultValueString=""/>
         <attribute name="exerciseType" attributeType="String"/>
-        <attribute name="muscleGroup" attributeType="String" defaultValueString=""/>
         <attribute name="name" attributeType="String" defaultValueString=""/>
+        <relationship name="muscleGroups" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="MuscleGroup" inverseName="exercises" inverseEntity="MuscleGroup"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="name"/>
@@ -22,6 +22,10 @@
         <attribute name="weight" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="exercise" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ExerciseDetail" inverseName="sets" inverseEntity="ExerciseDetail"/>
     </entity>
+    <entity name="MuscleGroup" representedClassName="MuscleGroup" isAbstract="YES" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="exercises" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Exercise" inverseName="muscleGroups" inverseEntity="Exercise"/>
+    </entity>
     <entity name="Workout" representedClassName=".Workout" syncable="YES">
         <attribute name="desc" attributeType="String" defaultValueString=""/>
         <attribute name="iconName" attributeType="String" defaultValueString="&quot;barbell&quot;"/>
@@ -36,9 +40,10 @@
         </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="Exercise" positionX="11.89453125" positionY="-145.52734375" width="128" height="103"/>
-        <element name="ExerciseDetail" positionX="10.5390625" positionY="-14.6484375" width="128" height="88"/>
+        <element name="Exercise" positionX="18.78125" positionY="-177.859375" width="128" height="103"/>
+        <element name="ExerciseDetail" positionX="60.08984375" positionY="-15.6640625" width="128" height="88"/>
         <element name="ExerciseSet" positionX="11.875" positionY="161.109375" width="128" height="103"/>
+        <element name="MuscleGroup" positionX="-214.33984375" positionY="12.1484375" width="119.08203125" height="73"/>
         <element name="Workout" positionX="-274.30859375" positionY="-161.59375" width="128" height="133"/>
     </elements>
 </model>
