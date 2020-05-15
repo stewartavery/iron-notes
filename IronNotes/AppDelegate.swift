@@ -21,6 +21,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
+
+//    let abdominals = MuscleGroup(context: AppDelegate.viewContext)
+//    abdominals.name = "Abdominals"
+//    let adductors = MuscleGroup(context: AppDelegate.viewContext)
+//    adductors.name = "Adductors"
+//    let biceps = MuscleGroup(context: AppDelegate.viewContext)
+//    biceps.name = "Biceps"
+//    let calves = MuscleGroup(context: AppDelegate.viewContext)
+//    calves.name = "Calves"
+//    let chest = MuscleGroup(context: AppDelegate.viewContext)
+//    chest.name = "Chest"
+//    let forearms = MuscleGroup(context: AppDelegate.viewContext)
+//    forearms.name = "Forearms"
+//    let glutes = MuscleGroup(context: AppDelegate.viewContext)
+//    glutes.name = "Glutes"
+//    let hamstrings = MuscleGroup(context: AppDelegate.viewContext)
+//    hamstrings.name = "Hamstrings"
+//    let lats = MuscleGroup(context: AppDelegate.viewContext)
+//    lats.name = "Lats"
+//    let lowerBack = MuscleGroup(context: AppDelegate.viewContext)
+//    lowerBack.name = "Lower Back"
+//    let middleBack = MuscleGroup(context: AppDelegate.viewContext)
+//    middleBack.name = "Middle Back"
+//    let neck = MuscleGroup(context: AppDelegate.viewContext)
+//    neck.name = "Neck"
+//    let quadriceps = MuscleGroup(context: AppDelegate.viewContext)
+//    quadriceps.name = "Quadriceps"
+//    let shoulders = MuscleGroup(context: AppDelegate.viewContext)
+//    shoulders.name = "Shoulders"
+//    let upperBack = MuscleGroup(context: AppDelegate.viewContext)
+//    upperBack.name = "Upper Back"
+//    let traps = MuscleGroup(context: AppDelegate.viewContext)
+//    traps.name = "Traps"
+//    let triceps = MuscleGroup(context: AppDelegate.viewContext)
+//    triceps.name = "Triceps"
+//
+//    try! AppDelegate.viewContext.save()
     return true
   }
   
@@ -84,4 +121,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
   
 }
+
 

@@ -15,9 +15,9 @@ struct NewExercise: View {
   @State private var name: String = ""
   @State private var description: String = ""
   @State private var exerciseType: ExerciseType = ExerciseType.barbell
-//  @State private var muscleGroup: MuscleGroup = MuscleGroup.abdominals
   
-  
+  @ObservedObject var selectedMuscleGroups = SelectedMuscleGroups()
+
   var body: some View {
     NavigationView {
       VStack {
@@ -33,13 +33,11 @@ struct NewExercise: View {
               }
             }
           }
-//          Section {
-//            Picker(selection: $muscleGroup, label: Text("Muscle Group")) {
-//              ForEach(MuscleGroup.allCases, id: \.self) { m in
-//                Text(m.rawValue)
-//              }
-//            }
-//          }
+          Section {
+            NavigationLink(destination: MuscleGroupPicker(selectedMuscleGroups: selectedMuscleGroups).environment(\.managedObjectContext, AppDelegate.viewContext)) {
+              Text("Muscle Groups")
+            }
+          }
         }.onAppear() { self.onAppear() }
       }
       .navigationBarTitle(Text("New Exercise"), displayMode: .inline)
