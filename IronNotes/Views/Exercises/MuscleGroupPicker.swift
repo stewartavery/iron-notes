@@ -10,20 +10,27 @@ import SwiftUI
 
 struct MultipleSelectionRow: View {
   var muscleGroup: MuscleGroup
-  @Binding var unsavedGroups: [MuscleGroup]
-  var action: () -> Void
-  
+  @Binding var unsavedMuscleGroups: [MuscleGroup]
   @Environment(\.colorScheme) var colorScheme: ColorScheme
   
   var body: some View {
-    Button(action: self.action) {
+    Button(action: handleSelection) {
       HStack {
         Text(self.muscleGroup.name)
-        if self.unsavedGroups.contains(self.muscleGroup) {
+        if self.unsavedMuscleGroups.contains(self.muscleGroup) {
           Spacer()
           Image(systemName: "checkmark").foregroundColor(.blue)
         }
       }.foregroundColor(colorScheme == .light ? Color.black : Color.white)
+    }
+  }
+  
+  func handleSelection() {
+    if self.unsavedMuscleGroups.contains(muscleGroup) {
+      self.unsavedMuscleGroups.removeAll(where: { $0 == muscleGroup })
+    }
+    else {
+      self.unsavedMuscleGroups.append(muscleGroup)
     }
   }
 }
@@ -33,29 +40,21 @@ struct MuscleGroupPicker: View {
                 sortDescriptors: [NSSortDescriptor(keyPath: \MuscleGroup.name, ascending: true)
   ]) var muscleGroups: FetchedResults<MuscleGroup>
   
-  @State private var unSavedMuscleGroups = [MuscleGroup]()
+  @State private var unsavedMuscleGroups = [MuscleGroup]()
   @ObservedObject var selectedMuscleGroups: SelectedMuscleGroups
   
   var body: some View {
     List {
       Section(header: Text("APPLICABLE MUSCLE GROUPS").padding(.top, 20)) {
         ForEach(muscleGroups, id: \.self) { muscleGroup in
-          MultipleSelectionRow(muscleGroup: muscleGroup, unsavedGroups: self.$unSavedMuscleGroups) {
-            if self.unSavedMuscleGroups.contains(muscleGroup) {
-              self.unSavedMuscleGroups.removeAll(where: { $0 == muscleGroup })
-            }
-            else {
-              self.unSavedMuscleGroups.append(muscleGroup)
-            }
-          }
+          MultipleSelectionRow(muscleGroup: muscleGroup, unsavedMuscleGroups: self.$unsavedMuscleGroups)
         }
       }
     }
-    .onAppear(perform: { self.unSavedMuscleGroups = self.selectedMuscleGroups.muscleGroups })
+    .onAppear(perform: { self.unsavedMuscleGroups = self.selectedMuscleGroups.muscleGroups })
     .onDisappear(perform: {
-      self.selectedMuscleGroups.muscleGroups = self.unSavedMuscleGroups
+      self.selectedMuscleGroups.muscleGroups = self.unsavedMuscleGroups
       print("disappearing!")
-      
     })
       .listStyle(GroupedListStyle())
       .navigationBarTitle("Muscle Groups", displayMode: .inline)
