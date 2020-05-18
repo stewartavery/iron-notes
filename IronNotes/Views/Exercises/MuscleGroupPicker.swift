@@ -36,13 +36,9 @@ struct MuscleGroupPicker: View {
   @State private var unSavedMuscleGroups = [MuscleGroup]()
   @ObservedObject var selectedMuscleGroups: SelectedMuscleGroups
   
-  init(_ selectedMuscleGroups: SelectedMuscleGroups) {
-      self.selectedMuscleGroups = selectedMuscleGroups
-  }
-  
   var body: some View {
     List {
-      Section(header: Text("APPLICABLE MUSCLE GROUPS")) {
+      Section(header: Text("APPLICABLE MUSCLE GROUPS").padding(.top, 20)) {
         ForEach(muscleGroups, id: \.self) { muscleGroup in
           MultipleSelectionRow(muscleGroup: muscleGroup, unsavedGroups: self.$unSavedMuscleGroups) {
             if self.unSavedMuscleGroups.contains(muscleGroup) {
@@ -56,9 +52,13 @@ struct MuscleGroupPicker: View {
       }
     }
     .onAppear(perform: { self.unSavedMuscleGroups = self.selectedMuscleGroups.muscleGroups })
-    .onDisappear(perform: { self.selectedMuscleGroups.muscleGroups = self.unSavedMuscleGroups})
-    .listStyle(GroupedListStyle())
-    .navigationBarTitle("Muscle Groups", displayMode: .inline)
+    .onDisappear(perform: {
+      self.selectedMuscleGroups.muscleGroups = self.unSavedMuscleGroups
+      print("disappearing!")
+      
+    })
+      .listStyle(GroupedListStyle())
+      .navigationBarTitle("Muscle Groups", displayMode: .inline)
   }
   
 }
@@ -67,8 +67,10 @@ struct MuscleGroupPicker_Previews: PreviewProvider {
   @ObservedObject static var selectedMuscleGroups = SelectedMuscleGroups()
   
   static var previews: some View {
-    MuscleGroupPicker(selectedMuscleGroups)
-      .environment(\.managedObjectContext, AppDelegate.viewContext)
+    NavigationView {
+      MuscleGroupPicker(selectedMuscleGroups: selectedMuscleGroups)
+        .environment(\.managedObjectContext, AppDelegate.viewContext)
+    }
   }
 }
 

@@ -34,7 +34,7 @@ struct NewExercise: View {
             }
           }
           Section {
-            NavigationLink(destination: MuscleGroupPicker(selectedMuscleGroups).environment(\.managedObjectContext, AppDelegate.viewContext)) {
+            NavigationLink(destination: MuscleGroupPicker(selectedMuscleGroups: selectedMuscleGroups).environment(\.managedObjectContext, AppDelegate.viewContext)) {
               Text("Muscle Groups")
             }
           }
