@@ -12,4 +12,5 @@ enum ExerciseType: String, CaseIterable {
   case barbell = "Barbell"
   case dumbbell = "Dumbbell"
   case machine = "Machine"
+  case bodyweight = "Bodyweight"
 }

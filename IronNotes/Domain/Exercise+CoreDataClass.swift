@@ -16,11 +16,11 @@ public class Exercise: NSManagedObject {
     return Exercise(context: AppDelegate.viewContext)
   }
   
-  class func createExerciseFor(name: String, desc: String, muscleGroup: MuscleGroup, exerciseType: ExerciseType) -> Void {
+  class func createExerciseFor(name: String, desc: String, muscleGroups: [MuscleGroup], exerciseType: ExerciseType) -> Void {
     let exercise = Exercise.newExercise()
     exercise.name = name
     exercise.desc = desc
-//    exercise.muscleGroup = muscleGroup.rawValue
+    exercise.muscleGroup = muscleGroups
 //    exercise.exerciseType = exerciseType.rawValue
     try! AppDelegate.viewContext.save()
   }
