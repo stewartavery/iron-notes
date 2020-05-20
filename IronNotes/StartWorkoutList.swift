@@ -27,7 +27,7 @@ struct StartWorkoutList : View {
           self.isCreateViewVisible.toggle()
         }) { AddWorkoutRow() }
       }
-      .sheet(isPresented: $isCreateViewVisible, content: { NewExercise(isPresented: self.$isCreateViewVisible) })
+//      .sheet(isPresented: $isCreateViewVisible, content: { NewExercise(isPresented: self.$isCreateViewVisible) })
       .onAppear() {
         UITableView.appearance().tableFooterView = UIView()
         UITableView.appearance().separatorInset = UIEdgeInsets(top: 0, left: 115, bottom: 0, right: 0)

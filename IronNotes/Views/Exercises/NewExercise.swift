@@ -42,7 +42,7 @@ struct NewExercise: View {
       }
       .navigationBarTitle(Text("New Exercise"), displayMode: .inline)
       .navigationBarItems(leading:
-        Button("Cancel") {
+        Button("Cancel") { // todo: fix touch target
           self.isPresented.toggle()
         },trailing: Button("Done") {
           self.onComplete()
