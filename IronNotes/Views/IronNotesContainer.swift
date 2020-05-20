@@ -15,7 +15,7 @@ struct IronNotesContainer: View {
         .font(.title)
         .tabItem({
           VStack {
-            Image(systemName: "smiley.fill")
+            Image(systemName: "flame.fill")
             Text("Workouts")
           }
         })
@@ -24,8 +24,8 @@ struct IronNotesContainer: View {
         .font(.title)
         .tabItem({
           VStack {
-            Image(systemName: "clock.fill")
-            Text("Exercise")
+            Image(systemName: "book.fill")
+            Text("Exercises")
           }
         })
         .tag(1)
