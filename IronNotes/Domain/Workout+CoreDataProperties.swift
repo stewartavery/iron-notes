@@ -2,7 +2,7 @@
 //  Workout+CoreDataProperties.swift
 //  IronNotes
 //
-//  Created by Stewart Avery on 3/3/20.
+//  Created by Stewart Avery on 5/24/20.
 //  Copyright © 2020 Stewart Avery. All rights reserved.
 //
 //
@@ -12,46 +12,14 @@ import CoreData
 
 
 extension Workout {
-  
-  @nonobjc public class func fetchRequest() -> NSFetchRequest<Workout> {
-    return NSFetchRequest<Workout>(entityName: "Workout")
-  }
-  
-  @NSManaged public var desc: String
-  @NSManaged public var iconName: String
-  @NSManaged public var id: UUID?
-  @NSManaged public var lastWorkoutDate: Date?
-  @NSManaged public var name: String
-  @NSManaged public var routines: NSSet?
-  
-  public var wrappedLastWorkoutDate: Date {
-    lastWorkoutDate ?? Date()
-  }
-  
-  
-  public var routinesArray: [ExerciseDetail] {
-    let set = routines as? Set<ExerciseDetail> ?? []
-    
-    return set.sorted {
-      $0.exerciseDetailIndex < $1.exerciseDetailIndex
-    }
-  }
-    
-}
 
-// MARK: Generated accessors for routines
-extension Workout {
-  
-  @objc(addRoutinesObject:)
-  @NSManaged public func addToRoutines(_ value: ExerciseDetail)
-  
-  @objc(removeRoutinesObject:)
-  @NSManaged public func removeFromRoutines(_ value: ExerciseDetail)
-  
-  @objc(addRoutines:)
-  @NSManaged public func addToRoutines(_ values: NSSet)
-  
-  @objc(removeRoutines:)
-  @NSManaged public func removeFromRoutines(_ values: NSSet)
-  
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<Workout> {
+        return NSFetchRequest<Workout>(entityName: "Workout")
+    }
+
+    @NSManaged public var startTime: Date?
+    @NSManaged public var duration: Int16
+    @NSManaged public var note: String?
+    @NSManaged public var routines: ExerciseTemplate?
+
 }

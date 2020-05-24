@@ -12,7 +12,7 @@ struct ExerciseCard: View {
   
   
   var exerciseDetail: ExerciseDetail
-  
+   
   var body: some View {
     VStack(alignment: .leading) {
       Text(exerciseDetail.name)

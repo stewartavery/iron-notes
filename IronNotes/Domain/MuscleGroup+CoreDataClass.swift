@@ -10,7 +10,7 @@
 import Foundation
 import CoreData
 
-@objc(MuscleGroup)
+
 public class MuscleGroup: NSManagedObject {
 
 }

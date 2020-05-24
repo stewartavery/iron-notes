@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Exercise" representedClassName=".Exercise" isAbstract="YES" syncable="YES">
+    <entity name="Exercise" representedClassName=".Exercise" parentEntity="ExerciseTemplate" syncable="YES">
+        <attribute name="position" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="sets" toMany="YES" deletionRule="Nullify" destinationEntity="ExerciseSet" inverseName="exercise" inverseEntity="ExerciseSet"/>
+        <relationship name="workout" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WorkoutTemplate"/>
+    </entity>
+    <entity name="ExerciseSet" representedClassName=".ExerciseSet" parentEntity="Exercise" syncable="YES">
+        <attribute name="position" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="reps" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="weight" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="exercise" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Exercise" inverseName="sets" inverseEntity="Exercise"/>
+    </entity>
+    <entity name="ExerciseTemplate" representedClassName=".ExerciseTemplate" isAbstract="YES" syncable="YES">
         <attribute name="desc" attributeType="String" defaultValueString=""/>
         <attribute name="exerciseType" attributeType="String"/>
         <attribute name="name" attributeType="String" defaultValueString=""/>
@@ -11,28 +22,21 @@
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>
-    <entity name="ExerciseDetail" representedClassName=".ExerciseDetail" parentEntity="Exercise" syncable="YES">
-        <attribute name="exerciseDetailIndex" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="sets" toMany="YES" deletionRule="Nullify" destinationEntity="ExerciseSet" inverseName="exercise" inverseEntity="ExerciseSet"/>
-        <relationship name="workout" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Workout" inverseName="routines" inverseEntity="Workout"/>
-    </entity>
-    <entity name="ExerciseSet" representedClassName=".ExerciseSet" parentEntity="ExerciseDetail" syncable="YES">
-        <attribute name="exerciseSetIndex" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="reps" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="weight" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="exercise" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ExerciseDetail" inverseName="sets" inverseEntity="ExerciseDetail"/>
-    </entity>
-    <entity name="MuscleGroup" representedClassName="MuscleGroup" isAbstract="YES" syncable="YES">
+    <entity name="MuscleGroup" representedClassName=".MuscleGroup" isAbstract="YES" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="exercises" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Exercise" inverseName="muscleGroups" inverseEntity="Exercise"/>
+        <relationship name="exercises" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="ExerciseTemplate" inverseName="muscleGroups" inverseEntity="ExerciseTemplate"/>
     </entity>
-    <entity name="Workout" representedClassName=".Workout" syncable="YES">
+    <entity name="Workout" representedClassName=".Workout" parentEntity="WorkoutTemplate" syncable="YES" codeGenerationType="class">
+        <attribute name="duration" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="note" optional="YES" attributeType="String"/>
+        <attribute name="startTime" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="routines" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ExerciseTemplate"/>
+    </entity>
+    <entity name="WorkoutTemplate" representedClassName=".WorkoutTemplate" isAbstract="YES" syncable="YES">
         <attribute name="desc" attributeType="String" defaultValueString=""/>
         <attribute name="iconName" attributeType="String" defaultValueString="&quot;barbell&quot;"/>
-        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="lastWorkoutDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String" defaultValueString=""/>
-        <relationship name="routines" toMany="YES" deletionRule="Cascade" destinationEntity="ExerciseDetail" inverseName="workout" inverseEntity="ExerciseDetail"/>
+        <relationship name="muscleGroups" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MuscleGroup"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="name"/>
@@ -40,10 +44,11 @@
         </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="Exercise" positionX="18.78125" positionY="-177.859375" width="128" height="103"/>
-        <element name="ExerciseDetail" positionX="60.08984375" positionY="-15.6640625" width="128" height="88"/>
+        <element name="Exercise" positionX="60.08984375" positionY="-15.6640625" width="128" height="88"/>
         <element name="ExerciseSet" positionX="11.875" positionY="161.109375" width="128" height="103"/>
+        <element name="ExerciseTemplate" positionX="18.78125" positionY="-177.859375" width="128" height="103"/>
         <element name="MuscleGroup" positionX="-214.33984375" positionY="12.1484375" width="119.08203125" height="73"/>
-        <element name="Workout" positionX="-274.30859375" positionY="-161.59375" width="128" height="133"/>
+        <element name="WorkoutTemplate" positionX="-274.30859375" positionY="-161.59375" width="128" height="103"/>
+        <element name="Workout" positionX="-108" positionY="-27" width="128" height="103"/>
     </elements>
 </model>

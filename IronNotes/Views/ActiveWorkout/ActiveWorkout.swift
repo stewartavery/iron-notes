@@ -12,8 +12,6 @@ import CoreData
 struct ActiveWorkout: View {
   var workout: Workout
   
-
-  
   var body: some View {
     ScrollView {
       VStack(alignment: .leading) {

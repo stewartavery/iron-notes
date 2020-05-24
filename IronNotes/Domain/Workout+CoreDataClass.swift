@@ -2,7 +2,7 @@
 //  Workout+CoreDataClass.swift
 //  IronNotes
 //
-//  Created by Stewart Avery on 3/2/20.
+//  Created by Stewart Avery on 5/24/20.
 //  Copyright © 2020 Stewart Avery. All rights reserved.
 //
 //
@@ -10,8 +10,7 @@
 import Foundation
 import CoreData
 
-
-public class Workout: NSManagedObject {
+public class Workout: Workout {
   func dayDifference(from date : Date) -> String {
     let calendar = Calendar.current
     if calendar.isDateInYesterday(date) { return "Yesterday" }

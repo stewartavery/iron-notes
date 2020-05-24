@@ -10,17 +10,17 @@ import SwiftUI
 
 struct ExerciseList: View {
   @Environment(\.managedObjectContext) var moc
-  @FetchRequest(entity: Exercise.entity(),
-                sortDescriptors: [NSSortDescriptor(keyPath: \Exercise.name, ascending: true)]
-  ) var exercises: FetchedResults<Exercise>
+  @FetchRequest(entity: ExerciseTemplate.entity(),
+                sortDescriptors: [NSSortDescriptor(keyPath: \ExerciseTemplate.name, ascending: true)]
+  ) var exerciseTemplates: FetchedResults<ExerciseTemplate>
   @State var isCreateViewVisible = false
   
   
   var body: some View {
     NavigationView {
       List {
-        ForEach(exercises, id: \.self) { exercise in
-          Text(exercise.name).font(.body)
+        ForEach(exerciseTemplates, id: \.self) { exerciseTemplate in
+          Text(exerciseTemplate.name).font(.body)
         }
       }
       .sheet(isPresented: $isCreateViewVisible, content: { NewExercise(isPresented: self.$isCreateViewVisible) })
