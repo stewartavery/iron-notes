@@ -51,7 +51,7 @@ struct NewExercise: View {
   }
   
   func onComplete() {
-    Exercise.createExerciseFor(name: self.name, desc: self.description, muscleGroups: self.selectedMuscleGroups.muscleGroups, exerciseType: self.exerciseType)
+    ExerciseTemplate.createExerciseTemplateFor(name: self.name, desc: self.description, muscleGroups: self.selectedMuscleGroups.muscleGroups, exerciseType: self.exerciseType)
     self.isPresented.toggle()
   }
   

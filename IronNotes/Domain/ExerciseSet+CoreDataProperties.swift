@@ -17,7 +17,7 @@ extension ExerciseSet {
     return NSFetchRequest<ExerciseSet>(entityName: "ExerciseSet")
   }
   
-  @NSManaged public var position: Int16
+  @NSManaged public var setPosition: Int16
   @NSManaged public var reps: Int16
   @NSManaged public var weight: Int32
   @NSManaged public var exercise: Exercise?

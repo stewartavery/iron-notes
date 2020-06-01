@@ -32,7 +32,7 @@ struct WorkoutRow: View {
   func getWorkoutDate() -> String {
     return "Last Workout: " +
       self.workout.dayDifference(
-        from: self.workout.wrappedLastWorkoutDate
+        from: self.workout.startTime
     )
   }
 }
@@ -45,7 +45,7 @@ struct WorkoutRow_Previews: PreviewProvider {
     workout.name = "Test"
     workout.iconName = "barbell"
     workout.desc = "Test Description"
-    workout.lastWorkoutDate = Date()
+    workout.startTime = Date()
     workout.routines = []
     
     return WorkoutRow(workout: workout)

@@ -13,15 +13,15 @@ import CoreData
 
 public class ExerciseTemplate: NSManagedObject {
   class func newExerciseTemplate() -> ExerciseTemplate {
-      return ExerciseTemplate(context: AppDelegate.viewContext)
-    }
-    
-    class func createExerciseTemplateFor(name: String, desc: String, muscleGroups: [MuscleGroup], exerciseType: ExerciseType) -> Void {
-      let exercise = Exercise.newExercise()
-      exercise.name = name
-      exercise.desc = desc
-      exercise.muscleGroup = muscleGroups
-      exercise.exerciseType = exerciseType.rawValue
-      try! AppDelegate.viewContext.save()
-    }
+    return ExerciseTemplate(context: AppDelegate.viewContext)
+  }
+  
+  class func createExerciseTemplateFor(name: String, desc: String, muscleGroups: [MuscleGroup], exerciseType: ExerciseType) -> Void {
+    let exerciseTemplate = newExerciseTemplate()
+    exerciseTemplate.name = name
+    exerciseTemplate.desc = desc
+    exerciseTemplate.muscleGroups = NSSet(array: muscleGroups)
+    exerciseTemplate.exerciseType = exerciseType.rawValue
+    try! AppDelegate.viewContext.save()
+  }
 }

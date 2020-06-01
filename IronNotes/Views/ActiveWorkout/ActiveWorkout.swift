@@ -19,8 +19,8 @@ struct ActiveWorkout: View {
           .font(.system(size: 22, weight: .bold))
           .padding(.bottom, 5)
         
-        ForEach(workout.routinesArray, id: \.self) { exerciseDetail in
-          ExerciseCard(exerciseDetail: exerciseDetail).padding(.bottom, 5)
+        ForEach(workout.routinesArray, id: \.self) { exercise in
+          ExerciseCard(exercise: exercise).padding(.bottom, 5)
         }
       }
     }.padding(20)
@@ -36,41 +36,40 @@ struct ActiveWorkout_Previews: PreviewProvider {
   static var previews: some View {
     let workout = Workout(context: AppDelegate.viewContext)
     
-    workout.id = UUID()
     workout.name = "Extra Test Workout"
     workout.desc = "Really good workout!"
     workout.iconName = "barbell"
-    workout.lastWorkoutDate = Date()
+    workout.startTime = Date()
     
-    let exerciseDetail = ExerciseDetail(context: AppDelegate.viewContext)
-    exerciseDetail.name = "Bench Press"
-    exerciseDetail.exerciseDetailIndex = 0
+    let exercise = Exercise(context: AppDelegate.viewContext)
+    exercise.name = "Bench Press"
+    exercise.position = 0
     
     let exerciseSet = ExerciseSet(context: AppDelegate.viewContext)
-    exerciseSet.exerciseSetIndex = 0
+    exerciseSet.setPosition = 0
     exerciseSet.reps = 3
     exerciseSet.weight = 135
-    exerciseDetail.addToSets(exerciseSet)
+    exercise.addToSets(exerciseSet)
     
     let exerciseSet5 = ExerciseSet(context: AppDelegate.viewContext)
-    exerciseSet5.exerciseSetIndex = 1
+    exerciseSet5.setPosition = 1
     exerciseSet5.reps = 3
     exerciseSet5.weight = 225
-    exerciseDetail.addToSets(exerciseSet5)
+    exercise.addToSets(exerciseSet5)
     
-    workout.addToRoutines(exerciseDetail)
+    workout.addToRoutines(exercise)
     
-    let exerciseDetail2 = ExerciseDetail(context: AppDelegate.viewContext)
-    exerciseDetail2.name = "Shoulder Press"
-    exerciseDetail2.exerciseDetailIndex = 1
+    let exercise2 = Exercise(context: AppDelegate.viewContext)
+    exercise2.name = "Shoulder Press"
+    exercise2.position = 1
     
     let exerciseSet2 = ExerciseSet(context: AppDelegate.viewContext)
-    exerciseSet2.exerciseSetIndex = 0
+    exerciseSet2.setPosition = 0
     exerciseSet2.reps = 5
     exerciseSet2.weight = 39
-    exerciseDetail2.addToSets(exerciseSet2)
+    exercise2.addToSets(exerciseSet2)
     
-    workout.addToRoutines(exerciseDetail2)
+    workout.addToRoutines(exercise2)
     
     return NavigationView {
       ActiveWorkout(workout: workout)
@@ -81,12 +80,12 @@ struct ActiveWorkout_Previews: PreviewProvider {
 
 
 struct ActiveWorkoutSectionHeader: View {
-  var exerciseDetail: ExerciseDetail
+  var exercise: Exercise
   var body: some View {
-    let setTotal = exerciseDetail.exerciseSetArray.count
+    let setTotal = exercise.exerciseSetArray.count
     
     return HStack {
-      Text(exerciseDetail.name)
+      Text(exercise.name)
       Spacer()
       Text("\(setTotal) Set\(setTotal == 1 ? "" : "s")")
     }

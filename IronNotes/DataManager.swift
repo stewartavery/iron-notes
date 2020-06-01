@@ -71,182 +71,182 @@ class DataManager {
     let deltoids = MuscleGroup(context: AppDelegate.viewContext)
     deltoids.name = "Deltoids"
     
-    Exercise.createExerciseFor(
+    ExerciseTemplate.createExerciseTemplateFor(
       name: "Squat",
       desc: "A squat is a strength exercise in which the trainee lowers their hips from a standing position and then stands back up.",
       muscleGroups: [calves, quadriceps, hamstrings, glutes, hips, lowerBack, abdominals],
       exerciseType: ExerciseType.barbell
     )
     
-    Exercise.createExerciseFor(
+    ExerciseTemplate.createExerciseTemplateFor(
       name: "Leg Press",
       desc: "The leg press is a weight training exercise in which the individual pushes a weight or resistance away from them using their legs.",
       muscleGroups: [calves, quadriceps, hamstrings, glutes],
       exerciseType: ExerciseType.machine
     )
     
-    Exercise.createExerciseFor(
+    ExerciseTemplate.createExerciseTemplateFor(
       name: "Lunge",
       desc: "A lunge can refer to any position of the human body where one leg is positioned forward with knee bent and foot flat on the ground while the other leg is positioned behind.",
       muscleGroups: [quadriceps, hamstrings, glutes],
       exerciseType: ExerciseType.barbell
     )
     
-    Exercise.createExerciseFor(
+    ExerciseTemplate.createExerciseTemplateFor(
       name: "Deadlift",
       desc: "The deadlift is a weight training exercise in which a loaded barbell or bar is lifted off the ground to the level of the hips, torso perpendicular to the floor, before being placed back on the ground.",
       muscleGroups: [calves, quadriceps, hamstrings, glutes, hips, lowerBack, traps, abdominals, forearms],
       exerciseType: ExerciseType.barbell
     )
     
-    Exercise.createExerciseFor(
+    ExerciseTemplate.createExerciseTemplateFor(
       name: "Leg Extension",
       desc: "The leg extension is a resistance weight training exercise that targets the quadriceps muscle in the legs.",
       muscleGroups: [quadriceps],
       exerciseType: ExerciseType.machine
     )
     
-    Exercise.createExerciseFor(
+    ExerciseTemplate.createExerciseTemplateFor(
       name: "Leg Curl",
       desc: "The leg curl, also known as the hamstring curl, is an isolation exercise that targets the hamstring muscles.",
       muscleGroups: [calves, hamstrings],
       exerciseType: ExerciseType.machine
     )
     
-    Exercise.createExerciseFor(
+    ExerciseTemplate.createExerciseTemplateFor(
       name: "Standing Calf Raise",
       desc: "Calf raises are a method of exercising the gastrocnemius, tibialis posterior and soleus muscles of the lower leg.",
       muscleGroups: [calves],
       exerciseType: ExerciseType.machine
     )
     
-    Exercise.createExerciseFor(
+    ExerciseTemplate.createExerciseTemplateFor(
       name: "Seated Calf Raise",
       desc: "The machine seated calf raise is an exercise targeting the calf muscles of the lower leg, particularly the soleus muscle.",
       muscleGroups: [calves],
       exerciseType: ExerciseType.machine
     )
     
-    Exercise.createExerciseFor(
+    ExerciseTemplate.createExerciseTemplateFor(
       name: "Hip Abduction",
       desc: "Hip abduction is the movement of the leg away from the midline of the body. ",
       muscleGroups: [hips],
       exerciseType: ExerciseType.machine
     )
     
-    Exercise.createExerciseFor(
+    ExerciseTemplate.createExerciseTemplateFor(
       name: "Bench Press",
       desc: "The bench press is an upper-body weight training exercise in which the trainee presses a weight upwards while lying on a weight training bench.",
       muscleGroups: [pectoral, deltoids, triceps],
       exerciseType: ExerciseType.barbell
     )
     
-    Exercise.createExerciseFor(
+    ExerciseTemplate.createExerciseTemplateFor(
       name: "Chest Fly",
       desc: "A fly or flye is a strength training exercise in which the hand and arm move through an arc while the elbow is kept at a constant angle.",
       muscleGroups: [pectoral, deltoids],
       exerciseType: ExerciseType.dumbbell
     )
     
-    Exercise.createExerciseFor(
+    ExerciseTemplate.createExerciseTemplateFor(
       name: "Push-up",
       desc: "A push-up is a common calisthenics exercise beginning from the prone position.",
       muscleGroups: [abdominals, pectoral, deltoids, triceps],
       exerciseType: ExerciseType.bodyweight
     )
     
-    Exercise.createExerciseFor(
+    ExerciseTemplate.createExerciseTemplateFor(
       name: "Pulldown",
       desc: "The pulldown exercise is a strength training exercise designed to develop the latissimus dorsi muscle.",
       muscleGroups: [lats, pectoral, deltoids, biceps, forearms],
       exerciseType: ExerciseType.machine
     )
     
-    Exercise.createExerciseFor(
+    ExerciseTemplate.createExerciseTemplateFor(
       name: "Pull-up",
       desc: "A pull-up is an upper-body strength exercise. The pull-up is a closed-chain movement where the body is suspended by the hands and pulls up.",
       muscleGroups: [lats, traps, pectoral, deltoids, biceps, forearms],
       exerciseType: ExerciseType.machine
     )
     
-    Exercise.createExerciseFor(
+    ExerciseTemplate.createExerciseTemplateFor(
       name: "Bent-over Row",
       desc: "A bent-over row is a weight training exercise that targets a variety of back muscles.",
       muscleGroups: [lats, traps, pectoral, deltoids, biceps, forearms],
       exerciseType: ExerciseType.barbell
     )
     
-    Exercise.createExerciseFor(
+    ExerciseTemplate.createExerciseTemplateFor(
       name: "Upright Row",
       desc: "The upright row is a weight training exercise performed by holding a grips with the overhand grip and lifting it straight up to the collarbone.",
       muscleGroups: [traps, deltoids, biceps, forearms],
       exerciseType: ExerciseType.dumbbell
     )
     
-    Exercise.createExerciseFor(
+    ExerciseTemplate.createExerciseTemplateFor(
       name: "Overhead Press",
       desc: "The press, overhead press or shoulder press is a weight training exercise with many variations, typically performed while standing, in which a weight is pressed straight upwards from racking position until the arms are locked out overhead, while the legs, lower back and abs maintain balance.",
       muscleGroups: [traps, pectoral, forearms],
       exerciseType: ExerciseType.barbell
     )
     
-    Exercise.createExerciseFor(
+    ExerciseTemplate.createExerciseTemplateFor(
       name: "Shoulder Fly",
       desc: "The shoulder fly (also known as a lateral raise) works the deltoid muscle of the shoulder.",
       muscleGroups: [traps, pectoral, forearms],
       exerciseType: ExerciseType.dumbbell
     )
     
-    Exercise.createExerciseFor(
+    ExerciseTemplate.createExerciseTemplateFor(
       name: "Shoulder Shrug",
       desc: "The shoulder shrug (usually called simply the shrug) is an exercise in weight training used to develop the upper trapezius muscle.",
       muscleGroups: [traps, pectoral, forearms],
       exerciseType: ExerciseType.dumbbell
     )
     
-    Exercise.createExerciseFor(
+    ExerciseTemplate.createExerciseTemplateFor(
       name: "Pushdown",
       desc: "A pushdown is a strength training exercise used for strengthening the triceps muscles in the back of the arm.",
       muscleGroups: [triceps],
       exerciseType: ExerciseType.machine
     )
     
-    Exercise.createExerciseFor(
+    ExerciseTemplate.createExerciseTemplateFor(
       name: "Triceps Extension",
       desc: "Lying triceps extensions, also known as skull crushers and French extensions or French presses, are a strength exercise used in many different forms of strength training.",
       muscleGroups: [triceps, forearms],
       exerciseType: ExerciseType.barbell
     )
     
-    Exercise.createExerciseFor(
+    ExerciseTemplate.createExerciseTemplateFor(
       name: "Biceps Curl",
       desc: "The biceps curl is a general title for a series of strength exercises that involve brachioradialis, front deltoid and the main target on biceps brachii.",
       muscleGroups: [biceps, forearms],
       exerciseType: ExerciseType.dumbbell
     )
     
-    Exercise.createExerciseFor(
+    ExerciseTemplate.createExerciseTemplateFor(
       name: "Crunch",
       desc: "The crunch is one of the most popular abdominal exercises. It involves the entire abs, but primarily it works the rectus abdominis muscle and also works the obliques.",
       muscleGroups: [abdominals],
       exerciseType: ExerciseType.bodyweight
     )
     
-    Exercise.createExerciseFor(
+    ExerciseTemplate.createExerciseTemplateFor(
       name: "Russian Twist",
       desc: "The Russian twist is a type of exercise that is used to work the abdominal muscles by performing a twisting motion on the abdomen",
       muscleGroups: [abdominals],
       exerciseType: ExerciseType.bodyweight
     )
     
-    Exercise.createExerciseFor(
+    ExerciseTemplate.createExerciseTemplateFor(
       name: "Leg Raise",
       desc: "The leg raise is a strength training exercise which targets the iliopsoas. Because the abdominal muscles are used isometrically to stabilize the body during the motion, leg raises are also often used to strengthen the rectus abdominis muscle and the internal and external oblique muscles.",
       muscleGroups: [hips, abdominals],
       exerciseType: ExerciseType.bodyweight
     )
     
-    Exercise.createExerciseFor(
+    ExerciseTemplate.createExerciseTemplateFor(
       name: "Back Extension",
       desc: "A hyperextension or back extension is an exercise that works the lower back as well as the mid and upper back, specifically the erector spinae.",
       muscleGroups: [hamstrings, glutes, lowerBack],

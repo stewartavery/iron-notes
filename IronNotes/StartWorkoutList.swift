@@ -16,7 +16,7 @@ struct StartWorkoutList : View {
   var body: some View {
     NavigationView {
       List {
-        ForEach(workouts, id: \.id) { workout in
+        ForEach(workouts, id: \.self) { workout in
           NavigationLink(destination: ActiveWorkout(workout: workout)) {
             WorkoutRow(workout: workout)
           }

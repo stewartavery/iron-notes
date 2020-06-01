@@ -11,17 +11,17 @@ import SwiftUI
 struct ExerciseCard: View {
   
   
-  var exerciseDetail: ExerciseDetail
+  var exercise: Exercise
    
   var body: some View {
     VStack(alignment: .leading) {
-      Text(exerciseDetail.name)
+      Text(exercise.name)
         .font(.headline)
         .foregroundColor(Color.orange)
         .padding(.bottom, 20)
       
       
-      ForEach(exerciseDetail.exerciseSetArray, id: \.self) { exerciseSet in
+      ForEach(exercise.exerciseSetArray, id: \.self) { exerciseSet in
         VStack {
           HStack {
             VStack(alignment: .leading) {
@@ -49,23 +49,23 @@ struct ExerciseCard: View {
 
 struct ExerciseCard_Previews: PreviewProvider {
   static var previews: some View {
-    let exerciseDetail = ExerciseDetail(context: AppDelegate.viewContext)
-    exerciseDetail.name = "Test"
-    exerciseDetail.exerciseDetailIndex = 0
+    let exercise = Exercise(context: AppDelegate.viewContext)
+    exercise.name = "Test"
+    exercise.position = 0
     
     let exerciseSet = ExerciseSet(context: AppDelegate.viewContext)
-    exerciseSet.exerciseSetIndex=0
+    exerciseSet.setPosition=0
     exerciseSet.reps = 3
     exerciseSet.weight = 135
-    exerciseDetail.addToSets(exerciseSet)
+    exercise.addToSets(exerciseSet)
     
     let exerciseSet2 = ExerciseSet(context: AppDelegate.viewContext)
-    exerciseSet.exerciseSetIndex = 1
+    exerciseSet.setPosition = 1
     exerciseSet2.reps = 3
     exerciseSet2.weight = 225
-    exerciseDetail.addToSets(exerciseSet2)
+    exercise.addToSets(exerciseSet2)
     
-    return ExerciseCard(exerciseDetail: exerciseDetail)
+    return ExerciseCard(exercise: exercise)
     
   }
 }

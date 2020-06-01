@@ -61,31 +61,31 @@ struct IronNotesContainer_Previews: PreviewProvider {
     workout.name = "Test Workout"
     workout.desc = "Really good workout!"
     workout.iconName = "barbell"
-    workout.lastWorkoutDate = Date()
+    workout.startTime = Date()
     
-    let exerciseDetail = ExerciseDetail(context: AppDelegate.viewContext)
-    exerciseDetail.name = "Test"
-    exerciseDetail.exerciseDetailIndex = 0
+    let exercise = Exercise(context: AppDelegate.viewContext)
+    exercise.name = "Test"
+    exercise.position = 0
     
     let exerciseSet = ExerciseSet(context: AppDelegate.viewContext)
-    exerciseSet.exerciseSetIndex = 0
+    exerciseSet.setPosition = 0
     exerciseSet.reps = 3
     exerciseSet.weight = 2
-    exerciseDetail.addToSets(exerciseSet)
+    exercise.addToSets(exerciseSet)
     
-    workout.addToRoutines(exerciseDetail)
+    workout.addToRoutines(exercise)
     
-    let exerciseDetail2 = ExerciseDetail(context: AppDelegate.viewContext)
-    exerciseDetail2.name = "Test 2"
-    exerciseDetail2.exerciseDetailIndex = 1
+    let exercise2 = Exercise(context: AppDelegate.viewContext)
+    exercise2.name = "Test 2"
+    exercise2.position = 1
     
     let exerciseSet2 = ExerciseSet(context: AppDelegate.viewContext)
-    exerciseSet2.exerciseSetIndex = 1
+    exerciseSet2.setPosition = 1
     exerciseSet2.reps = 5
     exerciseSet2.weight = 39
-    exerciseDetail2.addToSets(exerciseSet2)
+    exercise2.addToSets(exerciseSet2)
     
-    workout.addToRoutines(exerciseDetail2)
+    workout.addToRoutines(exercise2)
     
     return IronNotesContainer().environment(\.managedObjectContext, AppDelegate.viewContext)
     
