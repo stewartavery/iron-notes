@@ -11,6 +11,6 @@ import Foundation
 import CoreData
 
 
-public class Exercise: ExerciseTemplate {
-
+public class Exercise: NSManagedObject {
+  
 }

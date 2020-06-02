@@ -20,7 +20,8 @@ extension Exercise {
   @NSManaged public var position: Int16
   @NSManaged public var sets: NSSet?
   @NSManaged public var workout: Workout?
-  
+  @NSManaged public var meta: ExerciseTemplate
+
   public var exerciseSetArray: [ExerciseSet] {
     let set = sets as? Set<ExerciseSet> ?? []
     

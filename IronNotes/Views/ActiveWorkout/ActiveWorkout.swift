@@ -27,7 +27,7 @@ struct ActiveWorkout: View {
       .background(SwiftUI.Color.gray
         .opacity(0.2)
         .edgesIgnoringSafeArea(.all))
-      .navigationBarTitle(Text(workout.name), displayMode: .large)
+      .navigationBarTitle(Text(workout.meta.name), displayMode: .large)
   }
   
 }
@@ -35,14 +35,19 @@ struct ActiveWorkout: View {
 struct ActiveWorkout_Previews: PreviewProvider {
   static var previews: some View {
     let workout = Workout(context: AppDelegate.viewContext)
+    let workoutMeta = WorkoutTemplate(context: AppDelegate.viewContext)
+
     
-    workout.name = "Extra Test Workout"
-    workout.desc = "Really good workout!"
-    workout.iconName = "barbell"
+    workoutMeta.name = "Extra Test Workout"
+    workoutMeta.desc = "Really good workout!"
+    workoutMeta.iconName = "barbell"
+    workout.meta = workoutMeta
     workout.startTime = Date()
     
     let exercise = Exercise(context: AppDelegate.viewContext)
-    exercise.name = "Bench Press"
+    let exerciseMeta = ExerciseTemplate(context: AppDelegate.viewContext)
+    exerciseMeta.name = "Bench Press"
+    exercise.meta = exerciseMeta
     exercise.position = 0
     
     let exerciseSet = ExerciseSet(context: AppDelegate.viewContext)
@@ -60,7 +65,10 @@ struct ActiveWorkout_Previews: PreviewProvider {
     workout.addToRoutines(exercise)
     
     let exercise2 = Exercise(context: AppDelegate.viewContext)
-    exercise2.name = "Shoulder Press"
+    let exerciseMeta2 = ExerciseTemplate(context: AppDelegate.viewContext)
+
+    exerciseMeta2.name = "Shoulder Press"
+    exercise2.meta = exerciseMeta2
     exercise2.position = 1
     
     let exerciseSet2 = ExerciseSet(context: AppDelegate.viewContext)
@@ -85,7 +93,7 @@ struct ActiveWorkoutSectionHeader: View {
     let setTotal = exercise.exerciseSetArray.count
     
     return HStack {
-      Text(exercise.name)
+      Text(exercise.meta.name)
       Spacer()
       Text("\(setTotal) Set\(setTotal == 1 ? "" : "s")")
     }

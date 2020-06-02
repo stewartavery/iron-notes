@@ -10,7 +10,7 @@
 import Foundation
 import CoreData
 
-public class Workout: WorkoutTemplate {
+public class Workout: NSManagedObject {
   func dayDifference(from date : Date) -> String {
     let calendar = Calendar.current
     if calendar.isDateInYesterday(date) { return "Yesterday" }

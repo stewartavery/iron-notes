@@ -14,12 +14,12 @@ struct WorkoutRow: View {
   
   var body: some View {
     HStack {
-      RowImage(iconName: self.workout.iconName)
+      RowImage(iconName: self.workout.meta.iconName)
       
       VStack(alignment: .leading) {
-        Text(verbatim: self.workout.name)
+        Text(verbatim: self.workout.meta.name)
           .font(.headline)
-        Text(verbatim: self.workout.desc)
+        Text(verbatim: self.workout.meta.desc)
           .font(.subheadline)
         Text(verbatim: self.getWorkoutDate())
           .font(.subheadline)
@@ -42,9 +42,11 @@ struct WorkoutRow_Previews: PreviewProvider {
   static var previews: some View {
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let workout = Workout(context: context)
-    workout.name = "Test"
-    workout.iconName = "barbell"
-    workout.desc = "Test Description"
+    let workoutMeta = WorkoutTemplate(context: context)
+    workoutMeta.name = "Test"
+    workoutMeta.iconName = "barbell"
+    workoutMeta.desc = "Test Description"
+    workout.meta = workoutMeta
     workout.startTime = Date()
     workout.routines = []
     

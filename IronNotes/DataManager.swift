@@ -25,7 +25,7 @@ class DataManager {
   }
   
   private static func deleteDefaultEntities() {
-    deleteAllData("Exercise")
+    deleteAllData("ExerciseTemplate")
     deleteAllData("MuscleGroup")
   }
   

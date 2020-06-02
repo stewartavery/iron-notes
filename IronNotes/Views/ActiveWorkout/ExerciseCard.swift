@@ -15,7 +15,7 @@ struct ExerciseCard: View {
    
   var body: some View {
     VStack(alignment: .leading) {
-      Text(exercise.name)
+      Text(exercise.meta.name)
         .font(.headline)
         .foregroundColor(Color.orange)
         .padding(.bottom, 20)
@@ -50,7 +50,9 @@ struct ExerciseCard: View {
 struct ExerciseCard_Previews: PreviewProvider {
   static var previews: some View {
     let exercise = Exercise(context: AppDelegate.viewContext)
-    exercise.name = "Test"
+    let exerciseMeta = ExerciseTemplate(context: AppDelegate.viewContext)
+    exerciseMeta.name = "Test"
+    exercise.meta = exerciseMeta
     exercise.position = 0
     
     let exerciseSet = ExerciseSet(context: AppDelegate.viewContext)

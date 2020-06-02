@@ -21,6 +21,7 @@ extension Workout {
   @NSManaged public var note: String?
   @NSManaged public var startTime: Date
   @NSManaged public var routines: NSSet?
+  @NSManaged public var meta: WorkoutTemplate
 
   public var routinesArray: [Exercise] {
     let set = routines as? Set<Exercise> ?? []

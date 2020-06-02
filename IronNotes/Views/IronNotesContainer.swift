@@ -57,14 +57,18 @@ struct IronNotesContainer_Previews: PreviewProvider {
   static var previews: some View {
     
     let workout = Workout(context: AppDelegate.viewContext)
+    let workoutMeta = WorkoutTemplate(context: AppDelegate.viewContext)
     
-    workout.name = "Test Workout"
-    workout.desc = "Really good workout!"
-    workout.iconName = "barbell"
+    workoutMeta.name = "Test Workout"
+    workoutMeta.desc = "Really good workout!"
+    workoutMeta.iconName = "barbell"
+    workout.meta = workoutMeta
     workout.startTime = Date()
     
     let exercise = Exercise(context: AppDelegate.viewContext)
-    exercise.name = "Test"
+    let exerciseMeta = ExerciseTemplate(context: AppDelegate.viewContext)
+    exerciseMeta.name = "Test"
+    exercise.meta = exerciseMeta
     exercise.position = 0
     
     let exerciseSet = ExerciseSet(context: AppDelegate.viewContext)
@@ -76,7 +80,10 @@ struct IronNotesContainer_Previews: PreviewProvider {
     workout.addToRoutines(exercise)
     
     let exercise2 = Exercise(context: AppDelegate.viewContext)
-    exercise2.name = "Test 2"
+    let exerciseMeta2 = ExerciseTemplate(context: AppDelegate.viewContext)
+
+    exerciseMeta2.name = "Test 2"
+    exercise2.meta = exerciseMeta2
     exercise2.position = 1
     
     let exerciseSet2 = ExerciseSet(context: AppDelegate.viewContext)
