@@ -1,5 +1,5 @@
 //
-//  NewWorkout.swift
+//  NewExercise.swift
 //  IronNotes
 //
 //  Created by Stewart Avery on 3/25/20.
@@ -11,13 +11,13 @@ import SwiftUI
 
 struct NewExercise: View {
   @Binding var isPresented: Bool
-    
+  
   @State private var name: String = ""
   @State private var description: String = ""
   @State private var exerciseType: ExerciseType = ExerciseType.barbell
   
   @ObservedObject var selectedMuscleGroups = SelectedMuscleGroups()
-
+  
   var body: some View {
     NavigationView {
       VStack {
@@ -38,7 +38,7 @@ struct NewExercise: View {
               Text("Muscle Groups")
             }
           }
-        }.onAppear() { self.onAppear() }
+        }
       }
       .navigationBarTitle(Text("New Exercise"), displayMode: .inline)
       .navigationBarItems(leading:
@@ -51,13 +51,13 @@ struct NewExercise: View {
   }
   
   func onComplete() {
-    ExerciseTemplate.createExerciseTemplateFor(name: self.name, desc: self.description, muscleGroups: self.selectedMuscleGroups.muscleGroups, exerciseType: self.exerciseType)
+    ExerciseTemplate.createExerciseTemplateFor(
+      name: self.name,
+      desc: self.description,
+      muscleGroups: self.selectedMuscleGroups.muscleGroups,
+      exerciseType: self.exerciseType
+    )
     self.isPresented.toggle()
-  }
-  
-  func onAppear() {
-    UITableView.appearance().tableFooterView = UIView()
-    UITableView.appearance().separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
   }
   
   func dirty() -> Bool {

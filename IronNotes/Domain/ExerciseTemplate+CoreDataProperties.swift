@@ -22,7 +22,8 @@ extension ExerciseTemplate {
   @NSManaged public var name: String
   @NSManaged public var muscleGroups: NSSet?
   @NSManaged public var exercises: NSSet?
-  
+  @NSManaged public var workoutTemplates: NSSet?
+
   
 }
 
@@ -58,4 +59,21 @@ extension ExerciseTemplate {
   @objc(removeExercises:)
   @NSManaged public func removeFromExercises(_ values: NSSet)
   
+}
+
+// MARK: Generated accessors for workoutTemplates
+extension ExerciseTemplate {
+
+    @objc(addWorkoutTemplatesObject:)
+    @NSManaged public func addToWorkoutTemplates(_ value: WorkoutTemplate)
+
+    @objc(removeWorkoutTemplatesObject:)
+    @NSManaged public func removeFromWorkoutTemplates(_ value: WorkoutTemplate)
+
+    @objc(addWorkoutTemplates:)
+    @NSManaged public func addToWorkoutTemplates(_ values: NSSet)
+
+    @objc(removeWorkoutTemplates:)
+    @NSManaged public func removeFromWorkoutTemplates(_ values: NSSet)
+
 }

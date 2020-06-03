@@ -22,6 +22,8 @@
 		654EEC02241B2066006C917A /* ExerciseCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654EEC01241B2066006C917A /* ExerciseCard.swift */; };
 		655D291A246E31D90022C241 /* MuscleGroupPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655D2919246E31D90022C241 /* MuscleGroupPicker.swift */; };
 		655D291C246E3C920022C241 /* SelectedMuscleGroups.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655D291B246E3C920022C241 /* SelectedMuscleGroups.swift */; };
+		6574530D2487456700DD76B6 /* AddExercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6574530C2487456700DD76B6 /* AddExercise.swift */; };
+		6574530F24874BAC00DD76B6 /* WorkoutImageModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6574530E24874BAC00DD76B6 /* WorkoutImageModifier.swift */; };
 		65789B60240DEE37000ABE40 /* StartWorkoutList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65789B5F240DEE37000ABE40 /* StartWorkoutList.swift */; };
 		65789B79240DF2BA000ABE40 /* ExerciseSet+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65789B75240DF2BA000ABE40 /* ExerciseSet+CoreDataClass.swift */; };
 		65789B84240F4686000ABE40 /* ExerciseSet+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65789B82240F4686000ABE40 /* ExerciseSet+CoreDataProperties.swift */; };
@@ -57,6 +59,8 @@
 		654EEC01241B2066006C917A /* ExerciseCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCard.swift; sourceTree = "<group>"; };
 		655D2919246E31D90022C241 /* MuscleGroupPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuscleGroupPicker.swift; sourceTree = "<group>"; };
 		655D291B246E3C920022C241 /* SelectedMuscleGroups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedMuscleGroups.swift; sourceTree = "<group>"; };
+		6574530C2487456700DD76B6 /* AddExercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExercise.swift; sourceTree = "<group>"; };
+		6574530E24874BAC00DD76B6 /* WorkoutImageModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutImageModifier.swift; sourceTree = "<group>"; };
 		65789B5F240DEE37000ABE40 /* StartWorkoutList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StartWorkoutList.swift; path = IronNotes/StartWorkoutList.swift; sourceTree = SOURCE_ROOT; };
 		65789B75240DF2BA000ABE40 /* ExerciseSet+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExerciseSet+CoreDataClass.swift"; sourceTree = "<group>"; };
 		65789B82240F4686000ABE40 /* ExerciseSet+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExerciseSet+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -100,6 +104,7 @@
 				652FB8C722F112EB0091D3D4 /* AddWorkoutRow.swift */,
 				6514CB9922FE5075002907BC /* RowImage.swift */,
 				6510C76F22E5401600A0DDE2 /* WorkoutRow.swift */,
+				6574530E24874BAC00DD76B6 /* WorkoutImageModifier.swift */,
 			);
 			path = StartWorkoutList;
 			sourceTree = "<group>";
@@ -151,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				6544A4EF23FA1ECB0039D705 /* NewWorkout.swift */,
+				6574530C2487456700DD76B6 /* AddExercise.swift */,
 			);
 			path = ConfigureWorkout;
 			sourceTree = "<group>";
@@ -313,11 +319,13 @@
 				65D61AFE247A25AD00A5B561 /* ExerciseTemplate+CoreDataClass.swift in Sources */,
 				65F4CCF62464E8610000F786 /* MuscleGroup+CoreDataClass.swift in Sources */,
 				65D61B02247A274200A5B561 /* Exercise+CoreDataClass.swift in Sources */,
+				6574530F24874BAC00DD76B6 /* WorkoutImageModifier.swift in Sources */,
 				65D61B1224849BBD00A5B561 /* WorkoutTemplate+CoreDataClass.swift in Sources */,
 				65D61AFF247A25AD00A5B561 /* ExerciseTemplate+CoreDataProperties.swift in Sources */,
 				65789B60240DEE37000ABE40 /* StartWorkoutList.swift in Sources */,
 				6514CB9A22FE5075002907BC /* RowImage.swift in Sources */,
 				655D291C246E3C920022C241 /* SelectedMuscleGroups.swift in Sources */,
+				6574530D2487456700DD76B6 /* AddExercise.swift in Sources */,
 				65D61B1324849BBD00A5B561 /* WorkoutTemplate+CoreDataProperties.swift in Sources */,
 				6544A4F423FA20AB0039D705 /* ExerciseType.swift in Sources */,
 				65789B84240F4686000ABE40 /* ExerciseSet+CoreDataProperties.swift in Sources */,

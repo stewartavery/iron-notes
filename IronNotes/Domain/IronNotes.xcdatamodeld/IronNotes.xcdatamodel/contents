@@ -18,6 +18,7 @@
         <attribute name="name" attributeType="String" defaultValueString=""/>
         <relationship name="exercises" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Exercise" inverseName="meta" inverseEntity="Exercise"/>
         <relationship name="muscleGroups" toMany="YES" deletionRule="Nullify" destinationEntity="MuscleGroup" inverseName="exercises" inverseEntity="MuscleGroup"/>
+        <relationship name="workoutTemplates" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WorkoutTemplate" inverseName="defaultExerciseTemplates" inverseEntity="WorkoutTemplate"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="name"/>
@@ -39,6 +40,7 @@
         <attribute name="desc" attributeType="String" defaultValueString=""/>
         <attribute name="iconName" attributeType="String" defaultValueString="&quot;barbell&quot;"/>
         <attribute name="name" attributeType="String" defaultValueString=""/>
+        <relationship name="defaultExerciseTemplates" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ExerciseTemplate" inverseName="workoutTemplates" inverseEntity="ExerciseTemplate"/>
         <relationship name="workouts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Workout" inverseName="meta" inverseEntity="Workout"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
@@ -49,9 +51,9 @@
     <elements>
         <element name="Exercise" positionX="60.08984375" positionY="-15.6640625" width="128" height="103"/>
         <element name="ExerciseSet" positionX="11.875" positionY="161.109375" width="128" height="103"/>
-        <element name="ExerciseTemplate" positionX="18.78125" positionY="-177.859375" width="128" height="118"/>
+        <element name="ExerciseTemplate" positionX="18.78125" positionY="-177.859375" width="128" height="133"/>
         <element name="MuscleGroup" positionX="-214.33984375" positionY="12.1484375" width="119.08203125" height="73"/>
         <element name="Workout" positionX="-108" positionY="-27" width="128" height="118"/>
-        <element name="WorkoutTemplate" positionX="-274.30859375" positionY="-161.59375" width="128" height="103"/>
+        <element name="WorkoutTemplate" positionX="-274.30859375" positionY="-161.59375" width="128" height="118"/>
     </elements>
 </model>

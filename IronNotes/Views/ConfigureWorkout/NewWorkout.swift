@@ -13,6 +13,8 @@ struct NewWorkout: View {
   
   @State var name: String = ""
   @State var description: String = ""
+  @State var isAddExerciseVisible = false
+  
   var body: some View {
     NavigationView {
       VStack {
@@ -21,19 +23,38 @@ struct NewWorkout: View {
             TextField("Workout name", text: $name)
             TextField("Description", text: $description)
           }
-          Section {
-            TextField("Other", text: $name)
+          List {
+            Button(action: {
+              self.isAddExerciseVisible.toggle()
+            }) {
+              HStack {
+                Image(systemName: "plus.circle.fill").foregroundColor(Color.green)
+                Text("Add Exercise").foregroundColor(Color.orange).padding(.leading, 10)
+              }
+            }
           }
         }
       }
-      .navigationBarTitle(Text("New Workout"), displayMode: .inline)
-      .navigationBarItems(leading:
-        Button("Close") {
-          self.isPresented.toggle()
-        },trailing: Button("Done") {
-          self.isPresented.toggle()
+      .sheet(
+        isPresented: $isAddExerciseVisible,
+        content: {
+          AddExercise(isPresented: self.$isAddExerciseVisible)
+            .environment(\.managedObjectContext, AppDelegate.viewContext)
       })
+        .navigationBarTitle(Text("New Workout"), displayMode: .inline)
+        .navigationBarItems(leading:
+          Button("Close") {
+            self.isPresented.toggle()
+          },trailing: Button("Done") {
+            self.isPresented.toggle()
+        })
+        .onAppear(perform: resetTableView)
+      
     }
+  }
+  func resetTableView() {
+    UITableView.appearance().tableFooterView = UIView()
+    UITableView.appearance().separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
   }
 }
 

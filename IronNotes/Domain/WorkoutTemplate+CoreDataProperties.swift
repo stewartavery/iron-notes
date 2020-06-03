@@ -21,6 +21,7 @@ extension WorkoutTemplate {
   @NSManaged public var iconName: String
   @NSManaged public var name: String
   @NSManaged public var workouts: NSSet?
+  @NSManaged public var defaultExerciseTemplates: NSSet?
   
   public var workoutSetArray: [Workout] {
      let set = workouts as? Set<Workout> ?? []
@@ -29,8 +30,15 @@ extension WorkoutTemplate {
        $0.startTime > $1.startTime
      }
    }
-   
   
+  public var defaultExerciseTemplatesArray: [ExerciseTemplate] {
+      let set = defaultExerciseTemplates as? Set<ExerciseTemplate> ?? []
+      
+      return set.sorted {
+        $0.name > $1.name
+      }
+    }
+   
 }
 
 
@@ -49,4 +57,21 @@ extension WorkoutTemplate {
   @objc(removeWorkouts:)
   @NSManaged public func removeFromWorkouts(_ values: NSSet)
   
+}
+
+// MARK: Generated accessors for defaultExerciseTemplates
+extension WorkoutTemplate {
+
+    @objc(addDefaultExerciseTemplatesObject:)
+    @NSManaged public func addToDefaultExerciseTemplates(_ value: ExerciseTemplate)
+
+    @objc(removeDefaultExerciseTemplatesObject:)
+    @NSManaged public func removeFromDefaultExerciseTemplates(_ value: ExerciseTemplate)
+
+    @objc(addDefaultExerciseTemplates:)
+    @NSManaged public func addToDefaultExerciseTemplates(_ values: NSSet)
+
+    @objc(removeDefaultExerciseTemplates:)
+    @NSManaged public func removeFromDefaultExerciseTemplates(_ values: NSSet)
+
 }

@@ -12,16 +12,8 @@ struct RowImage: View {
   var iconName: String
   
   var body: some View {
-    Image(self.iconName)
-      .resizable()
-      .frame(width: 50, height: 50)
-      .padding()
-      .clipShape(RoundedRectangle(cornerRadius: 5))
-      .overlay(
-        RoundedRectangle(cornerRadius: 5)
-          .stroke(lineWidth: 0.5)
-          .foregroundColor(Color.gray)
-    )
+    Image(iconName)
+      .workoutImageModifier()
   }
 }
 #if DEBUG

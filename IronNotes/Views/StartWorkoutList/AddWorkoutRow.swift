@@ -11,8 +11,9 @@ import SwiftUI
 struct AddWorkoutRow: View {
   var body: some View {
     HStack {
-      RowImage(iconName: "add")
-      
+      Image(systemName: "plus")
+        .workoutImageModifier()
+        .foregroundColor(Color.orange)
       VStack(alignment: .leading) {
         Text("Add Workout...")
           .foregroundColor(Color.orange)

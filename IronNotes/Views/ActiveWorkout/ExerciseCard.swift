@@ -56,7 +56,7 @@ struct ExerciseCard_Previews: PreviewProvider {
     exercise.position = 0
     
     let exerciseSet = ExerciseSet(context: AppDelegate.viewContext)
-    exerciseSet.setPosition=0
+    exerciseSet.setPosition = 0
     exerciseSet.reps = 3
     exerciseSet.weight = 135
     exercise.addToSets(exerciseSet)
