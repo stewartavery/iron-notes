@@ -24,6 +24,7 @@ struct ExerciseCard: View {
       ForEach(exercise.exerciseSetArray, id: \.self) { exerciseSet in
         VStack {
           HStack {
+            CompletionCircle()
             VStack(alignment: .leading) {
               Text(String(exerciseSet.weight) + " lbs")
                 .font(.subheadline)

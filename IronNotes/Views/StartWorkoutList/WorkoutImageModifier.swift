@@ -17,7 +17,7 @@ extension Image {
       .clipShape(RoundedRectangle(cornerRadius: 5))
       .overlay(
         RoundedRectangle(cornerRadius: 5)
-          .stroke(lineWidth: 0.5)
+          .stroke(lineWidth: 0.3)
           .foregroundColor(Color.gray)
     )
   }
