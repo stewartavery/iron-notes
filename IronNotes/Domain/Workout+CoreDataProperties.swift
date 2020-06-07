@@ -18,7 +18,7 @@ extension Workout {
   }
   
   @NSManaged public var duration: Int16
-  @NSManaged public var note: String?
+  @NSManaged public var note: String
   @NSManaged public var startTime: Date
   @NSManaged public var routines: NSSet?
   @NSManaged public var meta: WorkoutTemplate

@@ -42,6 +42,7 @@ struct ActiveWorkout_Previews: PreviewProvider {
     workoutMeta.desc = "Really good workout!"
     workoutMeta.iconName = "barbell"
     workout.meta = workoutMeta
+    workout.note = "This is an example of a relevant note to Bench Pressing."
     workout.startTime = Date()
     
     let exercise = Exercise(context: AppDelegate.viewContext)

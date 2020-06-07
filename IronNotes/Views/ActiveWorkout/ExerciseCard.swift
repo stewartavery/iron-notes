@@ -12,34 +12,51 @@ struct ExerciseCard: View {
   
   
   var exercise: Exercise
-   
+  
   var body: some View {
     VStack(alignment: .leading) {
       Text(exercise.meta.name)
         .font(.headline)
         .foregroundColor(Color.orange)
-        .padding(.bottom, 20)
+        .padding(.bottom, 15)
       
+      Text("Here is where a useful note would go.")
+        .font(.callout)
       
+      Divider()
       ForEach(exercise.exerciseSetArray, id: \.self) { exerciseSet in
         VStack {
           HStack {
-            CompletionCircle()
-            VStack(alignment: .leading) {
-              Text(String(exerciseSet.weight) + " lbs")
-                .font(.subheadline)
-              VStack(alignment: .trailing) {
-                Text(String(exerciseSet.reps) + " Reps")
-                  .font(.subheadline)
-              }
+            VStack {
+              CompletionCircle().padding(.top, 4)
+              Spacer()
             }
-            Spacer()
-          }
+            VStack {
+              HStack(alignment: .firstTextBaseline, spacing: 2) {
+                Text(String(exerciseSet.weight))
+                  .font(.headline)
+                Text("lbs")
+                  .font(.caption)
+                  .foregroundColor(Color.gray)
+                
+                Spacer()
+                
+                Text(String(exerciseSet.reps))
+                  .font(.headline)
+                Text("reps")
+                  .font(.caption)
+                  .foregroundColor(Color.gray)
+              }
+              Spacer()
+              RoundedRectangle(cornerRadius: 5)
+                .foregroundColor(Color.orange)
+            }
+          }.padding(.bottom, 20)
+            .padding(.top, 10)
           Divider()
-          
         }
         
-      }.frame(height: 60)
+      }.frame(height: 80)
     }
     .padding()
     .background(Color.white)
