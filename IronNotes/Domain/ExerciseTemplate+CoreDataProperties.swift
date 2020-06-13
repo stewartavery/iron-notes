@@ -18,10 +18,10 @@ extension ExerciseTemplate {
   }
   
   @NSManaged public var desc: String
-  @NSManaged public var exerciseType: String
-  @NSManaged public var name: String
-  @NSManaged public var muscleGroups: NSSet?
   @NSManaged public var exercises: NSSet?
+  @NSManaged public var exerciseType: String
+  @NSManaged public var muscleGroups: NSSet?
+  @NSManaged public var name: String
   @NSManaged public var workoutTemplates: NSSet?
 
   
