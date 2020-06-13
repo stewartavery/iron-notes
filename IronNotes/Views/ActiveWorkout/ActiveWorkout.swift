@@ -50,6 +50,7 @@ struct ActiveWorkout_Previews: PreviewProvider {
     exerciseMeta.name = "Bench Press"
     exercise.meta = exerciseMeta
     exercise.position = 0
+    exercise.note = "This is a useful note for Bench Pressing."
     
     let exerciseSet = ExerciseSet(context: AppDelegate.viewContext)
     exerciseSet.setPosition = 0
@@ -71,6 +72,7 @@ struct ActiveWorkout_Previews: PreviewProvider {
     exerciseMeta2.name = "Shoulder Press"
     exercise2.meta = exerciseMeta2
     exercise2.position = 1
+    exercise2.note = "Hurt my shoulder last time, focus on form."
     
     let exerciseSet2 = ExerciseSet(context: AppDelegate.viewContext)
     exerciseSet2.setPosition = 0

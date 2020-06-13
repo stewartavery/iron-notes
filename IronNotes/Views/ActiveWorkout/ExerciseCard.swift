@@ -20,43 +20,43 @@ struct ExerciseCard: View {
         .foregroundColor(Color.orange)
         .padding(.bottom, 15)
       
-      Text("Here is where a useful note would go.")
+      Text(exercise.note)
         .font(.callout)
       
       Divider()
       ForEach(exercise.exerciseSetArray, id: \.self) { exerciseSet in
         VStack {
-          HStack {
-            VStack {
-              CompletionCircle().padding(.top, 4)
-              Spacer()
+          Spacer()
+          HStack(alignment: .firstTextBaseline, spacing: 8) {
+            CompletionCircle()
+            HStack(alignment: .firstTextBaseline, spacing: 2) {
+              
+              Text(String(exerciseSet.weight))
+                .font(.headline)
+              Text("lbs")
+                .font(.caption)
+                .foregroundColor(Color.gray)
             }
-            VStack {
-              HStack(alignment: .firstTextBaseline, spacing: 2) {
-                Text(String(exerciseSet.weight))
-                  .font(.headline)
-                Text("lbs")
-                  .font(.caption)
-                  .foregroundColor(Color.gray)
-                
-                Spacer()
-                
-                Text(String(exerciseSet.reps))
-                  .font(.headline)
-                Text("reps")
-                  .font(.caption)
-                  .foregroundColor(Color.gray)
-              }
-              Spacer()
-              RoundedRectangle(cornerRadius: 5)
-                .foregroundColor(Color.orange)
+            
+            Image(systemName: "multiply")
+              .foregroundColor(Color.gray)
+            
+            HStack(alignment: .firstTextBaseline, spacing: 2) {
+              Text(String(exerciseSet.reps))
+                .font(.headline)
+              Text("reps")
+                .font(.caption)
+                .foregroundColor(Color.gray)
             }
-          }.padding(.bottom, 20)
-            .padding(.top, 10)
+            Spacer()
+            
+          }
+          Spacer()
           Divider()
         }
         
-      }.frame(height: 80)
+      }
+      .frame(height: 50)
     }
     .padding()
     .background(Color.white)
