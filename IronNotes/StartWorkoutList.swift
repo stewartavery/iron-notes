@@ -12,7 +12,7 @@ struct StartWorkoutList : View {
   @Environment(\.managedObjectContext) var moc
   @FetchRequest(entity: Workout.entity(), sortDescriptors: []) var workouts: FetchedResults<Workout>
   @State var isCreateViewVisible = false
-  
+
   var body: some View {
     NavigationView {
       List {
@@ -20,7 +20,6 @@ struct StartWorkoutList : View {
           NavigationLink(destination: ActiveWorkout(workout: workout)) {
             WorkoutRow(workout: workout)
           }
-          .listRowInsets(EdgeInsets(top: 23, leading: 0, bottom: 0, trailing: 0))
         }
         
         Button(action: {

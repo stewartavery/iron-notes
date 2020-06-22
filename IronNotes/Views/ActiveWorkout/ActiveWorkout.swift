@@ -9,25 +9,44 @@
 import SwiftUI
 import CoreData
 
+struct RefreshView: View {
+  var toggle: Bool
+  
+  var body: some View {
+    EmptyView()
+  }
+}
+
 struct ActiveWorkout: View {
   var workout: Workout
+  @State var refreshing = false
   
   var body: some View {
     ScrollView {
       VStack(alignment: .leading) {
         Text("Exercises")
           .font(.system(size: 22, weight: .bold))
+          .padding(.leading)
           .padding(.bottom, 5)
         
         ForEach(workout.routinesArray, id: \.self) { exercise in
-          ExerciseCard(exercise: exercise).padding(.bottom, 5)
+          ExerciseCard(
+            exercise: exercise,
+            workout: self.workout,
+            refreshing: self.$refreshing
+          )
+            .padding(.leading)
+            .padding(.trailing)
+            .padding(.bottom, 20)
         }
+        
       }
-    }.padding(20)
-      .background(SwiftUI.Color.gray
-        .opacity(0.2)
-        .edgesIgnoringSafeArea(.all))
-      .navigationBarTitle(Text(workout.meta.name), displayMode: .large)
+
+    }
+    .background(RefreshView(toggle: self.refreshing))
+    .navigationBarTitle(Text(workout.meta.name), displayMode: .large)
+    .padding(.leading, 5)
+    .padding(.trailing, 5)
   }
   
 }
@@ -36,7 +55,6 @@ struct ActiveWorkout_Previews: PreviewProvider {
   static var previews: some View {
     let workout = Workout(context: AppDelegate.viewContext)
     let workoutMeta = WorkoutTemplate(context: AppDelegate.viewContext)
-
     
     workoutMeta.name = "Extra Test Workout"
     workoutMeta.desc = "Really good workout!"
@@ -68,7 +86,7 @@ struct ActiveWorkout_Previews: PreviewProvider {
     
     let exercise2 = Exercise(context: AppDelegate.viewContext)
     let exerciseMeta2 = ExerciseTemplate(context: AppDelegate.viewContext)
-
+    
     exerciseMeta2.name = "Shoulder Press"
     exercise2.meta = exerciseMeta2
     exercise2.position = 1
@@ -84,7 +102,7 @@ struct ActiveWorkout_Previews: PreviewProvider {
     
     return NavigationView {
       ActiveWorkout(workout: workout)
-    }
+    }.navigationViewStyle(StackNavigationViewStyle())
   }
 }
 

@@ -27,6 +27,8 @@ class DataManager {
   private static func deleteDefaultEntities() {
     deleteAllData("ExerciseTemplate")
     deleteAllData("MuscleGroup")
+    deleteAllData("WorkoutTemplate")
+    deleteAllData("Workout")
   }
   
   static func setupDefaultData() {
@@ -253,7 +255,59 @@ class DataManager {
       exerciseType: ExerciseType.bodyweight
     )
     
-//    try! AppDelegate.viewContext.save()
+    /** Workouts */
+    
+    let workout = Workout(context: AppDelegate.viewContext)
+    let workoutMeta = WorkoutTemplate(context: AppDelegate.viewContext)
+    
+    
+    workoutMeta.name = "Push"
+    workoutMeta.desc = "Chest, Shoulders, Triceps"
+    workoutMeta.iconName = "barbell"
+    workout.meta = workoutMeta
+    workout.note = "This is an example of a relevant note to Bench Pressing."
+    workout.startTime = Date()
+    
+    let exercise = Exercise(context: AppDelegate.viewContext)
+    let exerciseMeta = ExerciseTemplate(context: AppDelegate.viewContext)
+    exerciseMeta.name = "Bench Presss"
+    exerciseMeta.exerciseType = "barbell"
+    exercise.meta = exerciseMeta
+    exercise.position = 0
+    exercise.note = "This is a useful note for Bench Pressing."
+    
+    let exerciseSet = ExerciseSet(context: AppDelegate.viewContext)
+    exerciseSet.setPosition = 0
+    exerciseSet.reps = 3
+    exerciseSet.weight = 135
+    exercise.addToSets(exerciseSet)
+    
+    let exerciseSet5 = ExerciseSet(context: AppDelegate.viewContext)
+    exerciseSet5.setPosition = 1
+    exerciseSet5.reps = 3
+    exerciseSet5.weight = 225
+    exercise.addToSets(exerciseSet5)
+    
+    workout.addToRoutines(exercise)
+    
+    let exercise2 = Exercise(context: AppDelegate.viewContext)
+    let exerciseMeta2 = ExerciseTemplate(context: AppDelegate.viewContext)
+    
+    exerciseMeta2.name = "Shoulder Presss"
+    exerciseMeta2.exerciseType = "barbell"
+    exercise2.meta = exerciseMeta2
+    exercise2.position = 1
+    exercise2.note = "Hurt my shoulder last time, focus on form."
+    
+    let exerciseSet2 = ExerciseSet(context: AppDelegate.viewContext)
+    exerciseSet2.setPosition = 0
+    exerciseSet2.reps = 5
+    exerciseSet2.weight = 39
+    exercise2.addToSets(exerciseSet2)
+    
+    workout.addToRoutines(exercise2)
+    
+        try! AppDelegate.viewContext.save()
     
   }
 }

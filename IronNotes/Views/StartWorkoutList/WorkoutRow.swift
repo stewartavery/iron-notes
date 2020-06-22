@@ -49,7 +49,7 @@ struct WorkoutRow_Previews: PreviewProvider {
     workout.meta = workoutMeta
     workout.startTime = Date()
     workout.routines = []
-    
+        
     return WorkoutRow(workout: workout)
   }
 }
