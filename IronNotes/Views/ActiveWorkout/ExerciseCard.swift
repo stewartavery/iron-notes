@@ -12,9 +12,8 @@ struct ExerciseCard: View {
   
   var exercise: Exercise
   var workout: Workout
-  @Binding var refreshing: Bool
-  @State private var showDetail = false
 
+  @State private var showDetail = false
   
   var body: some View {
     VStack {
@@ -53,7 +52,6 @@ struct ExerciseCard: View {
                   .foregroundColor(Color.gray)
               }
               Spacer()
-              
             }
             Spacer()
             Divider()
@@ -98,13 +96,10 @@ struct ExerciseCard: View {
     self.workout.managedObjectContext?.refresh(self.workout, mergeChanges: true)
     
     try? AppDelegate.viewContext.save()
-    
-    self.refreshing.toggle()
   }
 }
 
 struct ExerciseCard_Previews: PreviewProvider {
-  @State static var refreshing = false
   static var previews: some View {
     let workout = Workout(context: AppDelegate.viewContext)
     let workoutMeta = WorkoutTemplate(context: AppDelegate.viewContext)
@@ -139,7 +134,7 @@ struct ExerciseCard_Previews: PreviewProvider {
     
     workout.addToRoutines(exercise)
     
-    return ExerciseCard(exercise: exercise, workout: workout, refreshing: $refreshing)
+    return ExerciseCard(exercise: exercise, workout: workout)
     
   }
 }

@@ -13,6 +13,7 @@ struct StartWorkoutList : View {
   @FetchRequest(entity: Workout.entity(), sortDescriptors: []) var workouts: FetchedResults<Workout>
   @State var isCreateViewVisible = false
 
+
   var body: some View {
     NavigationView {
       List {
@@ -21,28 +22,27 @@ struct StartWorkoutList : View {
             WorkoutRow(workout: workout)
           }
         }
-        
         Button(action: {
           self.isCreateViewVisible.toggle()
         }) { AddWorkoutRow() }
       }
       .sheet(isPresented: $isCreateViewVisible, content: { NewWorkout(isPresented: self.$isCreateViewVisible) })
-      .onAppear(perform: setupCustomTableView)
-      .navigationBarTitle("Start Your Workout", displayMode: .large)
+//      .onAppear(perform: setupCustomTableView)
+      .navigationBarTitle("Workouts", displayMode: .large)
       .accentColor(Color.green)
-      .onDisappear(perform: resetTableView)
+//      .onDisappear(perform: resetTableView)
     }
   }
   
-  func setupCustomTableView() {
-    UITableView.appearance().tableFooterView = UIView()
-    UITableView.appearance().separatorInset = UIEdgeInsets(top: 0, left: 135, bottom: 0, right: 0)
-  }
-  
-  func resetTableView() {
-    UITableView.appearance().tableFooterView = UIView()
-    UITableView.appearance().separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
-  }
+//  func setupCustomTableView() {
+//    UITableView.appearance().tableFooterView = UIView()
+//    UITableView.appearance().separatorInset = UIEdgeInsets(top: 0, left: 135, bottom: 0, right: 0)
+//  }
+//
+//  func resetTableView() {
+//    UITableView.appearance().tableFooterView = UIView()
+//    UITableView.appearance().separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
+//  }
 }
 
 #if DEBUG

@@ -9,17 +9,8 @@
 import SwiftUI
 import CoreData
 
-struct RefreshView: View {
-  var toggle: Bool
-  
-  var body: some View {
-    EmptyView()
-  }
-}
-
 struct ActiveWorkout: View {
   var workout: Workout
-  @State var refreshing = false
   
   var body: some View {
     ScrollView {
@@ -32,18 +23,14 @@ struct ActiveWorkout: View {
         ForEach(workout.routinesArray, id: \.self) { exercise in
           ExerciseCard(
             exercise: exercise,
-            workout: self.workout,
-            refreshing: self.$refreshing
+            workout: self.workout
           )
-            .padding(.leading)
-            .padding(.trailing)
-            .padding(.bottom, 20)
+          .padding(.leading)
+          .padding(.trailing)
+          .padding(.bottom, 20)
         }
-        
       }
-
     }
-    .background(RefreshView(toggle: self.refreshing))
     .navigationBarTitle(Text(workout.meta.name), displayMode: .large)
     .padding(.leading, 5)
     .padding(.trailing, 5)
@@ -103,10 +90,9 @@ struct ActiveWorkout_Previews: PreviewProvider {
     return NavigationView {
       ActiveWorkout(workout: workout)
     }.navigationViewStyle(StackNavigationViewStyle())
+    
   }
 }
-
-
 
 struct ActiveWorkoutSectionHeader: View {
   var exercise: Exercise

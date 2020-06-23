@@ -18,9 +18,9 @@ struct ExerciseList: View {
   
   var body: some View {
     NavigationView {
-      List {
-        ForEach(exerciseTemplates, id: \.self) { exerciseTemplate in
-          Text(exerciseTemplate.name).font(.body)
+      List(exerciseTemplates, id: \.self) { exerciseTemplate in
+        NavigationLink(destination: ExerciseDetails()) {
+          Text(exerciseTemplate.name)
         }
       }
       .sheet(isPresented: $isCreateViewVisible, content: { NewExercise(isPresented: self.$isCreateViewVisible) })
@@ -40,16 +40,12 @@ struct ExerciseList: View {
           }
           .frame(minWidth: 100, minHeight: 100)
           .contentShape(Rectangle())
-      })
-        
-        .onAppear(perform: resetTableView)
+        })
+      
     }
   }
   
-  func resetTableView() {
-    UITableView.appearance().tableFooterView = UIView()
-    UITableView.appearance().separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
-  }
+  
 }
 
 
@@ -57,9 +53,6 @@ struct ExerciseList_Previews: PreviewProvider {
   static var previews: some View {
     ExerciseList()
       .environment(\.managedObjectContext, AppDelegate.viewContext)
-      .onAppear() {
-        
-    }
   }
 }
 

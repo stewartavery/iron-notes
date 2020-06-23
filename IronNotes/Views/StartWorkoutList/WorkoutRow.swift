@@ -11,6 +11,7 @@ import CoreData
 
 struct WorkoutRow: View {
   var workout: Workout
+
   
   var body: some View {
     HStack {
@@ -50,7 +51,10 @@ struct WorkoutRow_Previews: PreviewProvider {
     workout.startTime = Date()
     workout.routines = []
         
-    return WorkoutRow(workout: workout)
+    return Group {
+      WorkoutRow(workout: workout)
+      WorkoutRow(workout: workout)
+    }
   }
 }
 #endif
