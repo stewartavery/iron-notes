@@ -15,11 +15,6 @@ struct ActiveWorkout: View {
   var body: some View {
     ScrollView {
       VStack(alignment: .leading) {
-        Text("Exercises")
-          .font(.system(size: 22, weight: .bold))
-          .padding(.leading)
-          .padding(.bottom, 5)
-        
         ForEach(workout.routinesArray, id: \.self) { exercise in
           ExerciseCard(
             exercise: exercise,
@@ -27,8 +22,7 @@ struct ActiveWorkout: View {
           )
           .padding(.leading)
           .padding(.trailing)
-          .padding(.bottom, 20)
-        }
+        }.padding(.top, 10)
       }
     }
     .navigationBarTitle(Text(workout.meta.name), displayMode: .large)
@@ -91,18 +85,5 @@ struct ActiveWorkout_Previews: PreviewProvider {
       ActiveWorkout(workout: workout)
     }.navigationViewStyle(StackNavigationViewStyle())
     
-  }
-}
-
-struct ActiveWorkoutSectionHeader: View {
-  var exercise: Exercise
-  var body: some View {
-    let setTotal = exercise.exerciseSetArray.count
-    
-    return HStack {
-      Text(exercise.meta.name)
-      Spacer()
-      Text("\(setTotal) Set\(setTotal == 1 ? "" : "s")")
-    }
   }
 }

@@ -15,7 +15,6 @@ struct ExerciseList: View {
   ) var exerciseTemplates: FetchedResults<ExerciseTemplate>
   @State var isCreateViewVisible = false
   
-  
   var body: some View {
     NavigationView {
       List(exerciseTemplates, id: \.self) { exerciseTemplate in
@@ -41,10 +40,8 @@ struct ExerciseList: View {
           .frame(minWidth: 100, minHeight: 100)
           .contentShape(Rectangle())
         })
-      
     }
   }
-  
   
 }
 

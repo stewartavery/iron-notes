@@ -22,27 +22,16 @@ struct StartWorkoutList : View {
             WorkoutRow(workout: workout)
           }
         }
-        Button(action: {
+        Button {
           self.isCreateViewVisible.toggle()
-        }) { AddWorkoutRow() }
+        } label: {
+          AddWorkoutRow()
+        }
       }
       .sheet(isPresented: $isCreateViewVisible, content: { NewWorkout(isPresented: self.$isCreateViewVisible) })
-//      .onAppear(perform: setupCustomTableView)
-      .navigationBarTitle("Workouts", displayMode: .large)
-      .accentColor(Color.green)
-//      .onDisappear(perform: resetTableView)
+      .navigationBarTitle("Workouts")
     }
   }
-  
-//  func setupCustomTableView() {
-//    UITableView.appearance().tableFooterView = UIView()
-//    UITableView.appearance().separatorInset = UIEdgeInsets(top: 0, left: 135, bottom: 0, right: 0)
-//  }
-//
-//  func resetTableView() {
-//    UITableView.appearance().tableFooterView = UIView()
-//    UITableView.appearance().separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
-//  }
 }
 
 #if DEBUG
