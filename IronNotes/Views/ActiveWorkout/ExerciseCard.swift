@@ -115,7 +115,7 @@ struct AddSet: View {
     // Replace with label when alignment is fixed
 //    Label("Add Set", systemImage: "plus.circle.fill")
 //      .foregroundColor(Color.orange)
-    HStack(alignment: .firstTextBaseline, spacing: 8) {
+    HStack(alignment: .center, spacing: 12) {
       Image(systemName: "plus.circle.fill")
         .foregroundColor(Color.orange)
       Text("Add Set")
@@ -135,7 +135,7 @@ struct ExerciseCardRow: View {
       Spacer()
       HStack(alignment: .center, spacing: 12) {
         CompletionCircle()
-        HStack(alignment: .firstTextBaseline, spacing: 2) {
+        HStack(alignment: .firstTextBaseline, spacing: 12) {
           
           TextField("", value: $exerciseSet.weight, formatter: NumberFormatter())
             .font(.headline)
