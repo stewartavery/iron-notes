@@ -12,8 +12,8 @@ struct StartWorkoutList : View {
   @Environment(\.managedObjectContext) var moc
   @FetchRequest(entity: Workout.entity(), sortDescriptors: []) var workouts: FetchedResults<Workout>
   @State var isCreateViewVisible = false
-
-
+  
+  
   var body: some View {
     NavigationView {
       List {

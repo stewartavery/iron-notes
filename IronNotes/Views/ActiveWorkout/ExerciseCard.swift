@@ -12,7 +12,7 @@ struct ExerciseCard: View {
   
   var exercise: Exercise
   var workout: Workout
-
+  
   @State private var showDetail = false
   
   var body: some View {
@@ -22,6 +22,7 @@ struct ExerciseCard: View {
           .font(.headline)
           .foregroundColor(Color.orange)
           .padding(.bottom, 15)
+          .padding(.top, 10)
         
         Text(exercise.note)
           .font(.system(size: 15, weight: .semibold, design: .default))
@@ -76,14 +77,7 @@ struct ExerciseCard: View {
           }.frame(height: 33)
         }
       }
-      .padding()
     }
-    .background(Color.white)
-    .cornerRadius(10)
-    .overlay(
-        RoundedRectangle(cornerRadius: 10)
-          .stroke(Color.gray, lineWidth: 0.5)
-    )
   }
   
   func createNewSet() {
@@ -134,7 +128,15 @@ struct ExerciseCard_Previews: PreviewProvider {
     
     workout.addToRoutines(exercise)
     
-    return ExerciseCard(exercise: exercise, workout: workout)
+    return NavigationView {
+      List {
+        Section {
+          ExerciseCard(exercise: exercise, workout: workout)
+        }
+      }
+      .listStyle(InsetGroupedListStyle())
+      .navigationTitle("Hey")
+    }
     
   }
 }

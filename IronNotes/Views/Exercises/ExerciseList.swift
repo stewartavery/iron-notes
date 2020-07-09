@@ -17,11 +17,15 @@ struct ExerciseList: View {
   
   var body: some View {
     NavigationView {
-      List(exerciseTemplates, id: \.self) { exerciseTemplate in
-        NavigationLink(destination: ExerciseDetails()) {
-          Text(exerciseTemplate.name)
+      List {
+        ForEach(exerciseTemplates, id: \.self) { exerciseTemplate in
+          NavigationLink(destination: ExerciseDetails()) {
+            Text(exerciseTemplate.name)
+          }
+          
         }
       }
+      .listStyle(InsetGroupedListStyle())
       .sheet(isPresented: $isCreateViewVisible, content: { NewExercise(isPresented: self.$isCreateViewVisible) })
       .navigationBarTitle(Text("Exercises"), displayMode: .large)
       .navigationBarItems(
@@ -40,6 +44,8 @@ struct ExerciseList: View {
           .frame(minWidth: 100, minHeight: 100)
           .contentShape(Rectangle())
         })
+      
+      
     }
   }
   

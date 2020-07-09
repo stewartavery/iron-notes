@@ -13,21 +13,19 @@ struct ActiveWorkout: View {
   var workout: Workout
   
   var body: some View {
-    ScrollView {
-      VStack(alignment: .leading) {
-        ForEach(workout.routinesArray, id: \.self) { exercise in
+    List {
+      ForEach(workout.routinesArray, id: \.self) { exercise in
+        Section {
           ExerciseCard(
             exercise: exercise,
             workout: self.workout
           )
-          .padding(.leading)
-          .padding(.trailing)
-        }.padding(.top, 10)
+          .buttonStyle(BorderlessButtonStyle())
+        }
       }
     }
+    .listStyle(InsetGroupedListStyle())
     .navigationBarTitle(Text(workout.meta.name), displayMode: .large)
-    .padding(.leading, 5)
-    .padding(.trailing, 5)
   }
   
 }

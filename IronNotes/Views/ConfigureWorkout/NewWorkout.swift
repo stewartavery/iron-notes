@@ -40,22 +40,17 @@ struct NewWorkout: View {
         content: {
           AddExercise(isPresented: self.$isAddExerciseVisible)
             .environment(\.managedObjectContext, AppDelegate.viewContext)
-      })
-        .navigationBarTitle(Text("New Workout"), displayMode: .inline)
-        .navigationBarItems(leading:
-          Button("Close") {
-            self.isPresented.toggle()
-          },trailing: Button("Done") {
-            self.isPresented.toggle()
         })
-        .onAppear(perform: resetTableView)
-      
+      .navigationBarTitle(Text("New Workout"), displayMode: .inline)
+      .navigationBarItems(leading:
+                            Button("Close") {
+                              self.isPresented.toggle()
+                            },trailing: Button("Done") {
+                              self.isPresented.toggle()
+                            })
     }
   }
-  func resetTableView() {
-    UITableView.appearance().tableFooterView = UIView()
-    UITableView.appearance().separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
-  }
+  
 }
 
 struct NewWorkout_Previews: PreviewProvider {
