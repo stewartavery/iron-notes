@@ -8,6 +8,22 @@
 
 import SwiftUI
 
+struct AddButton: View {
+  var body: some View {
+    HStack {
+      Spacer()
+      VStack {
+        Image(systemName: "plus")
+          .resizable()
+          .aspectRatio(1, contentMode: .fit)
+      }
+      .frame(width: 18, height: 18)
+    }
+    .frame(minWidth: 100, minHeight: 100)
+    .contentShape(Rectangle())
+  }
+}
+
 struct ExerciseList: View {
   @Environment(\.managedObjectContext) var moc
   @FetchRequest(entity: ExerciseTemplate.entity(),
@@ -21,34 +37,21 @@ struct ExerciseList: View {
         ForEach(exerciseTemplates, id: \.self) { exerciseTemplate in
           NavigationLink(destination: ExerciseDetails()) {
             Text(exerciseTemplate.name)
+              .font(.system(size: 16))
           }
-          
         }
       }
       .listStyle(InsetGroupedListStyle())
       .sheet(isPresented: $isCreateViewVisible, content: { NewExercise(isPresented: self.$isCreateViewVisible) })
       .navigationBarTitle(Text("Exercises"), displayMode: .large)
       .navigationBarItems(
-        trailing: Button(action: {
+        trailing: Button {
           self.isCreateViewVisible.toggle()
-        }) {
-          HStack {
-            Spacer()
-            VStack {
-              Image(systemName: "plus")
-                .resizable()
-                .aspectRatio(1, contentMode: .fit)
-            }
-            .frame(width: 18, height: 18)
-          }
-          .frame(minWidth: 100, minHeight: 100)
-          .contentShape(Rectangle())
+        } label: {
+          AddButton()
         })
-      
-      
     }
   }
-  
 }
 
 

@@ -61,22 +61,16 @@ struct ExerciseCard: View {
         .animation(showDetail ? .spring() : .none)
         .transition(.move(edge: .bottom))
         .frame(height: 50)
-        Button(action: {
+        Button {
           withAnimation {
             self.showDetail.toggle()
           }
           self.createNewSet()
-        }) {
-          HStack(alignment: .firstTextBaseline, spacing: 8) {
-            Image(systemName: "plus.circle.fill")
-              .foregroundColor(Color.orange)
-            Text("Add Set")
-              .font(.headline)
-              .foregroundColor(Color.orange)
-            Spacer()
-          }.frame(height: 33)
+        } label: {
+          AddSet()
         }
       }
+      
     }
   }
   
@@ -138,5 +132,19 @@ struct ExerciseCard_Previews: PreviewProvider {
       .navigationTitle("Hey")
     }
     
+  }
+}
+
+struct AddSet: View {
+  var body: some View {
+    HStack(alignment: .firstTextBaseline, spacing: 8) {
+      Image(systemName: "plus.circle.fill")
+        .foregroundColor(Color.orange)
+      Text("Add Set")
+        .font(.headline)
+        .foregroundColor(Color.orange)
+      Spacer()
+    }.frame(height: 33)
+    .padding(.bottom, 10)
   }
 }
