@@ -31,7 +31,7 @@ struct ExerciseCard: View {
         ExerciseCardRow(exerciseSet: exerciseSet)
       }
       .animation(showDetail ? .spring() : .none)
-      .transition(.move(edge: .bottom))
+      .transition(.move(edge: .top))
       .frame(height: 50)
       Button {
         withAnimation {
@@ -105,5 +105,4 @@ struct ExerciseCard_Previews: PreviewProvider {
     
   }
 }
-
 

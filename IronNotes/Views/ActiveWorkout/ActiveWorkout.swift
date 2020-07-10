@@ -11,6 +11,8 @@ import CoreData
 
 struct ActiveWorkout: View {
   var workout: Workout
+  @State var isAddExerciseCardVisible = false
+  @State var someBool: Bool = false
   
   var body: some View {
     List {
@@ -23,9 +25,38 @@ struct ActiveWorkout: View {
           .buttonStyle(BorderlessButtonStyle())
         }
       }
+      Section {
+        AddExerciseCard(isSheetVisible: self.$isAddExerciseCardVisible)
+          .opacity(someBool ? 1.0 : 1.0)
+      }
     }
+    .sheet(
+      isPresented: $isAddExerciseCardVisible,
+      content: {
+        AddExercise(isPresented: self.$isAddExerciseCardVisible, onComplete: addExercises)
+          .environment(\.managedObjectContext, AppDelegate.viewContext)
+      })
     .listStyle(InsetGroupedListStyle())
     .navigationBarTitle(Text(workout.meta.name), displayMode: .large)
+  }
+  
+  
+  func addExercises(templates: [ExerciseTemplate]) {
+    let exercises: [Exercise] = templates.map {
+      let exercise = Exercise(context: AppDelegate.viewContext)
+      exercise.meta = $0
+      exercise.position = 3
+      exercise.workout = self.workout
+      
+      return exercise
+    }
+    let newRoutines = NSSet(array: exercises)
+
+    self.workout.addToRoutines(newRoutines)
+    self.workout.managedObjectContext?.refresh(self.workout, mergeChanges: true)
+    
+    try? AppDelegate.viewContext.save()
+    self.someBool.toggle()
   }
   
 }
@@ -82,6 +113,28 @@ struct ActiveWorkout_Previews: PreviewProvider {
     return NavigationView {
       ActiveWorkout(workout: workout)
     }.navigationViewStyle(StackNavigationViewStyle())
+  }
+}
+
+
+struct AddExerciseCard: View {
+  @Binding var isSheetVisible: Bool
+  
+  var body: some View {
+    Button {
+      self.isSheetVisible.toggle()
+    } label: {
+      HStack(alignment: .center, spacing: LARGE_SPACING) {
+        Image(systemName: "plus.circle.fill")
+          .foregroundColor(Color.green)
+        Text("Add Exercise")
+          .font(.headline)
+          .foregroundColor(Color.orange)
+        Spacer()
+      }
+      .padding(.top, 10)
+      .padding(.bottom, 10)
+    }
     
   }
 }

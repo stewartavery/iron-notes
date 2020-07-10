@@ -14,6 +14,7 @@
 		6510C77022E5401600A0DDE2 /* WorkoutRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6510C76F22E5401600A0DDE2 /* WorkoutRow.swift */; };
 		6514CB9A22FE5075002907BC /* RowImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6514CB9922FE5075002907BC /* RowImage.swift */; };
 		651AD4F024A1A6F8006054E5 /* ExerciseDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651AD4EF24A1A6F8006054E5 /* ExerciseDetails.swift */; };
+		65291EB824B815BD00876C30 /* SelectedExercises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65291EB724B815BD00876C30 /* SelectedExercises.swift */; };
 		652D146524454E7200E17685 /* ExerciseList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652D146424454E7200E17685 /* ExerciseList.swift */; };
 		652FB8C822F112EB0091D3D4 /* AddWorkoutRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652FB8C722F112EB0091D3D4 /* AddWorkoutRow.swift */; };
 		6540EFC723FE19180042D81F /* IronNotes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6540EFC523FE19180042D81F /* IronNotes.xcdatamodeld */; };
@@ -54,6 +55,7 @@
 		6510C76F22E5401600A0DDE2 /* WorkoutRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutRow.swift; sourceTree = "<group>"; };
 		6514CB9922FE5075002907BC /* RowImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowImage.swift; sourceTree = "<group>"; };
 		651AD4EF24A1A6F8006054E5 /* ExerciseDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDetails.swift; sourceTree = "<group>"; };
+		65291EB724B815BD00876C30 /* SelectedExercises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedExercises.swift; sourceTree = "<group>"; };
 		652D146424454E7200E17685 /* ExerciseList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseList.swift; sourceTree = "<group>"; };
 		652FB8C722F112EB0091D3D4 /* AddWorkoutRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkoutRow.swift; sourceTree = "<group>"; };
 		6540EFC623FE19180042D81F /* IronNotes.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = IronNotes.xcdatamodel; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 			children = (
 				6544A4EF23FA1ECB0039D705 /* NewWorkout.swift */,
 				6574530C2487456700DD76B6 /* AddExercise.swift */,
+				65291EB724B815BD00876C30 /* SelectedExercises.swift */,
 			);
 			path = ConfigureWorkout;
 			sourceTree = "<group>";
@@ -335,6 +338,7 @@
 				65789B60240DEE37000ABE40 /* StartWorkoutList.swift in Sources */,
 				6514CB9A22FE5075002907BC /* RowImage.swift in Sources */,
 				655D291C246E3C920022C241 /* SelectedMuscleGroups.swift in Sources */,
+				65291EB824B815BD00876C30 /* SelectedExercises.swift in Sources */,
 				6574530D2487456700DD76B6 /* AddExercise.swift in Sources */,
 				65D61B1324849BBD00A5B561 /* WorkoutTemplate+CoreDataProperties.swift in Sources */,
 				6544A4F423FA20AB0039D705 /* ExerciseType.swift in Sources */,

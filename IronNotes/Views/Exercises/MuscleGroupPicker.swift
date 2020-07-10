@@ -54,7 +54,6 @@ struct MuscleGroupPicker: View {
     .onAppear(perform: { self.unsavedMuscleGroups = self.selectedMuscleGroups.muscleGroups })
     .onDisappear(perform: {
       self.selectedMuscleGroups.muscleGroups = self.unsavedMuscleGroups
-      print("disappearing!")
     })
       .listStyle(GroupedListStyle())
       .navigationBarTitle("Muscle Groups", displayMode: .inline)
