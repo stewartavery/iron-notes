@@ -14,7 +14,6 @@ struct AddExercise: View {
                 sortDescriptors: [NSSortDescriptor(keyPath: \ExerciseTemplate.name, ascending: true)]
   ) var exerciseTemplates: FetchedResults<ExerciseTemplate>
   var onComplete: ([ExerciseTemplate]) -> Void
-  var exercises: [ExerciseTemplate] = []
   
   @State private var pendingExercises = [ExerciseTemplate]()
   

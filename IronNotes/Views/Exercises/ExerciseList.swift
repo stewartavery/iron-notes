@@ -40,6 +40,11 @@ struct ExerciseList: View {
               .font(.system(size: 16))
           }
         }
+        .onDelete { indexSet in
+          for index in indexSet {
+            self.moc.delete(exerciseTemplates[index])
+          }
+        }
       }
       .listStyle(InsetGroupedListStyle())
       .sheet(isPresented: $isCreateViewVisible, content: { NewExercise(isPresented: self.$isCreateViewVisible) })

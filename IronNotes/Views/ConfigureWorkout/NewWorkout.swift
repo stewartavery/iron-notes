@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct NewWorkout: View {
+  @Environment(\.managedObjectContext) var moc
   @Binding var isPresented: Bool
   
   @State var name: String = ""
@@ -40,7 +41,7 @@ struct NewWorkout: View {
         isPresented: $isAddExerciseVisible,
         content: {
           AddExercise(isPresented: self.$isAddExerciseVisible, onComplete: addExercises)
-            .environment(\.managedObjectContext, AppDelegate.viewContext)
+            .environment(\.managedObjectContext, moc)
         })
       .navigationBarTitle(Text("New Workout"), displayMode: .inline)
       .navigationBarItems(leading:

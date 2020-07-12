@@ -10,40 +10,54 @@ import SwiftUI
 import CoreData
 
 struct ActiveWorkout: View {
-  var workout: Workout
+  @ObservedObject var workout: Workout
+  @Environment(\.managedObjectContext) var moc
   @State var isAddExerciseCardVisible = false
-  @State var someBool: Bool = false
+  @State private var showDetail = false
   
   var body: some View {
     List {
       ForEach(workout.routinesArray, id: \.self) { exercise in
         Section {
           ExerciseCard(
-            exercise: exercise,
-            workout: self.workout
+            exercise: exercise
           )
           .buttonStyle(BorderlessButtonStyle())
         }
       }
       Section {
         AddExerciseCard(isSheetVisible: self.$isAddExerciseCardVisible)
-          .opacity(someBool ? 1.0 : 1.0)
       }
     }
     .sheet(
       isPresented: $isAddExerciseCardVisible,
       content: {
         AddExercise(isPresented: self.$isAddExerciseCardVisible, onComplete: addExercises)
-          .environment(\.managedObjectContext, AppDelegate.viewContext)
+          .environment(\.managedObjectContext, moc)
       })
     .listStyle(InsetGroupedListStyle())
     .navigationBarTitle(Text(workout.meta.name), displayMode: .large)
   }
   
+  func createNewSet(exercise: Exercise) {
+    let newSet = ExerciseSet(context: moc)
+    newSet.setPosition = Int16(exercise.exerciseSetArray.count + 1)
+    newSet.reps = 3
+    newSet.weight = 225
+    
+    exercise.addToSets(newSet)
+    
+    do {
+      try self.moc.save()
+      print("Set added.")
+    } catch {
+      print(error.localizedDescription)
+    }
+  }
   
   func addExercises(templates: [ExerciseTemplate]) {
     let exercises: [Exercise] = templates.map {
-      let exercise = Exercise(context: AppDelegate.viewContext)
+      let exercise = Exercise(context: moc)
       exercise.meta = $0
       exercise.position = 3
       exercise.workout = self.workout
@@ -53,16 +67,15 @@ struct ActiveWorkout: View {
     let newRoutines = NSSet(array: exercises)
 
     self.workout.addToRoutines(newRoutines)
-    self.workout.managedObjectContext?.refresh(self.workout, mergeChanges: true)
     
-    try? AppDelegate.viewContext.save()
-    self.someBool.toggle()
+    try? moc.save()
   }
   
 }
 
 struct ActiveWorkout_Previews: PreviewProvider {
   static var previews: some View {
+
     let workout = Workout(context: AppDelegate.viewContext)
     let workoutMeta = WorkoutTemplate(context: AppDelegate.viewContext)
     

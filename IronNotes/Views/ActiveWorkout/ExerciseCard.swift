@@ -9,30 +9,41 @@
 import SwiftUI
 
 struct ExerciseCard: View {
+  @Environment(\.managedObjectContext) var moc
   
-  var exercise: Exercise
-  var workout: Workout
+  @ObservedObject var exercise: Exercise
   
   @State private var showDetail = false
   
+  var isNotePresent: Bool {
+    return exercise.note.count > 0
+  }
+  
   var body: some View {
-    VStack(alignment: .leading) {
-      Text(exercise.meta.name)
-        .font(.headline)
-        .foregroundColor(Color.orange)
-        .padding(.bottom, 15)
-        .padding(.top, 10)
+    Group {
+      VStack(alignment: .leading) {
+        Text(exercise.meta.name)
+          .font(.headline)
+          .foregroundColor(Color.orange)
+          .padding(.top, 10)
+        if self.isNotePresent {
+          Text(exercise.note)
+            .font(.system(size: 15, weight: .semibold, design: .default))
+            .padding(.top, 15)
+        }
+      }.padding(.bottom, 10)
       
-      Text(exercise.note)
-        .font(.system(size: 15, weight: .semibold, design: .default))
-      
-      Divider()
       ForEach(exercise.exerciseSetArray, id: \.self) { exerciseSet in
         ExerciseCardRow(exerciseSet: exerciseSet)
       }
+      .onDelete { indexSet in
+        for index in indexSet {
+          self.moc.delete(self.exercise.exerciseSetArray[index])
+        }
+      }
       .animation(showDetail ? .spring() : .none)
-      .transition(.move(edge: .top))
-      .frame(height: 50)
+      .transition(.move(edge: .bottom))
+      .frame(height: 40)
       Button {
         withAnimation {
           self.showDetail.toggle()
@@ -45,15 +56,19 @@ struct ExerciseCard: View {
   }
   
   func createNewSet() {
-    let newSet = ExerciseSet(context: AppDelegate.viewContext)
+    let newSet = ExerciseSet(context: moc)
     newSet.setPosition = Int16(self.exercise.exerciseSetArray.count + 1)
     newSet.reps = 3
     newSet.weight = 225
     
     self.exercise.addToSets(newSet)
-    self.workout.managedObjectContext?.refresh(self.workout, mergeChanges: true)
     
-    try? AppDelegate.viewContext.save()
+    do {
+      try self.moc.save()
+      print("Set added.")
+    } catch {
+      print(error.localizedDescription)
+    }
   }
 }
 
@@ -95,7 +110,7 @@ struct ExerciseCard_Previews: PreviewProvider {
     return NavigationView {
       List {
         Section {
-          ExerciseCard(exercise: exercise, workout: workout)
+          ExerciseCard(exercise: exercise)
         }
       }
       .listStyle(InsetGroupedListStyle())

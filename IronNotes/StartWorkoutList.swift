@@ -13,13 +13,19 @@ struct StartWorkoutList : View {
   @FetchRequest(entity: Workout.entity(), sortDescriptors: []) var workouts: FetchedResults<Workout>
   @State var isCreateViewVisible = false
   
+  init() {
+    UITableView.appearance().separatorStyle = .none
+    UITableView.appearance().separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 40)
+
+  }
   
   var body: some View {
     NavigationView {
       List {
         ForEach(workouts, id: \.self) { workout in
           NavigationLink(destination: ActiveWorkout(workout: workout)) {
-            WorkoutRow(workout: workout)
+            WorkoutRow(workout: workout).listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+
           }
         }
         Button {

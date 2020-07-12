@@ -11,6 +11,7 @@ import SwiftUI
 
 struct NewExercise: View {
   @Binding var isPresented: Bool
+  @Environment(\.managedObjectContext) var moc
   
   @State private var name: String = ""
   @State private var description: String = ""
@@ -34,7 +35,7 @@ struct NewExercise: View {
             }
           }
           Section {
-            NavigationLink(destination: MuscleGroupPicker(selectedMuscleGroups: selectedMuscleGroups).environment(\.managedObjectContext, AppDelegate.viewContext)) {
+            NavigationLink(destination: MuscleGroupPicker(selectedMuscleGroups: selectedMuscleGroups).environment(\.managedObjectContext, moc)) {
               Text("Muscle Groups")
             }
           }

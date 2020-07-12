@@ -15,42 +15,55 @@ struct ExerciseCardRow: View {
   @ObservedObject var exerciseSet: ExerciseSet
   
   var body: some View {
-    VStack {
-      Spacer()
-      HStack(alignment: .center, spacing: LARGE_SPACING) {
-        CompletionCircle()
-        HStack(alignment: .firstTextBaseline, spacing: SMALL_SPACING) {
-          
-          TextField("", value: $exerciseSet.weight, formatter: NumberFormatter())
-            .font(.headline)
-            .keyboardType(.decimalPad)
-            .frame(width: 32)
-          
-          Text("lbs")
-            .font(.caption)
-            .foregroundColor(Color.gray)
-        }
+    
+    HStack(alignment: .center, spacing: LARGE_SPACING) {
+      CompletionCircle()
+      HStack(alignment: .firstTextBaseline, spacing: SMALL_SPACING) {
         
-        Image(systemName: "multiply")
+        TextField("", value: $exerciseSet.weight, formatter: NumberFormatter())
+          .font(.headline)
+          .keyboardType(.decimalPad)
+          .frame(width: 32)
+        
+        Text("lbs")
+          .font(.caption)
           .foregroundColor(Color.gray)
+      }
+      
+      Image(systemName: "multiply")
+        .foregroundColor(Color.gray)
+      
+      HStack(alignment: .firstTextBaseline, spacing: SMALL_SPACING) {
+        TextField("", value: $exerciseSet.reps, formatter: NumberFormatter())
+          .font(.headline)
+          .keyboardType(.decimalPad)
+          .frame(width: 13)
         
-        HStack(alignment: .firstTextBaseline, spacing: SMALL_SPACING) {
-          TextField("", value: $exerciseSet.reps, formatter: NumberFormatter())
-            .font(.headline)
-            .keyboardType(.decimalPad)
-            .frame(width: 13)
-          
-          Text("reps")
-            .font(.caption)
-            .foregroundColor(Color.gray)
-        }
-        Spacer()
+        Text("reps")
+          .font(.caption)
+          .foregroundColor(Color.gray)
       }
       Spacer()
-      Divider()
-    }
+    }.frame(height: 20)
+    
   }
 }
+
+struct ExerciseCardRow_Previews: PreviewProvider {
+  static var previews: some View {
+  
+    
+    let exerciseSet = ExerciseSet(context: AppDelegate.viewContext)
+    exerciseSet.setPosition = 0
+    exerciseSet.reps = 3
+    exerciseSet.weight = 135
+    
+  
+    
+    return ExerciseCardRow(exerciseSet: exerciseSet)
+  }
+}
+
 
 struct AddSet: View {
   var body: some View {
@@ -64,8 +77,8 @@ struct AddSet: View {
         .font(.headline)
         .foregroundColor(Color.orange)
       Spacer()
-    }.frame(height: 33)
-    .padding(.bottom, 10)
+    }.frame(height: 40)
+    .padding(.bottom, 5)
   }
 }
 
