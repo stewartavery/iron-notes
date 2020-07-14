@@ -21,7 +21,7 @@ extension Exercise {
   @NSManaged public var note: String
   @NSManaged public var position: Int16
   @NSManaged public var sets: NSSet?
-  @NSManaged public var workout: Workout?
+  @NSManaged public var workout: Workout
 
   public var exerciseSetArray: [ExerciseSet] {
     let set = sets as? Set<ExerciseSet> ?? []

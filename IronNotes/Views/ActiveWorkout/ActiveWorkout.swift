@@ -32,7 +32,7 @@ struct ActiveWorkout: View {
     .sheet(
       isPresented: $isAddExerciseCardVisible,
       content: {
-        AddExercise(isPresented: self.$isAddExerciseCardVisible, onComplete: addExercises)
+        AddExercise(isPresented: self.$isAddExerciseCardVisible, workout: self.workout)
           .environment(\.managedObjectContext, moc)
       })
     .listStyle(InsetGroupedListStyle())
@@ -54,23 +54,6 @@ struct ActiveWorkout: View {
       print(error.localizedDescription)
     }
   }
-  
-  func addExercises(templates: [ExerciseTemplate]) {
-    let exercises: [Exercise] = templates.map {
-      let exercise = Exercise(context: moc)
-      exercise.meta = $0
-      exercise.position = 3
-      exercise.workout = self.workout
-      
-      return exercise
-    }
-    let newRoutines = NSSet(array: exercises)
-
-    self.workout.addToRoutines(newRoutines)
-    
-    try? moc.save()
-  }
-  
 }
 
 struct ActiveWorkout_Previews: PreviewProvider {
@@ -138,9 +121,9 @@ struct AddExerciseCard: View {
       self.isSheetVisible.toggle()
     } label: {
       HStack(alignment: .center, spacing: LARGE_SPACING) {
-        Image(systemName: "plus.circle.fill")
-          .foregroundColor(Color.green)
-        Text("Add Exercise")
+        Image(systemName: "pencil.circle")
+          .foregroundColor(Color.orange)
+        Text("Edit Exercises")
           .font(.headline)
           .foregroundColor(Color.orange)
         Spacer()

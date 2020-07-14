@@ -12,6 +12,8 @@ struct NewWorkout: View {
   @Environment(\.managedObjectContext) var moc
   @Binding var isPresented: Bool
   
+  
+  @State var workout: Workout = Workout(context: AppDelegate.viewContext)
   @State var name: String = ""
   @State var description: String = ""
   @State var isAddExerciseVisible = false
@@ -40,7 +42,7 @@ struct NewWorkout: View {
       .sheet(
         isPresented: $isAddExerciseVisible,
         content: {
-          AddExercise(isPresented: self.$isAddExerciseVisible, onComplete: addExercises)
+          AddExercise(isPresented: self.$isAddExerciseVisible, workout: self.workout)
             .environment(\.managedObjectContext, moc)
         })
       .navigationBarTitle(Text("New Workout"), displayMode: .inline)
@@ -51,10 +53,6 @@ struct NewWorkout: View {
                               self.isPresented.toggle()
                             })
     }
-  }
-  
-  func addExercises(templates: [ExerciseTemplate]) {
-    self.exercises = templates
   }
   
 }
