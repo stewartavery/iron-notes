@@ -11,6 +11,19 @@ import Foundation
 import CoreData
 
 
-public class ExerciseSet: Exercise {
-
+public class ExerciseSet: NSManagedObject {
+  class func newExerciseSet() -> ExerciseSet {
+    return ExerciseSet(context: AppDelegate.viewContext)
+  }
+  
+  class func getExerciseSet(setPosition: Int, reps: Int, weight: Int, exercise: Exercise, isCompleted: Bool) -> ExerciseSet {
+    let exerciseSet = newExerciseSet()
+    exerciseSet.setPosition = Int16(setPosition)
+    exerciseSet.reps = Int16(reps)
+    exerciseSet.weight = Int32(weight)
+    exerciseSet.exercise = exercise
+    exerciseSet.isCompleted = isCompleted
+    
+    return exerciseSet
+  }
 }

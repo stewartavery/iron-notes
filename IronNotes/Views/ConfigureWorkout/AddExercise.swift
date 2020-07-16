@@ -17,23 +17,18 @@ struct AddExercise: View {
   
   var workout: Workout
   
-  var addedExercises: [ExerciseTemplate] {
-    return self.workout.routinesArray.map { $0.meta }
-  }
-  
-  var unaddedExercises: [ExerciseTemplate] {
-    return exerciseTemplates.filter {
-      !self.addedExercises.contains($0)
-    }
-  }
-  
   var body: some View {
-    NavigationView {
+    let addedTemplates = self.workout.routinesArray.map { $0.meta }
+    let unaddedExercises = exerciseTemplates.filter {
+      !addedTemplates.contains($0)
+    }
+    
+    return NavigationView {
       List {
-        if self.addedExercises.count > 0 {
+        if addedTemplates.count > 0 {
           Section(header: Text("Added Exercises")) {
-            ForEach(self.addedExercises, id: \.self) { addedExerciseTemplate in
-              RemoveExerciseRow(exerciseTemplate: addedExerciseTemplate)
+            ForEach(addedTemplates, id: \.self) {
+              RemoveExerciseRow(exerciseTemplate: $0)
             }
             .onDelete(perform: self.removeRow)
             .onMove(perform: self.moveRow)
@@ -41,10 +36,9 @@ struct AddExercise: View {
           }
         }
         Section(header: Text("More Exercises")) {
-          ForEach(unaddedExercises, id: \.self) { unaddedExerciseTemplate in
-            AddExerciseRow(exerciseTemplate: unaddedExerciseTemplate, addRow: self.addRow)
+          ForEach(unaddedExercises, id: \.self) {
+            AddExerciseRow(exerciseTemplate: $0, addRow: self.addRow)
           }
-          .disabled(false)
         }
       }
       .environment(\.editMode, Binding.constant(EditMode.active))
@@ -89,36 +83,18 @@ struct AddExercise: View {
   func removeRow(at offsets: IndexSet) {
     var modifiedRoutines = self.workout.routinesArray
     modifiedRoutines.remove(atOffsets: offsets)
-    
+//
     // TODO: Use NSOrderedSet here?
     
-    
-    for oldRoutine in self.workout.routinesArray {
-      self.moc.delete(oldRoutine)
+    for index in offsets {
+      self.moc.delete(self.workout.routinesArray[index])
     }
     
-    let reorderedRoutines = modifiedRoutines
+    modifiedRoutines
       .enumerated()
-      .map {
-        Exercise.getExercise(
-          meta: $1.meta,
-          note: $1.note,
-          position: Int16($0),
-          sets: $1.exerciseSetArray,
-          workout: $1.workout
-        )
+      .forEach {
+        $1.position = Int16($0)
       }
-    
-    for newRoutine in reorderedRoutines {
-      self.workout.addToRoutines(newRoutine)
-    }
-    
-    do {
-      try self.moc.save()
-      print("Exercise removed.")
-    } catch {
-      print(error.localizedDescription)
-    }
   }
   
   

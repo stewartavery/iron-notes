@@ -20,7 +20,7 @@ extension ExerciseSet {
   @NSManaged public var setPosition: Int16
   @NSManaged public var reps: Int16
   @NSManaged public var weight: Int32
-  @NSManaged public var exercise: Exercise?
+  @NSManaged public var exercise: Exercise
   @NSManaged public var isCompleted: Bool
   
 }

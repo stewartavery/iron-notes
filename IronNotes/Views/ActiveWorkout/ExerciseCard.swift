@@ -36,23 +36,56 @@ struct ExerciseCard: View {
       ForEach(exercise.exerciseSetArray, id: \.self) { exerciseSet in
         ExerciseCardRow(exerciseSet: exerciseSet)
       }
-      .onDelete { indexSet in
-        for index in indexSet {
-          self.moc.delete(self.exercise.exerciseSetArray[index])
-        }
-      }
-      .animation(showDetail ? .spring() : .none)
+      .onDelete(perform: self.deleteSet)
+      .animation(showDetail ? .spring() : nil)
       .transition(.move(edge: .bottom))
       .frame(height: 40)
       Button {
-        withAnimation {
-          self.showDetail.toggle()
-        }
         self.createNewSet()
       } label: {
         AddSet()
       }
+      .onAppear() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+          self.showDetail = true
+        }
+      }
     }
+  }
+  
+  func deleteSet(at offsets: IndexSet) {
+    var modifiedExerciseSets = self.exercise.exerciseSetArray
+    modifiedExerciseSets.remove(atOffsets: offsets)
+    
+    // TODO: Use NSOrderedSet here?
+    
+
+    for index in offsets {
+      self.moc.delete(self.exercise.exerciseSetArray[index])
+    }
+    
+    let reorderedRoutines: [ExerciseSet] =
+      modifiedExerciseSets
+      .enumerated()
+      .map {
+        let exerciseSet = ExerciseSet(context: self.moc)
+        exerciseSet.setPosition = Int16($0)
+        exerciseSet.reps = Int16($1.reps)
+        exerciseSet.weight = Int32($1.weight)
+        exerciseSet.exercise = $1.exercise
+        exerciseSet.isCompleted = $1.isCompleted
+        
+        return exerciseSet
+      }
+    
+    
+    do {
+      try self.moc.save()
+      print("Exercise removed.")
+    } catch {
+      print(error.localizedDescription)
+    }
+    
   }
   
   func createNewSet() {
