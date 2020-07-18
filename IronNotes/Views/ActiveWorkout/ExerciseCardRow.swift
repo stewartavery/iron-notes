@@ -15,9 +15,8 @@ struct ExerciseCardRow: View {
   @ObservedObject var exerciseSet: ExerciseSet
   
   var body: some View {
-    
     HStack(alignment: .center, spacing: LARGE_SPACING) {
-      CompletionCircle()
+      CompletionCircle(exerciseSet: exerciseSet)
       HStack(alignment: .firstTextBaseline, spacing: SMALL_SPACING) {
         
         TextField("", value: $exerciseSet.weight, formatter: NumberFormatter())

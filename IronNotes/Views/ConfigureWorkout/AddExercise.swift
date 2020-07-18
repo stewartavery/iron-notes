@@ -15,7 +15,7 @@ struct AddExercise: View {
                 sortDescriptors: [NSSortDescriptor(keyPath: \ExerciseTemplate.name, ascending: true)]
   ) var exerciseTemplates: FetchedResults<ExerciseTemplate>
   
-  var workout: Workout
+  @ObservedObject var workout: Workout
   
   var body: some View {
     let addedTemplates = self.workout.routinesArray.map { $0.meta }
@@ -44,36 +44,29 @@ struct AddExercise: View {
       .environment(\.editMode, Binding.constant(EditMode.active))
       .listStyle(InsetGroupedListStyle())
       .navigationBarTitle(Text("Modify Exercises"), displayMode: .inline)
-      .navigationBarItems(leading:
-                            Button("Cancel") {
-                              self.isPresented.toggle()
-                            },trailing: Button("Done") {
-                              self.isPresented.toggle()
-                            })
+      .navigationBarItems(
+        trailing: Button("Done") {
+          self.isPresented.toggle()
+        }
+      )
     }
   }
   
   func moveRow(from source: IndexSet, to destination: Int) {
-    var modifiedRoutines = self.workout.routinesArray
+    var modifiedRoutines = workout.routinesArray
     modifiedRoutines.move(fromOffsets: source, toOffset: destination)
     
-    self.workout.routines = NSSet(
-      array: modifiedRoutines
-        .enumerated()
-        .map {
-          Exercise.getExercise(
-            meta: $1.meta,
-            note: $1.note,
-            position: Int16($0),
-            sets: $1.exerciseSetArray,
-            workout: $1.workout
-          )
-        }
-    )
+    for reverseIndex in stride(
+      from: modifiedRoutines.count - 1,
+      through: 0,
+      by: -1) {
+      modifiedRoutines[reverseIndex].position = Int16(reverseIndex)
+    }
+    
+    print(modifiedRoutines)
     
     do {
       try self.moc.save()
-      print("Exercise moved.")
     } catch {
       print(error.localizedDescription)
     }
@@ -83,18 +76,23 @@ struct AddExercise: View {
   func removeRow(at offsets: IndexSet) {
     var modifiedRoutines = self.workout.routinesArray
     modifiedRoutines.remove(atOffsets: offsets)
-//
-    // TODO: Use NSOrderedSet here?
     
     for index in offsets {
       self.moc.delete(self.workout.routinesArray[index])
     }
     
-    modifiedRoutines
-      .enumerated()
-      .forEach {
-        $1.position = Int16($0)
-      }
+    for reverseIndex in stride(
+      from: modifiedRoutines.count - 1,
+      through: 0,
+      by: -1 ) {
+      modifiedRoutines[reverseIndex].position = Int16(reverseIndex)
+    }
+    
+    do {
+      try self.moc.save()
+    } catch {
+      print(error.localizedDescription)
+    }
   }
   
   
@@ -102,7 +100,7 @@ struct AddExercise: View {
     let newExercise: Exercise = Exercise(context: self.moc)
     
     newExercise.meta = exercise
-    newExercise.position = Int16(self.workout.routinesArray.count + 1)
+    newExercise.position = Int16(self.workout.routinesArray.count)
     newExercise.workout = self.workout
     
     self.workout.addToRoutines(newExercise)

@@ -10,11 +10,11 @@ import SwiftUI
 
 struct CompletionCircle: View {
   
-  @State private var isCompleted: Bool = false
-  
+  @ObservedObject var exerciseSet: ExerciseSet
+
   var body: some View {
     Button(action: toggleIsCompleted) {
-      if isCompleted {
+      if exerciseSet.isCompleted {
         Image(systemName: "largecircle.fill.circle")
       } else {
         Image(systemName: "circle")
@@ -24,12 +24,6 @@ struct CompletionCircle: View {
   }
   
   func toggleIsCompleted() {
-    isCompleted.toggle()
-  }
-}
-
-struct CompletionCircle_Previews: PreviewProvider {
-  static var previews: some View {
-    CompletionCircle()
+    exerciseSet.isCompleted.toggle()
   }
 }

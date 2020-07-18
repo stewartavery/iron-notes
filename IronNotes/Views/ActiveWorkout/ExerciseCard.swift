@@ -10,9 +10,7 @@ import SwiftUI
 
 struct ExerciseCard: View {
   @Environment(\.managedObjectContext) var moc
-  
   @ObservedObject var exercise: Exercise
-  
   @State private var showDetail = false
   
   var isNotePresent: Bool {
@@ -41,7 +39,9 @@ struct ExerciseCard: View {
       .transition(.move(edge: .bottom))
       .frame(height: 40)
       Button {
-        self.createNewSet()
+        withAnimation {
+          self.createNewSet()
+        }
       } label: {
         AddSet()
       }
@@ -56,43 +56,25 @@ struct ExerciseCard: View {
   func deleteSet(at offsets: IndexSet) {
     var modifiedExerciseSets = self.exercise.exerciseSetArray
     modifiedExerciseSets.remove(atOffsets: offsets)
-    
-    // TODO: Use NSOrderedSet here?
-    
-
+        
     for index in offsets {
       self.moc.delete(self.exercise.exerciseSetArray[index])
     }
     
-    let reorderedRoutines: [ExerciseSet] =
-      modifiedExerciseSets
-      .enumerated()
-      .map {
-        let exerciseSet = ExerciseSet(context: self.moc)
-        exerciseSet.setPosition = Int16($0)
-        exerciseSet.reps = Int16($1.reps)
-        exerciseSet.weight = Int32($1.weight)
-        exerciseSet.exercise = $1.exercise
-        exerciseSet.isCompleted = $1.isCompleted
-        
-        return exerciseSet
-      }
-    
-    
-    do {
-      try self.moc.save()
-      print("Exercise removed.")
-    } catch {
-      print(error.localizedDescription)
+    for reverseIndex in stride(
+      from: modifiedExerciseSets.count - 1,
+      through: 0,
+      by: -1 ) {
+      modifiedExerciseSets[reverseIndex].setPosition = Int16(reverseIndex)
     }
-    
   }
   
   func createNewSet() {
     let newSet = ExerciseSet(context: moc)
-    newSet.setPosition = Int16(self.exercise.exerciseSetArray.count + 1)
+    newSet.setPosition = Int16(self.exercise.exerciseSetArray.count)
     newSet.reps = 3
     newSet.weight = 225
+    newSet.exercise = exercise
     
     self.exercise.addToSets(newSet)
     

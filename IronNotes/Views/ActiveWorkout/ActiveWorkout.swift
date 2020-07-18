@@ -13,10 +13,10 @@ struct ActiveWorkout: View {
   @ObservedObject var workout: Workout
   @Environment(\.managedObjectContext) var moc
   @State var isAddExerciseCardVisible = false
-  @State private var showDetail = false
   
   var body: some View {
-    List {
+    print(workout.routinesArray)
+    return List {
       ForEach(workout.routinesArray, id: \.self) { exercise in
         Section {
           ExerciseCard(

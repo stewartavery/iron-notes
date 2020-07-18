@@ -260,7 +260,6 @@ class DataManager {
     let workout = Workout(context: AppDelegate.viewContext)
     let workoutMeta = WorkoutTemplate(context: AppDelegate.viewContext)
     
-    
     workoutMeta.name = "Push"
     workoutMeta.desc = "Chest, Shoulders, Triceps"
     workoutMeta.iconName = "barbell"
@@ -275,17 +274,20 @@ class DataManager {
     exercise.meta = exerciseMeta
     exercise.position = 0
     exercise.note = "This is a useful note for Bench Pressing."
+    exercise.workout = workout
     
     let exerciseSet = ExerciseSet(context: AppDelegate.viewContext)
     exerciseSet.setPosition = 0
     exerciseSet.reps = 3
     exerciseSet.weight = 135
+    exerciseSet.exercise = exercise
     exercise.addToSets(exerciseSet)
     
     let exerciseSet5 = ExerciseSet(context: AppDelegate.viewContext)
     exerciseSet5.setPosition = 1
     exerciseSet5.reps = 3
     exerciseSet5.weight = 225
+    exerciseSet5.exercise = exercise
     exercise.addToSets(exerciseSet5)
     
     workout.addToRoutines(exercise)
@@ -303,11 +305,11 @@ class DataManager {
     exerciseSet2.setPosition = 0
     exerciseSet2.reps = 5
     exerciseSet2.weight = 39
+    exerciseSet2.exercise = exercise2
     exercise2.addToSets(exerciseSet2)
     
     workout.addToRoutines(exercise2)
     
-        try! AppDelegate.viewContext.save()
-    
+    try! AppDelegate.viewContext.save()
   }
 }
