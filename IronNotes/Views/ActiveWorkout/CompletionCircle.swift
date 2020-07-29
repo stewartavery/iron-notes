@@ -21,6 +21,7 @@ struct CompletionCircle: View {
           .foregroundColor(Color.gray)
       }
     }
+    .padding(.leading, 6)
   }
   
   func toggleIsCompleted() {

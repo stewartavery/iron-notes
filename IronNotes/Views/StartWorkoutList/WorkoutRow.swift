@@ -12,7 +12,6 @@ import CoreData
 struct WorkoutRow: View {
   var workout: Workout
 
-  
   var body: some View {
     HStack {
       RowImage(iconName: self.workout.meta.iconName)

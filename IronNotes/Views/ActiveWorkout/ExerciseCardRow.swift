@@ -50,34 +50,11 @@ struct ExerciseCardRow: View {
 
 struct ExerciseCardRow_Previews: PreviewProvider {
   static var previews: some View {
-  
-    
     let exerciseSet = ExerciseSet(context: AppDelegate.viewContext)
     exerciseSet.setPosition = 0
     exerciseSet.reps = 3
     exerciseSet.weight = 135
     
-  
-    
     return ExerciseCardRow(exerciseSet: exerciseSet)
   }
 }
-
-
-struct AddSet: View {
-  var body: some View {
-    // Replace with label when alignment is fixed
-    //    Label("Add Set", systemImage: "plus.circle.fill")
-    //      .foregroundColor(Color.orange)
-    HStack(alignment: .center, spacing: LARGE_SPACING) {
-      Image(systemName: "plus.circle.fill")
-        .foregroundColor(Color.orange)
-      Text("Add Set")
-        .font(.headline)
-        .foregroundColor(Color.orange)
-      Spacer()
-    }.frame(height: 40)
-    .padding(.bottom, 5)
-  }
-}
-

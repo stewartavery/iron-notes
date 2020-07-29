@@ -15,20 +15,22 @@ struct ActiveWorkout: View {
   @State var isAddExerciseCardVisible = false
   
   var body: some View {
-    print(workout.routinesArray)
-    return List {
+    List {
       ForEach(workout.routinesArray, id: \.self) { exercise in
-        Section {
-          ExerciseCard(
-            exercise: exercise
-          )
-          .buttonStyle(BorderlessButtonStyle())
+        if exercise.position == 0 {
+          Section(header: WorkoutDescription(workout: workout)) {
+            ExerciseCard(exercise: exercise)
+          }
+        } else {
+          Section {
+            ExerciseCard(
+              exercise: exercise
+            )
+          }
         }
       }
-      Section {
-        AddExerciseCard(isSheetVisible: self.$isAddExerciseCardVisible)
-      }
     }
+    .buttonStyle(BorderlessButtonStyle())
     .sheet(
       isPresented: $isAddExerciseCardVisible,
       content: {
@@ -58,7 +60,7 @@ struct ActiveWorkout: View {
 
 struct ActiveWorkout_Previews: PreviewProvider {
   static var previews: some View {
-
+    
     let workout = Workout(context: AppDelegate.viewContext)
     let workoutMeta = WorkoutTemplate(context: AppDelegate.viewContext)
     
@@ -120,17 +122,11 @@ struct AddExerciseCard: View {
     Button {
       self.isSheetVisible.toggle()
     } label: {
-      HStack(alignment: .center, spacing: LARGE_SPACING) {
-        Image(systemName: "pencil.circle")
-          .foregroundColor(Color.orange)
-        Text("Edit Exercises")
-          .font(.headline)
-          .foregroundColor(Color.orange)
-        Spacer()
-      }
-      .padding(.top, 10)
-      .padding(.bottom, 10)
+      Label("Edit Exercises", systemImage: "pencil.circle")
+        .font(.headline)
     }
-    
+    .foregroundColor(Color.orange)
+    .padding(.top, 10)
+    .padding(.bottom, 10)
   }
 }

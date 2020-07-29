@@ -8,6 +8,16 @@
 
 import SwiftUI
 
+struct AddSet: View {
+  var body: some View {
+    Label("Add Set", systemImage: "plus.circle.fill")
+      .font(.headline)
+      .foregroundColor(Color.orange)
+      .frame(height: 40)
+      .padding(.bottom, 5)
+  }
+}
+
 struct ExerciseCard: View {
   @Environment(\.managedObjectContext) var moc
   @ObservedObject var exercise: Exercise
