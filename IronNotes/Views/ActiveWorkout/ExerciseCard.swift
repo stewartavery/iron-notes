@@ -37,7 +37,7 @@ struct ExerciseCard: View {
         if self.isNotePresent {
           Text(exercise.note)
             .font(.system(size: 15, weight: .semibold, design: .default))
-            .padding(.top, 15)
+            .padding(.top, 5)
         }
       }.padding(.bottom, 10)
       
@@ -66,7 +66,7 @@ struct ExerciseCard: View {
   func deleteSet(at offsets: IndexSet) {
     var modifiedExerciseSets = self.exercise.exerciseSetArray
     modifiedExerciseSets.remove(atOffsets: offsets)
-        
+    
     for index in offsets {
       self.moc.delete(self.exercise.exerciseSetArray[index])
     }
@@ -145,4 +145,3 @@ struct ExerciseCard_Previews: PreviewProvider {
     
   }
 }
-

@@ -12,7 +12,6 @@ struct NewWorkout: View {
   @Environment(\.managedObjectContext) var moc
   @Binding var isPresented: Bool
   
-  
   @State var workout: Workout = Workout(context: AppDelegate.viewContext)
   @State var name: String = ""
   @State var description: String = ""

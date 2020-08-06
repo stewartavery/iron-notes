@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct IronNotesContainer: View {
+  @StateObject var stopwatchManager = StopwatchManager()
+  
   var body: some View {
     TabView {
       StartWorkoutList()
@@ -47,8 +49,7 @@ struct IronNotesContainer: View {
           }
         })
         .tag(3)
-      
-    }
+    }.environmentObject(stopwatchManager)
   }
 }
 

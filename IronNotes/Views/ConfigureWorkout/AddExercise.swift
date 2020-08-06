@@ -87,12 +87,6 @@ struct AddExercise: View {
       by: -1 ) {
       modifiedRoutines[reverseIndex].position = Int16(reverseIndex)
     }
-    
-    do {
-      try self.moc.save()
-    } catch {
-      print(error.localizedDescription)
-    }
   }
   
   

@@ -16,7 +16,6 @@ struct StartWorkoutList : View {
   init() {
     UITableView.appearance().separatorStyle = .none
     UITableView.appearance().separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 40)
-
   }
   
   var body: some View {
@@ -34,6 +33,7 @@ struct StartWorkoutList : View {
           AddWorkoutRow()
         }
       }
+      .listStyle(DefaultListStyle())
       .sheet(isPresented: $isCreateViewVisible, content: { NewWorkout(isPresented: self.$isCreateViewVisible) })
       .navigationBarTitle("Workouts")
     }

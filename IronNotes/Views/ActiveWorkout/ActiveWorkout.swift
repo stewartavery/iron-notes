@@ -12,13 +12,13 @@ import CoreData
 struct ActiveWorkout: View {
   @ObservedObject var workout: Workout
   @Environment(\.managedObjectContext) var moc
-  @State var isAddExerciseCardVisible = false
+  @State var isEditing = false
   
   var body: some View {
     List {
       ForEach(workout.routinesArray, id: \.self) { exercise in
         if exercise.position == 0 {
-          Section(header: WorkoutDescription(workout: workout)) {
+          Section(header: WorkoutDescription(workout: workout, isEditing: $isEditing)) {
             ExerciseCard(exercise: exercise)
           }
         } else {
@@ -32,14 +32,15 @@ struct ActiveWorkout: View {
     }
     .buttonStyle(BorderlessButtonStyle())
     .sheet(
-      isPresented: $isAddExerciseCardVisible,
+      isPresented: self.$isEditing,
       content: {
-        AddExercise(isPresented: self.$isAddExerciseCardVisible, workout: self.workout)
+        AddExercise(isPresented: self.$isEditing, workout: self.workout)
           .environment(\.managedObjectContext, moc)
       })
     .listStyle(InsetGroupedListStyle())
     .navigationBarTitle(Text(workout.meta.name), displayMode: .large)
   }
+
   
   func createNewSet(exercise: Exercise) {
     let newSet = ExerciseSet(context: moc)
