@@ -30,6 +30,7 @@ struct ActiveWorkout: View {
         }
       }
     }
+    .padding(.top, 15)
     .buttonStyle(BorderlessButtonStyle())
     .sheet(
       isPresented: self.$isEditing,
