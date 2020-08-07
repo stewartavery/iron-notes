@@ -21,6 +21,7 @@ struct ActiveWorkout: View {
           Section(header: WorkoutDescription(workout: workout, isEditing: $isEditing)) {
             ExerciseCard(exercise: exercise)
           }
+          .padding(.top, 15)
         } else {
           Section {
             ExerciseCard(
@@ -30,7 +31,6 @@ struct ActiveWorkout: View {
         }
       }
     }
-    .padding(.top, 15)
     .buttonStyle(BorderlessButtonStyle())
     .sheet(
       isPresented: self.$isEditing,
@@ -113,6 +113,7 @@ struct ActiveWorkout_Previews: PreviewProvider {
     return NavigationView {
       ActiveWorkout(workout: workout)
     }.navigationViewStyle(StackNavigationViewStyle())
+    .environmentObject(StopwatchManager())
   }
 }
 
