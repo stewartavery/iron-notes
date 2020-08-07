@@ -73,6 +73,7 @@ struct WorkoutDescription: View {
     }
     .listRowInsets(EdgeInsets())
     .padding(.bottom, 55)
+    .padding(.top, 5)
   }
   
 }
@@ -97,6 +98,7 @@ struct WorkoutDescription_Previews: PreviewProvider {
         }
       }.listStyle(InsetGroupedListStyle())
       .environment(\.colorScheme, .dark)
+      .environmentObject(StopwatchManager())
   }
   
   

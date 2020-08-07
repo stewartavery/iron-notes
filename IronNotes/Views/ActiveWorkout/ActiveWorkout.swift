@@ -8,26 +8,36 @@
 
 import SwiftUI
 import CoreData
+import Combine
+
+struct OptionalWorkoutDescription: View {
+  @ObservedObject var workout: Workout
+  @Binding var isEditing: Bool
+  
+  var isVisible: Bool
+  
+  var body: some View {
+    if isVisible {
+      WorkoutDescription(workout: workout, isEditing: $isEditing)
+    }
+  }
+}
 
 struct ActiveWorkout: View {
   @ObservedObject var workout: Workout
   @Environment(\.managedObjectContext) var moc
   @State var isEditing = false
+  @State var isModifyingSet: Bool = false
   
   var body: some View {
     List {
       ForEach(workout.routinesArray, id: \.self) { exercise in
-        if exercise.position == 0 {
-          Section(header: WorkoutDescription(workout: workout, isEditing: $isEditing)) {
-            ExerciseCard(exercise: exercise)
-          }
-          .padding(.top, 15)
-        } else {
-          Section {
-            ExerciseCard(
-              exercise: exercise
-            )
-          }
+        Section(header: OptionalWorkoutDescription(
+                  workout: workout,
+                  isEditing: $isEditing,
+                  isVisible: exercise.position == 0)
+        ) {
+          ExerciseCard(exercise: exercise)
         }
       }
     }
@@ -40,8 +50,14 @@ struct ActiveWorkout: View {
       })
     .listStyle(InsetGroupedListStyle())
     .navigationBarTitle(Text(workout.meta.name), displayMode: .large)
+    .navigationBarItems(trailing:
+                          Button("Save") {
+                            self.isModifyingSet = false
+                            UIApplication.shared.endEditing()
+                          })
+    
   }
-
+  
   
   func createNewSet(exercise: Exercise) {
     let newSet = ExerciseSet(context: moc)
@@ -131,5 +147,11 @@ struct AddExerciseCard: View {
     .foregroundColor(Color.orange)
     .padding(.top, 10)
     .padding(.bottom, 10)
+  }
+}
+
+extension UIApplication {
+  func endEditing() {
+    sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
   }
 }

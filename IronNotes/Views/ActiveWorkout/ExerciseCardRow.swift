@@ -15,34 +15,50 @@ struct ExerciseCardRow: View {
   @ObservedObject var exerciseSet: ExerciseSet
   
   var body: some View {
+    let weightBinding = Binding<String>(get: {
+      String(self.exerciseSet.weight)
+    }, set: {
+      print("weight!!!")
+      self.exerciseSet.weight = Int32($0) ?? 0
+    })
+    
+    let repBinding = Binding<String>(get: {
+      String(self.exerciseSet.reps)
+    }, set: {
+      self.exerciseSet.reps = Int16($0) ?? 0
+    })
+    
     HStack(alignment: .center, spacing: LARGE_SPACING) {
-      CompletionCircle(exerciseSet: exerciseSet)
-      HStack(alignment: .firstTextBaseline, spacing: SMALL_SPACING) {
+      Label {
+        HStack(alignment: .firstTextBaseline, spacing: SMALL_SPACING) {
+          
+          TextField("", text: weightBinding)
+            .font(.headline)
+            .keyboardType(.decimalPad)
+            .frame(width: 32)
+          
+          Text("lbs")
+            .font(.caption)
+            .foregroundColor(Color.gray)
+        }
         
-        TextField("", value: $exerciseSet.weight, formatter: NumberFormatter())
-          .font(.headline)
-          .keyboardType(.decimalPad)
-          .frame(width: 32)
-        
-        Text("lbs")
-          .font(.caption)
+        Image(systemName: "multiply")
           .foregroundColor(Color.gray)
-      }
-      
-      Image(systemName: "multiply")
-        .foregroundColor(Color.gray)
-      
-      HStack(alignment: .firstTextBaseline, spacing: SMALL_SPACING) {
-        TextField("", value: $exerciseSet.reps, formatter: NumberFormatter())
-          .font(.headline)
-          .keyboardType(.decimalPad)
-          .frame(width: 13)
         
-        Text("reps")
-          .font(.caption)
-          .foregroundColor(Color.gray)
+        HStack(alignment: .firstTextBaseline, spacing: SMALL_SPACING) {
+          TextField("", text: repBinding)
+            .font(.headline)
+            .keyboardType(.decimalPad)
+            .frame(width: 13)
+          
+          Text("reps")
+            .font(.caption)
+            .foregroundColor(Color.gray)
+        }
+        Spacer()
+      } icon: {
+        CompletionCircle(exerciseSet: exerciseSet)
       }
-      Spacer()
     }.frame(height: 20)
     
   }
