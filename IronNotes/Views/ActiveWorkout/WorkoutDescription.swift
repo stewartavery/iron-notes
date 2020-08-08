@@ -60,8 +60,6 @@ struct WorkoutDescription: View {
             WorkoutButton(label: "Start", systemImage: "play.fill", width: geometry.size.width * 0.46)
           }
         }
-        
-        
         Spacer()
         Button {
           self.isEditing.toggle()
@@ -78,6 +76,7 @@ struct WorkoutDescription: View {
   
 }
 
+#if DEBUG
 struct WorkoutDescription_Previews: PreviewProvider {
   @State static var isEditing = true
   
@@ -94,6 +93,5 @@ struct WorkoutDescription_Previews: PreviewProvider {
       .environment(\.colorScheme, .dark)
       .environmentObject(StopwatchManager())
   }
-  
-  
 }
+#endif

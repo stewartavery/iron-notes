@@ -64,8 +64,10 @@ struct ExerciseCardRow: View {
   }
 }
 
+#if DEBUG
 struct ExerciseCardRow_Previews: PreviewProvider {
   static var previews: some View {
     return ExerciseCardRow(exerciseSet: IronNotesModelFactory.getExerciseSet())
   }
 }
+#endif

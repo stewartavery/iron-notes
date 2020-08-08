@@ -31,4 +31,3 @@ struct AddWorkoutRow_Previews: PreviewProvider {
   }
 }
 #endif
-

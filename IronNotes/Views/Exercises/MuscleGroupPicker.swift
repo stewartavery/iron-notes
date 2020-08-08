@@ -61,6 +61,7 @@ struct MuscleGroupPicker: View {
   
 }
 
+#if DEBUG
 struct MuscleGroupPicker_Previews: PreviewProvider {
   @ObservedObject static var selectedMuscleGroups = SelectedMuscleGroups()
   
@@ -71,4 +72,4 @@ struct MuscleGroupPicker_Previews: PreviewProvider {
     }
   }
 }
-
+#endif

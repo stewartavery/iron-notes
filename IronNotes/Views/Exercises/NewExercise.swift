@@ -66,10 +66,11 @@ struct NewExercise: View {
   }
 }
 
+#if DEBUG
 struct NewExercise_Previews: PreviewProvider {
   @State static var isModalPresented = true
   static var previews: some View {
     NewExercise(isPresented: $isModalPresented)
   }
-  
 }
+#endif

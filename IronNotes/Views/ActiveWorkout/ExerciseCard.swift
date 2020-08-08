@@ -97,6 +97,7 @@ struct ExerciseCard: View {
   }
 }
 
+#if DEBUG
 struct ExerciseCard_Previews: PreviewProvider {
   static var previews: some View {
     return NavigationView {
@@ -109,6 +110,6 @@ struct ExerciseCard_Previews: PreviewProvider {
       .navigationTitle("Hey")
       .buttonStyle(BorderlessButtonStyle())
     }
-    
   }
 }
+#endif

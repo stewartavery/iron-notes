@@ -41,24 +41,28 @@ struct NewWorkout: View {
       .sheet(
         isPresented: $isAddExerciseVisible,
         content: {
-          AddExercise(isPresented: self.$isAddExerciseVisible, workout: self.workout)
-            .environment(\.managedObjectContext, moc)
+          ExerciseEditor(
+            workout: self.workout,
+            isPresented: self.$isAddExerciseVisible
+          )
         })
       .navigationBarTitle(Text("New Workout"), displayMode: .inline)
-      .navigationBarItems(leading:
-                            Button("Close") {
-                              self.isPresented.toggle()
-                            },trailing: Button("Done") {
-                              self.isPresented.toggle()
-                            })
+      .navigationBarItems(
+        leading: Button("Close") {
+          self.isPresented.toggle()
+        },
+        trailing: Button("Done") {
+          self.isPresented.toggle()
+        })
     }
   }
-  
 }
 
+#if DEBUG
 struct NewWorkout_Previews: PreviewProvider {
   @State static var isModalPresented = true
   static var previews: some View {
     NewWorkout(isPresented: $isModalPresented)
   }
 }
+#endif

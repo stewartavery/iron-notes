@@ -16,6 +16,7 @@ struct RowImage: View {
       .workoutImageModifier()
   }
 }
+
 #if DEBUG
 struct RowImage_Previews: PreviewProvider {
   static var previews: some View {

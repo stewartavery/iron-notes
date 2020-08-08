@@ -10,7 +10,10 @@ import SwiftUI
 
 struct StartWorkoutList : View {
   @Environment(\.managedObjectContext) var moc
-  @FetchRequest(entity: Workout.entity(), sortDescriptors: []) var workouts: FetchedResults<Workout>
+  @FetchRequest(
+    entity: Workout.entity(),
+    sortDescriptors: []
+  ) var workouts: FetchedResults<Workout>
   @State var isCreateViewVisible = false
   
   init() {
@@ -23,8 +26,8 @@ struct StartWorkoutList : View {
       List {
         ForEach(workouts, id: \.self) { workout in
           NavigationLink(destination: ActiveWorkout(workout: workout)) {
-            WorkoutRow(workout: workout).listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
-
+            WorkoutRow(workout: workout)
+              .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
           }
         }
         Button {
@@ -34,7 +37,10 @@ struct StartWorkoutList : View {
         }
       }
       .listStyle(DefaultListStyle())
-      .sheet(isPresented: $isCreateViewVisible, content: { NewWorkout(isPresented: self.$isCreateViewVisible) })
+      .sheet(isPresented: $isCreateViewVisible,
+             content: {
+              NewWorkout(isPresented: self.$isCreateViewVisible)
+             })
       .navigationBarTitle("Workouts")
     }
   }
@@ -48,4 +54,3 @@ struct StartWorkoutList_Preview : PreviewProvider {
   }
 }
 #endif
-

@@ -32,10 +32,12 @@ struct ActiveWorkout: View {
   var body: some View {
     List {
       ForEach(workout.routinesArray, id: \.self) { exercise in
-        Section(header: OptionalWorkoutDescription(
-                  workout: workout,
-                  isEditing: $isEditing,
-                  isVisible: exercise.position == 0)
+        Section(
+          header: OptionalWorkoutDescription(
+            workout: workout,
+            isEditing: $isEditing,
+            isVisible: exercise.position == 0
+          )
         ) {
           ExerciseCard(exercise: exercise)
         }
@@ -45,16 +47,18 @@ struct ActiveWorkout: View {
     .sheet(
       isPresented: self.$isEditing,
       content: {
-        AddExercise(isPresented: self.$isEditing, workout: self.workout)
-          .environment(\.managedObjectContext, moc)
+        ExerciseEditor(
+          workout: self.workout,
+          isPresented: self.$isEditing
+        )
       })
     .listStyle(InsetGroupedListStyle())
     .navigationBarTitle(Text(workout.meta.name), displayMode: .large)
-    .navigationBarItems(trailing:
-                          Button("Save") {
-                            self.isModifyingSet = false
-                            UIApplication.shared.endEditing()
-                          })
+    .navigationBarItems(
+      trailing: Button("Save") {
+        self.isModifyingSet = false
+        UIApplication.shared.endEditing()
+      })
     
   }
   
@@ -76,6 +80,13 @@ struct ActiveWorkout: View {
   }
 }
 
+extension UIApplication {
+  func endEditing() {
+    sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+  }
+}
+
+#if DEBUG
 struct ActiveWorkout_Previews: PreviewProvider {
   static var previews: some View {
     return NavigationView {
@@ -84,26 +95,4 @@ struct ActiveWorkout_Previews: PreviewProvider {
     .environmentObject(StopwatchManager())
   }
 }
-
-
-struct AddExerciseCard: View {
-  @Binding var isSheetVisible: Bool
-  
-  var body: some View {
-    Button {
-      self.isSheetVisible.toggle()
-    } label: {
-      Label("Edit Exercises", systemImage: "pencil.circle")
-        .font(.headline)
-    }
-    .foregroundColor(Color.orange)
-    .padding(.top, 10)
-    .padding(.bottom, 10)
-  }
-}
-
-extension UIApplication {
-  func endEditing() {
-    sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-  }
-}
+#endif
