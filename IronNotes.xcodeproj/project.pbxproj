@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		501BA5F324D0FDC600D4E9AF /* WorkoutDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501BA5F224D0FDC600D4E9AF /* WorkoutDescription.swift */; };
 		50222E5E24DC0BB6005BBF61 /* StopwatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50222E5D24DC0BB6005BBF61 /* StopwatchManager.swift */; };
+		50599C5024DF2F7B00F5F29E /* TextFieldAccessoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50599C4D24DF2F7B00F5F29E /* TextFieldAccessoryViewController.swift */; };
+		50599C5124DF2F7B00F5F29E /* TextFieldAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50599C4E24DF2F7B00F5F29E /* TextFieldAccessoryView.swift */; };
+		50599C5224DF2F7B00F5F29E /* SSTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50599C4F24DF2F7B00F5F29E /* SSTextField.swift */; };
 		509288A224DF269300328EDF /* IronNotesModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509288A124DF269300328EDF /* IronNotesModelFactory.swift */; };
 		6506506F24B6CFAB003E1415 /* ExerciseCardRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6506506E24B6CFAB003E1415 /* ExerciseCardRow.swift */; };
 		650EB89A2484A056009AD355 /* Workout+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650EB8982484A056009AD355 /* Workout+CoreDataClass.swift */; };
@@ -52,6 +55,9 @@
 /* Begin PBXFileReference section */
 		501BA5F224D0FDC600D4E9AF /* WorkoutDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDescription.swift; sourceTree = "<group>"; };
 		50222E5D24DC0BB6005BBF61 /* StopwatchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopwatchManager.swift; sourceTree = "<group>"; };
+		50599C4D24DF2F7B00F5F29E /* TextFieldAccessoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextFieldAccessoryViewController.swift; path = "../../../../../SwiftUI-InputAccessoryView/InputAccessoryView/TextFieldAccessoryViewController.swift"; sourceTree = "<group>"; };
+		50599C4E24DF2F7B00F5F29E /* TextFieldAccessoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextFieldAccessoryView.swift; path = "../../../../../SwiftUI-InputAccessoryView/InputAccessoryView/TextFieldAccessoryView.swift"; sourceTree = "<group>"; };
+		50599C4F24DF2F7B00F5F29E /* SSTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SSTextField.swift; path = "../../../../../SwiftUI-InputAccessoryView/InputAccessoryView/SSTextField.swift"; sourceTree = "<group>"; };
 		509288A124DF269300328EDF /* IronNotesModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IronNotesModelFactory.swift; sourceTree = "<group>"; };
 		6506506E24B6CFAB003E1415 /* ExerciseCardRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCardRow.swift; sourceTree = "<group>"; };
 		650EB8982484A056009AD355 /* Workout+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Workout+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -117,6 +123,16 @@
 			path = Stopwatch;
 			sourceTree = "<group>";
 		};
+		50599C4C24DF2F5000F5F29E /* SSTextField */ = {
+			isa = PBXGroup;
+			children = (
+				50599C4F24DF2F7B00F5F29E /* SSTextField.swift */,
+				50599C4E24DF2F7B00F5F29E /* TextFieldAccessoryView.swift */,
+				50599C4D24DF2F7B00F5F29E /* TextFieldAccessoryViewController.swift */,
+			);
+			path = SSTextField;
+			sourceTree = "<group>";
+		};
 		509288A024DF265700328EDF /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
@@ -174,6 +190,7 @@
 		655A5CAF23F8D418000E5246 /* ActiveWorkout */ = {
 			isa = PBXGroup;
 			children = (
+				50599C4C24DF2F5000F5F29E /* SSTextField */,
 				50222E5C24DC0B93005BBF61 /* Stopwatch */,
 				654889BF23FA1D6100D80727 /* ActiveWorkout.swift */,
 				65760CBD248C95D1003F5299 /* CompletionCircle.swift */,
@@ -360,12 +377,14 @@
 				6514CB9A22FE5075002907BC /* RowImage.swift in Sources */,
 				655D291C246E3C920022C241 /* SelectedMuscleGroups.swift in Sources */,
 				65291EB824B815BD00876C30 /* SelectedExercises.swift in Sources */,
+				50599C5024DF2F7B00F5F29E /* TextFieldAccessoryViewController.swift in Sources */,
 				6574530D2487456700DD76B6 /* ExerciseEditor.swift in Sources */,
 				65D61B1324849BBD00A5B561 /* WorkoutTemplate+CoreDataProperties.swift in Sources */,
 				50222E5E24DC0BB6005BBF61 /* StopwatchManager.swift in Sources */,
 				501BA5F324D0FDC600D4E9AF /* WorkoutDescription.swift in Sources */,
 				6544A4F423FA20AB0039D705 /* ExerciseType.swift in Sources */,
 				65789B84240F4686000ABE40 /* ExerciseSet+CoreDataProperties.swift in Sources */,
+				50599C5124DF2F7B00F5F29E /* TextFieldAccessoryView.swift in Sources */,
 				65789B79240DF2BA000ABE40 /* ExerciseSet+CoreDataClass.swift in Sources */,
 				6506506F24B6CFAB003E1415 /* ExerciseCardRow.swift in Sources */,
 				6510C77022E5401600A0DDE2 /* WorkoutRow.swift in Sources */,
@@ -381,6 +400,7 @@
 				65760CBE248C95D1003F5299 /* CompletionCircle.swift in Sources */,
 				652D146524454E7200E17685 /* ExerciseList.swift in Sources */,
 				65D61B03247A274200A5B561 /* Exercise+CoreDataProperties.swift in Sources */,
+				50599C5224DF2F7B00F5F29E /* SSTextField.swift in Sources */,
 				509288A224DF269300328EDF /* IronNotesModelFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

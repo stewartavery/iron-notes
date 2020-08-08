@@ -54,12 +54,7 @@ struct ActiveWorkout: View {
       })
     .listStyle(InsetGroupedListStyle())
     .navigationBarTitle(Text(workout.meta.name), displayMode: .large)
-    .navigationBarItems(
-      trailing: Button("Save") {
-        self.isModifyingSet = false
-        UIApplication.shared.endEditing()
-      })
-    
+
   }
   
   

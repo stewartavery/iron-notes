@@ -12,6 +12,9 @@ let LARGE_SPACING: CGFloat = 12
 let SMALL_SPACING: CGFloat = 2
 
 struct ExerciseCardRow: View {
+  let accessoryViewController = TextFieldAccessoryViewController()
+  let font = UIFont.systemFont(ofSize: 20)
+  
   @ObservedObject var exerciseSet: ExerciseSet
   
   var body: some View {
@@ -32,10 +35,16 @@ struct ExerciseCardRow: View {
       Label {
         HStack(alignment: .firstTextBaseline, spacing: SMALL_SPACING) {
           
-          TextField("", text: weightBinding)
-            .font(.headline)
-            .keyboardType(.decimalPad)
-            .frame(width: 32)
+          //          TextField("", text: weightBinding)
+          //            .font(.headline)
+          //            .keyboardType(.decimalPad)
+          //            .frame(width: 32)
+          //
+          SSTextField("Weight", text: weightBinding)
+            .font(font)
+            .accessoryViewController(accessoryViewController, tag: 0)
+            .frame(width: 40)
+            .padding(.leading, 10)
           
           Text("lbs")
             .font(.caption)
@@ -46,10 +55,16 @@ struct ExerciseCardRow: View {
           .foregroundColor(Color.gray)
         
         HStack(alignment: .firstTextBaseline, spacing: SMALL_SPACING) {
-          TextField("", text: repBinding)
-            .font(.headline)
-            .keyboardType(.decimalPad)
-            .frame(width: 13)
+          //          TextField("", text: repBinding)
+          //            .font(.headline)
+          //            .keyboardType(.decimalPad)
+          //            .frame(width: 13)
+          
+          SSTextField("Reps", text: repBinding)
+            .font(font)
+            .accessoryViewController(accessoryViewController, tag: 1)
+            .frame(width: 30)
+            .padding(.leading, 10)
           
           Text("reps")
             .font(.caption)
