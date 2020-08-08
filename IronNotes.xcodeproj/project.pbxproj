@@ -152,6 +152,7 @@
 		6530997722EA7CAB0033C66A /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				509288A024DF265700328EDF /* Mocks */,
 				65D61B00247A274200A5B561 /* Exercise+CoreDataClass.swift */,
 				65D61B01247A274200A5B561 /* Exercise+CoreDataProperties.swift */,
 				65D61AFC247A25AD00A5B561 /* ExerciseTemplate+CoreDataClass.swift */,
@@ -236,7 +237,6 @@
 		65FCC38F22CD9DB5006D6868 /* IronNotes */ = {
 			isa = PBXGroup;
 			children = (
-				509288A024DF265700328EDF /* Mocks */,
 				6530997722EA7CAB0033C66A /* Domain */,
 				651DA276240DEAE300F5C9D0 /* Views */,
 				65789B5E240DECBA000ABE40 /* Resources */,
