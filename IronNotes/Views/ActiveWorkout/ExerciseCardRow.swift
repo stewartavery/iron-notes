@@ -66,11 +66,6 @@ struct ExerciseCardRow: View {
 
 struct ExerciseCardRow_Previews: PreviewProvider {
   static var previews: some View {
-    let exerciseSet = ExerciseSet(context: AppDelegate.viewContext)
-    exerciseSet.setPosition = 0
-    exerciseSet.reps = 3
-    exerciseSet.weight = 135
-    
-    return ExerciseCardRow(exerciseSet: exerciseSet)
+    return ExerciseCardRow(exerciseSet: IronNotesModelFactory.getExerciseSet())
   }
 }

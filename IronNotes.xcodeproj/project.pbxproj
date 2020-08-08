@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		501BA5F324D0FDC600D4E9AF /* WorkoutDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501BA5F224D0FDC600D4E9AF /* WorkoutDescription.swift */; };
 		50222E5E24DC0BB6005BBF61 /* StopwatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50222E5D24DC0BB6005BBF61 /* StopwatchManager.swift */; };
+		509288A224DF269300328EDF /* IronNotesModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509288A124DF269300328EDF /* IronNotesModelFactory.swift */; };
 		6506506F24B6CFAB003E1415 /* ExerciseCardRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6506506E24B6CFAB003E1415 /* ExerciseCardRow.swift */; };
 		650EB89A2484A056009AD355 /* Workout+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650EB8982484A056009AD355 /* Workout+CoreDataClass.swift */; };
 		650EB89B2484A056009AD355 /* Workout+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650EB8992484A056009AD355 /* Workout+CoreDataProperties.swift */; };
@@ -46,12 +47,12 @@
 		65FCC39322CD9DB5006D6868 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FCC39222CD9DB5006D6868 /* SceneDelegate.swift */; };
 		65FCC39722CD9DB7006D6868 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65FCC39622CD9DB7006D6868 /* Assets.xcassets */; };
 		65FCC39A22CD9DB7006D6868 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65FCC39922CD9DB7006D6868 /* Preview Assets.xcassets */; };
-		65FCC39D22CD9DB7006D6868 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65FCC39B22CD9DB7006D6868 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		501BA5F224D0FDC600D4E9AF /* WorkoutDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDescription.swift; sourceTree = "<group>"; };
 		50222E5D24DC0BB6005BBF61 /* StopwatchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopwatchManager.swift; sourceTree = "<group>"; };
+		509288A124DF269300328EDF /* IronNotesModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IronNotesModelFactory.swift; sourceTree = "<group>"; };
 		6506506E24B6CFAB003E1415 /* ExerciseCardRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCardRow.swift; sourceTree = "<group>"; };
 		650EB8982484A056009AD355 /* Workout+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Workout+CoreDataClass.swift"; sourceTree = "<group>"; };
 		650EB8992484A056009AD355 /* Workout+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Workout+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -90,7 +91,6 @@
 		65FCC39222CD9DB5006D6868 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		65FCC39622CD9DB7006D6868 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		65FCC39922CD9DB7006D6868 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		65FCC39C22CD9DB7006D6868 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		65FCC39E22CD9DB7006D6868 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		65FCC3A722CD9DB7006D6868 /* IronNotesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IronNotesTests.swift; sourceTree = "<group>"; };
 		65FCC3A922CD9DB7006D6868 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -117,6 +117,14 @@
 			path = Stopwatch;
 			sourceTree = "<group>";
 		};
+		509288A024DF265700328EDF /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				509288A124DF269300328EDF /* IronNotesModelFactory.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
 		6510C76E22E532A000A0DDE2 /* StartWorkoutList */ = {
 			isa = PBXGroup;
 			children = (
@@ -137,7 +145,6 @@
 				6510C76E22E532A000A0DDE2 /* StartWorkoutList */,
 				655A5CB023F8D466000E5246 /* ConfigureWorkout */,
 				6510C76C22E5303600A0DDE2 /* IronNotesContainer.swift */,
-				65FCC39B22CD9DB7006D6868 /* LaunchScreen.storyboard */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -229,6 +236,7 @@
 		65FCC38F22CD9DB5006D6868 /* IronNotes */ = {
 			isa = PBXGroup;
 			children = (
+				509288A024DF265700328EDF /* Mocks */,
 				6530997722EA7CAB0033C66A /* Domain */,
 				651DA276240DEAE300F5C9D0 /* Views */,
 				65789B5E240DECBA000ABE40 /* Resources */,
@@ -324,7 +332,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65FCC39D22CD9DB7006D6868 /* LaunchScreen.storyboard in Resources */,
 				65FCC39A22CD9DB7006D6868 /* Preview Assets.xcassets in Resources */,
 				65FCC39722CD9DB7006D6868 /* Assets.xcassets in Resources */,
 			);
@@ -374,21 +381,11 @@
 				65760CBE248C95D1003F5299 /* CompletionCircle.swift in Sources */,
 				652D146524454E7200E17685 /* ExerciseList.swift in Sources */,
 				65D61B03247A274200A5B561 /* Exercise+CoreDataProperties.swift in Sources */,
+				509288A224DF269300328EDF /* IronNotesModelFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		65FCC39B22CD9DB7006D6868 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				65FCC39C22CD9DB7006D6868 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		65FCC3B522CD9DB7006D6868 /* Debug */ = {

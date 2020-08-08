@@ -17,16 +17,16 @@ struct WorkoutButton: View {
   
   var body: some View {
     HStack {
-    Label(self.label, systemImage: self.systemImage)
-      .foregroundColor(Color.orange)
-      .font(.headline)
-      .textCase(nil)
-      .padding(10)
-      .frame(width: self.width)
-      .mask(RoundedRectangle(cornerRadius: 8, style: .continuous))
-      .padding(2)
-      .background(colorScheme == .light ? Color.white : Color(UIColor.systemGray6))
-      .cornerRadius(8)
+      Label(self.label, systemImage: self.systemImage)
+        .foregroundColor(Color.orange)
+        .font(.headline)
+        .textCase(nil)
+        .padding(10)
+        .frame(width: self.width)
+        .mask(RoundedRectangle(cornerRadius: 8, style: .continuous))
+        .padding(2)
+        .background(colorScheme == .light ? Color.white : Color(UIColor.systemGray6))
+        .cornerRadius(8)
       Spacer()
     }
   }
@@ -82,18 +82,12 @@ struct WorkoutDescription_Previews: PreviewProvider {
   @State static var isEditing = true
   
   static var previews: some View {
-    let workout = Workout(context: AppDelegate.viewContext)
-    let workoutMeta = WorkoutTemplate(context: AppDelegate.viewContext)
-    
-    workoutMeta.name = "Extra Test Workout"
-    workoutMeta.desc = "Really good workout!"
-    workoutMeta.iconName = "barbell"
-    workout.meta = workoutMeta
-    workout.note = "This is an example of a relevant note to Bench Pressing."
-    workout.startTime = Date()
     return
       List {
-        Section(header: WorkoutDescription(workout: workout, isEditing: $isEditing)) {
+        Section(header: WorkoutDescription(
+          workout: IronNotesModelFactory.getWorkout(),
+          isEditing: $isEditing
+        )) {
           Text("Hey")
         }
       }.listStyle(InsetGroupedListStyle())
