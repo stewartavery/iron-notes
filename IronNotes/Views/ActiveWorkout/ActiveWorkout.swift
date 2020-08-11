@@ -54,7 +54,6 @@ struct ActiveWorkout: View {
       })
     .listStyle(InsetGroupedListStyle())
     .navigationBarTitle(Text(workout.meta.name), displayMode: .large)
-
   }
   
   
@@ -84,9 +83,10 @@ extension UIApplication {
 #if DEBUG
 struct ActiveWorkout_Previews: PreviewProvider {
   static var previews: some View {
-    return NavigationView {
+    NavigationView {
       ActiveWorkout(workout: IronNotesModelFactory.getWorkout())
-    }.navigationViewStyle(StackNavigationViewStyle())
+    }
+    .navigationViewStyle(StackNavigationViewStyle())
     .environmentObject(StopwatchManager())
   }
 }

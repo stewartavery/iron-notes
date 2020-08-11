@@ -9,15 +9,18 @@
 import SwiftUI
 
 struct CompletionCircle: View {
-  
   @ObservedObject var exerciseSet: ExerciseSet
 
   var body: some View {
-    Button(action: toggleIsCompleted) {
+    Button {
+      toggleIsCompleted()
+    } label: {
       if exerciseSet.isCompleted {
         Image(systemName: "largecircle.fill.circle")
+          .font(.headline)
       } else {
         Image(systemName: "circle")
+          .font(.headline)
           .foregroundColor(Color.gray)
       }
     }
@@ -27,3 +30,11 @@ struct CompletionCircle: View {
     exerciseSet.isCompleted.toggle()
   }
 }
+
+#if DEBUG
+struct ComplettionCircle_Previews: PreviewProvider {
+  static var previews: some View {
+    return CompletionCircle(exerciseSet: IronNotesModelFactory.getExerciseSet())
+  }
+}
+#endif

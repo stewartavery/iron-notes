@@ -12,10 +12,9 @@ let LARGE_SPACING: CGFloat = 12
 let SMALL_SPACING: CGFloat = 2
 
 struct ExerciseCardRow: View {
+  @ObservedObject var exerciseSet: ExerciseSet
   let accessoryViewController = InlineAccessoryViewController()
   let font = UIFont.systemFont(ofSize: 20)
-  
-  @ObservedObject var exerciseSet: ExerciseSet
   
   var body: some View {
     let weightBinding = Binding<String>(get: {
@@ -47,6 +46,7 @@ struct ExerciseCardRow: View {
         
         Image(systemName: "multiply")
           .foregroundColor(Color.gray)
+          .font(.headline)
         
         HStack(alignment: .firstTextBaseline, spacing: SMALL_SPACING) {
           InlineTextField("Reps", text: repBinding)

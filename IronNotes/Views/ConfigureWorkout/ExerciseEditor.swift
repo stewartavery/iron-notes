@@ -113,31 +113,24 @@ struct RemoveExerciseRow: View {
   var body: some View {
     Text(self.exerciseTemplate.name)
       .font(.body)
-      .foregroundColor(colorScheme == .light ? Color.black : Color.white)
   }
 }
 
 
 struct AddExerciseRow: View {
   var exerciseTemplate: ExerciseTemplate
-  @Environment(\.colorScheme) var colorScheme: ColorScheme
   var addRow: (ExerciseTemplate) -> Void
   
   var body: some View {
-    HStack {
-      Button {
-      } label: {
-        Image(systemName: "plus.circle.fill")
-          .foregroundColor(Color.green)
-          .padding(.trailing, 10)
-      }.onTapGesture {
-        self.addRow(self.exerciseTemplate)
-      }
-      
-      Text(self.exerciseTemplate.name)
-        .font(.body)
-        .foregroundColor(colorScheme == .light ? Color.black : Color.white)
-    }
+    Label {
+      Text(exerciseTemplate.name)
+    } icon: {
+      Image(systemName: "plus.circle.fill")
+        .foregroundColor(Color.green)
+        .font(.title3)
+    }.onTapGesture {
+      self.addRow(self.exerciseTemplate)
+    }.font(.body)
   }
 }
 

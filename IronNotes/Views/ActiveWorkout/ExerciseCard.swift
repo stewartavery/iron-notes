@@ -10,11 +10,15 @@ import SwiftUI
 
 struct AddSet: View {
   var body: some View {
-    Label("Add Set", systemImage: "plus.circle.fill")
+    HStack(alignment: .center) {
+      Label {
+        Text("Add Set")
+      } icon: {
+        Image(systemName: "plus.circle.fill")
+      }.foregroundColor(Color.orange)
       .font(.headline)
-      .foregroundColor(Color.orange)
-      .frame(height: 40)
-      .padding(.bottom, 5)
+      .frame(height: 50)
+    }
   }
 }
 
@@ -110,6 +114,14 @@ struct ExerciseCard_Previews: PreviewProvider {
       .navigationTitle("Hey")
       .buttonStyle(BorderlessButtonStyle())
     }
+  }
+}
+#endif
+
+#if DEBUG
+struct AddSet_Previews: PreviewProvider {
+  static var previews: some View {
+    return AddSet()
   }
 }
 #endif
