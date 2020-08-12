@@ -25,12 +25,16 @@ struct NewExercise: View {
         Form {
           Section {
             TextField("Exercise name", text: $name)
+              .font(.body)
             TextField("Description", text: $description)
+              .font(.body)
           }
           Section {
-            Picker(selection: $exerciseType, label: Text("Type of Exercise")) {
+            Picker(selection: $exerciseType, label: Text("Type of Exercise")          .font(.body)
+            ) {
               ForEach(ExerciseType.allCases, id: \.self) { e in
                 Text(e.rawValue)
+                  .font(.body)
               }
             }
           }
@@ -39,6 +43,7 @@ struct NewExercise: View {
               Text("Muscle Groups")
             }
           }
+          .font(.body)
         }
       }
       .navigationBarTitle(Text("New Exercise"), displayMode: .inline)

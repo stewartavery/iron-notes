@@ -20,7 +20,7 @@ struct AddWorkoutRow: View {
           .font(.headline)
       }.padding(.leading, 10)
     }
-    .frame(height: 100)
+    .frame(height: 80)
   }
 }
 

@@ -14,11 +14,6 @@ extension Image {
       .resizable()
       .frame(width: 65, height: 65)
       .padding()
-      .clipShape(RoundedRectangle(cornerRadius: 5))
-      .overlay(
-        RoundedRectangle(cornerRadius: 5)
-          .stroke(lineWidth: 0.3)
-          .foregroundColor(Color.gray)
-    )
+    
   }
 }

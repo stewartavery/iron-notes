@@ -26,7 +26,7 @@ struct WorkoutRow: View {
           .foregroundColor(.gray)
       }.padding(.leading, CGFloat(10))
     }
-    .frame(height: 100)
+    .frame(height: 80)
   }
   
   func getWorkoutDate() -> String {

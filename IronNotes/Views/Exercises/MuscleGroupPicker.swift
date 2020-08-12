@@ -17,6 +17,7 @@ struct MultipleSelectionRow: View {
     Button(action: handleSelection) {
       HStack {
         Text(self.muscleGroup.name)
+          .font(.body)
         if self.unsavedMuscleGroups.contains(self.muscleGroup) {
           Spacer()
           Image(systemName: "checkmark").foregroundColor(.blue)

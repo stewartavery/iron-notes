@@ -30,7 +30,8 @@ struct ActiveWorkout: View {
   @State var isModifyingSet: Bool = false
   
   var body: some View {
-    List {
+    print(workout.routinesArray)
+    return List {
       ForEach(workout.routinesArray, id: \.self) { exercise in
         Section(
           header: OptionalWorkoutDescription(
@@ -51,6 +52,7 @@ struct ActiveWorkout: View {
           workout: self.workout,
           isPresented: self.$isEditing
         )
+        .environment(\.managedObjectContext, moc)
       })
     .listStyle(InsetGroupedListStyle())
     .navigationBarTitle(Text(workout.meta.name), displayMode: .large)
