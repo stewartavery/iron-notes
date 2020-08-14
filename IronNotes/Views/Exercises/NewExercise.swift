@@ -30,7 +30,8 @@ struct NewExercise: View {
               .font(.body)
           }
           Section {
-            Picker(selection: $exerciseType, label: Text("Type of Exercise")          .font(.body)
+            Picker(selection: $exerciseType, label:
+                    Text("Type of Exercise").font(.body)
             ) {
               ForEach(ExerciseType.allCases, id: \.self) { e in
                 Text(e.rawValue)

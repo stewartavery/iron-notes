@@ -23,7 +23,7 @@ struct CompletionCircle: View {
           .font(.headline)
           .foregroundColor(Color.gray)
       }
-    }
+    }.frame(width: 25, height: 25)
   }
   
   func toggleIsCompleted() {

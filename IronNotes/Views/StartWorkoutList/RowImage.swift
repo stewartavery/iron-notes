@@ -9,11 +9,20 @@
 import SwiftUI
 
 struct RowImage: View {
+  @Environment(\.colorScheme) var colorScheme: ColorScheme
   var iconName: String
   
   var body: some View {
-    Image(iconName)
-      .workoutImageModifier()
+    ZStack {
+      Image(iconName)
+        .workoutImageModifier()
+      if(colorScheme == .dark) {
+        Color.gray.blendMode(.sourceAtop)
+          .frame(width: 65)
+          .padding(.bottom, 10)
+      }
+     
+    }
   }
 }
 

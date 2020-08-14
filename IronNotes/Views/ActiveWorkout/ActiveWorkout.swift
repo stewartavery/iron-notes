@@ -11,7 +11,7 @@ import CoreData
 import Combine
 
 struct OptionalWorkoutDescription: View {
-  @ObservedObject var workout: Workout
+  @EnvironmentObject var workout: Workout
   @Binding var isEditing: Bool
   
   var isVisible: Bool
@@ -23,8 +23,21 @@ struct OptionalWorkoutDescription: View {
   }
 }
 
+struct OptionalFooter: View {
+  
+  var isVisible: Bool
+  
+  var body: some View {
+    if isVisible {
+      VStack{
+        
+      }.keyboardAdaptive()
+    }
+  }
+}
+
 struct ActiveWorkout: View {
-  @ObservedObject var workout: Workout
+  @EnvironmentObject var workout: Workout
   @Environment(\.managedObjectContext) var moc
   @State var isEditing = false
   @State var isModifyingSet: Bool = false
@@ -32,27 +45,25 @@ struct ActiveWorkout: View {
   var body: some View {
     print(workout.routinesArray)
     return List {
-      ForEach(workout.routinesArray, id: \.self) { exercise in
+      ForEach(workout.routinesArray.sorted(by: {$0.position < $1.position}), id: \.self) { exercise in
         Section(
           header: OptionalWorkoutDescription(
-            workout: workout,
             isEditing: $isEditing,
             isVisible: exercise.position == 0
-          )
+          ), footer: OptionalFooter(isVisible: exercise.position == workout.routinesArray.count - 1)
         ) {
           ExerciseCard(exercise: exercise)
         }
       }
     }
+    
+    
     .buttonStyle(BorderlessButtonStyle())
     .sheet(
       isPresented: self.$isEditing,
       content: {
-        ExerciseEditor(
-          workout: self.workout,
-          isPresented: self.$isEditing
-        )
-        .environment(\.managedObjectContext, moc)
+        ExerciseEditor(isPresented: self.$isEditing)
+          .environment(\.managedObjectContext, moc)
       })
     .listStyle(InsetGroupedListStyle())
     .navigationBarTitle(Text(workout.meta.name), displayMode: .large)
@@ -62,9 +73,6 @@ struct ActiveWorkout: View {
   func createNewSet(exercise: Exercise) {
     let newSet = ExerciseSet(context: moc)
     newSet.setPosition = Int16(exercise.exerciseSetArray.count + 1)
-    newSet.reps = 3
-    newSet.weight = 225
-    
     exercise.addToSets(newSet)
     
     do {
@@ -86,9 +94,10 @@ extension UIApplication {
 struct ActiveWorkout_Previews: PreviewProvider {
   static var previews: some View {
     NavigationView {
-      ActiveWorkout(workout: IronNotesModelFactory.getWorkout())
+      ActiveWorkout()
     }
     .navigationViewStyle(StackNavigationViewStyle())
+    .environmentObject(IronNotesModelFactory.getWorkout())
     .environmentObject(StopwatchManager())
   }
 }

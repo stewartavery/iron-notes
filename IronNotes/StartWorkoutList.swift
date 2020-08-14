@@ -21,21 +21,19 @@ struct StartWorkoutList : View {
     NavigationView {
       List {
         ForEach(workouts, id: \.self) { workout in
-          Section {
-            NavigationLink(destination: ActiveWorkout(workout: workout)) {
+            NavigationLink(destination: ActiveWorkout().environmentObject(workout)) {
               WorkoutRow(workout: workout)
             }
-          }
+          
         }
-        Section {
           Button {
             self.isCreateViewVisible.toggle()
           } label: {
             AddWorkoutRow()
           }
-        }
-        .listStyle(InsetGroupedListStyle())
+        
       }
+      .listStyle(InsetGroupedListStyle())
       
       .sheet(isPresented: $isCreateViewVisible,
              content: {

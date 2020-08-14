@@ -15,9 +15,9 @@ struct AddSet: View {
         Text("Add Set")
       } icon: {
         Image(systemName: "plus.circle.fill")
-      }.foregroundColor(Color.orange)
+      }
+      .foregroundColor(Color.orange)
       .font(.headline)
-      .frame(height: 50)
     }
   }
 }
@@ -57,7 +57,7 @@ struct ExerciseCard: View {
           self.createNewSet()
         }
       } label: {
-        AddSet()
+        AddSet().frame(height: 45)
       }
       .onAppear() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {

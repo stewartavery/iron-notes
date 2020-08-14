@@ -17,7 +17,7 @@ class InlineAccessoryViewController: UIHostingController<InlineAccessoryView> {
   
   private override init(rootView: InlineAccessoryView) {
     super.init(rootView: rootView)
-    view.frame = CGRect(x: 0, y: 0, width: 0 , height: 22)
+    view.frame = CGRect(x: 0, y: 0, width: 0 , height: 70)
   }
   
   @objc required dynamic init?(coder aDecoder: NSCoder) {

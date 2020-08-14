@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ExerciseEditor: View {
   @Environment(\.managedObjectContext) var moc
-  @ObservedObject var workout: Workout
+  @EnvironmentObject var workout: Workout
   @Binding var isPresented: Bool
   @FetchRequest(
     entity: ExerciseTemplate.entity(),
@@ -139,10 +139,9 @@ struct AddExercise_Previews: PreviewProvider {
   @State static var isModalPresented = true
   
   static var previews: some View {
-    ExerciseEditor(
-      workout: IronNotesModelFactory.getWorkout(),
-      isPresented: $isModalPresented
-    ).environment(\.managedObjectContext, AppDelegate.viewContext)
+    ExerciseEditor(isPresented: $isModalPresented)
+      .environmentObject(IronNotesModelFactory.getWorkout())
+      .environment(\.managedObjectContext, AppDelegate.viewContext)
   }
 }
 #endif

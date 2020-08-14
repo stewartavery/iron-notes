@@ -42,7 +42,6 @@ struct NewWorkout: View {
         isPresented: $isAddExerciseVisible,
         content: {
           ExerciseEditor(
-            workout: self.workout,
             isPresented: self.$isAddExerciseVisible
           )
         })

@@ -38,7 +38,6 @@ struct InlineTextField: UIViewRepresentable {
     let textField = UITextField()
     textField.delegate = context.coordinator
     
-    
     if let accessoryViewController = model.accessoryViewController, let tag = model.tag {
       textField.inputAccessoryView = accessoryViewController.view
       textField.tag = tag
@@ -53,6 +52,7 @@ struct InlineTextField: UIViewRepresentable {
     textField.placeholder = model.placeholder
     textField.text = model.text.wrappedValue
     textField.font = model.font
+    textField.keyboardType = .decimalPad
   }
   
   static func dismantleUIView(_ uiView: UITextField, coordinator: InlineTextField.Coordinator) {

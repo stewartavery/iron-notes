@@ -14,7 +14,7 @@ let SMALL_SPACING: CGFloat = 2
 struct ExerciseCardRow: View {
   @ObservedObject var exerciseSet: ExerciseSet
   let accessoryViewController = InlineAccessoryViewController()
-  let font = UIFont.systemFont(ofSize: 20)
+  let font = UIFont.preferredFont(forTextStyle: .body)
   
   var body: some View {
     let weightBinding = Binding<String>(get: {
@@ -30,36 +30,35 @@ struct ExerciseCardRow: View {
       self.exerciseSet.reps = Int16($0) ?? 0
     })
     
-    HStack(alignment: .center, spacing: LARGE_SPACING) {
+    HStack(alignment: .center) {
       Label {
-        HStack(alignment: .firstTextBaseline, spacing: SMALL_SPACING) {
-          InlineTextField("Weight", text: weightBinding)
+        HStack(alignment: .firstTextBaseline) {
+          InlineTextField("lbs", text: weightBinding)
             .font(font)
             .accessoryViewController(accessoryViewController, tag: 0)
             .frame(width: 40)
-            .padding(.leading, 10)
           
           Text("lbs")
             .font(.caption)
+          
+          Spacer()
+                    
+          Image(systemName: "multiply")
             .foregroundColor(Color.gray)
-        }
-        
-        Image(systemName: "multiply")
-          .foregroundColor(Color.gray)
-          .font(.headline)
-        
-        HStack(alignment: .firstTextBaseline, spacing: SMALL_SPACING) {
-          InlineTextField("Reps", text: repBinding)
+            .font(.headline)
+          
+          Spacer()
+          
+          InlineTextField("reps", text: repBinding)
             .font(font)
             .accessoryViewController(accessoryViewController, tag: 1)
-            .frame(width: 30)
-            .padding(.leading, 10)
+            .frame(width: 20)
           
           Text("reps")
             .font(.caption)
-            .foregroundColor(Color.gray)
+          
+          Spacer()
         }
-        Spacer()
       } icon: {
         CompletionCircle(exerciseSet: exerciseSet)
       }
