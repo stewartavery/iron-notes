@@ -10,21 +10,35 @@ import SwiftUI
 
 struct ExerciseEditor: View {
   @Environment(\.managedObjectContext) var moc
-  @EnvironmentObject var workout: Workout
+  @ObservedObject var workout: Workout
   @Binding var isPresented: Bool
   @FetchRequest(
     entity: ExerciseTemplate.entity(),
     sortDescriptors: [NSSortDescriptor(keyPath: \ExerciseTemplate.name, ascending: true
     )]) var exerciseTemplates: FetchedResults<ExerciseTemplate>
   
+  @State private var workoutName: String
+  @State private var workoutDescription: String
+  
+  init(workout: Workout, isPresented: Binding<Bool>) {
+    self.workout = workout
+    self._isPresented = isPresented
+    self._workoutName = State<String>(initialValue: workout.meta.name)
+    self._workoutDescription = State<String>(initialValue: workout.meta.desc)
+  }
+  
   var body: some View {
     let addedTemplates = self.workout.routinesArray.map { $0.meta }
     let unaddedExercises = exerciseTemplates.filter {
       !addedTemplates.contains($0)
     }
-    
+        
     return NavigationView {
-      List {
+      Form {
+        Section(header: Text("Workout Details")) {
+          TextField("Workout name", text: $workoutName)
+          TextField("Description", text: $workoutDescription)
+        }
         if addedTemplates.count > 0 {
           Section(header: Text("Added Exercises")) {
             ForEach(addedTemplates, id: \.self) {
@@ -40,6 +54,7 @@ struct ExerciseEditor: View {
           }
         }
       }
+      .font(.body)
       .environment(\.editMode, Binding.constant(EditMode.active))
       .listStyle(InsetGroupedListStyle())
       .navigationBarTitle(Text("Modify Exercises"), displayMode: .inline)
@@ -139,7 +154,7 @@ struct AddExercise_Previews: PreviewProvider {
   @State static var isModalPresented = true
   
   static var previews: some View {
-    ExerciseEditor(isPresented: $isModalPresented)
+    ExerciseEditor(workout: IronNotesModelFactory.getWorkout(), isPresented: $isModalPresented)
       .environmentObject(IronNotesModelFactory.getWorkout())
       .environment(\.managedObjectContext, AppDelegate.viewContext)
   }

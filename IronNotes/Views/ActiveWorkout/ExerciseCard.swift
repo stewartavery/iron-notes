@@ -34,16 +34,21 @@ struct ExerciseCard: View {
   var body: some View {
     Group {
       VStack(alignment: .leading) {
-        Text(exercise.meta.name)
-          .font(.headline)
-          .foregroundColor(Color.orange)
-          .padding(.top, 10)
+        HStack {
+          Text(exercise.meta.name)
+            .font(.headline)
+            .foregroundColor(Color.orange)
+            .padding(.top, 10)
+          
+          Spacer()
+        }
         if self.isNotePresent {
           Text(exercise.note)
             .font(.system(size: 15, weight: .semibold, design: .default))
             .padding(.top, 5)
         }
       }.padding(.bottom, 10)
+      
       
       ForEach(exercise.exerciseSetArray, id: \.self) { exerciseSet in
         ExerciseCardRow(exerciseSet: exerciseSet)

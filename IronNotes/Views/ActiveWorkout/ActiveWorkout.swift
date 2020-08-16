@@ -62,7 +62,8 @@ struct ActiveWorkout: View {
     .sheet(
       isPresented: self.$isEditing,
       content: {
-        ExerciseEditor(isPresented: self.$isEditing)
+        ExerciseEditor(        workout: workout,
+                               isPresented: self.$isEditing)
           .environment(\.managedObjectContext, moc)
       })
     .listStyle(InsetGroupedListStyle())
