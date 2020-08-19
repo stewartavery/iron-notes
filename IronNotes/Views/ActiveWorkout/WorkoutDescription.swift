@@ -13,24 +13,15 @@ struct WorkoutButton: View {
   
   var label: String
   var systemImage: String
-  var width: CGFloat
   
   var body: some View {
-    HStack {
-      Label(self.label, systemImage: self.systemImage)
-        .foregroundColor(Color.orange)
-        .font(.headline)
-        .textCase(nil)
-        .padding(10)
-        .frame(width: self.width)
-        .mask(RoundedRectangle(cornerRadius: 8, style: .continuous))
-        .padding(2)
-        .background(colorScheme == .light ? Color.white : Color(UIColor.systemGray6))
-        .cornerRadius(8)
-      Spacer()
-    }
+    Label(self.label, systemImage: self.systemImage)
+      .foregroundColor(Color.orange)
+      .font(.headline)
+    
   }
 }
+
 
 struct WorkoutDescription: View {
   @ObservedObject var workout: Workout
@@ -38,42 +29,12 @@ struct WorkoutDescription: View {
   @EnvironmentObject var stopwatchManager: StopwatchManager
   
   var body: some View {
-    GeometryReader { geometry in
-      HStack {
-        switch stopwatchManager.mode {
-        case .running:
-          Button {
-            stopwatchManager.pause()
-          } label: {
-            WorkoutButton(label: "\(stopwatchManager.secondsElapsed.asString(style: .positional))", systemImage: "pause.fill", width: geometry.size.width * 0.46)
-          }
-        case .paused:
-          Button {
-            stopwatchManager.start()
-          } label: {
-            WorkoutButton(label: "\(stopwatchManager.secondsElapsed.asString(style: .positional))", systemImage: "play.fill", width: geometry.size.width * 0.46)
-          }
-        case .stopped:
-          Button {
-            stopwatchManager.start()
-          } label: {
-            WorkoutButton(label: "Start", systemImage: "play.fill", width: geometry.size.width * 0.46)
-          }
-        }
-        Spacer()
-        Button {
-          self.isEditing.toggle()
-        } label: {
-          WorkoutButton(label: "Edit", systemImage: "pencil", width: geometry.size.width * 0.46 )
-        }
-        
-      }
+    Button {
+      stopwatchManager.start()
+    } label: {
+      WorkoutButton(label: "Start", systemImage: "play.fill")
     }
-    .listRowInsets(EdgeInsets())
-    .padding(.bottom, 55)
-    .padding(.top, 5)
   }
-  
 }
 
 #if DEBUG
@@ -83,10 +44,11 @@ struct WorkoutDescription_Previews: PreviewProvider {
   static var previews: some View {
     return
       List {
-        Section(header: WorkoutDescription(
-          workout: IronNotesModelFactory.getWorkout(),
-          isEditing: $isEditing
-        )) {
+        Section {
+          WorkoutDescription(
+            workout: IronNotesModelFactory.getWorkout(),
+            isEditing: $isEditing
+          )
           Text("Hey")
         }
       }.listStyle(InsetGroupedListStyle())

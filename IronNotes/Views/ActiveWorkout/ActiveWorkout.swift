@@ -10,64 +10,77 @@ import SwiftUI
 import CoreData
 import Combine
 
-struct OptionalWorkoutDescription: View {
-  @EnvironmentObject var workout: Workout
-  @Binding var isEditing: Bool
-  
-  var isVisible: Bool
-  
-  var body: some View {
-    if isVisible {
-      WorkoutDescription(workout: workout, isEditing: $isEditing)
-    }
-  }
-}
-
-struct OptionalFooter: View {
-  
-  var isVisible: Bool
-  
-  var body: some View {
-    if isVisible {
-      VStack{
-        
-      }.keyboardAdaptive()
-    }
-  }
-}
-
 struct ActiveWorkout: View {
   @EnvironmentObject var workout: Workout
+  @EnvironmentObject var stopwatchManager: StopwatchManager
+  
   @Environment(\.managedObjectContext) var moc
   @State var isEditing = false
   @State var isModifyingSet: Bool = false
   
   var body: some View {
-    print(workout.routinesArray)
-    return List {
+    List {
       ForEach(workout.routinesArray.sorted(by: {$0.position < $1.position}), id: \.self) { exercise in
-        Section(
-          header: OptionalWorkoutDescription(
-            isEditing: $isEditing,
-            isVisible: exercise.position == 0
-          ), footer: OptionalFooter(isVisible: exercise.position == workout.routinesArray.count - 1)
-        ) {
+        Section {
           ExerciseCard(exercise: exercise)
         }
       }
     }
-    
-    
+    .navigationBarTitle(Text(workout.meta.name))
+    .toolbar {
+      ToolbarItem(placement: .primaryAction) {
+        Button {
+          isEditing.toggle()
+        } label: {
+          Image(systemName: "ellipsis.circle")
+        }.foregroundColor(.orange)
+      }
+      ToolbarItem(placement: .bottomBar) {
+        switch stopwatchManager.mode {
+        case .running, .paused:
+          Button {
+            stopwatchManager.stop()
+          } label: {
+            Image(systemName: "stop.fill")
+          }
+        case .stopped:
+          Text("")
+        }      }
+      ToolbarItem(placement: .bottomBar) {
+        switch stopwatchManager.mode {
+        case .stopped, .paused:
+          Button {
+            stopwatchManager.start()
+          } label: {
+            Image(systemName: "play.fill")
+          }
+        case .running:
+          Button {
+            stopwatchManager.pause()
+          } label: {
+            Image(systemName: "pause.fill")
+          }
+        }
+      }
+      ToolbarItem(placement: .status) {
+        switch stopwatchManager.mode {
+        case .running, .paused:
+          Text((stopwatchManager.secondsElapsed.asString(style: .positional)))
+        case .stopped:
+          Text("")
+        }
+      }
+    }
     .buttonStyle(BorderlessButtonStyle())
     .sheet(
       isPresented: self.$isEditing,
       content: {
-        ExerciseEditor(        workout: workout,
-                               isPresented: self.$isEditing)
-          .environment(\.managedObjectContext, moc)
+        ExerciseEditor(
+          workout: workout,
+          isPresented: self.$isEditing
+        )
       })
     .listStyle(InsetGroupedListStyle())
-    .navigationBarTitle(Text(workout.meta.name), displayMode: .large)
   }
   
   

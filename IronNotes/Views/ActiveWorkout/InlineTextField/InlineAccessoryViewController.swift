@@ -24,6 +24,11 @@ class InlineAccessoryViewController: UIHostingController<InlineAccessoryView> {
     fatalError("init(coder:) has not been implemented")
   }
   
+
+  @objc override dynamic open func preferredContentSizeDidChange(forChildContentContainer container: UIContentContainer) {
+    view.frame = CGRect(x: 0, y: 0, width: 0 , height: 50)
+  }
+  
   func addTextField(_ textField: UITextField) {
     rootView.textFields.append(textField)
   }

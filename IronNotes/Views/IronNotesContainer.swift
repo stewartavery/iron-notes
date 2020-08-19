@@ -14,7 +14,6 @@ struct IronNotesContainer: View {
   var body: some View {
     TabView {
       StartWorkoutList()
-        .font(.title)
         .tabItem({
           VStack {
             Image(systemName: "flame.fill")
@@ -23,7 +22,6 @@ struct IronNotesContainer: View {
         })
         .tag(0)
       ExerciseList()
-        .font(.title)
         .tabItem({
           VStack {
             Image(systemName: "book.fill")
@@ -32,7 +30,6 @@ struct IronNotesContainer: View {
         })
         .tag(1)
       Text("History")
-        .font(.title)
         .tabItem({
           VStack {
             Image(systemName: "clock.fill")
@@ -41,7 +38,6 @@ struct IronNotesContainer: View {
         })
         .tag(2)
       Text("Settings")
-        .font(.title)
         .tabItem({
           VStack {
             Image(systemName: "gear")

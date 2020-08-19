@@ -12,6 +12,12 @@ struct ExerciseEditor: View {
   @Environment(\.managedObjectContext) var moc
   @ObservedObject var workout: Workout
   @Binding var isPresented: Bool
+  
+  @FetchRequest(
+    entity: WorkoutTemplate.entity(),
+    sortDescriptors:  [NSSortDescriptor(keyPath: \ExerciseTemplate.name, ascending: true
+    )]) var workoutTemplates: FetchedResults<WorkoutTemplate>
+  
   @FetchRequest(
     entity: ExerciseTemplate.entity(),
     sortDescriptors: [NSSortDescriptor(keyPath: \ExerciseTemplate.name, ascending: true
@@ -32,7 +38,7 @@ struct ExerciseEditor: View {
     let unaddedExercises = exerciseTemplates.filter {
       !addedTemplates.contains($0)
     }
-        
+    
     return NavigationView {
       Form {
         Section(header: Text("Workout Details")) {
@@ -54,15 +60,16 @@ struct ExerciseEditor: View {
           }
         }
       }
-      .font(.body)
       .environment(\.editMode, Binding.constant(EditMode.active))
       .listStyle(InsetGroupedListStyle())
       .navigationBarTitle(Text("Modify Exercises"), displayMode: .inline)
-      .navigationBarItems(
-        trailing: Button("Done") {
-          self.isPresented.toggle()
+      .toolbar {
+        ToolbarItem(placement: .primaryAction) {
+          Button("Done") {
+            isPresented.toggle()
+          }
         }
-      )
+      }
     }
   }
   
@@ -127,7 +134,6 @@ struct RemoveExerciseRow: View {
   
   var body: some View {
     Text(self.exerciseTemplate.name)
-      .font(.body)
   }
 }
 
@@ -145,7 +151,7 @@ struct AddExerciseRow: View {
         .font(.title3)
     }.onTapGesture {
       self.addRow(self.exerciseTemplate)
-    }.font(.body)
+    }
   }
 }
 

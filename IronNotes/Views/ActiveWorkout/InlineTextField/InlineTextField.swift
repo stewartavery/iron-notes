@@ -48,11 +48,10 @@ struct InlineTextField: UIViewRepresentable {
   }
   
   func updateUIView(_ uiView: UITextField, context: UIViewRepresentableContext<InlineTextField>) {
-    let textField = uiView
-    textField.placeholder = model.placeholder
-    textField.text = model.text.wrappedValue
-    textField.font = model.font
-    textField.keyboardType = .decimalPad
+    uiView.placeholder = model.placeholder
+    uiView.text = model.text.wrappedValue
+    uiView.font = model.font
+    uiView.keyboardType = .decimalPad
   }
   
   static func dismantleUIView(_ uiView: UITextField, coordinator: InlineTextField.Coordinator) {

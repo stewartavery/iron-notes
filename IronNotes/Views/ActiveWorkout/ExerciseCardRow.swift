@@ -33,9 +33,8 @@ struct ExerciseCardRow: View {
     HStack(alignment: .center) {
       Label {
         HStack(alignment: .firstTextBaseline) {
-          InlineTextField("lbs", text: weightBinding)
-            .font(font)
-            .accessoryViewController(accessoryViewController, tag: 0)
+          TextField("lbs", text: weightBinding)
+            .keyboardType(.decimalPad)
             .frame(width: 40)
           
           Text("lbs")
@@ -49,9 +48,8 @@ struct ExerciseCardRow: View {
           
           Spacer()
           
-          InlineTextField("reps", text: repBinding)
-            .font(font)
-            .accessoryViewController(accessoryViewController, tag: 1)
+          TextField("reps", text: repBinding)
+            .keyboardType(.decimalPad)
             .frame(width: 20)
           
           Text("reps")

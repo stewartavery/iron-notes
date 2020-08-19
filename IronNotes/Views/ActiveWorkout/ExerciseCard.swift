@@ -56,13 +56,13 @@ struct ExerciseCard: View {
       .onDelete(perform: self.deleteSet)
       .animation(showDetail ? .spring() : nil)
       .transition(.move(edge: .bottom))
-      .frame(height: 40)
+      .frame(height: 30)
       Button {
         withAnimation {
           self.createNewSet()
         }
       } label: {
-        AddSet().frame(height: 45)
+        AddSet().frame(height: 35)
       }
       .onAppear() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
