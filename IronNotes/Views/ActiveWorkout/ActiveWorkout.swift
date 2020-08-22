@@ -19,6 +19,8 @@ struct ActiveWorkout: View {
   @State var isEditing = false
   @State var isModifyingSet: Bool = false
   
+  // TODO: make top right button a context menu
+  
   var body: some View {
     List {
       Button {
@@ -47,8 +49,22 @@ struct ActiveWorkout: View {
       ToolbarItem(placement: .primaryAction) {
         switch(keyboardMonitor.keyboardStatus) {
         case .hidden:
-          Button {
-            isEditing.toggle()
+          Menu {
+            Button {
+              print("yo")
+            } label: {
+              Label("Change Workout", systemImage: "note.text")
+            }
+            Button {
+              isEditing = true
+            } label: {
+              Label("Edit Exercises", systemImage: "pencil")
+            }
+            Button {
+              print("remove")
+            } label: {
+              Label("Remove Workout", systemImage: "trash")
+            }.foregroundColor(Color.red)
           } label: {
             Image(systemName: "ellipsis.circle")
           }
@@ -70,7 +86,8 @@ struct ActiveWorkout: View {
           }
         case .stopped:
           Text("")
-        }      }
+        }
+      }
     
       ToolbarItem(placement: .status) {
         switch stopwatchManager.mode {
@@ -88,7 +105,7 @@ struct ActiveWorkout: View {
         ExerciseEditor(
           workout: workout,
           isPresented: self.$isEditing
-        )
+        ).environment(\.managedObjectContext, moc)
       })
     .listStyle(InsetGroupedListStyle())
   }
