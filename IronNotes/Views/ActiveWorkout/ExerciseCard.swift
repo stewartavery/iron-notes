@@ -10,16 +10,18 @@ import SwiftUI
 
 struct AddSet: View {
   var body: some View {
-    HStack(alignment: .center) {
-      Label {
+    Label {
+      HStack {
         Text("Add Set")
-      } icon: {
-        Image(systemName: "plus.circle.fill")
+        Spacer()
       }
-      .foregroundColor(Color.orange)
-      .font(.headline)
+    } icon: {
+      Image(systemName: "plus.circle.fill")
     }
+    .foregroundColor(Color.orange)
+    .font(.headline)
   }
+  
 }
 
 struct ExerciseCard: View {

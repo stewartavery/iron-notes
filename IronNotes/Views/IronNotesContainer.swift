@@ -10,6 +10,7 @@ import SwiftUI
 
 struct IronNotesContainer: View {
   @StateObject var stopwatchManager = StopwatchManager()
+  @StateObject var keyboardMonitor = KeyboardMonitor()
   
   var body: some View {
     TabView {
@@ -45,7 +46,9 @@ struct IronNotesContainer: View {
           }
         })
         .tag(3)
-    }.environmentObject(stopwatchManager)
+    }
+    .environmentObject(stopwatchManager)
+    .environmentObject(keyboardMonitor)
   }
 }
 

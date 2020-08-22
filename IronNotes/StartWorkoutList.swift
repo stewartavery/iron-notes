@@ -24,7 +24,6 @@ struct StartWorkoutList : View {
             NavigationLink(destination: ActiveWorkout().environmentObject(workout)) {
               WorkoutRow(workout: workout)
             }
-          
         }
           Button {
             self.isCreateViewVisible.toggle()
@@ -34,7 +33,6 @@ struct StartWorkoutList : View {
         
       }
       .listStyle(InsetGroupedListStyle())
-      
       .sheet(isPresented: $isCreateViewVisible,
              content: {
               NewWorkout(isPresented: self.$isCreateViewVisible)
