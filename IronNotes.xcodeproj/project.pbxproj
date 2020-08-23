@@ -185,6 +185,7 @@
 		651DA276240DEAE300F5C9D0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				50160AA824F203B000F07622 /* SlideOverCard */,
 				65ED18A9242C30F70047FFA3 /* Exercises */,
 				655A5CAF23F8D418000E5246 /* ActiveWorkout */,
 				6510C76E22E532A000A0DDE2 /* StartWorkoutList */,
@@ -219,7 +220,6 @@
 		655A5CAF23F8D418000E5246 /* ActiveWorkout */ = {
 			isa = PBXGroup;
 			children = (
-				50160AA824F203B000F07622 /* SlideOverCard */,
 				508CFCCA24E6459400F9D77B /* KeyboardMonitor */,
 				50001C2D24DF9879003B022B /* InlineTextField */,
 				50222E5C24DC0B93005BBF61 /* Stopwatch */,

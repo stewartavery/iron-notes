@@ -152,6 +152,8 @@ struct ActiveWorkout: View {
   @State var isEditing = false
   @State var isModifyingSet: Bool = false
   
+  // TODO: move menu items to bottom sheet
+  
   var body: some View {
     ZStack {
       List {

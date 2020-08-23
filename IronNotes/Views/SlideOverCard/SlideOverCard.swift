@@ -11,7 +11,7 @@ import SwiftUI
 struct SlideOverCard<Content: View> : View {
   @Environment(\.colorScheme) var colorScheme: ColorScheme
   @GestureState private var dragState = DragState.inactive
-  @State var position = CardPosition.bottom
+  @State var position = CardPosition.middle
   
   var content: () -> Content
   var body: some View {
