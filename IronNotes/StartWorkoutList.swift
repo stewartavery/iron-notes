@@ -21,15 +21,15 @@ struct StartWorkoutList : View {
     NavigationView {
       List {
         ForEach(workouts, id: \.self) { workout in
-            NavigationLink(destination: ActiveWorkout().environmentObject(workout)) {
-              WorkoutRow(workout: workout)
-            }
-        }
-          Button {
-            self.isCreateViewVisible.toggle()
-          } label: {
-            AddWorkoutRow()
+          NavigationLink(destination: ActiveWorkout().environmentObject(workout)) {
+            WorkoutRow(workout: workout)
           }
+        }
+        Button {
+          self.isCreateViewVisible.toggle()
+        } label: {
+          AddWorkoutRow()
+        }
         
       }
       .listStyle(InsetGroupedListStyle())

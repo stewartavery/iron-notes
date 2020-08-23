@@ -21,7 +21,6 @@ struct AddSet: View {
     .foregroundColor(Color.orange)
     .font(.headline)
   }
-  
 }
 
 struct ExerciseCard: View {
