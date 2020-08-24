@@ -11,7 +11,7 @@ import CoreData
 import Combine
 
 struct TopToolbarContent: View {
-  @Binding var isEditing: Bool
+  @Binding var workoutSheet: WorkoutSheet
   @EnvironmentObject var keyboardMonitor: KeyboardMonitor
   
   var body: some View {
@@ -19,12 +19,12 @@ struct TopToolbarContent: View {
     case .hidden:
       Menu {
         Button {
-          print("yo")
+          workoutSheet = .workout
         } label: {
           Label("Change Workout", systemImage: "note.text")
         }
         Button {
-          isEditing = true
+          workoutSheet = .exercises
         } label: {
           Label("Edit Exercises", systemImage: "pencil")
         }
@@ -46,100 +46,10 @@ struct TopToolbarContent: View {
   }
 }
 
-struct BottomBarContent: View {
-  @EnvironmentObject var stopwatchManager: StopwatchManager
-  
-  var body: some View {
-    switch stopwatchManager.mode {
-    case .running, .paused:
-      Button {
-        stopwatchManager.stop()
-      } label: {
-        Image(systemName: "stop.fill")
-      }
-    case .stopped:
-      Text("")
-    }
-  }
-}
-
-struct StatusContent: View {
-  @EnvironmentObject var stopwatchManager: StopwatchManager
-  
-  var body: some View {
-    switch stopwatchManager.mode {
-    case .running, .paused:
-      Text((stopwatchManager.secondsElapsed.asString(style: .positional)))
-    case .stopped:
-      Text("")
-    }
-  }
-}
-
-struct StartButton: View {
-  @EnvironmentObject var stopwatchManager: StopwatchManager
-  
-  var body: some View {
-    Button {
-      stopwatchManager.start()
-    } label: {
-      Label {
-        HStack {
-          Text("Start")
-          Spacer()
-        }
-      } icon: {
-        Image(systemName: "play.fill")
-      }
-      .foregroundColor(Color.orange)
-      .font(.headline)
-    }
-  }
-}
-
-
-
-struct DelayedSlideOverCard: View {
-  @EnvironmentObject var keyboardMonitor: KeyboardMonitor
-  @State var isViewHidden = true
-  @State var delay = 0.0
-  
-  var body: some View {
-    Group {
-      switch (keyboardMonitor.keyboardStatus, isViewHidden)  {
-      case (.hidden, true):
-        Text("").onAppear {
-          DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-            self.isViewHidden = false
-            self.delay = 0.0
-          }
-        }
-      case (.hidden, false):
-        SlideOverCard {
-          VStack {
-            HStack {
-              StatusContent()
-              Spacer()
-              BottomBarContent()
-            }
-            .padding()
-            
-            Divider()
-            Spacer()
-          }
-        }
-        .transition(.move(edge: .bottom))
-        .animation(/*@START_MENU_TOKEN@*/.easeIn/*@END_MENU_TOKEN@*/)
-      case (.presented(_), _):
-        Text("").onAppear {
-          self.isViewHidden = true
-          self.delay = 0.3
-        }
-      }
-    }
-    
-    
-  }
+enum WorkoutSheet {
+  case workout
+  case exercises
+  case none
 }
 
 struct ActiveWorkout: View {
@@ -148,14 +58,23 @@ struct ActiveWorkout: View {
   @EnvironmentObject var stopwatchManager: StopwatchManager
   @EnvironmentObject var keyboardMonitor: KeyboardMonitor
   
-  
+  @State var workoutSheet: WorkoutSheet = .none
   @State var isEditing = false
   @State var isModifyingSet: Bool = false
-  
-  // TODO: move menu items to bottom sheet
-  
+    
   var body: some View {
-    ZStack {
+    let isSheetPresented = Binding<Bool>(get: {
+      switch workoutSheet {
+      case .none:
+        return false
+      default:
+        return true
+      }
+    }, set: { b in
+      workoutSheet = .none
+    })
+    
+    return ZStack {
       List {
         StartButton()
         ForEach(workout.routinesArray, id: \.self) { exercise in
@@ -167,20 +86,27 @@ struct ActiveWorkout: View {
       .navigationBarTitle(Text(workout.meta.name))
       .toolbar {
         ToolbarItem(placement: .primaryAction) {
-          TopToolbarContent(isEditing: $isEditing)
+          TopToolbarContent(workoutSheet: $workoutSheet)
         }
       }
       .buttonStyle(BorderlessButtonStyle())
       .sheet(
-        isPresented: self.$isEditing,
+        isPresented: isSheetPresented,
         content: {
-          ExerciseEditor(
-            workout: workout,
-            isPresented: self.$isEditing
-          ).environment(\.managedObjectContext, moc)
+          switch workoutSheet {
+          case .exercises:
+            ExerciseEditor(workout: workout)
+              .environment(\.managedObjectContext, moc)
+          case .workout:
+            WorkoutMetaEditor(workout: workout)
+              .environment(\.managedObjectContext, moc)
+          default:
+            EmptyView()
+          }
         })
       .listStyle(InsetGroupedListStyle())
       
+      // TODO: make this always visible, with start button inside
       switch stopwatchManager.mode {
       case .running, .paused:
         DelayedSlideOverCard()
@@ -190,7 +116,6 @@ struct ActiveWorkout: View {
     }
   }
 }
-
 
 extension View {
   func hideKeyboard() {

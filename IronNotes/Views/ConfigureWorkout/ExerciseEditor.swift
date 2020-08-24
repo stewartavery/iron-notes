@@ -9,9 +9,9 @@
 import SwiftUI
 
 struct ExerciseEditor: View {
+  @Environment(\.presentationMode) var presentationMode
   @Environment(\.managedObjectContext) var moc
   @ObservedObject var workout: Workout
-  @Binding var isPresented: Bool
   
   @FetchRequest(
     entity: WorkoutTemplate.entity(),
@@ -23,15 +23,6 @@ struct ExerciseEditor: View {
     sortDescriptors: [NSSortDescriptor(keyPath: \ExerciseTemplate.name, ascending: true
     )]) var exerciseTemplates: FetchedResults<ExerciseTemplate>
   
-  @State private var workoutName: String
-  @State private var workoutDescription: String
-  
-  init(workout: Workout, isPresented: Binding<Bool>) {
-    self.workout = workout
-    self._isPresented = isPresented
-    self._workoutName = State<String>(initialValue: workout.meta.name)
-    self._workoutDescription = State<String>(initialValue: workout.meta.desc)
-  }
   
   var body: some View {
     let addedTemplates = self.workout.routinesArray.map { $0.meta }
@@ -41,10 +32,6 @@ struct ExerciseEditor: View {
     
     return NavigationView {
       Form {
-        Section(header: Text("Workout Details")) {
-          TextField("Workout name", text: $workoutName)
-          TextField("Description", text: $workoutDescription)
-        }
         if addedTemplates.count > 0 {
           Section(header: Text("Added Exercises")) {
             ForEach(addedTemplates, id: \.self) {
@@ -66,7 +53,7 @@ struct ExerciseEditor: View {
       .toolbar {
         ToolbarItem(placement: .primaryAction) {
           Button("Done") {
-            isPresented.toggle()
+            presentationMode.wrappedValue.dismiss()
           }
         }
       }
@@ -157,10 +144,8 @@ struct AddExerciseRow: View {
 
 #if DEBUG
 struct AddExercise_Previews: PreviewProvider {
-  @State static var isModalPresented = true
-  
   static var previews: some View {
-    ExerciseEditor(workout: IronNotesModelFactory.getWorkout(), isPresented: $isModalPresented)
+    ExerciseEditor(workout: IronNotesModelFactory.getWorkout())
       .environmentObject(IronNotesModelFactory.getWorkout())
       .environment(\.managedObjectContext, AppDelegate.viewContext)
   }

@@ -40,12 +40,8 @@ struct NewWorkout: View {
       }
       .sheet(
         isPresented: $isAddExerciseVisible,
-        content: {
-          ExerciseEditor(
-            workout: workout,
-            isPresented: self.$isAddExerciseVisible
-          )
-        })
+        content: { ExerciseEditor(workout: workout) }
+      )
       .navigationBarTitle(Text("New Workout"), displayMode: .inline)
       .navigationBarItems(
         leading: Button("Close") {
