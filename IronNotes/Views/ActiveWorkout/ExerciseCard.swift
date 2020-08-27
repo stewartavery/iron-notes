@@ -33,42 +33,40 @@ struct ExerciseCard: View {
   }
   
   var body: some View {
-    Group {
-      VStack(alignment: .leading) {
-        HStack {
-          Text(exercise.meta.name)
-            .font(.headline)
-            .foregroundColor(Color.orange)
-            .padding(.top, 10)
-          
-          Spacer()
-        }
-        if self.isNotePresent {
-          Text(exercise.note)
-            .font(.system(size: 15, weight: .semibold, design: .default))
-            .padding(.top, 5)
-        }
-      }.padding(.bottom, 10)
-      
-      
-      ForEach(exercise.exerciseSetArray, id: \.self) { exerciseSet in
-        ExerciseCardRow(exerciseSet: exerciseSet)
+    VStack(alignment: .leading) {
+      HStack {
+        Text(exercise.meta.name)
+          .font(.headline)
+          .padding(.top, 10)
+        
+        Spacer()
       }
-      .onDelete(perform: self.deleteSet)
-      .animation(showDetail ? .spring() : nil)
-      .transition(.move(edge: .bottom))
-      .frame(height: 30)
-      Button {
-        withAnimation {
-          self.createNewSet()
-        }
-      } label: {
-        AddSet().frame(height: 35)
+      if self.isNotePresent {
+        Text(exercise.note)
+          .font(.subheadline)
+          .foregroundColor(Color.gray)
+          .padding(.top, 5)
       }
-      .onAppear() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-          self.showDetail = true
-        }
+    }.padding(.bottom, 10)
+    
+    ForEach(exercise.exerciseSetArray, id: \.self) { exerciseSet in
+      ExerciseCardRow(exerciseSet: exerciseSet)
+    }
+    .onDelete(perform: self.deleteSet)
+    .animation(showDetail ? .spring() : nil)
+    .transition(.move(edge: .bottom))
+    .frame(height: 30)
+    
+    Button {
+      withAnimation {
+        self.createNewSet()
+      }
+    } label: {
+      AddSet().frame(height: 35)
+    }
+    .onAppear() {
+      DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+        self.showDetail = true
       }
     }
   }
@@ -100,7 +98,6 @@ struct ExerciseCard: View {
     
     do {
       try self.moc.save()
-      print("Set added.")
     } catch {
       print(error.localizedDescription)
     }

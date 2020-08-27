@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -20,6 +20,7 @@
 		508CFCD024E645DE00F9D77B /* UIResponder+Current.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508CFCCF24E645DE00F9D77B /* UIResponder+Current.swift */; };
 		509288A224DF269300328EDF /* IronNotesModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509288A124DF269300328EDF /* IronNotesModelFactory.swift */; };
 		50B02CB424F0CF53002E647E /* KeyboardMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B02CB324F0CF53002E647E /* KeyboardMonitor.swift */; };
+		50EF1C2924F6048D00D2E092 /* Snap in Frameworks */ = {isa = PBXBuildFile; productRef = 50EF1C2824F6048D00D2E092 /* Snap */; };
 		6506506F24B6CFAB003E1415 /* ExerciseCardRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6506506E24B6CFAB003E1415 /* ExerciseCardRow.swift */; };
 		650EB89A2484A056009AD355 /* Workout+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650EB8982484A056009AD355 /* Workout+CoreDataClass.swift */; };
 		650EB89B2484A056009AD355 /* Workout+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650EB8992484A056009AD355 /* Workout+CoreDataProperties.swift */; };
@@ -123,6 +124,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50EF1C2924F6048D00D2E092 /* Snap in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,6 +354,9 @@
 			dependencies = (
 			);
 			name = IronNotes;
+			packageProductDependencies = (
+				50EF1C2824F6048D00D2E092 /* Snap */,
+			);
 			productName = IronNotes;
 			productReference = 65FCC38D22CD9DB5006D6868 /* IronNotes.app */;
 			productType = "com.apple.product-type.application";
@@ -380,6 +385,9 @@
 				Base,
 			);
 			mainGroup = 65FCC38422CD9DB5006D6868;
+			packageReferences = (
+				50EF1C2724F6048D00D2E092 /* XCRemoteSwiftPackageReference "Snap" */,
+			);
 			productRefGroup = 65FCC38E22CD9DB5006D6868 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -644,6 +652,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		50EF1C2724F6048D00D2E092 /* XCRemoteSwiftPackageReference "Snap" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/austinavery/Snap.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		50EF1C2824F6048D00D2E092 /* Snap */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 50EF1C2724F6048D00D2E092 /* XCRemoteSwiftPackageReference "Snap" */;
+			productName = Snap;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		6540EFC523FE19180042D81F /* IronNotes.xcdatamodeld */ = {

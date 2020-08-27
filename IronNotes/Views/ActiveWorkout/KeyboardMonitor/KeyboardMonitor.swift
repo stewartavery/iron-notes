@@ -10,14 +10,26 @@ import Foundation
 import Combine
 import UIKit
 
-class KeyboardMonitor: ObservableObject {
+enum KeyboardStatus {
+  case presented(CGFloat)
+  case hidden
+}
+
+class KeyboardMonitor: ObservableObject, Equatable {
+  
+  static func == (lhs: KeyboardMonitor, rhs: KeyboardMonitor) -> Bool {
+    switch (lhs.keyboardStatus, rhs.keyboardStatus) {
+    case (.hidden, .hidden):
+      return true
+    case (let .presented(height1), let .presented(height2)):
+      return height1 == height2
+    default:
+      return false
+    }
+  }
+  
   @Published var keyboardStatus: KeyboardStatus = .hidden
   private var cancellable: AnyCancellable?
-  
-  enum KeyboardStatus {
-    case presented(CGFloat)
-    case hidden
-  }
   
   init() {
     self.cancellable = Publishers.keyboardHeight

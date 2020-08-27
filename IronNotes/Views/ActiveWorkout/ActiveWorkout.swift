@@ -9,6 +9,7 @@
 import SwiftUI
 import CoreData
 import Combine
+import Snap
 
 struct TopToolbarContent: View {
   @Binding var workoutSheet: WorkoutSheet
@@ -61,7 +62,8 @@ struct ActiveWorkout: View {
   @State var workoutSheet: WorkoutSheet = .none
   @State var isEditing = false
   @State var isModifyingSet: Bool = false
-    
+  @State var bottomPadding: CGFloat = 0
+  
   var body: some View {
     let isSheetPresented = Binding<Bool>(get: {
       switch workoutSheet {
@@ -75,47 +77,59 @@ struct ActiveWorkout: View {
     })
     
     return ZStack {
-      List {
-        StartButton()
-        ForEach(workout.routinesArray, id: \.self) { exercise in
-          Section {
-            ExerciseCard(exercise: exercise)
+      NavigationView {
+        List {
+          ForEach(workout.routinesArray, id: \.self) { exercise in
+            Section {
+              ExerciseCard(exercise: exercise)
+            }
           }
         }
-      }
-      .navigationBarTitle(Text(workout.meta.name))
-      .toolbar {
-        ToolbarItem(placement: .primaryAction) {
-          TopToolbarContent(workoutSheet: $workoutSheet)
+        .navigationBarTitle(Text(workout.meta.name))
+        .toolbar {
+          ToolbarItem(placement: .primaryAction) {
+            TopToolbarContent(workoutSheet: $workoutSheet)
+          }
         }
+        .buttonStyle(BorderlessButtonStyle())
+        .sheet(
+          isPresented: isSheetPresented,
+          content: {
+            switch workoutSheet {
+            case .exercises:
+              ExerciseEditor(workout: workout)
+                .environment(\.managedObjectContext, moc)
+            case .workout:
+              WorkoutMetaEditor(workout: workout)
+                .environment(\.managedObjectContext, moc)
+            default:
+              EmptyView()
+            }
+          })
+        .listStyle(InsetGroupedListStyle())
+        .padding(.bottom, bottomPadding)
       }
-      .buttonStyle(BorderlessButtonStyle())
-      .sheet(
-        isPresented: isSheetPresented,
-        content: {
-          switch workoutSheet {
-          case .exercises:
-            ExerciseEditor(workout: workout)
-              .environment(\.managedObjectContext, moc)
-          case .workout:
-            WorkoutMetaEditor(workout: workout)
-              .environment(\.managedObjectContext, moc)
-          default:
-            EmptyView()
+      
+      DelayedSlideOverCard()
+        .onChange(of: keyboardMonitor, perform: { _ in
+          DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.bottomPadding = getBottomPadding(keyboardMonitor.keyboardStatus)
           }
         })
-      .listStyle(InsetGroupedListStyle())
-      
-      // TODO: make this always visible, with start button inside
-      switch stopwatchManager.mode {
-      case .running, .paused:
-        DelayedSlideOverCard()
-      case .stopped:
-        EmptyView()
-      }
     }
   }
+  
+  func getBottomPadding(_ keyboardStatus: KeyboardStatus) -> CGFloat {
+      switch keyboardStatus {
+      case .hidden:
+          return 150
+      case .presented(_):
+          return 0
+      }
+  }
 }
+
+
 
 extension View {
   func hideKeyboard() {
@@ -129,8 +143,8 @@ struct ActiveWorkout_Previews: PreviewProvider {
     NavigationView {
       ActiveWorkout()
     }
-    .navigationViewStyle(StackNavigationViewStyle())
     .environmentObject(IronNotesModelFactory.getWorkout())
+    .environmentObject(KeyboardMonitor())
     .environmentObject(StopwatchManager())
   }
 }

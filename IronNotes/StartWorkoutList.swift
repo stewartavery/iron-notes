@@ -15,15 +15,19 @@ struct StartWorkoutList : View {
     sortDescriptors: []
   ) var workouts: FetchedResults<Workout>
   @State var isCreateViewVisible = false
+  @State var isFullScreenModalVisible = false
   
   
   var body: some View {
     NavigationView {
       List {
         ForEach(workouts, id: \.self) { workout in
-          NavigationLink(destination: ActiveWorkout().environmentObject(workout)) {
+          Button {
+            isFullScreenModalVisible.toggle()
+          } label: {
             WorkoutRow(workout: workout)
-          }
+          }.fullScreenCover(isPresented: $isFullScreenModalVisible, content: { ActiveWorkout().environmentObject(workout) })
+
         }
         Button {
           self.isCreateViewVisible.toggle()

@@ -13,7 +13,6 @@ let SMALL_SPACING: CGFloat = 2
 
 struct ExerciseCardRow: View {
   @ObservedObject var exerciseSet: ExerciseSet
-  let accessoryViewController = InlineAccessoryViewController()
   let font = UIFont.preferredFont(forTextStyle: .body)
   
   var body: some View {

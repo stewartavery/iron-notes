@@ -59,6 +59,33 @@ struct StartButton: View {
   }
 }
 
+struct WorkoutCard: View {
+  @EnvironmentObject var stopWatchManager: StopwatchManager
+  
+  var body: some View {
+    switch stopWatchManager.mode {
+    case .running, .paused:
+      VStack {
+        HStack {
+          StatusContent()
+          Spacer()
+          BottomBarContent()
+        }
+        .padding()
+        
+        Divider()
+        Spacer()
+      }
+    case .stopped:
+      VStack {
+        StartButton()
+        Spacer()
+      }
+    }
+    
+  }
+}
+
 struct DelayedSlideOverCard: View {
   @EnvironmentObject var keyboardMonitor: KeyboardMonitor
   @State var isViewHidden = true
@@ -76,17 +103,7 @@ struct DelayedSlideOverCard: View {
         }
       case (.hidden, false):
         SlideOverCard {
-          VStack {
-            HStack {
-              StatusContent()
-              Spacer()
-              BottomBarContent()
-            }
-            .padding()
-            
-            Divider()
-            Spacer()
-          }
+          WorkoutCard()
         }
         .transition(.move(edge: .bottom))
         .animation(/*@START_MENU_TOKEN@*/.easeIn/*@END_MENU_TOKEN@*/)
