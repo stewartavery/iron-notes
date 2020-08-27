@@ -26,8 +26,11 @@ struct StartWorkoutList : View {
             isFullScreenModalVisible.toggle()
           } label: {
             WorkoutRow(workout: workout)
-          }.fullScreenCover(isPresented: $isFullScreenModalVisible, content: { ActiveWorkout().environmentObject(workout) })
-
+          }
+          .fullScreenCover(
+            isPresented: $isFullScreenModalVisible,
+            content: { ActiveWorkout().environmentObject(workout) }
+          )
         }
         Button {
           self.isCreateViewVisible.toggle()

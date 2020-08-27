@@ -77,55 +77,53 @@ struct ActiveWorkout: View {
     })
     
     return ZStack {
-      NavigationView {
-        List {
-          ForEach(workout.routinesArray, id: \.self) { exercise in
-            Section {
-              ExerciseCard(exercise: exercise)
-            }
+      List {
+        ForEach(workout.routinesArray, id: \.self) { exercise in
+          Section {
+            ExerciseCard(exercise: exercise)
           }
         }
-        .navigationBarTitle(Text(workout.meta.name))
-        .toolbar {
-          ToolbarItem(placement: .primaryAction) {
-            TopToolbarContent(workoutSheet: $workoutSheet)
-          }
-        }
-        .buttonStyle(BorderlessButtonStyle())
-        .sheet(
-          isPresented: isSheetPresented,
-          content: {
-            switch workoutSheet {
-            case .exercises:
-              ExerciseEditor(workout: workout)
-                .environment(\.managedObjectContext, moc)
-            case .workout:
-              WorkoutMetaEditor(workout: workout)
-                .environment(\.managedObjectContext, moc)
-            default:
-              EmptyView()
-            }
-          })
-        .listStyle(InsetGroupedListStyle())
-        .padding(.bottom, bottomPadding)
       }
-      
-      DelayedSlideOverCard()
-        .onChange(of: keyboardMonitor, perform: { _ in
-          DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            self.bottomPadding = getBottomPadding(keyboardMonitor.keyboardStatus)
+      .navigationBarTitle(Text(workout.meta.name))
+      .toolbar {
+        ToolbarItem(placement: .primaryAction) {
+          TopToolbarContent(workoutSheet: $workoutSheet)
+        }
+      }
+      .buttonStyle(BorderlessButtonStyle())
+      .sheet(
+        isPresented: isSheetPresented,
+        content: {
+          switch workoutSheet {
+          case .exercises:
+            ExerciseEditor(workout: workout)
+              .environment(\.managedObjectContext, moc)
+          case .workout:
+            WorkoutMetaEditor(workout: workout)
+              .environment(\.managedObjectContext, moc)
+          default:
+            EmptyView()
           }
         })
+      .listStyle(InsetGroupedListStyle())
+      .padding(.bottom, bottomPadding)
+      
+      DelayedSlideOverCard()
     }
+    .onChange(of: keyboardMonitor, perform: { _ in
+      DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+        self.bottomPadding = getBottomPadding(keyboardMonitor.keyboardStatus)
+      }
+    })
   }
   
   func getBottomPadding(_ keyboardStatus: KeyboardStatus) -> CGFloat {
-      switch keyboardStatus {
-      case .hidden:
-          return 150
-      case .presented(_):
-          return 0
-      }
+    switch keyboardStatus {
+    case .hidden:
+      return 150
+    case .presented(_):
+      return 0
+    }
   }
 }
 
@@ -140,12 +138,10 @@ extension View {
 #if DEBUG
 struct ActiveWorkout_Previews: PreviewProvider {
   static var previews: some View {
-    NavigationView {
-      ActiveWorkout()
-    }
-    .environmentObject(IronNotesModelFactory.getWorkout())
-    .environmentObject(KeyboardMonitor())
-    .environmentObject(StopwatchManager())
+    ActiveWorkout()
+      .environmentObject(IronNotesModelFactory.getWorkout())
+      .environmentObject(KeyboardMonitor())
+      .environmentObject(StopwatchManager())
   }
 }
 #endif

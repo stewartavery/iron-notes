@@ -10,12 +10,14 @@ import SwiftUI
 
 struct BottomBarContent: View {
   @EnvironmentObject var stopwatchManager: StopwatchManager
+  @Environment(\.presentationMode) var presentationMode
   
   var body: some View {
     switch stopwatchManager.mode {
     case .running, .paused:
       Button {
         stopwatchManager.stop()
+//        presentationMode.wrappedValue.dismiss()
       } label: {
         Image(systemName: "stop.fill")
       }
@@ -32,6 +34,8 @@ struct StatusContent: View {
     switch stopwatchManager.mode {
     case .running, .paused:
       Text((stopwatchManager.secondsElapsed.asString(style: .positional)))
+        .fontWeight(.bold)
+        .font(.title)
     case .stopped:
       Text("")
     }
@@ -45,46 +49,93 @@ struct StartButton: View {
     Button {
       stopwatchManager.start()
     } label: {
-      Label {
-        HStack {
+      HStack {
+        Spacer()
+        Label {
           Text("Start")
-          Spacer()
+            .fontWeight(.bold)
+        } icon: {
+          Image(systemName: "play.fill")
         }
-      } icon: {
-        Image(systemName: "play.fill")
+        Spacer()
       }
-      .foregroundColor(Color.orange)
-      .font(.headline)
     }
+    .padding()
+    .background(Color.orange)
+    .font(.headline)
+    .cornerRadius(7)
+    .accentColor(.white)
   }
 }
 
+
+#if DEBUG
+struct StartButton_Previews: PreviewProvider {
+  static var previews: some View {
+    StartButton().environmentObject(StopwatchManager())
+  }
+}
+#endif
+
+
 struct WorkoutCard: View {
   @EnvironmentObject var stopWatchManager: StopwatchManager
+  @EnvironmentObject var workout: Workout
   
   var body: some View {
-    switch stopWatchManager.mode {
-    case .running, .paused:
-      VStack {
+    var isNotePresent: Bool {
+      return workout.wrappedNote.count > 0
+    }
+    
+    return VStack(alignment: .leading) {
+      
+      Text(workout.meta.name)
+        .font(.headline)
+      Text(workout.meta.desc)
+        .font(.subheadline)
+        .foregroundColor(Color.gray)
+        .padding(.bottom)
+      
+  
+
+      switch stopWatchManager.mode {
+      case .running, .paused:
         HStack {
           StatusContent()
           Spacer()
           BottomBarContent()
         }
-        .padding()
+        .padding() 
+      case .stopped:
+          StartButton()
         
-        Divider()
-        Spacer()
+        
       }
-    case .stopped:
-      VStack {
-        StartButton()
-        Spacer()
+      Divider()
+        .padding(.top)
+      if isNotePresent {
+        Text(workout.wrappedNote)
+          .font(.body)
+          .padding(.top)
       }
-    }
+      Spacer()
+       
+    } .padding(.leading)
+    .padding(.trailing)
     
   }
 }
+
+#if DEBUG
+struct WorkoutCard_Previews: PreviewProvider {
+  static var previews: some View {
+    WorkoutCard()
+      .environmentObject(StopwatchManager())
+      .environmentObject(IronNotesModelFactory.getWorkout())
+  }
+}
+#endif
+
 
 struct DelayedSlideOverCard: View {
   @EnvironmentObject var keyboardMonitor: KeyboardMonitor
