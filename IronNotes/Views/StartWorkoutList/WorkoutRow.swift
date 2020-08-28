@@ -9,24 +9,19 @@
 import SwiftUI
 import CoreData
 
-struct WorkoutRow: View {
+struct WorkoutRowLabel: View {
   var workout: Workout
-
+  
   var body: some View {
-    HStack {
-      RowImage(iconName: self.workout.meta.iconName)
-      
-      VStack(alignment: .leading) {
-        Text(verbatim: self.workout.meta.name)
-          .font(.headline)
-        Text(verbatim: self.workout.meta.desc)
-          .font(.subheadline)
-        Text(verbatim: self.getWorkoutDate())
-          .font(.subheadline)
-          .foregroundColor(.gray)
-      }.padding(.leading, CGFloat(10))
+    VStack(alignment: .leading) {
+      Text(workout.meta.name)
+        .font(.headline)
+      Text(workout.meta.desc)
+        .font(.subheadline)
+      Text(getWorkoutDate())
+        .font(.subheadline)
+        .foregroundColor(.gray)
     }
-    .frame(height: 80)
   }
   
   func getWorkoutDate() -> String {
@@ -35,6 +30,22 @@ struct WorkoutRow: View {
         from: self.workout.startTime
     )
   }
+}
+
+struct WorkoutRow: View {
+  var workout: Workout
+
+  var body: some View {
+    HStack {
+      RowImage(iconName: self.workout.meta.iconName)
+      
+      WorkoutRowLabel(workout: workout)
+        .padding(.leading, CGFloat(10))
+    }
+    .frame(height: 80)
+  }
+  
+ 
 }
 
 #if DEBUG

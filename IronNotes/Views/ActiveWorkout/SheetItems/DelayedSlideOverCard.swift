@@ -87,17 +87,8 @@ struct WorkoutCard: View {
       return workout.wrappedNote.count > 0
     }
     
+    // TODO: try making this an ObservedObject instead to see if it fixes bug
     return VStack(alignment: .leading) {
-      
-      Text(workout.meta.name)
-        .font(.headline)
-      Text(workout.meta.desc)
-        .font(.subheadline)
-        .foregroundColor(Color.gray)
-        .padding(.bottom)
-      
-  
-
       switch stopWatchManager.mode {
       case .running, .paused:
         HStack {
@@ -105,14 +96,15 @@ struct WorkoutCard: View {
           Spacer()
           BottomBarContent()
         }
-        .padding() 
+        .padding()
       case .stopped:
           StartButton()
-        
-        
       }
+      
+      WorkoutRowLabel(workout: workout)
+      
       Divider()
-        .padding(.top)
+      
       if isNotePresent {
         Text(workout.wrappedNote)
           .font(.body)

@@ -13,6 +13,15 @@ import UIKit
 enum KeyboardStatus {
   case presented(CGFloat)
   case hidden
+  
+  var isPresented: Bool {
+    switch self {
+    case .hidden:
+      return false
+    case .presented(_):
+      return true
+    }
+  }
 }
 
 class KeyboardMonitor: ObservableObject, Equatable {

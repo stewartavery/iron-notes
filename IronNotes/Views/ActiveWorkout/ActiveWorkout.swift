@@ -51,11 +51,21 @@ enum WorkoutSheet {
   case workout
   case exercises
   case none
+  
+  var isPresented: Bool {
+    switch self {
+    case .none:
+      return false
+    default:
+      return true
+    }
+  }
 }
 
 struct ActiveWorkout: View {
   @EnvironmentObject var workout: Workout
   @Environment(\.managedObjectContext) var moc
+  @Environment(\.presentationMode) var presentationMode
   @EnvironmentObject var stopwatchManager: StopwatchManager
   @EnvironmentObject var keyboardMonitor: KeyboardMonitor
   
@@ -66,55 +76,58 @@ struct ActiveWorkout: View {
   
   var body: some View {
     let isSheetPresented = Binding<Bool>(get: {
-      switch workoutSheet {
-      case .none:
-        return false
-      default:
-        return true
-      }
+      workoutSheet.isPresented
     }, set: { b in
       workoutSheet = .none
     })
     
     return ZStack {
-      List {
-        ForEach(workout.routinesArray, id: \.self) { exercise in
-          Section {
-            ExerciseCard(exercise: exercise)
+      NavigationView {
+        List {
+          ForEach(workout.routinesArray, id: \.self) { exercise in
+            Section {
+              ExerciseCard(exercise: exercise)
+            }
           }
         }
-      }
-      .navigationBarTitle(Text(workout.meta.name))
-      .toolbar {
-        ToolbarItem(placement: .primaryAction) {
-          TopToolbarContent(workoutSheet: $workoutSheet)
-        }
-      }
-      .buttonStyle(BorderlessButtonStyle())
-      .sheet(
-        isPresented: isSheetPresented,
-        content: {
-          switch workoutSheet {
-          case .exercises:
-            ExerciseEditor(workout: workout)
-              .environment(\.managedObjectContext, moc)
-          case .workout:
-            WorkoutMetaEditor(workout: workout)
-              .environment(\.managedObjectContext, moc)
-          default:
-            EmptyView()
+        .navigationBarTitle(Text("Workout Log"), displayMode: .inline)
+        .toolbar {
+         
+          ToolbarItem(placement: .cancellationAction) {
+            Button("Dismiss") {
+              presentationMode.wrappedValue.dismiss()
+            }
           }
-        })
-      .listStyle(InsetGroupedListStyle())
-      .padding(.bottom, bottomPadding)
+          ToolbarItem(placement: .primaryAction) {
+            TopToolbarContent(workoutSheet: $workoutSheet)
+          }
+        }
+        .buttonStyle(BorderlessButtonStyle())
+        .sheet(
+          isPresented: isSheetPresented,
+          content: {
+            switch workoutSheet {
+            case .exercises:
+              ExerciseEditor(workout: workout)
+                .environment(\.managedObjectContext, moc)
+            case .workout:
+              WorkoutMetaEditor(workout: workout)
+                .environment(\.managedObjectContext, moc)
+            default:
+              EmptyView()
+            }
+          })
+        .listStyle(InsetGroupedListStyle())
+        .padding(.bottom, bottomPadding)
+      }
       
       DelayedSlideOverCard()
     }
-    .onChange(of: keyboardMonitor, perform: { _ in
-      DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-        self.bottomPadding = getBottomPadding(keyboardMonitor.keyboardStatus)
-      }
-    })
+//    .onChange(of: keyboardMonitor, perform: { _ in
+//      DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+//        self.bottomPadding = getBottomPadding(keyboardMonitor.keyboardStatus)
+//      }
+//    })
   }
   
   func getBottomPadding(_ keyboardStatus: KeyboardStatus) -> CGFloat {
