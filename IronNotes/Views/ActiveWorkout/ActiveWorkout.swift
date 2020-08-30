@@ -66,8 +66,8 @@ struct ActiveWorkout: View {
   @EnvironmentObject var workout: Workout
   @Environment(\.managedObjectContext) var moc
   @Environment(\.presentationMode) var presentationMode
-  @EnvironmentObject var stopwatchManager: StopwatchManager
-  @EnvironmentObject var keyboardMonitor: KeyboardMonitor
+  @ObservedObject var stopwatchManager: StopwatchManager
+  @ObservedObject var keyboardMonitor: KeyboardMonitor
   
   @State var workoutSheet: WorkoutSheet = .none
   @State var isEditing = false
@@ -92,7 +92,6 @@ struct ActiveWorkout: View {
         }
         .navigationBarTitle(Text("Workout Log"), displayMode: .inline)
         .toolbar {
-         
           ToolbarItem(placement: .cancellationAction) {
             Button("Dismiss") {
               presentationMode.wrappedValue.dismiss()
@@ -121,13 +120,13 @@ struct ActiveWorkout: View {
         .padding(.bottom, bottomPadding)
       }
       
-      DelayedSlideOverCard()
+      DelayedSlideOverCard(stopwatchManager: stopwatchManager, keyboardMonitor: keyboardMonitor)
     }
-//    .onChange(of: keyboardMonitor, perform: { _ in
-//      DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-//        self.bottomPadding = getBottomPadding(keyboardMonitor.keyboardStatus)
-//      }
-//    })
+    .onChange(of: keyboardMonitor, perform: { _ in
+      DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+        self.bottomPadding = getBottomPadding(keyboardMonitor.keyboardStatus)
+      }
+    })
   }
   
   func getBottomPadding(_ keyboardStatus: KeyboardStatus) -> CGFloat {
@@ -151,9 +150,8 @@ extension View {
 #if DEBUG
 struct ActiveWorkout_Previews: PreviewProvider {
   static var previews: some View {
-    ActiveWorkout()
+    ActiveWorkout(stopwatchManager: StopwatchManager(), keyboardMonitor: KeyboardMonitor())
       .environmentObject(IronNotesModelFactory.getWorkout())
-      .environmentObject(KeyboardMonitor())
       .environmentObject(StopwatchManager())
   }
 }

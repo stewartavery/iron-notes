@@ -14,6 +14,10 @@ struct StartWorkoutList : View {
     entity: Workout.entity(),
     sortDescriptors: []
   ) var workouts: FetchedResults<Workout>
+  @EnvironmentObject var keyboardMonitor: KeyboardMonitor
+  @EnvironmentObject var stopwatchManager: StopwatchManager
+
+
   @State var isCreateViewVisible = false
   @State var isFullScreenModalVisible = false
   
@@ -29,7 +33,9 @@ struct StartWorkoutList : View {
           }
           .fullScreenCover(
             isPresented: $isFullScreenModalVisible,
-            content: { ActiveWorkout().environmentObject(workout) }
+            content: { ActiveWorkout(stopwatchManager: stopwatchManager, keyboardMonitor: keyboardMonitor)
+              .environmentObject(workout)
+            }
           )
         }
         Button {

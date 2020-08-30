@@ -21,6 +21,8 @@
 		509288A224DF269300328EDF /* IronNotesModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509288A124DF269300328EDF /* IronNotesModelFactory.swift */; };
 		50B02CB424F0CF53002E647E /* KeyboardMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B02CB324F0CF53002E647E /* KeyboardMonitor.swift */; };
 		50EF1C2924F6048D00D2E092 /* Snap in Frameworks */ = {isa = PBXBuildFile; productRef = 50EF1C2824F6048D00D2E092 /* Snap */; };
+		50EF1C3824FB358E00D2E092 /* WorkoutCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EF1C3724FB358E00D2E092 /* WorkoutCard.swift */; };
+		50EF1C3A24FB35F000D2E092 /* StartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EF1C3924FB35F000D2E092 /* StartButton.swift */; };
 		6506506F24B6CFAB003E1415 /* ExerciseCardRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6506506E24B6CFAB003E1415 /* ExerciseCardRow.swift */; };
 		650EB89A2484A056009AD355 /* Workout+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650EB8982484A056009AD355 /* Workout+CoreDataClass.swift */; };
 		650EB89B2484A056009AD355 /* Workout+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650EB8992484A056009AD355 /* Workout+CoreDataProperties.swift */; };
@@ -74,6 +76,8 @@
 		508CFCCF24E645DE00F9D77B /* UIResponder+Current.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Current.swift"; sourceTree = "<group>"; };
 		509288A124DF269300328EDF /* IronNotesModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IronNotesModelFactory.swift; sourceTree = "<group>"; };
 		50B02CB324F0CF53002E647E /* KeyboardMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardMonitor.swift; sourceTree = "<group>"; };
+		50EF1C3724FB358E00D2E092 /* WorkoutCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCard.swift; sourceTree = "<group>"; };
+		50EF1C3924FB35F000D2E092 /* StartButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartButton.swift; sourceTree = "<group>"; };
 		6506506E24B6CFAB003E1415 /* ExerciseCardRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCardRow.swift; sourceTree = "<group>"; };
 		650EB8982484A056009AD355 /* Workout+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Workout+CoreDataClass.swift"; sourceTree = "<group>"; };
 		650EB8992484A056009AD355 /* Workout+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Workout+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -162,6 +166,8 @@
 			isa = PBXGroup;
 			children = (
 				5029B49724F3528700468268 /* DelayedSlideOverCard.swift */,
+				50EF1C3724FB358E00D2E092 /* WorkoutCard.swift */,
+				50EF1C3924FB35F000D2E092 /* StartButton.swift */,
 			);
 			path = SheetItems;
 			sourceTree = "<group>";
@@ -416,6 +422,7 @@
 			files = (
 				50001C3324DF990D003B022B /* InlineAccessoryViewController.swift in Sources */,
 				50B02CB424F0CF53002E647E /* KeyboardMonitor.swift in Sources */,
+				50EF1C3A24FB35F000D2E092 /* StartButton.swift in Sources */,
 				65ED18AB242C31140047FFA3 /* NewExercise.swift in Sources */,
 				654889C023FA1D6200D80727 /* ActiveWorkout.swift in Sources */,
 				6546648C2474C7D7001FDEFA /* DataManager.swift in Sources */,
@@ -430,6 +437,7 @@
 				6574530F24874BAC00DD76B6 /* WorkoutImageModifier.swift in Sources */,
 				65D61B1224849BBD00A5B561 /* WorkoutTemplate+CoreDataClass.swift in Sources */,
 				65D61AFF247A25AD00A5B561 /* ExerciseTemplate+CoreDataProperties.swift in Sources */,
+				50EF1C3824FB358E00D2E092 /* WorkoutCard.swift in Sources */,
 				50160AAC24F2059E00F07622 /* Handle.swift in Sources */,
 				65789B60240DEE37000ABE40 /* StartWorkoutList.swift in Sources */,
 				6514CB9A22FE5075002907BC /* RowImage.swift in Sources */,
