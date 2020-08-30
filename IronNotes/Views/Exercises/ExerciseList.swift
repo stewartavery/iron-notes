@@ -15,7 +15,8 @@ struct AddButton: View {
       VStack {
         Image(systemName: "plus")
           .resizable()
-          .aspectRatio(1, contentMode: .fit)
+          .scaledToFit()
+          .frame(width: 30, height: 30)
       }
       .frame(width: 18, height: 18)
     }

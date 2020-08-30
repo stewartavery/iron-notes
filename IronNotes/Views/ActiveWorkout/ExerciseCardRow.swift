@@ -8,58 +8,66 @@
 
 import SwiftUI
 
-let LARGE_SPACING: CGFloat = 12
 let SMALL_SPACING: CGFloat = 2
 
 struct ExerciseCardRow: View {
   @ObservedObject var exerciseSet: ExerciseSet
-  let font = UIFont.preferredFont(forTextStyle: .body)
   
   var body: some View {
     let weightBinding = Binding<String>(get: {
       String(self.exerciseSet.weight)
     }, set: {
-      print("weight!!!")
       self.exerciseSet.weight = Int32($0) ?? 0
     })
     
     let repBinding = Binding<String>(get: {
       String(self.exerciseSet.reps)
-    }, set: {
-      self.exerciseSet.reps = Int16($0) ?? 0
+    }, set: { value in
+      self.exerciseSet.reps = Int16(value) ?? 0
     })
     
     HStack(alignment: .center) {
-      Label {
-        HStack(alignment: .firstTextBaseline) {
-          TextField("lbs", text: weightBinding)
-            .keyboardType(.decimalPad)
-            .frame(width: 40)
+      CompletionCircle(exerciseSet: exerciseSet)
+      
+      HStack {
+        Text("Set \(exerciseSet.setPosition + 1):")
+          .foregroundColor(Color.gray)
+        
+        Spacer()
+        
+        HStack(spacing: 25) {
+          HStack(alignment: .firstTextBaseline, spacing: SMALL_SPACING) {
+            TextField("lbs", text: weightBinding)
+              .keyboardType(.decimalPad)
+              .multilineTextAlignment(.trailing)
+              .frame(maxWidth: 45)
+              .font(.headline)
+            
+            Text("lbs")
+              .font(.caption)
+              .foregroundColor(Color.gray)
+          }
           
-          Text("lbs")
-            .font(.caption)
-          
-          Spacer()
-                    
           Image(systemName: "multiply")
             .foregroundColor(Color.gray)
             .font(.headline)
           
-          Spacer()
-          
-          TextField("reps", text: repBinding)
-            .keyboardType(.decimalPad)
-            .frame(width: 20)
-          
-          Text("reps")
-            .font(.caption)
-          
-          Spacer()
+          HStack(alignment: .firstTextBaseline, spacing: SMALL_SPACING) {
+            TextField("reps", text: repBinding)
+              .keyboardType(.decimalPad)
+              .multilineTextAlignment(.trailing)
+              .frame(maxWidth: 30)
+              .font(.headline)
+            
+            
+            Text("reps")
+              .font(.caption)
+              .foregroundColor(Color.gray)
+          }
         }
-      } icon: {
-        CompletionCircle(exerciseSet: exerciseSet)
       }
-    }.frame(height: 20)
+    }
+    .frame(height: 20)
     
   }
 }

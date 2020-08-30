@@ -89,6 +89,7 @@ struct ActiveWorkout: View {
               ExerciseCard(exercise: exercise)
             }
           }
+          .padding(.bottom, bottomPadding)
         }
         .navigationBarTitle(Text("Workout Log"), displayMode: .inline)
         .toolbar {
@@ -117,14 +118,13 @@ struct ActiveWorkout: View {
             }
           })
         .listStyle(InsetGroupedListStyle())
-        .padding(.bottom, bottomPadding)
       }
       
       DelayedSlideOverCard(stopwatchManager: stopwatchManager, keyboardMonitor: keyboardMonitor)
     }
     .onChange(of: keyboardMonitor, perform: { _ in
       DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-        self.bottomPadding = getBottomPadding(keyboardMonitor.keyboardStatus)
+        bottomPadding = getBottomPadding(keyboardMonitor.keyboardStatus)
       }
     })
   }
@@ -132,7 +132,7 @@ struct ActiveWorkout: View {
   func getBottomPadding(_ keyboardStatus: KeyboardStatus) -> CGFloat {
     switch keyboardStatus {
     case .hidden:
-      return 150
+      return 200
     case .presented(_):
       return 0
     }

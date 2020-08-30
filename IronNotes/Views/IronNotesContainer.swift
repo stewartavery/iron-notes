@@ -47,6 +47,7 @@ struct IronNotesContainer: View {
         })
         .tag(3)
     }
+    .accentColor(Color.orange)
     .environmentObject(stopwatchManager)
     .environmentObject(keyboardMonitor)
   }

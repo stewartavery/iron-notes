@@ -33,7 +33,7 @@ struct DelayedSlideOverCard: View {
       case (.presented(_), _):
         Text("").onAppear {
           self.isViewHidden = true
-          self.delay = 0.3
+          self.delay = 0.1
         }
       }
     }

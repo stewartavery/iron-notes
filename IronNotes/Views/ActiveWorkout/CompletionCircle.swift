@@ -17,13 +17,13 @@ struct CompletionCircle: View {
     } label: {
       if exerciseSet.isCompleted {
         Image(systemName: "largecircle.fill.circle")
-          .font(.headline)
+          .rowIconCircle()
       } else {
         Image(systemName: "circle")
-          .font(.headline)
+          .rowIconCircle()
           .foregroundColor(Color.gray)
       }
-    }.frame(width: 25, height: 25)
+    }
   }
   
   func toggleIsCompleted() {

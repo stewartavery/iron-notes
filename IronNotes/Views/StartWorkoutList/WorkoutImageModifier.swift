@@ -14,6 +14,13 @@ extension Image {
       .resizable()
       .frame(width: 65, height: 65)
       .padding()
-    
+  }
+  
+  func rowIconCircle() -> some View {
+    self
+      .resizable()
+      .scaledToFit()
+      .frame(width: 22, height: 22)
+      .padding(.trailing, 10)
   }
 }
