@@ -62,6 +62,12 @@ enum WorkoutSheet {
   }
 }
 
+enum ScrollDirection: Equatable {
+  case none
+  case up(CGFloat)
+  case down(CGFloat)
+}
+
 struct ActiveWorkout: View {
   @EnvironmentObject var workout: Workout
   @Environment(\.managedObjectContext) var moc
@@ -73,6 +79,7 @@ struct ActiveWorkout: View {
   @State var isEditing = false
   @State var isModifyingSet: Bool = false
   @State var bottomPadding: CGFloat = 0
+  @State var scrollDirection: ScrollDirection = .none
   
   var body: some View {
     let isSheetPresented = Binding<Bool>(get: {
@@ -118,9 +125,22 @@ struct ActiveWorkout: View {
             }
           })
         .listStyle(InsetGroupedListStyle())
+        .gesture(
+          DragGesture().onChanged { value in
+            if value.translation.height > 0 {
+              scrollDirection = .up(value.translation.height)
+            } else {
+              scrollDirection = .down(value.translation.height)
+            }
+          }
+        )
       }
       
-      DelayedSlideOverCard(stopwatchManager: stopwatchManager, keyboardMonitor: keyboardMonitor)
+      DelayedSlideOverCard(
+        stopwatchManager: stopwatchManager,
+        keyboardMonitor: keyboardMonitor,
+        scrollDirection: $scrollDirection
+      )
     }
     .onChange(of: keyboardMonitor, perform: { _ in
       DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {

@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-let SMALL_SPACING: CGFloat = 2
+let SMALL_SPACING: CGFloat = 3
 
 struct ExerciseCardRow: View {
   @ObservedObject var exerciseSet: ExerciseSet

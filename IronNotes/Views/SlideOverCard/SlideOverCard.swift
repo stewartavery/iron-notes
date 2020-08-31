@@ -13,6 +13,8 @@ struct SlideOverCard<Content: View> : View {
   @GestureState private var dragState = DragState.inactive
   @State var position = CardPosition.bottom
   
+  @Binding var scrollDirection: ScrollDirection
+  
   var content: () -> Content
   
   var body: some View {
@@ -22,6 +24,7 @@ struct SlideOverCard<Content: View> : View {
         Handle()
         content()
       }
+      .onChange(of: scrollDirection, perform: handleParentScroll)
       .background(colorScheme == .light ? Color.white : Color(UIColor.systemGray6))
       .cornerRadius(10.0)
       .shadow(color: Color(.sRGBLinear, white: 0, opacity: 0.13), radius: 10.0)
@@ -40,9 +43,15 @@ struct SlideOverCard<Content: View> : View {
             onDragEnded(drag: drag, geometryHeight: geometry.size.height)
           }
       )
-    }.frame(maxHeight: .infinity)
-
-    
+    }.frame(maxHeight: .infinity)  }
+  
+  private func handleParentScroll(_ scrollDirection: ScrollDirection) {
+    switch (scrollDirection, position) {
+    case (.up, _), (.none, _), (.down(_), .bottom):
+      break
+    case (.down(_), .middle), (.down(_), .top):
+      position = .bottom
+    }
   }
   
   private func getCardHeight(geometryHeight: CGFloat, cardPosition: CardPosition) -> CGFloat {
@@ -90,9 +99,7 @@ struct SlideOverCard<Content: View> : View {
     } else {
       closestPosition = positionBelow
     }
-    
-    print(verticalDirection)
-    
+        
     if verticalDirection > 100 {
       self.position = positionBelow
     } else if verticalDirection < -100 {

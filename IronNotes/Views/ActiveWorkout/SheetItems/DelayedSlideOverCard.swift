@@ -13,6 +13,7 @@ struct DelayedSlideOverCard: View {
   @ObservedObject var keyboardMonitor: KeyboardMonitor
   @State var isViewHidden = true
   @State var delay = 0.0
+  @Binding var scrollDirection: ScrollDirection
   
   var body: some View {
     Group {
@@ -25,7 +26,7 @@ struct DelayedSlideOverCard: View {
           }
         }
       case (.hidden, false):
-        SlideOverCard {
+        SlideOverCard(scrollDirection: $scrollDirection) {
           WorkoutCard(stopwatchManager: stopwatchManager)
         }
         .transition(.move(edge: .bottom))

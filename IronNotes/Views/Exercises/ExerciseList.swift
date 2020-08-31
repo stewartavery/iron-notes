@@ -16,7 +16,6 @@ struct AddButton: View {
         Image(systemName: "plus")
           .resizable()
           .scaledToFit()
-          .frame(width: 30, height: 30)
       }
       .frame(width: 18, height: 18)
     }
