@@ -48,6 +48,6 @@ struct WorkoutMetaEditor_Previews: PreviewProvider {
   static var previews: some View {
     WorkoutMetaEditor(workout: IronNotesModelFactory.getWorkout())
       .environmentObject(IronNotesModelFactory.getWorkout())
-      .environment(\.managedObjectContext, AppDelegate.viewContext)
+      .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
   }
 }

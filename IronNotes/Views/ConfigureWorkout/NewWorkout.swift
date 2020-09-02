@@ -12,7 +12,7 @@ struct NewWorkout: View {
   @Environment(\.managedObjectContext) var moc
   @Binding var isPresented: Bool
   
-  @State var workout: Workout = Workout(context: AppDelegate.viewContext)
+  @State var workout: Workout = Workout(context: PersistenceController.shared.container.viewContext)
   @State var name: String = ""
   @State var description: String = ""
   @State var isAddExerciseVisible = false

@@ -13,7 +13,7 @@ import CoreData
 
 public class ExerciseSet: NSManagedObject {
   class func newExerciseSet() -> ExerciseSet {
-    return ExerciseSet(context: AppDelegate.viewContext)
+    return ExerciseSet(context: PersistenceController.shared.container.viewContext)
   }
   
   class func getExerciseSet(setPosition: Int, reps: Int, weight: Int, exercise: Exercise, isCompleted: Bool) -> ExerciseSet {

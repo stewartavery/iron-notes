@@ -63,7 +63,7 @@ struct ExerciseList: View {
 struct ExerciseList_Previews: PreviewProvider {
   static var previews: some View {
     ExerciseList()
-      .environment(\.managedObjectContext, AppDelegate.viewContext)
+      .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
   }
 }
 

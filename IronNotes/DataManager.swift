@@ -10,67 +10,73 @@ import Foundation
 import CoreData
 
 class DataManager {
-  private static func deleteAllData(_ entity: String) {
+  let viewContext: NSManagedObjectContext
+  
+  init(_ viewContext: NSManagedObjectContext) {
+    self.viewContext = viewContext
+  }
+  
+  private func deleteAllData(_ entity: String) {
     let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
     fetchRequest.returnsObjectsAsFaults = false
     do {
-      let results = try AppDelegate.viewContext.fetch(fetchRequest)
+      let results = try viewContext.fetch(fetchRequest)
       for object in results {
         guard let objectData = object as? NSManagedObject else {continue}
-        AppDelegate.viewContext.delete(objectData)
+        viewContext.delete(objectData)
       }
     } catch let error {
       print("Detele all data in \(entity) error :", error)
     }
   }
   
-  private static func deleteDefaultEntities() {
+  private func deleteDefaultEntities() {
     deleteAllData("ExerciseTemplate")
     deleteAllData("MuscleGroup")
     deleteAllData("WorkoutTemplate")
     deleteAllData("Workout")
   }
   
-  static func setupDefaultData() {
+  func setupDefaultData() {
     deleteDefaultEntities()
     
-    let abdominals = MuscleGroup(context: AppDelegate.viewContext)
+    let abdominals = MuscleGroup(context: viewContext)
     abdominals.name = "Abdominals"
-    let adductors = MuscleGroup(context: AppDelegate.viewContext)
+    let adductors = MuscleGroup(context: viewContext)
     adductors.name = "Adductors"
-    let biceps = MuscleGroup(context: AppDelegate.viewContext)
+    let biceps = MuscleGroup(context: viewContext)
     biceps.name = "Biceps"
-    let calves = MuscleGroup(context: AppDelegate.viewContext)
+    let calves = MuscleGroup(context: viewContext)
     calves.name = "Calves"
-    let pectoral = MuscleGroup(context: AppDelegate.viewContext)
+    let pectoral = MuscleGroup(context: viewContext)
     pectoral.name = "Pectoral"
-    let forearms = MuscleGroup(context: AppDelegate.viewContext)
+    let forearms = MuscleGroup(context: viewContext)
     forearms.name = "Forearms"
-    let glutes = MuscleGroup(context: AppDelegate.viewContext)
+    let glutes = MuscleGroup(context: viewContext)
     glutes.name = "Glutes"
-    let hamstrings = MuscleGroup(context: AppDelegate.viewContext)
+    let hamstrings = MuscleGroup(context: viewContext)
     hamstrings.name = "Hamstrings"
-    let hips = MuscleGroup(context: AppDelegate.viewContext)
+    let hips = MuscleGroup(context: viewContext)
     hips.name = "Hips"
-    let lats = MuscleGroup(context: AppDelegate.viewContext)
+    let lats = MuscleGroup(context: viewContext)
     lats.name = "Lats"
-    let lowerBack = MuscleGroup(context: AppDelegate.viewContext)
+    let lowerBack = MuscleGroup(context: viewContext)
     lowerBack.name = "Lower Back"
-    let middleBack = MuscleGroup(context: AppDelegate.viewContext)
+    let middleBack = MuscleGroup(context: viewContext)
     middleBack.name = "Middle Back"
-    let neck = MuscleGroup(context: AppDelegate.viewContext)
+    let neck = MuscleGroup(context: viewContext)
     neck.name = "Neck"
-    let quadriceps = MuscleGroup(context: AppDelegate.viewContext)
+    let quadriceps = MuscleGroup(context: viewContext)
     quadriceps.name = "Quadriceps"
-    let shoulders = MuscleGroup(context: AppDelegate.viewContext)
+    let shoulders = MuscleGroup(context: viewContext)
     shoulders.name = "Shoulders"
-    let upperBack = MuscleGroup(context: AppDelegate.viewContext)
+    let upperBack = MuscleGroup(context: viewContext)
     upperBack.name = "Upper Back"
-    let traps = MuscleGroup(context: AppDelegate.viewContext)
+    let traps = MuscleGroup(context: viewContext)
     traps.name = "Traps"
-    let triceps = MuscleGroup(context: AppDelegate.viewContext)
+    let triceps = MuscleGroup(context: viewContext)
     triceps.name = "Triceps"
-    let deltoids = MuscleGroup(context: AppDelegate.viewContext)
+    let deltoids = MuscleGroup(context: viewContext)
     deltoids.name = "Deltoids"
     
     ExerciseTemplate.createExerciseTemplateFor(
@@ -257,8 +263,8 @@ class DataManager {
     
     /** Workouts */
     
-    let workout = Workout(context: AppDelegate.viewContext)
-    let workoutMeta = WorkoutTemplate(context: AppDelegate.viewContext)
+    let workout = Workout(context: viewContext)
+    let workoutMeta = WorkoutTemplate(context: viewContext)
     
     workoutMeta.name = "Push"
     workoutMeta.desc = "Chest, Shoulders, Triceps"
@@ -267,8 +273,8 @@ class DataManager {
     workout.note = "This is an example of a relevant note to Bench Pressing."
     workout.startTime = Date()
     
-    let exercise = Exercise(context: AppDelegate.viewContext)
-    let exerciseMeta = ExerciseTemplate(context: AppDelegate.viewContext)
+    let exercise = Exercise(context: viewContext)
+    let exerciseMeta = ExerciseTemplate(context: viewContext)
     exerciseMeta.name = "Bench Presss"
     exerciseMeta.exerciseType = "barbell"
     exercise.meta = exerciseMeta
@@ -276,14 +282,14 @@ class DataManager {
     exercise.note = "This is a useful note for Bench Pressing."
     exercise.workout = workout
     
-    let exerciseSet = ExerciseSet(context: AppDelegate.viewContext)
+    let exerciseSet = ExerciseSet(context: viewContext)
     exerciseSet.setPosition = 0
     exerciseSet.reps = 3
     exerciseSet.weight = 135
     exerciseSet.exercise = exercise
     exercise.addToSets(exerciseSet)
     
-    let exerciseSet5 = ExerciseSet(context: AppDelegate.viewContext)
+    let exerciseSet5 = ExerciseSet(context: viewContext)
     exerciseSet5.setPosition = 1
     exerciseSet5.reps = 3
     exerciseSet5.weight = 225
@@ -292,8 +298,8 @@ class DataManager {
     
     workout.addToRoutines(exercise)
     
-    let exercise2 = Exercise(context: AppDelegate.viewContext)
-    let exerciseMeta2 = ExerciseTemplate(context: AppDelegate.viewContext)
+    let exercise2 = Exercise(context: viewContext)
+    let exerciseMeta2 = ExerciseTemplate(context: viewContext)
     
     exerciseMeta2.name = "Shoulder Presss"
     exerciseMeta2.exerciseType = "barbell"
@@ -301,7 +307,7 @@ class DataManager {
     exercise2.position = 1
     exercise2.note = "Hurt my shoulder last time, focus on form."
     
-    let exerciseSet2 = ExerciseSet(context: AppDelegate.viewContext)
+    let exerciseSet2 = ExerciseSet(context: viewContext)
     exerciseSet2.setPosition = 0
     exerciseSet2.reps = 5
     exerciseSet2.weight = 39
@@ -310,6 +316,6 @@ class DataManager {
     
     workout.addToRoutines(exercise2)
     
-    try! AppDelegate.viewContext.save()
+    try! viewContext.save()
   }
 }

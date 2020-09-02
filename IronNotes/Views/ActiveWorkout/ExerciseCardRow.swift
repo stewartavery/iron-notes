@@ -32,40 +32,40 @@ struct ExerciseCardRow: View {
       HStack {
         Text("Set \(exerciseSet.setPosition + 1):")
           .foregroundColor(Color.gray)
-        
+
         Spacer()
-        
-        HStack(spacing: 25) {
-          HStack(alignment: .firstTextBaseline, spacing: SMALL_SPACING) {
+
+//        HStack(spacing: 25) {
+//          HStack(alignment: .firstTextBaseline, spacing: SMALL_SPACING) {
             TextField("lbs", text: weightBinding)
               .keyboardType(.decimalPad)
               .multilineTextAlignment(.trailing)
               .frame(maxWidth: 45)
               .font(.headline)
-            
+
             Text("lbs")
               .font(.caption)
               .foregroundColor(Color.gray)
           }
-          
+
           Image(systemName: "multiply")
             .foregroundColor(Color.gray)
             .font(.headline)
-          
-          HStack(alignment: .firstTextBaseline, spacing: SMALL_SPACING) {
+
+//          HStack(alignment: .firstTextBaseline, spacing: SMALL_SPACING) {
             TextField("reps", text: repBinding)
               .keyboardType(.decimalPad)
               .multilineTextAlignment(.trailing)
               .frame(maxWidth: 30)
               .font(.headline)
-            
-            
+
+
             Text("reps")
               .font(.caption)
               .foregroundColor(Color.gray)
-          }
-        }
-      }
+//          }
+//        }
+//      }
     }
     .frame(height: 20)
     

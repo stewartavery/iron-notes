@@ -59,7 +59,7 @@ struct StartWorkoutList : View {
 struct StartWorkoutList_Preview : PreviewProvider {
   static var previews: some View {
     StartWorkoutList()
-      .environment(\.managedObjectContext, AppDelegate.viewContext)
+      .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
   }
 }
 #endif

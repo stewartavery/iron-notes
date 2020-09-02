@@ -69,7 +69,7 @@ struct MuscleGroupPicker_Previews: PreviewProvider {
   static var previews: some View {
     NavigationView {
       MuscleGroupPicker(selectedMuscleGroups: selectedMuscleGroups)
-        .environment(\.managedObjectContext, AppDelegate.viewContext)
+        .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
     }
   }
 }

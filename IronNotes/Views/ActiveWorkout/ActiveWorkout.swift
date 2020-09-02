@@ -75,11 +75,11 @@ struct ActiveWorkout: View {
   @ObservedObject var stopwatchManager: StopwatchManager
   @ObservedObject var keyboardMonitor: KeyboardMonitor
   
-  @State var workoutSheet: WorkoutSheet = .none
-  @State var isEditing = false
-  @State var isModifyingSet: Bool = false
-  @State var bottomPadding: CGFloat = 0
-  @State var scrollDirection: ScrollDirection = .none
+  @State private var workoutSheet: WorkoutSheet = .none
+  @State private var isEditing = false
+  @State private var isModifyingSet: Bool = false
+  @State private var bottomPadding: CGFloat = MIN_CARD_HEIGHT
+  @State private var scrollDirection: ScrollDirection = .none
   
   var body: some View {
     let isSheetPresented = Binding<Bool>(get: {
@@ -96,8 +96,13 @@ struct ActiveWorkout: View {
               ExerciseCard(exercise: exercise)
             }
           }
-          .padding(.bottom, bottomPadding)
         }
+        .onChange(of: keyboardMonitor.keyboardStatus, perform: { _ in
+          DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            bottomPadding = getBottomPadding(keyboardMonitor.keyboardStatus)
+          }
+        })
+        .padding(.bottom, bottomPadding)
         .navigationBarTitle(Text("Workout Log"), displayMode: .inline)
         .toolbar {
           ToolbarItem(placement: .cancellationAction) {
@@ -135,25 +140,21 @@ struct ActiveWorkout: View {
           }
         )
       }
-      
       DelayedSlideOverCard(
         stopwatchManager: stopwatchManager,
         keyboardMonitor: keyboardMonitor,
         scrollDirection: $scrollDirection
       )
     }
-    .onChange(of: keyboardMonitor, perform: { _ in
-      DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-        bottomPadding = getBottomPadding(keyboardMonitor.keyboardStatus)
-      }
-    })
+   
   }
   
-  func getBottomPadding(_ keyboardStatus: KeyboardStatus) -> CGFloat {
+  private func getBottomPadding(_ keyboardStatus: KeyboardStatus) -> CGFloat {
     switch keyboardStatus {
     case .hidden:
-      return 200
+      return MIN_CARD_HEIGHT
     case .presented(_):
+      print("Presented")
       return 0
     }
   }
@@ -171,6 +172,7 @@ extension View {
 struct ActiveWorkout_Previews: PreviewProvider {
   static var previews: some View {
     ActiveWorkout(stopwatchManager: StopwatchManager(), keyboardMonitor: KeyboardMonitor())
+      .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
       .environmentObject(IronNotesModelFactory.getWorkout())
       .environmentObject(StopwatchManager())
   }

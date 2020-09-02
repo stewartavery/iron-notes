@@ -13,7 +13,7 @@ import CoreData
 
 public class ExerciseTemplate: NSManagedObject {
   class func newExerciseTemplate() -> ExerciseTemplate {
-    return ExerciseTemplate(context: AppDelegate.viewContext)
+    return ExerciseTemplate(context: PersistenceController.shared.container.viewContext)
   }
   
   class func createExerciseTemplateFor(name: String, desc: String, muscleGroups: [MuscleGroup], exerciseType: ExerciseType) -> Void {
@@ -22,6 +22,6 @@ public class ExerciseTemplate: NSManagedObject {
     exerciseTemplate.desc = desc
     exerciseTemplate.muscleGroups = NSSet(array: muscleGroups)
     exerciseTemplate.exerciseType = exerciseType.rawValue
-    try! AppDelegate.viewContext.save()
+    try! PersistenceController.shared.container.viewContext.save()
   }
 }

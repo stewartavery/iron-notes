@@ -147,7 +147,7 @@ struct AddExercise_Previews: PreviewProvider {
   static var previews: some View {
     ExerciseEditor(workout: IronNotesModelFactory.getWorkout())
       .environmentObject(IronNotesModelFactory.getWorkout())
-      .environment(\.managedObjectContext, AppDelegate.viewContext)
+      .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
   }
 }
 #endif

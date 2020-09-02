@@ -52,7 +52,7 @@ struct WorkoutRow: View {
 #if DEBUG
 struct WorkoutRow_Previews: PreviewProvider {
   static var previews: some View {
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    let context = PersistenceController.shared.container.viewContext
     let workout = Workout(context: context)
     let workoutMeta = WorkoutTemplate(context: context)
     workoutMeta.name = "Test"

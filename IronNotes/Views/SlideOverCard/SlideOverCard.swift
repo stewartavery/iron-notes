@@ -8,6 +8,8 @@
 
 import SwiftUI
 
+let MIN_CARD_HEIGHT: CGFloat = 150
+
 struct SlideOverCard<Content: View> : View {
   @Environment(\.colorScheme) var colorScheme: ColorScheme
   @GestureState private var dragState = DragState.inactive
@@ -61,7 +63,7 @@ struct SlideOverCard<Content: View> : View {
     case .middle:
       return geometryHeight / 2
     case .bottom:
-      return geometryHeight - 150
+      return geometryHeight - MIN_CARD_HEIGHT
     }
   }
   
@@ -83,8 +85,6 @@ struct SlideOverCard<Content: View> : View {
     let closestPosition: CardPosition
     
     // TODO: find a better way to handle coordinate system
-  
-    
     if cardTopEdgeLocation <= middleHeight {
       positionAbove = .top
       positionBelow = .middle

@@ -9,9 +9,6 @@
 import SwiftUI
 
 struct IronNotesContainer: View {
-  @StateObject var stopwatchManager = StopwatchManager()
-  @StateObject var keyboardMonitor = KeyboardMonitor()
-  
   var body: some View {
     TabView {
       StartWorkoutList()
@@ -48,8 +45,6 @@ struct IronNotesContainer: View {
         .tag(3)
     }
     .accentColor(Color.orange)
-    .environmentObject(stopwatchManager)
-    .environmentObject(keyboardMonitor)
   }
 }
 
@@ -57,7 +52,7 @@ struct IronNotesContainer: View {
 struct IronNotesContainer_Previews: PreviewProvider {
   static var previews: some View {
     return IronNotesContainer()
-      .environment(\.managedObjectContext, AppDelegate.viewContext)
+      .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
   }
 }
 #endif
