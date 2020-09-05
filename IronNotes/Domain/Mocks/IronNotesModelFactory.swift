@@ -9,6 +9,16 @@
 import SwiftUI
 
 class IronNotesModelFactory {
+  static func getWorkoutTemplate() -> WorkoutTemplate {
+    let workoutMeta = WorkoutTemplate(context: PersistenceController.shared.container.viewContext)
+
+    workoutMeta.name = "Extra Test Workout"
+    workoutMeta.desc = "Really good workout!"
+    workoutMeta.iconName = "barbell"
+    
+    return workoutMeta
+  }
+  
   static func getWorkout() -> Workout {
     let workout = Workout(context: PersistenceController.shared.container.viewContext)
     let workoutMeta = WorkoutTemplate(context: PersistenceController.shared.container.viewContext)

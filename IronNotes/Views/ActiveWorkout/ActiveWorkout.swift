@@ -12,7 +12,7 @@ import Combine
 import Snap
 
 struct TopToolbarContent: View {
-  @Binding var workoutSheet: WorkoutSheet
+  @Binding var workoutSheet: WorkoutSheet?
   @EnvironmentObject var keyboardMonitor: KeyboardMonitor
   
   var body: some View {
@@ -47,19 +47,12 @@ struct TopToolbarContent: View {
   }
 }
 
-enum WorkoutSheet {
-  case workout
-  case exercises
-  case none
-  
-  var isPresented: Bool {
-    switch self {
-    case .none:
-      return false
-    default:
-      return true
-    }
+enum WorkoutSheet: String, Identifiable {
+  var id: String {
+    return rawValue
   }
+  
+  case workout, exercises
 }
 
 enum ScrollDirection: Equatable {
@@ -69,26 +62,30 @@ enum ScrollDirection: Equatable {
 }
 
 struct ActiveWorkout: View {
-  @EnvironmentObject var workout: Workout
   @Environment(\.managedObjectContext) var moc
   @Environment(\.presentationMode) var presentationMode
+  
   @ObservedObject var stopwatchManager: StopwatchManager
   @ObservedObject var keyboardMonitor: KeyboardMonitor
+  @ObservedObject var workoutTemplate: WorkoutTemplate
   
-  @State private var workoutSheet: WorkoutSheet = .none
+  @StateObject private var workout: Workout
+  
+  @State private var workoutSheet: WorkoutSheet? = nil
   @State private var isEditing = false
   @State private var isModifyingSet: Bool = false
   @State private var bottomPadding: CGFloat = MIN_CARD_HEIGHT
   @State private var scrollDirection: ScrollDirection = .none
   
+  init(stopwatchManager: StopwatchManager, keyboardMonitor: KeyboardMonitor, workoutTemplate: WorkoutTemplate) {
+    self.stopwatchManager = stopwatchManager
+    self.keyboardMonitor = keyboardMonitor
+    self.workoutTemplate = workoutTemplate
+    _workout = StateObject(wrappedValue: Workout.getNewWorkoutFromTemplate(workoutTemplate: workoutTemplate))
+  }
+  
   var body: some View {
-    let isSheetPresented = Binding<Bool>(get: {
-      workoutSheet.isPresented
-    }, set: { b in
-      workoutSheet = .none
-    })
-    
-    return ZStack {
+    ZStack {
       NavigationView {
         List {
           ForEach(workout.routinesArray, id: \.self) { exercise in
@@ -115,20 +112,16 @@ struct ActiveWorkout: View {
           }
         }
         .buttonStyle(BorderlessButtonStyle())
-        .sheet(
-          isPresented: isSheetPresented,
-          content: {
-            switch workoutSheet {
-            case .exercises:
-              ExerciseEditor(workout: workout)
-                .environment(\.managedObjectContext, moc)
-            case .workout:
-              WorkoutMetaEditor(workout: workout)
-                .environment(\.managedObjectContext, moc)
-            default:
-              EmptyView()
-            }
-          })
+        .sheet(item: $workoutSheet) { workoutSheet in
+          switch workoutSheet {
+          case .exercises:
+            ExerciseEditor(workout: workout)
+              .environment(\.managedObjectContext, moc)
+          case .workout:
+            WorkoutMetaEditor(workout: workout)
+              .environment(\.managedObjectContext, moc)
+          }
+        }
         .listStyle(InsetGroupedListStyle())
         .gesture(
           DragGesture().onChanged { value in
@@ -144,9 +137,9 @@ struct ActiveWorkout: View {
         stopwatchManager: stopwatchManager,
         keyboardMonitor: keyboardMonitor,
         scrollDirection: $scrollDirection
-      )
+      ).environmentObject(workout)
     }
-   
+    
   }
   
   private func getBottomPadding(_ keyboardStatus: KeyboardStatus) -> CGFloat {
@@ -171,7 +164,7 @@ extension View {
 #if DEBUG
 struct ActiveWorkout_Previews: PreviewProvider {
   static var previews: some View {
-    ActiveWorkout(stopwatchManager: StopwatchManager(), keyboardMonitor: KeyboardMonitor())
+    ActiveWorkout(stopwatchManager: StopwatchManager(), keyboardMonitor: KeyboardMonitor(), workoutTemplate: IronNotesModelFactory.getWorkoutTemplate())
       .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
       .environmentObject(IronNotesModelFactory.getWorkout())
       .environmentObject(StopwatchManager())

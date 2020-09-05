@@ -19,8 +19,6 @@ struct WorkoutCard: View {
     
     // TODO: try making this an ObservedObject instead to see if it fixes bug
     return VStack(alignment: .leading) {
-      WorkoutRowLabel(workout: workout)
-
       switch stopwatchManager.mode {
       case .running, .paused:
         HStack {
@@ -28,10 +26,14 @@ struct WorkoutCard: View {
           Spacer()
           BottomBarContent(stopwatchManager: stopwatchManager)
         }
-        .padding()
+        .padding(.bottom)
       case .stopped:
           StartButton(stopwatchManager: stopwatchManager)
+            .padding(.bottom)
       }
+      
+      WorkoutRowLabel(workoutTemplate: workout.meta)
+
             
       Divider()
       

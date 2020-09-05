@@ -27,7 +27,7 @@ struct IronNotesContainer: View {
           }
         })
         .tag(1)
-      Text("History")
+      WorkoutHistory()
         .tabItem({
           VStack {
             Image(systemName: "clock.fill")

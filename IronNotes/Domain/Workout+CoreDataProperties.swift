@@ -35,6 +35,12 @@ extension Workout {
     }
   }
   
+  public var readableDate: String {
+    let df = DateFormatter()
+    df.dateFormat = "yyyy-MM-dd hh:mm:ss"
+    return df.string(from: startTime)
+  }
+  
 }
 extension Workout {
   

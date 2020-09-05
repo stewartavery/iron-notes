@@ -9,16 +9,56 @@
 import SwiftUI
 import CoreData
 
+/**
+ NSSortDescriptor *dateSort = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO];
+ fetch.sortDescriptors = @[ dateSort ];
+ fetch.fetchLimit = 1;
+ */
+
+/**
+ var predicate:String
+ var wordsRequest : FetchRequest<Word>
+ var words : FetchedResults<Word>{wordsRequest.wrappedValue}
+ 
+ init(predicate:String){
+ self.predicate = predicate
+ self.wordsRequest = FetchRequest(entity: Word.entity(), sortDescriptors: [], predicate:
+ NSPredicate(format: "%K == %@", #keyPath(Word.character),predicate))
+ 
+ }
+ */
+
 struct WorkoutRowLabel: View {
   @Environment(\.colorScheme) var colorScheme: ColorScheme
-
-  var workout: Workout
+  
+  var workoutTemplate: WorkoutTemplate
+  var workoutRequest: FetchRequest<Workout>
+  var workout: FetchedResults<Workout> {
+    workoutRequest.wrappedValue
+  }
+  
+  init(workoutTemplate: WorkoutTemplate) {
+    self.workoutTemplate = workoutTemplate
+    let request: NSFetchRequest<Workout> = Workout.fetchRequest()
+    request.fetchLimit = 1
+    request.sortDescriptors = [
+      NSSortDescriptor(keyPath: \Workout.startTime, ascending: false)
+    ]
+    request.predicate = NSPredicate(
+      format: "%K == %@",
+      #keyPath(Workout.meta.name),
+      workoutTemplate.name
+    )
+    
+    self.workoutRequest = FetchRequest<Workout>(fetchRequest: request)
+  }
   
   var body: some View {
-    VStack(alignment: .leading) {
-      Text(workout.meta.name)
+    print(workout[0])
+    return VStack(alignment: .leading) {
+      Text(workoutTemplate.name)
         .font(.headline)
-      Text(workout.meta.desc)
+      Text(workoutTemplate.desc)
         .font(.subheadline)
       Text(getWorkoutDate())
         .font(.subheadline)
@@ -28,25 +68,24 @@ struct WorkoutRowLabel: View {
   
   func getWorkoutDate() -> String {
     return "Last Workout: " +
-      self.workout.dayDifference(
-        from: self.workout.startTime
-    )
+      workout[0].dayDifference(
+        from: workout[0].startTime
+      )
   }
 }
 
 struct WorkoutRow: View {
-  var workout: Workout
-
+  var workoutTemplate: WorkoutTemplate
+  
   var body: some View {
     HStack {
-      RowImage(iconName: self.workout.meta.iconName)
+      RowImage(iconName: workoutTemplate.iconName)
       
-      WorkoutRowLabel(workout: workout).padding(.leading, CGFloat(10))
+      WorkoutRowLabel(workoutTemplate: workoutTemplate)
+        .padding(.leading, CGFloat(10))
     }
     .frame(height: 80)
   }
-  
- 
 }
 
 #if DEBUG
@@ -61,11 +100,14 @@ struct WorkoutRow_Previews: PreviewProvider {
     workout.meta = workoutMeta
     workout.startTime = Date()
     workout.routines = []
-        
+    
+    
     return Group {
-      WorkoutRow(workout: workout)
-      WorkoutRow(workout: workout)
+      WorkoutRow(workoutTemplate: workoutMeta)
+        .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
     }
+        
+    
   }
 }
 #endif

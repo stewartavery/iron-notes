@@ -25,4 +25,17 @@ public class Workout: NSManagedObject {
       else { return "In \(day) days" }
     }
   }
+  
+  class func newWorkout() -> Workout {
+    return Workout(context: PersistenceController.shared.container.viewContext)
+  }
+  
+  class func getNewWorkoutFromTemplate(workoutTemplate: WorkoutTemplate) -> Workout {
+    let workout = newWorkout()
+    workout.meta = workoutTemplate
+    
+    return workout
+  }
+  
+ 
 }

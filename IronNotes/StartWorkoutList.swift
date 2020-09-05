@@ -11,11 +11,12 @@ import SwiftUI
 struct StartWorkoutList : View {
   @Environment(\.managedObjectContext) var moc
   @FetchRequest(
-    entity: Workout.entity(),
+    entity: WorkoutTemplate.entity(),
     sortDescriptors: []
-  ) var workouts: FetchedResults<Workout>
+  ) var workoutTemplates: FetchedResults<WorkoutTemplate>
   @EnvironmentObject var keyboardMonitor: KeyboardMonitor
   @EnvironmentObject var stopwatchManager: StopwatchManager
+  
 
 
   @State var isCreateViewVisible = false
@@ -25,16 +26,15 @@ struct StartWorkoutList : View {
   var body: some View {
     NavigationView {
       List {
-        ForEach(workouts, id: \.self) { workout in
+        ForEach(workoutTemplates, id: \.self) { workoutTemplate in
           Button {
             isFullScreenModalVisible.toggle()
           } label: {
-            WorkoutRow(workout: workout)
+            WorkoutRow(workoutTemplate: workoutTemplate)
           }
           .fullScreenCover(
             isPresented: $isFullScreenModalVisible,
-            content: { ActiveWorkout(stopwatchManager: stopwatchManager, keyboardMonitor: keyboardMonitor)
-              .environmentObject(workout)
+            content: { ActiveWorkout(stopwatchManager: stopwatchManager, keyboardMonitor: keyboardMonitor, workoutTemplate: workoutTemplate)
             }
           )
         }
