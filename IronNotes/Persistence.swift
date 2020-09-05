@@ -24,12 +24,14 @@ struct PersistenceController {
   let container: NSPersistentCloudKitContainer
   
   init(inMemory: Bool = false) {
+   
+    
     container = NSPersistentCloudKitContainer(name: "IronNotes")
     if inMemory {
       container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
     }
     container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-        container.viewContext.automaticallyMergesChangesFromParent = true
+    container.viewContext.automaticallyMergesChangesFromParent = true
     container.loadPersistentStores(completionHandler: { (storeDescription, error) in
       if let error = error as NSError? {
         // Replace this implementation with code to handle the error appropriately.

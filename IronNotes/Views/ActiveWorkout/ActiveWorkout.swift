@@ -72,8 +72,6 @@ struct ActiveWorkout: View {
   @StateObject private var workout: Workout
   
   @State private var workoutSheet: WorkoutSheet? = nil
-  @State private var isEditing = false
-  @State private var isModifyingSet: Bool = false
   @State private var bottomPadding: CGFloat = MIN_CARD_HEIGHT
   @State private var scrollDirection: ScrollDirection = .none
   
@@ -105,6 +103,7 @@ struct ActiveWorkout: View {
           ToolbarItem(placement: .cancellationAction) {
             Button("Dismiss") {
               presentationMode.wrappedValue.dismiss()
+              workout.deleteWorkout()
             }
           }
           ToolbarItem(placement: .primaryAction) {

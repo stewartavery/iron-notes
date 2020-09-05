@@ -23,9 +23,6 @@ struct WorkoutHistory: View {
               Text(workout.readableDate)
             }
           }
-              
-            
-          
           .navigationBarTitle("History")
         }
       }

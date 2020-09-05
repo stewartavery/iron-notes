@@ -37,5 +37,9 @@ public class Workout: NSManagedObject {
     return workout
   }
   
+  func deleteWorkout() -> Void {
+    PersistenceController.shared.container.viewContext.delete(self)
+  }
+  
  
 }

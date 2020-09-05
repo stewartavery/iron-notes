@@ -19,12 +19,16 @@ extension Workout {
   
   @NSManaged public var duration: Int16
   @NSManaged public var note: String?
-  @NSManaged public var startTime: Date
+  @NSManaged public var startTime: Date?
   @NSManaged public var routines: NSSet?
   @NSManaged public var meta: WorkoutTemplate
   
   public var wrappedNote: String {
     return note ?? ""
+  }
+  
+  public var wrappedStartTime: Date {
+    return startTime ?? Date()
   }
 
   public var routinesArray: [Exercise] {
@@ -38,7 +42,7 @@ extension Workout {
   public var readableDate: String {
     let df = DateFormatter()
     df.dateFormat = "yyyy-MM-dd hh:mm:ss"
-    return df.string(from: startTime)
+    return df.string(from: wrappedStartTime)
   }
   
 }

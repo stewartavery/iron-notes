@@ -54,22 +54,24 @@ struct WorkoutRowLabel: View {
   }
   
   var body: some View {
-    print(workout[0])
-    return VStack(alignment: .leading) {
-      Text(workoutTemplate.name)
-        .font(.headline)
-      Text(workoutTemplate.desc)
-        .font(.subheadline)
-      Text(getWorkoutDate())
-        .font(.subheadline)
-        .foregroundColor(.gray)
-    }.accentColor(colorScheme == .light ? Color.black : Color.white)
+      return VStack(alignment: .leading) {
+        Text(workoutTemplate.name)
+          .font(.headline)
+        Text(workoutTemplate.desc)
+          .font(.subheadline)
+        if workout.count == 1 {
+          Text(getWorkoutDate(workout: workout[0]))
+          .font(.subheadline)
+          .foregroundColor(.gray)
+        }
+      }.accentColor(colorScheme == .light ? Color.black : Color.white)
+    
   }
   
-  func getWorkoutDate() -> String {
+  func getWorkoutDate(workout: Workout) -> String {
     return "Last Workout: " +
-      workout[0].dayDifference(
-        from: workout[0].startTime
+      workout.dayDifference(
+        from: workout.wrappedStartTime
       )
   }
 }
@@ -106,7 +108,7 @@ struct WorkoutRow_Previews: PreviewProvider {
       WorkoutRow(workoutTemplate: workoutMeta)
         .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
     }
-        
+    
     
   }
 }

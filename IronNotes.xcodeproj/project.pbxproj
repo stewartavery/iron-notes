@@ -204,9 +204,9 @@
 			isa = PBXGroup;
 			children = (
 				65789B5F240DEE37000ABE40 /* StartWorkoutList.swift */,
-				652FB8C722F112EB0091D3D4 /* AddWorkoutRow.swift */,
-				6514CB9922FE5075002907BC /* RowImage.swift */,
 				6510C76F22E5401600A0DDE2 /* WorkoutRow.swift */,
+				6514CB9922FE5075002907BC /* RowImage.swift */,
+				652FB8C722F112EB0091D3D4 /* AddWorkoutRow.swift */,
 				6574530E24874BAC00DD76B6 /* WorkoutImageModifier.swift */,
 			);
 			path = StartWorkoutList;

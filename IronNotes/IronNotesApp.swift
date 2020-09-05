@@ -10,6 +10,8 @@ import SwiftUI
 
 @main
 struct IronNotesApp: App {
+  @Environment(\.scenePhase) private var scenePhase
+
   let persistenceController = PersistenceController.shared
   @StateObject var stopwatchManager = StopwatchManager()
   @StateObject var keyboardMonitor = KeyboardMonitor()
@@ -20,6 +22,12 @@ struct IronNotesApp: App {
         .environment(\.managedObjectContext, persistenceController.container.viewContext)
         .environmentObject(stopwatchManager)
         .environmentObject(keyboardMonitor)
+    }
+    .onChange(of: scenePhase) { phase in
+      if phase == .active {
+        print("HEY")
+        DataManager(persistenceController.container.viewContext).setupDefaultData()
+      }
     }
   }
 }

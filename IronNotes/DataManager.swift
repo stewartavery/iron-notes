@@ -35,6 +35,8 @@ class DataManager {
     deleteAllData("MuscleGroup")
     deleteAllData("WorkoutTemplate")
     deleteAllData("Workout")
+    deleteAllData("ExerciseSet")
+    deleteAllData("Exercise")
   }
   
   func setupDefaultData() {

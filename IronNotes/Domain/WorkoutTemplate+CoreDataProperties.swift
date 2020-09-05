@@ -27,7 +27,7 @@ extension WorkoutTemplate {
      let set = workouts as? Set<Workout> ?? []
      
      return set.sorted {
-       $0.startTime > $1.startTime
+       $0.wrappedStartTime > $1.wrappedStartTime
      }
    }
   

@@ -10,18 +10,17 @@ import SwiftUI
 
 struct StartWorkoutList : View {
   @Environment(\.managedObjectContext) var moc
+  
   @FetchRequest(
     entity: WorkoutTemplate.entity(),
     sortDescriptors: []
   ) var workoutTemplates: FetchedResults<WorkoutTemplate>
+  
   @EnvironmentObject var keyboardMonitor: KeyboardMonitor
   @EnvironmentObject var stopwatchManager: StopwatchManager
   
-
-
   @State var isCreateViewVisible = false
   @State var isFullScreenModalVisible = false
-  
   
   var body: some View {
     NavigationView {
@@ -34,7 +33,12 @@ struct StartWorkoutList : View {
           }
           .fullScreenCover(
             isPresented: $isFullScreenModalVisible,
-            content: { ActiveWorkout(stopwatchManager: stopwatchManager, keyboardMonitor: keyboardMonitor, workoutTemplate: workoutTemplate)
+            content: {
+              ActiveWorkout(
+                stopwatchManager: stopwatchManager,
+                keyboardMonitor: keyboardMonitor,
+                workoutTemplate: workoutTemplate
+              )
             }
           )
         }
