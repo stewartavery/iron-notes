@@ -47,25 +47,24 @@ struct StartButton: View {
   @ObservedObject var stopwatchManager: StopwatchManager
   
   var body: some View {
-    Button {
-      stopwatchManager.start()
-    } label: {
-      HStack {
-        Spacer()
-        Label {
-          Text("Start")
-            .fontWeight(.bold)
-        } icon: {
-          Image(systemName: "play.fill")
-        }
-        Spacer()
+    
+    HStack {
+      Label {
+        Text("Start")
+          .fontWeight(.bold)
+      } icon: {
+        Image(systemName: "play.fill")
       }
+    }
+    .frame(maxWidth: .infinity)
+    .onTapGesture {
+      stopwatchManager.start()
     }
     .padding()
     .background(Color.orange)
     .font(.headline)
     .cornerRadius(7)
-    .accentColor(.white)
+    .foregroundColor(Color.white)
   }
 }
 

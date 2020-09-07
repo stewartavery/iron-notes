@@ -8,12 +8,12 @@
 
 import SwiftUI
 
-let MIN_CARD_HEIGHT: CGFloat = 150
+let MIN_CARD_HEIGHT: CGFloat = 75
 
 struct SlideOverCard<Content: View> : View {
   @Environment(\.colorScheme) var colorScheme: ColorScheme
   @GestureState private var dragState = DragState.inactive
-  @State var position = CardPosition.bottom
+  @State var position = CardPosition.bottom // TODO: make this observable object, maybe hoist to root?
   
   @Binding var scrollDirection: ScrollDirection
   
@@ -49,10 +49,11 @@ struct SlideOverCard<Content: View> : View {
   
   private func handleParentScroll(_ scrollDirection: ScrollDirection) {
     switch (scrollDirection, position) {
-    case (.up, _), (.none, _), (.down(_), .bottom):
-      break
-    case (.down(_), .middle), (.down(_), .top):
+    case (.down(_), .middle),
+         (.down(_), .top):
       position = .bottom
+    default:
+      break
     }
   }
   
