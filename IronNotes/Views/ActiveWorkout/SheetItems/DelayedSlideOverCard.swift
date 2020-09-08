@@ -11,31 +11,29 @@ import SwiftUI
 struct DelayedSlideOverCard: View {
   @ObservedObject var stopwatchManager: StopwatchManager
   @ObservedObject var keyboardMonitor: KeyboardMonitor
+  
   @State var isViewHidden = true
   @State var delay = 0.0
-  @Binding var scrollDirection: ScrollDirection
-  
+    
   var body: some View {
-    Group {
-      switch (keyboardMonitor.keyboardStatus, isViewHidden)  {
-      case (.hidden, true):
-        Text("").onAppear {
-          DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-            self.isViewHidden = false
-            self.delay = 0.0
-          }
+    switch (keyboardMonitor.keyboardStatus, isViewHidden)  {
+    case (.hidden, true):
+      Text("").onAppear {
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+          self.isViewHidden = false
+          self.delay = 0.0
         }
-      case (.hidden, false):
-        SlideOverCard(scrollDirection: $scrollDirection) {
-          WorkoutCard(stopwatchManager: stopwatchManager)
-        }
-        .transition(.move(edge: .bottom))
-        .animation(/*@START_MENU_TOKEN@*/.easeIn/*@END_MENU_TOKEN@*/)
-      case (.presented(_), _):
-        Text("").onAppear {
-          self.isViewHidden = true
-          self.delay = 0.1
-        }
+      }
+    case (.hidden, false):
+      SlideOverCard {
+        WorkoutCard(stopwatchManager: stopwatchManager)
+      }
+      .transition(.move(edge: .bottom))
+      .animation(/*@START_MENU_TOKEN@*/.easeIn/*@END_MENU_TOKEN@*/)
+    case (.presented(_), _):
+      Text("").onAppear {
+        self.isViewHidden = true
+        self.delay = 0.1
       }
     }
   }

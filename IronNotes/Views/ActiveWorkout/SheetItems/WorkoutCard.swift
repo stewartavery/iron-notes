@@ -10,15 +10,12 @@ import SwiftUI
 
 struct WorkoutCard: View {
   @ObservedObject var stopwatchManager: StopwatchManager
+  
+  @EnvironmentObject var cardDetails: CardDetails
   @EnvironmentObject var workout: Workout
   
   var body: some View {
-    var isNotePresent: Bool {
-      return workout.wrappedNote.count > 0
-    }
-    
-    // TODO: try making this an ObservedObject instead to see if it fixes bug
-    return VStack(alignment: .leading) {
+    VStack(alignment: .leading) {
       switch stopwatchManager.mode {
       case .running, .paused:
         HStack {
@@ -26,24 +23,29 @@ struct WorkoutCard: View {
           Spacer()
           BottomBarContent(stopwatchManager: stopwatchManager)
         }
-        .padding(.bottom)
       case .stopped:
-          StartButton(stopwatchManager: stopwatchManager)
-            .padding(.bottom)
+        StartButton()
       }
       
-      WorkoutRowLabel(workoutTemplate: workout.meta)
-
+      switch cardDetails.position {
+      case .middle, .top:
+        VStack(alignment: .leading) {
+          WorkoutRowLabel(workoutTemplate: workout.meta)
+          
+          Divider()
+          
+          if workout.isNotePresent {
+            Text(workout.wrappedNote)
+              .font(.body)
+              .padding(.top)
+          }
             
-      Divider()
-      
-      if isNotePresent {
-        Text(workout.wrappedNote)
-          .font(.body)
-          .padding(.top)
+          Spacer()
+      }.padding(.top)
+
+      case .bottom:
+        Spacer()
       }
-      Spacer()
-       
     }
     .padding(.leading)
     .padding(.trailing)

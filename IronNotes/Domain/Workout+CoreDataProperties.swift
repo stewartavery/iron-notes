@@ -27,6 +27,10 @@ extension Workout {
     return note ?? ""
   }
   
+  public var isNotePresent: Bool {
+    return wrappedNote.count > 0
+  }
+  
   public var wrappedStartTime: Date {
     return startTime ?? Date()
   }

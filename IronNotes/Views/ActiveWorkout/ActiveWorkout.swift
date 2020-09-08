@@ -72,10 +72,13 @@ struct ActiveWorkout: View {
   @StateObject private var workout: Workout
   
   @State private var workoutSheet: WorkoutSheet? = nil
-  @State private var bottomPadding: CGFloat = MIN_CARD_HEIGHT
-  @State private var scrollDirection: ScrollDirection = .none
+  @State private var bottomPadding: CGFloat = minCardHeight
   
-  init(stopwatchManager: StopwatchManager, keyboardMonitor: KeyboardMonitor, workoutTemplate: WorkoutTemplate) {
+  init(
+    stopwatchManager: StopwatchManager,
+    keyboardMonitor: KeyboardMonitor,
+    workoutTemplate: WorkoutTemplate)
+  {
     self.stopwatchManager = stopwatchManager
     self.keyboardMonitor = keyboardMonitor
     self.workoutTemplate = workoutTemplate
@@ -122,20 +125,10 @@ struct ActiveWorkout: View {
           }
         }
         .listStyle(InsetGroupedListStyle())
-        .gesture(
-          DragGesture().onChanged { value in
-            if value.translation.height > 0 {
-              scrollDirection = .up(value.translation.height)
-            } else {
-              scrollDirection = .down(value.translation.height)
-            }
-          }
-        )
       }
       DelayedSlideOverCard(
         stopwatchManager: stopwatchManager,
-        keyboardMonitor: keyboardMonitor,
-        scrollDirection: $scrollDirection
+        keyboardMonitor: keyboardMonitor
       ).environmentObject(workout)
     }
     
@@ -144,7 +137,7 @@ struct ActiveWorkout: View {
   private func getBottomPadding(_ keyboardStatus: KeyboardStatus) -> CGFloat {
     switch keyboardStatus {
     case .hidden:
-      return MIN_CARD_HEIGHT
+      return minCardHeight
     case .presented(_):
       print("Presented")
       return 0
@@ -166,7 +159,6 @@ struct ActiveWorkout_Previews: PreviewProvider {
     ActiveWorkout(stopwatchManager: StopwatchManager(), keyboardMonitor: KeyboardMonitor(), workoutTemplate: IronNotesModelFactory.getWorkoutTemplate())
       .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
       .environmentObject(IronNotesModelFactory.getWorkout())
-      .environmentObject(StopwatchManager())
   }
 }
 #endif

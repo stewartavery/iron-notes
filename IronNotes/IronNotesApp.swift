@@ -25,7 +25,6 @@ struct IronNotesApp: App {
     }
     .onChange(of: scenePhase) { phase in
       if phase == .active {
-        print("HEY")
         DataManager(persistenceController.container.viewContext).setupDefaultData()
       }
     }

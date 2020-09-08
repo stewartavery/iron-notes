@@ -13,25 +13,32 @@ struct WorkoutHistory: View {
     entity: Workout.entity(),
     sortDescriptors: []
   ) var workouts: FetchedResults<Workout>
-
-    var body: some View {
-      NavigationView {
-        ScrollView{
+  
+  var body: some View {
+    NavigationView {
+      ScrollView {
+        VStack(alignment: .leading) {
           ForEach(workouts, id: \.self) { workout in
+            HStack {
             VStack(alignment: .leading) {
               Text(workout.meta.name)
               Text(workout.readableDate)
             }
+              Spacer()
+            }
+  
           }
-          .navigationBarTitle("History")
         }
+        .padding()
       }
+      .navigationBarTitle("History")
     }
+  }
 }
 
 struct WorkoutHistory_Previews: PreviewProvider {
-    static var previews: some View {
-      WorkoutHistory()
-        .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
-    }
+  static var previews: some View {
+    WorkoutHistory()
+      .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
+  }
 }

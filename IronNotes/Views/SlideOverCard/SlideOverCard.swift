@@ -8,29 +8,26 @@
 
 import SwiftUI
 
-let MIN_CARD_HEIGHT: CGFloat = 75
+let minCardHeight: CGFloat = 75
 
 struct SlideOverCard<Content: View> : View {
   @Environment(\.colorScheme) var colorScheme: ColorScheme
   @GestureState private var dragState = DragState.inactive
-  @State var position = CardPosition.bottom // TODO: make this observable object, maybe hoist to root?
+  @StateObject var cardDetails = CardDetails()
   
-  @Binding var scrollDirection: ScrollDirection
   
   var content: () -> Content
   
   var body: some View {
-    
-    return GeometryReader { geometry in
+    GeometryReader { geometry in
       VStack {
         Handle()
-        content()
+        content().environmentObject(cardDetails)
       }
-      .onChange(of: scrollDirection, perform: handleParentScroll)
       .background(colorScheme == .light ? Color.white : Color(UIColor.systemGray6))
       .cornerRadius(10.0)
       .shadow(color: Color(.sRGBLinear, white: 0, opacity: 0.13), radius: 10.0)
-      .offset(y: getCardHeight(geometryHeight: geometry.size.height, cardPosition: position) + getThrottledOffset())
+      .offset(y: getCardHeight(geometryHeight: geometry.size.height, cardPosition: cardDetails.position) + getThrottledOffset())
       .animation(self.dragState.isDragging ? nil : .interpolatingSpring(stiffness: 300.0, damping: 30.0, initialVelocity: 10.0))
       .gesture(
         DragGesture()
@@ -48,10 +45,10 @@ struct SlideOverCard<Content: View> : View {
     }.frame(maxHeight: .infinity)  }
   
   private func handleParentScroll(_ scrollDirection: ScrollDirection) {
-    switch (scrollDirection, position) {
+    switch (scrollDirection, cardDetails.position) {
     case (.down(_), .middle),
          (.down(_), .top):
-      position = .bottom
+      cardDetails.position = .bottom
     default:
       break
     }
@@ -64,7 +61,7 @@ struct SlideOverCard<Content: View> : View {
     case .middle:
       return geometryHeight / 2
     case .bottom:
-      return geometryHeight - MIN_CARD_HEIGHT
+      return geometryHeight - minCardHeight
     }
   }
   
@@ -76,7 +73,7 @@ struct SlideOverCard<Content: View> : View {
   
   private func onDragEnded(drag: DragGesture.Value, geometryHeight: CGFloat) {
     let middleHeight = getCardHeight(geometryHeight: geometryHeight, cardPosition: CardPosition.middle)
-    let currentHeight = getCardHeight(geometryHeight: geometryHeight, cardPosition: position)
+    let currentHeight = getCardHeight(geometryHeight: geometryHeight, cardPosition: cardDetails.position)
 
     let verticalDirection = drag.predictedEndLocation.y - drag.location.y
     let cardTopEdgeLocation = currentHeight + drag.translation.height
@@ -94,7 +91,6 @@ struct SlideOverCard<Content: View> : View {
       positionBelow = .bottom
     }
     
- 
     if (cardTopEdgeLocation - getCardHeight(geometryHeight: geometryHeight, cardPosition: positionAbove)) < (getCardHeight(geometryHeight: geometryHeight, cardPosition: positionBelow) - cardTopEdgeLocation) {
       closestPosition = positionAbove
     } else {
@@ -102,20 +98,15 @@ struct SlideOverCard<Content: View> : View {
     }
         
     if verticalDirection > 100 {
-      self.position = positionBelow
+      cardDetails.position = positionBelow
     } else if verticalDirection < -100 {
-      self.position = positionAbove
+      cardDetails.position = positionAbove
     } else {
-      self.position = closestPosition
+      cardDetails.position = closestPosition
     }
   }
 }
 
-enum CardPosition: CGFloat {
-  case top
-  case middle
-  case bottom
-}
 
 enum DragState {
   case inactive

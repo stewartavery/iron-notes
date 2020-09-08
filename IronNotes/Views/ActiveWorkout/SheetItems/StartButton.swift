@@ -44,10 +44,9 @@ struct StatusContent: View {
 
 
 struct StartButton: View {
-  @ObservedObject var stopwatchManager: StopwatchManager
+  @EnvironmentObject var stopwatchManager: StopwatchManager
   
   var body: some View {
-    
     HStack {
       Label {
         Text("Start")
@@ -57,14 +56,14 @@ struct StartButton: View {
       }
     }
     .frame(maxWidth: .infinity)
-    .onTapGesture {
-      stopwatchManager.start()
-    }
     .padding()
     .background(Color.orange)
     .font(.headline)
     .cornerRadius(7)
     .foregroundColor(Color.white)
+    .onTapGesture {
+      stopwatchManager.start()
+    }
   }
 }
 
@@ -72,7 +71,7 @@ struct StartButton: View {
 #if DEBUG
 struct StartButton_Previews: PreviewProvider {
   static var previews: some View {
-    StartButton(stopwatchManager: StopwatchManager())
+    StartButton()
       .environmentObject(StopwatchManager())
   }
 }
