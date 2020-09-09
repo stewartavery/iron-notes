@@ -75,3 +75,12 @@ extension WorkoutTemplate {
     @NSManaged public func removeFromDefaultExerciseTemplates(_ values: NSSet)
 
 }
+
+extension WorkoutTemplate {
+  static var getTemplates: NSFetchRequest<WorkoutTemplate> {
+    let request: NSFetchRequest<WorkoutTemplate> = WorkoutTemplate.fetchRequest()
+    request.sortDescriptors = []
+
+    return request
+  }
+}

@@ -17,7 +17,7 @@ struct WorkoutCard: View {
   var body: some View {
     VStack(alignment: .leading) {
       switch stopwatchManager.mode {
-      case .running, .paused:
+      case .running:
         HStack {
           StatusContent(stopwatchManager: stopwatchManager)
           Spacer()

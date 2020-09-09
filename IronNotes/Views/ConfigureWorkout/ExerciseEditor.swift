@@ -23,27 +23,32 @@ struct ExerciseEditor: View {
     sortDescriptors: [NSSortDescriptor(keyPath: \ExerciseTemplate.name, ascending: true
     )]) var exerciseTemplates: FetchedResults<ExerciseTemplate>
   
+  var addedTemplates: [ExerciseTemplate] {
+    return workout.routinesArray.map { $0.meta }
+  }
   
-  var body: some View {
-    let addedTemplates = self.workout.routinesArray.map { $0.meta }
-    let unaddedExercises = exerciseTemplates.filter {
+  var unaddedExercises: [ExerciseTemplate] {
+    return exerciseTemplates.filter {
       !addedTemplates.contains($0)
     }
-    
-    return NavigationView {
+  }
+  
+  
+  var body: some View {
+    NavigationView {
       Form {
         if addedTemplates.count > 0 {
           Section(header: Text("Added Exercises")) {
             ForEach(addedTemplates, id: \.self) {
               RemoveExerciseRow(exerciseTemplate: $0)
             }
-            .onDelete(perform: self.removeRow)
-            .onMove(perform: self.moveRow)
+            .onDelete(perform: removeRow)
+            .onMove(perform: moveRow)
           }
         }
         Section(header: Text("More Exercises")) {
           ForEach(unaddedExercises, id: \.self) {
-            AddExerciseRow(exerciseTemplate: $0, addRow: self.addRow)
+            AddExerciseRow(exerciseTemplate: $0, addRow: addRow)
           }
         }
       }
@@ -71,10 +76,8 @@ struct ExerciseEditor: View {
       modifiedRoutines[reverseIndex].position = Int16(reverseIndex)
     }
     
-    print(modifiedRoutines)
-    
     do {
-      try self.moc.save()
+      try moc.save()
     } catch {
       print(error.localizedDescription)
     }
@@ -82,11 +85,11 @@ struct ExerciseEditor: View {
   
   
   func removeRow(at offsets: IndexSet) {
-    var modifiedRoutines = self.workout.routinesArray
+    var modifiedRoutines = workout.routinesArray
     modifiedRoutines.remove(atOffsets: offsets)
     
     for index in offsets {
-      self.moc.delete(self.workout.routinesArray[index])
+      moc.delete(workout.routinesArray[index])
     }
     
     for reverseIndex in stride(
@@ -98,16 +101,16 @@ struct ExerciseEditor: View {
   }
   
   func addRow(exercise: ExerciseTemplate) {
-    let newExercise: Exercise = Exercise(context: self.moc)
+    let newExercise: Exercise = Exercise(context: moc)
     
     newExercise.meta = exercise
-    newExercise.position = Int16(self.workout.routinesArray.count)
-    newExercise.workout = self.workout
+    newExercise.position = Int16(workout.routinesArray.count)
+    newExercise.workout = workout
     
-    self.workout.addToRoutines(newExercise)
+    workout.addToRoutines(newExercise)
     
     do {
-      try self.moc.save()
+      try moc.save()
       print("Exercise added: \(newExercise.meta.name)")
     } catch {
       print(error.localizedDescription)
@@ -120,7 +123,7 @@ struct RemoveExerciseRow: View {
   @Environment(\.colorScheme) var colorScheme: ColorScheme
   
   var body: some View {
-    Text(self.exerciseTemplate.name)
+    Text(exerciseTemplate.name)
   }
 }
 
@@ -137,7 +140,7 @@ struct AddExerciseRow: View {
         .foregroundColor(Color.green)
         .font(.title3)
     }.onTapGesture {
-      self.addRow(self.exerciseTemplate)
+      addRow(exerciseTemplate)
     }
   }
 }

@@ -33,6 +33,20 @@ public class Workout: NSManagedObject {
   class func getNewWorkoutFromTemplate(workoutTemplate: WorkoutTemplate) -> Workout {
     let workout = newWorkout()
     workout.meta = workoutTemplate
+   
+    let exercises = workoutTemplate.defaultExerciseTemplatesArray
+      .enumerated()
+      .map { (index, exerciseTemplate) -> Exercise in
+        let newExercise: Exercise = Exercise(context: PersistenceController.shared.container.viewContext)
+        
+        newExercise.meta = exerciseTemplate
+        newExercise.position = Int16(index)
+        newExercise.workout = workout
+        
+        return newExercise
+    }
+    
+    workout.addToRoutines(NSSet(array: exercises))
     
     return workout
   }
@@ -40,6 +54,4 @@ public class Workout: NSManagedObject {
   func deleteWorkout() -> Void {
     PersistenceController.shared.container.viewContext.delete(self)
   }
-  
- 
 }

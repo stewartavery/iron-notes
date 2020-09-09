@@ -11,7 +11,6 @@ import SwiftUI
 enum StopWatchMode {
   case running
   case stopped
-  case paused
 }
 
 class StopwatchManager: ObservableObject {
@@ -27,11 +26,6 @@ class StopwatchManager: ObservableObject {
     timer.invalidate()
     secondsElapsed = 0
     mode = .stopped
-  }
-  
-  func pause() {
-    timer.invalidate()
-    mode = .paused
   }
   
   func start() {

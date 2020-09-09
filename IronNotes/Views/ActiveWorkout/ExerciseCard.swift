@@ -40,7 +40,7 @@ struct ExerciseCard: View {
         
         Spacer()
       }
-      if self.isNotePresent {
+      if isNotePresent {
         Text(exercise.note)
           .font(.subheadline)
           .foregroundColor(Color.gray)
@@ -51,21 +51,21 @@ struct ExerciseCard: View {
     ForEach(exercise.exerciseSetArray, id: \.self) { exerciseSet in
       ExerciseCardRow(exerciseSet: exerciseSet)
     }
-    .onDelete(perform: self.deleteSet)
+    .onDelete(perform: deleteSet)
     .animation(showDetail ? .spring() : nil)
     .transition(.move(edge: .bottom))
     .frame(height: 30)
     
     Button {
       withAnimation {
-        self.createNewSet()
+        createNewSet()
       }
     } label: {
       AddSet().frame(height: 35)
     }
     .onAppear() {
       DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-        self.showDetail = true
+        showDetail = true
       }
     }
   }
@@ -96,7 +96,7 @@ struct ExerciseCard: View {
     self.exercise.addToSets(newSet)
     
     do {
-      try self.moc.save()
+      try moc.save()
     } catch {
       print(error.localizedDescription)
     }

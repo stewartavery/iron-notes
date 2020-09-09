@@ -87,7 +87,7 @@ class DataManager {
       muscleGroups: [calves, quadriceps, hamstrings, glutes, hips, lowerBack, abdominals],
       exerciseType: ExerciseType.barbell
     )
-    
+
     ExerciseTemplate.createExerciseTemplateFor(
       name: "Leg Press",
       desc: "The leg press is a weight training exercise in which the individual pushes a weight or resistance away from them using their legs.",
@@ -262,15 +262,14 @@ class DataManager {
       muscleGroups: [hamstrings, glutes, lowerBack],
       exerciseType: ExerciseType.bodyweight
     )
-    
-    /** Workouts */
-    
+        
     let workout = Workout(context: viewContext)
     let workoutMeta = WorkoutTemplate(context: viewContext)
     
     workoutMeta.name = "Push"
     workoutMeta.desc = "Chest, Shoulders, Triceps"
     workoutMeta.iconName = "barbell"
+    
     workout.meta = workoutMeta
     workout.note = "This is an example of a relevant note to Bench Pressing."
     workout.startTime = Date()
@@ -279,6 +278,7 @@ class DataManager {
     let exerciseMeta = ExerciseTemplate(context: viewContext)
     exerciseMeta.name = "Bench Presss"
     exerciseMeta.exerciseType = "barbell"
+    exerciseMeta.workoutTemplates = NSSet(array: [workoutMeta])
     exercise.meta = exerciseMeta
     exercise.position = 0
     exercise.note = "This is a useful note for Bench Pressing."
@@ -305,6 +305,7 @@ class DataManager {
     
     exerciseMeta2.name = "Shoulder Presss"
     exerciseMeta2.exerciseType = "barbell"
+    exerciseMeta2.workoutTemplates = NSSet(array: [workoutMeta])
     exercise2.meta = exerciseMeta2
     exercise2.position = 1
     exercise2.note = "Hurt my shoulder last time, focus on form."
@@ -317,6 +318,8 @@ class DataManager {
     exercise2.addToSets(exerciseSet2)
     
     workout.addToRoutines(exercise2)
+    
+    workoutMeta.defaultExerciseTemplates = NSSet(array: [exerciseMeta, exerciseMeta2])
     
     try! viewContext.save()
   }

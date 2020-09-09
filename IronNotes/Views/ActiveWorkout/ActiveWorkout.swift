@@ -83,7 +83,10 @@ struct ActiveWorkout: View {
     self.keyboardMonitor = keyboardMonitor
     self.workoutTemplate = workoutTemplate
     _workout = StateObject(wrappedValue: Workout.getNewWorkoutFromTemplate(workoutTemplate: workoutTemplate))
+   
   }
+  
+  
   
   var body: some View {
     ZStack {
@@ -139,7 +142,6 @@ struct ActiveWorkout: View {
     case .hidden:
       return minCardHeight
     case .presented(_):
-      print("Presented")
       return 0
     }
   }

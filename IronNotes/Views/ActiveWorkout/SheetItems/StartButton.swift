@@ -14,7 +14,7 @@ struct BottomBarContent: View {
   
   var body: some View {
     switch stopwatchManager.mode {
-    case .running, .paused:
+    case .running:
       Button {
         stopwatchManager.stop()
         presentationMode.wrappedValue.dismiss()
@@ -32,7 +32,7 @@ struct StatusContent: View {
   
   var body: some View {
     switch stopwatchManager.mode {
-    case .running, .paused:
+    case .running:
       Text((stopwatchManager.secondsElapsed.asString(style: .positional)))
         .fontWeight(.bold)
         .font(.title)
@@ -45,6 +45,7 @@ struct StatusContent: View {
 
 struct StartButton: View {
   @EnvironmentObject var stopwatchManager: StopwatchManager
+  @EnvironmentObject var workout: Workout
   
   var body: some View {
     HStack {
