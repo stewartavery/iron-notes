@@ -1,0 +1,53 @@
+//
+//  TopToolbarContent.swift
+//  IronNotes
+//
+//  Created by Stewart Avery on 9/9/20.
+//  Copyright © 2020 Stewart Avery. All rights reserved.
+//
+
+import SwiftUI
+
+struct TopToolbarContent: View {
+  @Binding var workoutSheet: WorkoutSheet?
+  @EnvironmentObject var keyboardMonitor: KeyboardMonitor
+  
+  var body: some View {
+    switch(keyboardMonitor.keyboardStatus) {
+    case .hidden:
+      Menu {
+        Button {
+          workoutSheet = .workout
+        } label: {
+          Label("Change Workout", systemImage: "note.text")
+        }
+        Button {
+          workoutSheet = .exercises
+        } label: {
+          Label("Edit Exercises", systemImage: "pencil")
+        }
+        Button {
+          print("remove")
+        } label: {
+          Label("Remove Workout", systemImage: "trash")
+        }.foregroundColor(Color.red)
+      } label: {
+        Image(systemName: "ellipsis.circle")
+      }
+    case .presented(_):
+      Button {
+        self.hideKeyboard()
+      } label: {
+        Image(systemName: "keyboard.chevron.compact.down")
+      }
+    }
+  }
+}
+
+struct TopToolbarContent_Previews: PreviewProvider {
+  @State static var workoutSheet: WorkoutSheet? = nil
+  static var previews: some View {
+    TopToolbarContent(workoutSheet: $workoutSheet)
+      .environmentObject(KeyboardMonitor())
+  }
+}

@@ -1,18 +1,16 @@
 //
-//  WorkoutStore.swift
+//  WorkoutTemplateStore.swift
 //  IronNotes
 //
 //  Created by Stewart Avery on 9/8/20.
 //  Copyright © 2020 Stewart Avery. All rights reserved.
 //
 
-import Foundation
-import SwiftUI
-import UIKit
 import CoreData
 
 class WorkoutTemplateStore: NSObject, ObservableObject {
   @Published var items: [WorkoutTemplate] = []
+  
   private let workoutTemplateController: NSFetchedResultsController<WorkoutTemplate>
 
   init(managedObjectContext: NSManagedObjectContext) {
@@ -28,7 +26,7 @@ class WorkoutTemplateStore: NSObject, ObservableObject {
       try workoutTemplateController.performFetch()
       items = workoutTemplateController.fetchedObjects ?? []
     } catch {
-      print("failed to fetch workouts!")
+      print("failed to fetch workout templates!")
     }
   }
 }

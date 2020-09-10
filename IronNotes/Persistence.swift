@@ -24,7 +24,7 @@ struct PersistenceController {
   let container: NSPersistentCloudKitContainer
   
   init(inMemory: Bool = false) {
-   
+    // TODO: look into moc rollback/reset to discard changes
     
     container = NSPersistentCloudKitContainer(name: "IronNotes")
     if inMemory {

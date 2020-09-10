@@ -63,7 +63,7 @@ struct StartButton: View {
     .cornerRadius(7)
     .foregroundColor(Color.white)
     .onTapGesture {
-      stopwatchManager.start()
+      stopwatchManager.start(workout)
     }
   }
 }

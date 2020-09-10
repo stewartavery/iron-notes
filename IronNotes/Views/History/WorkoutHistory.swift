@@ -9,16 +9,13 @@
 import SwiftUI
 
 struct WorkoutHistory: View {
-  @FetchRequest(
-    entity: Workout.entity(),
-    sortDescriptors: []
-  ) var workouts: FetchedResults<Workout>
+  @EnvironmentObject var workoutStore: WorkoutStore
   
   var body: some View {
     NavigationView {
       ScrollView {
         VStack(alignment: .leading) {
-          ForEach(workouts, id: \.self) { workout in
+          ForEach(workoutStore.items, id: \.self) { workout in
             HStack {
             VStack(alignment: .leading) {
               Text(workout.meta.name)
@@ -39,6 +36,7 @@ struct WorkoutHistory: View {
 struct WorkoutHistory_Previews: PreviewProvider {
   static var previews: some View {
     WorkoutHistory()
+      .environmentObject(WorkoutStore(managedObjectContext: PersistenceController.shared.container.viewContext))
       .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
   }
 }

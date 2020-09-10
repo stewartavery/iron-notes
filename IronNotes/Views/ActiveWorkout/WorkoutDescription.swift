@@ -30,7 +30,7 @@ struct WorkoutDescription: View {
   
   var body: some View {
     Button {
-      stopwatchManager.start()
+      stopwatchManager.start(workout)
     } label: {
       WorkoutButton(label: "Start", systemImage: "play.fill")
     }

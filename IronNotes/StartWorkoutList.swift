@@ -27,8 +27,10 @@ struct StartWorkoutList : View {
           } label: {
             WorkoutRow(workoutTemplate: workoutTemplate)
           }
+          
+          // TODO: create workout on tap, save that workout in store, then use that workout to determine if fullScreenCover can open
           .fullScreenCover(
-            isPresented: $isFullScreenModalVisible,
+            isPresented: $isFullScreenModalVisible, // TODO: this logic is broken if there are multiple items, edit: or maybe not?
             content: {
               ActiveWorkout(
                 stopwatchManager: stopwatchManager,
@@ -61,6 +63,10 @@ struct StartWorkoutList_Preview : PreviewProvider {
   static var previews: some View {
     StartWorkoutList()
       .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
+      .environmentObject(KeyboardMonitor())
+      .environmentObject(StopwatchManager())
+      .environmentObject(WorkoutTemplateStore(managedObjectContext: PersistenceController.shared.container.viewContext))
+      .environmentObject(WorkoutStore(managedObjectContext: PersistenceController.shared.container.viewContext))
   }
 }
 #endif

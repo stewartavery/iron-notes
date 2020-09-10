@@ -14,6 +14,8 @@ struct DelayedSlideOverCard: View {
   
   @State var isViewHidden = true
   @State var delay = 0.0
+  
+  @Binding var workoutSheet: WorkoutSheet?
     
   var body: some View {
     switch (keyboardMonitor.keyboardStatus, isViewHidden)  {
@@ -26,7 +28,7 @@ struct DelayedSlideOverCard: View {
       }
     case (.hidden, false):
       SlideOverCard {
-        WorkoutCard(stopwatchManager: stopwatchManager)
+        WorkoutCard(stopwatchManager: stopwatchManager, workoutSheet: $workoutSheet)
       }
       .transition(.move(edge: .bottom))
       .animation(/*@START_MENU_TOKEN@*/.easeIn/*@END_MENU_TOKEN@*/)

@@ -9,7 +9,7 @@
 import SwiftUI
 
 enum StopWatchMode {
-  case running
+  case running(Workout)
   case stopped
 }
 
@@ -28,8 +28,8 @@ class StopwatchManager: ObservableObject {
     mode = .stopped
   }
   
-  func start() {
-    mode = .running
+  func start(_ workout: Workout) {
+    mode = .running(workout)
     timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
       self.secondsElapsed += 1
     }

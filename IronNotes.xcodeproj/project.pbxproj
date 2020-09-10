@@ -22,6 +22,8 @@
 		5029B49824F3528700468268 /* DelayedSlideOverCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5029B49724F3528700468268 /* DelayedSlideOverCard.swift */; };
 		5044A5042507201400085739 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5044A5032507201400085739 /* CloudKit.framework */; };
 		5044A5072508708B00085739 /* WorkoutTemplateStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5044A5062508708B00085739 /* WorkoutTemplateStore.swift */; };
+		5044A5092508770800085739 /* WorkoutStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5044A5082508770800085739 /* WorkoutStore.swift */; };
+		5044A50B2509B90500085739 /* TopToolbarContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5044A50A2509B90500085739 /* TopToolbarContent.swift */; };
 		508CFCCE24E645C100F9D77B /* KeyboardHeightPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508CFCCD24E645C100F9D77B /* KeyboardHeightPublisher.swift */; };
 		508CFCD024E645DE00F9D77B /* UIResponder+Current.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508CFCCF24E645DE00F9D77B /* UIResponder+Current.swift */; };
 		509288A224DF269300328EDF /* IronNotesModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509288A124DF269300328EDF /* IronNotesModelFactory.swift */; };
@@ -83,6 +85,8 @@
 		5044A5012507200E00085739 /* IronNotesDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = IronNotesDebug.entitlements; sourceTree = "<group>"; };
 		5044A5032507201400085739 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		5044A5062508708B00085739 /* WorkoutTemplateStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTemplateStore.swift; sourceTree = "<group>"; };
+		5044A5082508770800085739 /* WorkoutStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutStore.swift; sourceTree = "<group>"; };
+		5044A50A2509B90500085739 /* TopToolbarContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopToolbarContent.swift; sourceTree = "<group>"; };
 		508CFCCD24E645C100F9D77B /* KeyboardHeightPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardHeightPublisher.swift; sourceTree = "<group>"; };
 		508CFCCF24E645DE00F9D77B /* UIResponder+Current.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Current.swift"; sourceTree = "<group>"; };
 		509288A124DF269300328EDF /* IronNotesModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IronNotesModelFactory.swift; sourceTree = "<group>"; };
@@ -203,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				5044A5062508708B00085739 /* WorkoutTemplateStore.swift */,
+				5044A5082508770800085739 /* WorkoutStore.swift */,
 			);
 			path = Stores;
 			sourceTree = "<group>";
@@ -281,6 +286,7 @@
 				5029B49624F3523600468268 /* SheetItems */,
 				50001C2D24DF9879003B022B /* InlineTextField */,
 				654889BF23FA1D6100D80727 /* ActiveWorkout.swift */,
+				5044A50A2509B90500085739 /* TopToolbarContent.swift */,
 				65760CBD248C95D1003F5299 /* CompletionCircle.swift */,
 				654EEC01241B2066006C917A /* ExerciseCard.swift */,
 				6506506E24B6CFAB003E1415 /* ExerciseCardRow.swift */,
@@ -468,6 +474,7 @@
 				5044A5072508708B00085739 /* WorkoutTemplateStore.swift in Sources */,
 				501DCFA324FEFD9000D87926 /* IronNotesApp.swift in Sources */,
 				652FB8C822F112EB0091D3D4 /* AddWorkoutRow.swift in Sources */,
+				5044A50B2509B90500085739 /* TopToolbarContent.swift in Sources */,
 				65D61AFE247A25AD00A5B561 /* ExerciseTemplate+CoreDataClass.swift in Sources */,
 				651AD4F024A1A6F8006054E5 /* ExerciseDetails.swift in Sources */,
 				65F4CCF62464E8610000F786 /* MuscleGroup+CoreDataClass.swift in Sources */,
@@ -498,6 +505,7 @@
 				6510C77022E5401600A0DDE2 /* WorkoutRow.swift in Sources */,
 				65F4CCF72464E8610000F786 /* MuscleGroup+CoreDataProperties.swift in Sources */,
 				501DCFA124FEFAD000D87926 /* Persistence.swift in Sources */,
+				5044A5092508770800085739 /* WorkoutStore.swift in Sources */,
 				50001C3124DF98FF003B022B /* InlineAccessoryView.swift in Sources */,
 				650EB89B2484A056009AD355 /* Workout+CoreDataProperties.swift in Sources */,
 				5029B49824F3528700468268 /* DelayedSlideOverCard.swift in Sources */,

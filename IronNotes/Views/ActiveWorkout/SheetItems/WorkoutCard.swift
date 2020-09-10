@@ -14,6 +14,8 @@ struct WorkoutCard: View {
   @EnvironmentObject var cardDetails: CardDetails
   @EnvironmentObject var workout: Workout
   
+  @Binding var workoutSheet: WorkoutSheet?
+  
   var body: some View {
     VStack(alignment: .leading) {
       switch stopwatchManager.mode {
@@ -39,23 +41,64 @@ struct WorkoutCard: View {
               .font(.body)
               .padding(.top)
           }
+          
+          VStack(alignment: .leading) {
             
+            Button {
+              workoutSheet = .workout
+            } label: {
+              HStack {
+                Label("Change Workout", systemImage: "note.text")
+                Spacer()
+              }.padding()
+            }
+            
+            
+            Divider()
+            Button {
+              workoutSheet = .exercises
+            } label: {
+              HStack {
+                Label("Edit Exercises", systemImage: "pencil")
+                Spacer()
+              }.padding()
+            }
+            
+            
+            Divider()
+            
+            Button {
+              print("remove")
+            } label: {
+              HStack {
+                Label("Remove Workout", systemImage: "trash")
+                Spacer()
+              }.padding()
+            }
+            .foregroundColor(Color.red)
+            
+          }
+          .foregroundColor(Color.orange)
+          .font(.headline)
+          
+          
           Spacer()
-      }.padding(.top)
-
+        }.padding(.top)
+        
       case .bottom:
         Spacer()
       }
     }
-    .padding(.leading)
-    .padding(.trailing)
+    .padding(.horizontal)
   }
 }
 
 #if DEBUG
 struct WorkoutCard_Previews: PreviewProvider {
+  @State static var workoutSheet: WorkoutSheet? = nil
+  
   static var previews: some View {
-    WorkoutCard(stopwatchManager: StopwatchManager())
+    WorkoutCard(stopwatchManager: StopwatchManager(), workoutSheet: $workoutSheet)
       .environmentObject(IronNotesModelFactory.getWorkout())
   }
 }

@@ -31,23 +31,29 @@ struct ExerciseCard: View {
     return exercise.note.count > 0
   }
   
+  var exerciseNote: Binding<String> {
+    return Binding<String>(get: {
+      exercise.note
+    }, set: { value in
+      exercise.note = value
+    })
+  }
+  
   var body: some View {
     VStack(alignment: .leading) {
       HStack {
         Text(exercise.meta.name)
           .font(.headline)
           .padding(.top, 10)
-        
         Spacer()
       }
-      if isNotePresent {
-        Text(exercise.note)
-          .font(.subheadline)
-          .foregroundColor(Color.gray)
-          .padding(.top, 5)
-      }
-    }.padding(.bottom, 10)
-    
+      
+      TextField("Notes", text: exerciseNote)
+        .font(.subheadline)
+        .foregroundColor(Color.gray)
+        .padding(.top, 5)
+        .padding(.bottom, 10)
+    }
     ForEach(exercise.exerciseSetArray, id: \.self) { exerciseSet in
       ExerciseCardRow(exerciseSet: exerciseSet)
     }
@@ -101,6 +107,7 @@ struct ExerciseCard: View {
       print(error.localizedDescription)
     }
   }
+  
 }
 
 #if DEBUG

@@ -9,43 +9,8 @@
 import SwiftUI
 import CoreData
 import Combine
-import Snap
 
-struct TopToolbarContent: View {
-  @Binding var workoutSheet: WorkoutSheet?
-  @EnvironmentObject var keyboardMonitor: KeyboardMonitor
-  
-  var body: some View {
-    switch(keyboardMonitor.keyboardStatus) {
-    case .hidden:
-      Menu {
-        Button {
-          workoutSheet = .workout
-        } label: {
-          Label("Change Workout", systemImage: "note.text")
-        }
-        Button {
-          workoutSheet = .exercises
-        } label: {
-          Label("Edit Exercises", systemImage: "pencil")
-        }
-        Button {
-          print("remove")
-        } label: {
-          Label("Remove Workout", systemImage: "trash")
-        }.foregroundColor(Color.red)
-      } label: {
-        Image(systemName: "ellipsis.circle")
-      }
-    case .presented(_):
-      Button {
-        self.hideKeyboard()
-      } label: {
-        Image(systemName: "keyboard.chevron.compact.down")
-      }
-    }
-  }
-}
+
 
 enum WorkoutSheet: String, Identifiable {
   var id: String {
@@ -65,9 +30,9 @@ struct ActiveWorkout: View {
   @Environment(\.managedObjectContext) var moc
   @Environment(\.presentationMode) var presentationMode
   
-  @ObservedObject var stopwatchManager: StopwatchManager
-  @ObservedObject var keyboardMonitor: KeyboardMonitor
-  @ObservedObject var workoutTemplate: WorkoutTemplate
+  @ObservedObject private var stopwatchManager: StopwatchManager
+  @ObservedObject private var keyboardMonitor: KeyboardMonitor
+  @ObservedObject private var workoutTemplate: WorkoutTemplate
   
   @StateObject private var workout: Workout
   
@@ -82,11 +47,17 @@ struct ActiveWorkout: View {
     self.stopwatchManager = stopwatchManager
     self.keyboardMonitor = keyboardMonitor
     self.workoutTemplate = workoutTemplate
-    _workout = StateObject(wrappedValue: Workout.getNewWorkoutFromTemplate(workoutTemplate: workoutTemplate))
-   
+    
+    _workout = {
+      switch stopwatchManager.mode {
+      case .stopped:
+        return StateObject(wrappedValue: Workout.getNewWorkoutFromTemplate(workoutTemplate: workoutTemplate))
+      case .running(let workout):
+        return StateObject(wrappedValue: workout)
+      }
+    }()
+    
   }
-  
-  
   
   var body: some View {
     ZStack {
@@ -105,17 +76,15 @@ struct ActiveWorkout: View {
         })
         .padding(.bottom, bottomPadding)
         .navigationBarTitle(Text("Workout Log"), displayMode: .inline)
-        .toolbar {
-          ToolbarItem(placement: .cancellationAction) {
+        .navigationBarItems(
+          leading:
             Button("Dismiss") {
-              presentationMode.wrappedValue.dismiss()
-              workout.deleteWorkout()
-            }
-          }
-          ToolbarItem(placement: .primaryAction) {
-            TopToolbarContent(workoutSheet: $workoutSheet)
-          }
-        }
+          dismissModal()
+        }, trailing:
+          TopToolbarContent(workoutSheet: $workoutSheet)
+          .environmentObject(keyboardMonitor)
+        )
+        
         .buttonStyle(BorderlessButtonStyle())
         .sheet(item: $workoutSheet) { workoutSheet in
           switch workoutSheet {
@@ -129,12 +98,25 @@ struct ActiveWorkout: View {
         }
         .listStyle(InsetGroupedListStyle())
       }
+      
       DelayedSlideOverCard(
         stopwatchManager: stopwatchManager,
-        keyboardMonitor: keyboardMonitor
+        keyboardMonitor: keyboardMonitor,
+        workoutSheet: $workoutSheet
       ).environmentObject(workout)
     }
     
+  }
+  
+  private func dismissModal() -> Void {
+    presentationMode.wrappedValue.dismiss()
+    
+    switch stopwatchManager.mode {
+    case .stopped:
+      workout.deleteWorkout()
+    default:
+      break
+    }
   }
   
   private func getBottomPadding(_ keyboardStatus: KeyboardStatus) -> CGFloat {
@@ -158,9 +140,13 @@ extension View {
 #if DEBUG
 struct ActiveWorkout_Previews: PreviewProvider {
   static var previews: some View {
-    ActiveWorkout(stopwatchManager: StopwatchManager(), keyboardMonitor: KeyboardMonitor(), workoutTemplate: IronNotesModelFactory.getWorkoutTemplate())
-      .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
-      .environmentObject(IronNotesModelFactory.getWorkout())
+    ActiveWorkout(
+      stopwatchManager: StopwatchManager(),
+      keyboardMonitor: KeyboardMonitor(),
+      workoutTemplate: IronNotesModelFactory.getWorkoutTemplate()
+    )
+    .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
+    .environmentObject(IronNotesModelFactory.getWorkout())
   }
 }
 #endif

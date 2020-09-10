@@ -8,64 +8,67 @@
 
 import SwiftUI
 
-let SMALL_SPACING: CGFloat = 3
+let spacing: CGFloat = 50
 
 struct ExerciseCardRow: View {
   @ObservedObject var exerciseSet: ExerciseSet
   
-  var body: some View {
-    let weightBinding = Binding<String>(get: {
-      String(self.exerciseSet.weight)
-    }, set: {
-      self.exerciseSet.weight = Int32($0) ?? 0
-    })
-    
-    let repBinding = Binding<String>(get: {
-      String(self.exerciseSet.reps)
+  var reps: Binding<String> {
+    return Binding<String>(get: {
+      String(exerciseSet.reps)
     }, set: { value in
-      self.exerciseSet.reps = Int16(value) ?? 0
+      exerciseSet.reps = Int16(value) ?? 0
     })
-    
+  }
+  
+  var weight: Binding<String> {
+    return Binding<String>(get: {
+      String(exerciseSet.weight)
+    }, set: {
+      exerciseSet.weight = Int32($0) ?? 0
+    })
+  }
+  
+  var body: some View {
     HStack(alignment: .center) {
       CompletionCircle(exerciseSet: exerciseSet)
       
-      HStack {
         Text("Set \(exerciseSet.setPosition + 1):")
           .foregroundColor(Color.gray)
-
+        
         Spacer()
+        
+      HStack(alignment: .firstTextBaseline) {
 
-//        HStack(spacing: 25) {
-//          HStack(alignment: .firstTextBaseline, spacing: SMALL_SPACING) {
-            TextField("lbs", text: weightBinding)
-              .keyboardType(.decimalPad)
-              .multilineTextAlignment(.trailing)
-              .frame(maxWidth: 45)
-              .font(.headline)
-
-            Text("lbs")
-              .font(.caption)
-              .foregroundColor(Color.gray)
-          }
-
-          Image(systemName: "multiply")
-            .foregroundColor(Color.gray)
+          TextField("lbs", text: weight)
+            .keyboardType(.decimalPad)
+            .multilineTextAlignment(.trailing)
+            .frame(maxWidth: 45)
             .font(.headline)
-
-//          HStack(alignment: .firstTextBaseline, spacing: SMALL_SPACING) {
-            TextField("reps", text: repBinding)
-              .keyboardType(.decimalPad)
-              .multilineTextAlignment(.trailing)
-              .frame(maxWidth: 30)
-              .font(.headline)
-
-
-            Text("reps")
-              .font(.caption)
-              .foregroundColor(Color.gray)
-//          }
-//        }
-//      }
+          
+          Text("lbs")
+            .font(.caption)
+            .foregroundColor(Color.gray)
+        
+        
+        Image(systemName: "multiply")
+          .foregroundColor(Color.gray)
+          .font(.headline)
+          .padding(.leading)
+        
+          TextField("reps", text: reps)
+            .keyboardType(.decimalPad)
+            .multilineTextAlignment(.trailing)
+            .frame(maxWidth: 30)
+            .font(.headline)
+          
+          
+          Text("reps")
+            .font(.caption)
+            .foregroundColor(Color.gray)
+        
+      }
+      
     }
     .frame(height: 20)
     

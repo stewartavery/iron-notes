@@ -9,62 +9,31 @@
 import SwiftUI
 import CoreData
 
-/**
- NSSortDescriptor *dateSort = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO];
- fetch.sortDescriptors = @[ dateSort ];
- fetch.fetchLimit = 1;
- */
-
-/**
- var predicate:String
- var wordsRequest : FetchRequest<Word>
- var words : FetchedResults<Word>{wordsRequest.wrappedValue}
- 
- init(predicate:String){
- self.predicate = predicate
- self.wordsRequest = FetchRequest(entity: Word.entity(), sortDescriptors: [], predicate:
- NSPredicate(format: "%K == %@", #keyPath(Word.character),predicate))
- 
- }
- */
-
 struct WorkoutRowLabel: View {
   @Environment(\.colorScheme) var colorScheme: ColorScheme
+  @EnvironmentObject var workoutStore: WorkoutStore
   
   var workoutTemplate: WorkoutTemplate
-  var workoutRequest: FetchRequest<Workout>
-  var workout: FetchedResults<Workout> {
-    workoutRequest.wrappedValue
-  }
   
-  init(workoutTemplate: WorkoutTemplate) {
-    self.workoutTemplate = workoutTemplate
-    let request: NSFetchRequest<Workout> = Workout.fetchRequest()
-    request.fetchLimit = 1
-    request.sortDescriptors = [
-      NSSortDescriptor(keyPath: \Workout.startTime, ascending: false)
-    ]
-    request.predicate = NSPredicate(
-      format: "%K == %@",
-      #keyPath(Workout.meta.name),
-      workoutTemplate.name
-    )
-    
-    self.workoutRequest = FetchRequest<Workout>(fetchRequest: request)
+  var workout: Workout? {
+    return workoutStore.items
+      .first(where: {
+        $0.meta == workoutTemplate
+      })
   }
   
   var body: some View {
-      return VStack(alignment: .leading) {
-        Text(workoutTemplate.name)
-          .font(.headline)
-        Text(workoutTemplate.desc)
-          .font(.subheadline)
-        if workout.count == 1 {
-          Text(getWorkoutDate(workout: workout[0]))
+    return VStack(alignment: .leading) {
+      Text(workoutTemplate.name)
+        .font(.headline)
+      Text(workoutTemplate.desc)
+        .font(.subheadline)
+      if let unwrappedWorkout = workout {
+        Text(getWorkoutDate(workout: unwrappedWorkout))
           .font(.subheadline)
           .foregroundColor(.gray)
-        }
-      }.accentColor(colorScheme == .light ? Color.black : Color.white)
+      }
+    }.accentColor(colorScheme == .light ? Color.black : Color.white)
     
   }
   

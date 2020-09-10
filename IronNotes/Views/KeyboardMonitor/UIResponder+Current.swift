@@ -13,7 +13,6 @@ import UIKit
 extension UIResponder {
     static var currentFirstResponder: UIResponder? {
         _currentFirstResponder = nil
-      print("what's up")
         UIApplication.shared.sendAction(#selector(UIResponder.findFirstResponder(_:)), to: nil, from: nil, for: nil)
         return _currentFirstResponder
     }
