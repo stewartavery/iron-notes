@@ -96,10 +96,12 @@ struct WorkoutCard: View {
 #if DEBUG
 struct WorkoutCard_Previews: PreviewProvider {
   @State static var workoutSheet: WorkoutSheet? = nil
+  @StateObject static var cardDetails: CardDetails = CardDetails(position: .top)
   
   static var previews: some View {
     WorkoutCard(stopwatchManager: StopwatchManager(), workoutSheet: $workoutSheet)
       .environmentObject(IronNotesModelFactory.getWorkout())
+      .environmentObject(cardDetails)
   }
 }
 #endif

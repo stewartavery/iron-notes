@@ -63,6 +63,15 @@ struct ActiveWorkout: View {
     ZStack {
       NavigationView {
         List {
+          if workout.routinesArray.count == 0 {
+            VStack {
+              Text("There's nothing here.")
+              Button("Add some workouts") {
+                print("HEY")
+              }
+              Text("to get started.")
+            }
+          }
           ForEach(workout.routinesArray, id: \.self) { exercise in
             Section {
               ExerciseCard(exercise: exercise)
@@ -76,15 +85,17 @@ struct ActiveWorkout: View {
         })
         .padding(.bottom, bottomPadding)
         .navigationBarTitle(Text("Workout Log"), displayMode: .inline)
-        .navigationBarItems(
-          leading:
+        .toolbar {
+          ToolbarItem(placement: .cancellationAction) {
             Button("Dismiss") {
-          dismissModal()
-        }, trailing:
-          TopToolbarContent(workoutSheet: $workoutSheet)
-          .environmentObject(keyboardMonitor)
-        )
-        
+              dismissModal()
+            }
+          }
+          ToolbarItem(placement: .primaryAction) {
+            TopToolbarContent(workoutSheet: $workoutSheet)
+              .environmentObject(keyboardMonitor)
+          }
+        }
         .buttonStyle(BorderlessButtonStyle())
         .sheet(item: $workoutSheet) { workoutSheet in
           switch workoutSheet {
@@ -113,7 +124,10 @@ struct ActiveWorkout: View {
     
     switch stopwatchManager.mode {
     case .stopped:
-      workout.deleteWorkout()
+      // to prevent momentary flash while dismissing
+      DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+        workout.deleteWorkout()
+      }
     default:
       break
     }

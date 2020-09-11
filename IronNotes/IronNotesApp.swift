@@ -10,6 +10,8 @@ import SwiftUI
 
 @main
 struct IronNotesApp: App {
+  @AppStorage("isFirstTime") var isFirstTime: Bool = true
+  
   @Environment(\.scenePhase) private var scenePhase
   
   let persistenceController: PersistenceController
@@ -35,7 +37,7 @@ struct IronNotesApp: App {
   
   var body: some Scene {
     WindowGroup {
-      IronNotesContainer()
+      IronNotesTabNavigation()
         .environment(\.managedObjectContext, persistenceController.container.viewContext)
         .environmentObject(stopwatchManager)
         .environmentObject(keyboardMonitor)
@@ -43,8 +45,18 @@ struct IronNotesApp: App {
         .environmentObject(workoutStore)
     }
     .onChange(of: scenePhase) { phase in
-      if phase == .active {
-        DataManager(persistenceController.container.viewContext).setupDefaultData()
+      switch phase {
+      case .active:
+        if isFirstTime {
+          DataManager(persistenceController.container.viewContext).setupDefaultData()
+          isFirstTime.toggle()
+        }
+        break
+      case .background:
+        persistenceController.saveContext()
+        break
+      default:
+        break
       }
     }
   }

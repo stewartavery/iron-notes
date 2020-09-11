@@ -1,5 +1,5 @@
 //
-//  IronNotesContainer.swift
+//  IronNotesTabNavigation.swift
 //  IronNotes
 //
 //  Created by Stewart Avery on 7/21/19.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct IronNotesContainer: View {
+struct IronNotesTabNavigation: View {
   var body: some View {
     TabView {
       StartWorkoutList()
@@ -49,9 +49,9 @@ struct IronNotesContainer: View {
 }
 
 #if DEBUG
-struct IronNotesContainer_Previews: PreviewProvider {
+struct IronNotesTabNavigation_Previews: PreviewProvider {
   static var previews: some View {
-    return IronNotesContainer()
+    return IronNotesTabNavigation()
       .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
   }
 }
