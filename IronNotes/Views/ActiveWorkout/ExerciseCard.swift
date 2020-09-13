@@ -77,18 +77,15 @@ struct ExerciseCard: View {
   }
   
   func deleteSet(at offsets: IndexSet) {
-    var modifiedExerciseSets = self.exercise.exerciseSetArray
-    modifiedExerciseSets.remove(atOffsets: offsets)
-    
     for index in offsets {
       self.moc.delete(self.exercise.exerciseSetArray[index])
     }
     
     for reverseIndex in stride(
-      from: modifiedExerciseSets.count - 1,
+      from: exercise.exerciseSetArray.count - 1,
       through: 0,
       by: -1 ) {
-      modifiedExerciseSets[reverseIndex].setPosition = Int16(reverseIndex)
+      exercise.exerciseSetArray[reverseIndex].setPosition = Int16(reverseIndex)
     }
   }
   

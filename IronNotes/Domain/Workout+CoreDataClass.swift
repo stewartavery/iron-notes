@@ -39,8 +39,7 @@ public class Workout: NSManagedObject {
     let exercises = workoutTemplate.defaultExerciseTemplatesArray
       .enumerated()
       .map { (index, exerciseTemplate) -> Exercise in
-        let newExercise: Exercise = Exercise(context: PersistenceController.shared.container.viewContext)
-        
+        let newExercise: Exercise = Exercise.newExercise()
         newExercise.meta = exerciseTemplate
         newExercise.position = Int16(index)
         newExercise.workout = workout
