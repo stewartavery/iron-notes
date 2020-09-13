@@ -19,6 +19,7 @@ class IronNotesModelFactory {
     return workoutMeta
   }
   
+  // TODO: use proper methods
   static func getWorkout() -> Workout {
     let workout = Workout(context: PersistenceController.shared.container.viewContext)
     let workoutMeta = WorkoutTemplate(context: PersistenceController.shared.container.viewContext)

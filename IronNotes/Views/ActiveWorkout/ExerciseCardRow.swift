@@ -50,7 +50,6 @@ struct ExerciseCardRow: View {
             .font(.caption)
             .foregroundColor(Color.gray)
         
-        
         Image(systemName: "multiply")
           .foregroundColor(Color.gray)
           .font(.headline)

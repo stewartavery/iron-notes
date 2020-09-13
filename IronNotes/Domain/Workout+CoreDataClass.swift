@@ -27,10 +27,12 @@ public class Workout: NSManagedObject {
   }
   
   class func newWorkout() -> Workout {
-    return Workout(context: PersistenceController.shared.container.viewContext)
+    let workout = Workout(context: PersistenceController.shared.container.viewContext)
+    workout.id = UUID()
+    return workout
   }
   
-  class func getNewWorkoutFromTemplate(workoutTemplate: WorkoutTemplate) -> Workout {
+  class func getNewWorkout(from workoutTemplate: WorkoutTemplate) -> Workout {
     let workout = newWorkout()
     workout.meta = workoutTemplate
    

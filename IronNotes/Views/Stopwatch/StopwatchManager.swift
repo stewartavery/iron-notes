@@ -13,6 +13,22 @@ enum StopWatchMode {
   case stopped
 }
 
+//class Model: ObservableObject, Identifiable {
+//    @Published var offset: CGFloat = 0
+//
+//    let id = UUID()
+//
+//    private var tickets: [AnyCancellable] = []
+//
+//    init() {
+//        Timer.publish(every: 0.5, on: RunLoop.main, in: .common)
+//            .autoconnect()
+//            .map { _ in CGFloat.random(in: 0...300) }
+//            .sink { [weak self] in self?.offset = $0 }
+//            .store(in: &tickets)
+//    }
+//}
+
 class StopwatchManager: ObservableObject {
   
   @Published var mode: StopWatchMode = .stopped

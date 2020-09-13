@@ -11,6 +11,7 @@ import SwiftUI
 struct StartWorkoutList : View {
   @Environment(\.managedObjectContext) var moc
   
+  @EnvironmentObject var workoutStore: WorkoutStore
   @EnvironmentObject var workoutTemplateStore: WorkoutTemplateStore
   @EnvironmentObject var keyboardMonitor: KeyboardMonitor
   @EnvironmentObject var stopwatchManager: StopwatchManager
@@ -23,22 +24,20 @@ struct StartWorkoutList : View {
       List {
         ForEach(workoutTemplateStore.items, id: \.self) { workoutTemplate in
           Button {
+            workoutStore.setupPrimaryWorkout(with: workoutTemplate)
             isFullScreenModalVisible.toggle()
           } label: {
             WorkoutRow(workoutTemplate: workoutTemplate)
           }
-          
-          // TODO: create workout on tap, save that workout in store, then use that workout to determine if fullScreenCover can open
-          .fullScreenCover(
-            isPresented: $isFullScreenModalVisible, // TODO: this logic is broken if there are multiple items, edit: or maybe not?
-            content: {
+          .fullScreenCover(item: $workoutStore.primaryWorkout) { workout in
               ActiveWorkout(
                 stopwatchManager: stopwatchManager,
                 keyboardMonitor: keyboardMonitor,
-                workoutTemplate: workoutTemplate
+                workout: workout
               )
             }
-          )
+            
+          
         }
         Button {
           isCreateViewVisible.toggle()

@@ -20,6 +20,7 @@ extension Exercise {
   @NSManaged public var meta: ExerciseTemplate
   @NSManaged public var note: String
   @NSManaged public var position: Int16
+  @NSManaged public var id: UUID?
   @NSManaged public var sets: NSSet?
   @NSManaged public var workout: Workout
 
@@ -30,6 +31,10 @@ extension Exercise {
       $0.setPosition < $1.setPosition
     }
   }
+  
+}
+
+extension Exercise : Identifiable {
   
 }
 

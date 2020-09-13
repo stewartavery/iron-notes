@@ -32,7 +32,12 @@ struct WorkoutRowLabel: View {
         Text(getWorkoutDate(workout: unwrappedWorkout))
           .font(.subheadline)
           .foregroundColor(.gray)
+      } else {
+        Text("Last Workout: Never")
+          .font(.subheadline)
+          .foregroundColor(.gray)
       }
+      
     }.accentColor(colorScheme == .light ? Color.black : Color.white)
     
   }

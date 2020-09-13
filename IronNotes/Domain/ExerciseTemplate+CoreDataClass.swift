@@ -13,11 +13,14 @@ import CoreData
 
 public class ExerciseTemplate: NSManagedObject {
   class func newExerciseTemplate() -> ExerciseTemplate {
-    return ExerciseTemplate(context: PersistenceController.shared.container.viewContext)
+    let meta = ExerciseTemplate(context: PersistenceController.shared.container.viewContext)
+    meta.id = UUID()
+    return meta
   }
   
   class func createExerciseTemplateFor(name: String, desc: String, muscleGroups: [MuscleGroup], exerciseType: ExerciseType, workoutTemplates: [WorkoutTemplate] = []) -> Void {
     let exerciseTemplate = newExerciseTemplate()
+    exerciseTemplate.id = UUID()
     exerciseTemplate.name = name
     exerciseTemplate.desc = desc
     exerciseTemplate.muscleGroups = NSSet(array: muscleGroups)

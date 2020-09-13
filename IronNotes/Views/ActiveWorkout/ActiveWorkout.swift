@@ -30,35 +30,13 @@ struct ActiveWorkout: View {
   @Environment(\.managedObjectContext) var moc
   @Environment(\.presentationMode) var presentationMode
   
-  @ObservedObject private var stopwatchManager: StopwatchManager
-  @ObservedObject private var keyboardMonitor: KeyboardMonitor
-  @ObservedObject private var workoutTemplate: WorkoutTemplate
-  
-  @StateObject private var workout: Workout
+  @ObservedObject var stopwatchManager: StopwatchManager
+  @ObservedObject var keyboardMonitor: KeyboardMonitor
+  @ObservedObject var workout: Workout
   
   @State private var workoutSheet: WorkoutSheet? = nil
   @State private var bottomPadding: CGFloat = minCardHeight
-  
-  init(
-    stopwatchManager: StopwatchManager,
-    keyboardMonitor: KeyboardMonitor,
-    workoutTemplate: WorkoutTemplate)
-  {
-    self.stopwatchManager = stopwatchManager
-    self.keyboardMonitor = keyboardMonitor
-    self.workoutTemplate = workoutTemplate
-    
-    _workout = {
-      switch stopwatchManager.mode {
-      case .stopped:
-        return StateObject(wrappedValue: Workout.getNewWorkoutFromTemplate(workoutTemplate: workoutTemplate))
-      case .running(let workout, _):
-        return StateObject(wrappedValue: workout)
-      }
-    }()
-    
-  }
-  
+ 
   var body: some View {
     ZStack {
       NavigationView {
@@ -157,7 +135,7 @@ struct ActiveWorkout_Previews: PreviewProvider {
     ActiveWorkout(
       stopwatchManager: StopwatchManager(),
       keyboardMonitor: KeyboardMonitor(),
-      workoutTemplate: IronNotesModelFactory.getWorkoutTemplate()
+      workout: IronNotesModelFactory.getWorkout()
     )
     .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
     .environmentObject(IronNotesModelFactory.getWorkout())

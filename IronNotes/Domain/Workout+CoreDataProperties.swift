@@ -20,6 +20,7 @@ extension Workout {
   @NSManaged public var duration: Int16
   @NSManaged public var note: String?
   @NSManaged public var startTime: Date?
+  @NSManaged public var id: UUID?
   @NSManaged public var routines: NSSet?
   @NSManaged public var meta: WorkoutTemplate
   
@@ -50,6 +51,11 @@ extension Workout {
   }
   
 }
+
+extension Workout : Identifiable {
+
+}
+
 extension Workout {
   
   @objc(addRoutinesObject:)
@@ -76,3 +82,4 @@ extension Workout {
     return request
   }
 }
+

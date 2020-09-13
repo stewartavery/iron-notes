@@ -12,5 +12,9 @@ import CoreData
 
 
 public class WorkoutTemplate: NSManagedObject {
-  
+  class func newWorkoutTemplate() -> WorkoutTemplate {
+    let workoutTemplate = WorkoutTemplate(context: PersistenceController.shared.container.viewContext)
+    workoutTemplate.id = UUID()
+    return workoutTemplate
+  }
 }

@@ -13,7 +13,9 @@ import CoreData
 
 public class Exercise: NSManagedObject {
   class func newExercise() -> Exercise {
-    return Exercise(context: PersistenceController.shared.container.viewContext)
+    let exercise = Exercise(context: PersistenceController.shared.container.viewContext)
+    exercise.id = UUID()
+    return exercise
   }
 
   class func getExercise(meta: ExerciseTemplate, note: String, position: Int16, sets: [ExerciseSet], workout: Workout) -> Exercise {

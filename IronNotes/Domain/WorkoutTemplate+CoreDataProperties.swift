@@ -22,6 +22,7 @@ extension WorkoutTemplate {
   @NSManaged public var name: String
   @NSManaged public var workouts: NSSet?
   @NSManaged public var defaultExerciseTemplates: NSSet?
+  @NSManaged public var id: UUID?
   
   public var workoutSetArray: [Workout] {
      let set = workouts as? Set<Workout> ?? []
@@ -56,6 +57,10 @@ extension WorkoutTemplate {
   
   @objc(removeWorkouts:)
   @NSManaged public func removeFromWorkouts(_ values: NSSet)
+  
+}
+
+extension WorkoutTemplate: Identifiable {
   
 }
 

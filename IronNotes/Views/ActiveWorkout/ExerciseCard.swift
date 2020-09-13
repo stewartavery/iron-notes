@@ -93,7 +93,8 @@ struct ExerciseCard: View {
   }
   
   func createNewSet() {
-    let newSet = ExerciseSet(context: moc)
+    // TODO: consider what deleting workouts should do
+    let newSet = ExerciseSet.newExerciseSet()
     newSet.setPosition = Int16(self.exercise.exerciseSetArray.count)
     newSet.reps = 3
     newSet.weight = 225

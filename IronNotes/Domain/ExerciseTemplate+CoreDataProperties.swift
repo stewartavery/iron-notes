@@ -23,6 +23,7 @@ extension ExerciseTemplate {
   @NSManaged public var muscleGroups: NSSet?
   @NSManaged public var name: String
   @NSManaged public var workoutTemplates: NSSet?
+  @NSManaged public var id: UUID?
 
   
 }
@@ -75,5 +76,9 @@ extension ExerciseTemplate {
 
     @objc(removeWorkoutTemplates:)
     @NSManaged public func removeFromWorkoutTemplates(_ values: NSSet)
+
+}
+
+extension ExerciseTemplate : Identifiable {
 
 }

@@ -256,6 +256,14 @@ class DataManager {
       exerciseType: ExerciseType.bodyweight
     )
     
+    let exerciseMeta = ExerciseTemplate.newExerciseTemplate()
+    exerciseMeta.name = "Bench Presss"
+    exerciseMeta.exerciseType = "barbell"
+  
+    let exerciseMeta2 = ExerciseTemplate.newExerciseTemplate()
+    exerciseMeta2.name = "Shoulder Presss"
+    exerciseMeta2.exerciseType = "barbell"
+    
     ExerciseTemplate.createExerciseTemplateFor(
       name: "Back Extension",
       desc: "A hyperextension or back extension is an exercise that works the lower back as well as the mid and upper back, specifically the erector spinae.",
@@ -263,63 +271,21 @@ class DataManager {
       exerciseType: ExerciseType.bodyweight
     )
         
-    let workout = Workout(context: viewContext)
-    let workoutMeta = WorkoutTemplate(context: viewContext)
-    
+    let workoutMeta = WorkoutTemplate.newWorkoutTemplate()
     workoutMeta.name = "Push"
     workoutMeta.desc = "Chest, Shoulders, Triceps"
     workoutMeta.iconName = "barbell"
+    workoutMeta.addToDefaultExerciseTemplates([exerciseMeta, exerciseMeta2])
     
-    workout.meta = workoutMeta
-    workout.note = "This is an example of a relevant note to Bench Pressing."
-    workout.startTime = Date()
+    let workoutMeta2 = WorkoutTemplate.newWorkoutTemplate()
+    workoutMeta2.name = "Pull"
+    workoutMeta2.desc = "Back, Biceps"
+    workoutMeta2.iconName = "dumbbell"
     
-    let exercise = Exercise(context: viewContext)
-    let exerciseMeta = ExerciseTemplate(context: viewContext)
-    exerciseMeta.name = "Bench Presss"
-    exerciseMeta.exerciseType = "barbell"
-    exerciseMeta.workoutTemplates = NSSet(array: [workoutMeta])
-    exercise.meta = exerciseMeta
-    exercise.position = 0
-    exercise.note = "This is a useful note for Bench Pressing."
-    exercise.workout = workout
-    
-    let exerciseSet = ExerciseSet(context: viewContext)
-    exerciseSet.setPosition = 0
-    exerciseSet.reps = 3
-    exerciseSet.weight = 135
-    exerciseSet.exercise = exercise
-    exercise.addToSets(exerciseSet)
-    
-    let exerciseSet5 = ExerciseSet(context: viewContext)
-    exerciseSet5.setPosition = 1
-    exerciseSet5.reps = 3
-    exerciseSet5.weight = 225
-    exerciseSet5.exercise = exercise
-    exercise.addToSets(exerciseSet5)
-    
-    workout.addToRoutines(exercise)
-    
-    let exercise2 = Exercise(context: viewContext)
-    let exerciseMeta2 = ExerciseTemplate(context: viewContext)
-    
-    exerciseMeta2.name = "Shoulder Presss"
-    exerciseMeta2.exerciseType = "barbell"
-    exerciseMeta2.workoutTemplates = NSSet(array: [workoutMeta])
-    exercise2.meta = exerciseMeta2
-    exercise2.position = 1
-    exercise2.note = "Hurt my shoulder last time, focus on form."
-    
-    let exerciseSet2 = ExerciseSet(context: viewContext)
-    exerciseSet2.setPosition = 0
-    exerciseSet2.reps = 5
-    exerciseSet2.weight = 39
-    exerciseSet2.exercise = exercise2
-    exercise2.addToSets(exerciseSet2)
-    
-    workout.addToRoutines(exercise2)
-    
-    workoutMeta.defaultExerciseTemplates = NSSet(array: [exerciseMeta, exerciseMeta2])
+    let workoutMeta3 = WorkoutTemplate.newWorkoutTemplate()
+    workoutMeta3.name = "Legs"
+    workoutMeta3.desc = "Quads, Hamstrings"
+    workoutMeta3.iconName = "arm-muscles-silhouette"
     
     try! viewContext.save()
   }

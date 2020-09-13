@@ -101,7 +101,7 @@ struct ExerciseEditor: View {
   }
   
   func addRow(exercise: ExerciseTemplate) {
-    let newExercise: Exercise = Exercise(context: moc)
+    let newExercise: Exercise = Exercise.newExercise()
     
     newExercise.meta = exercise
     newExercise.position = Int16(workout.routinesArray.count)

@@ -10,7 +10,7 @@ import CoreData
 
 class WorkoutStore: NSObject, ObservableObject {
   @Published var items: [Workout] = []
-  @Published var activeWorkout: Workout? = nil
+  @Published var primaryWorkout: Workout? = nil
   
   private let workoutController: NSFetchedResultsController<Workout>
   
@@ -29,6 +29,10 @@ class WorkoutStore: NSObject, ObservableObject {
     } catch {
       print("failed to fetch workouts!")
     }
+  }
+  
+  func setupPrimaryWorkout(with workoutTemplate: WorkoutTemplate) {
+    primaryWorkout = Workout.getNewWorkout(from: workoutTemplate)
   }
 }
 
