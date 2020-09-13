@@ -52,7 +52,7 @@ struct ActiveWorkout: View {
       switch stopwatchManager.mode {
       case .stopped:
         return StateObject(wrappedValue: Workout.getNewWorkoutFromTemplate(workoutTemplate: workoutTemplate))
-      case .running(let workout):
+      case .running(let workout, _):
         return StateObject(wrappedValue: workout)
       }
     }()
