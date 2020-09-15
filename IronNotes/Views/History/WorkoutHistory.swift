@@ -15,7 +15,7 @@ struct WorkoutHistory: View {
     NavigationView {
       ScrollView {
         VStack(alignment: .leading) {
-          ForEach(workoutStore.items, id: \.self) { workout in
+          ForEach(workoutStore.items) { workout in
             HStack {
             VStack(alignment: .leading) {
               Text(workout.meta.name)

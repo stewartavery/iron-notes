@@ -8,9 +8,13 @@
 
 import SwiftUI
 
-enum ExerciseType: String, CaseIterable {
+enum ExerciseType: String, CaseIterable, Identifiable {
   case barbell = "Barbell"
   case dumbbell = "Dumbbell"
   case machine = "Machine"
   case bodyweight = "Bodyweight"
+  
+  var id: String {
+    return self.rawValue
+  }
 }

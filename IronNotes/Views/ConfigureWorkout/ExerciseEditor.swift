@@ -33,13 +33,12 @@ struct ExerciseEditor: View {
     }
   }
   
-  
   var body: some View {
     NavigationView {
       Form {
         if addedTemplates.count > 0 {
           Section(header: Text("Added Exercises")) {
-            ForEach(addedTemplates, id: \.self) {
+            ForEach(addedTemplates) {
               RemoveExerciseRow(exerciseTemplate: $0)
             }
             .onDelete(perform: removeRow)
@@ -47,7 +46,7 @@ struct ExerciseEditor: View {
           }
         }
         Section(header: Text("More Exercises")) {
-          ForEach(unaddedExercises, id: \.self) {
+          ForEach(unaddedExercises) {
             AddExerciseRow(exerciseTemplate: $0, addRow: addRow)
           }
         }

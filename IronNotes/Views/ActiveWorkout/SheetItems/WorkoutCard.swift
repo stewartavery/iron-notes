@@ -23,7 +23,7 @@ struct WorkoutCard: View {
         HStack {
           StatusContent(stopwatchManager: stopwatchManager)
           Spacer()
-          BottomBarContent(stopwatchManager: stopwatchManager)
+          BottomBarContent(stopwatchManager: stopwatchManager, workout: workout)
         }
       case .stopped:
         StartButton()
@@ -99,9 +99,12 @@ struct WorkoutCard_Previews: PreviewProvider {
   @StateObject static var cardDetails: CardDetails = CardDetails(position: .top)
   
   static var previews: some View {
-    WorkoutCard(stopwatchManager: StopwatchManager(), workoutSheet: $workoutSheet)
-      .environmentObject(IronNotesModelFactory.getWorkout())
-      .environmentObject(cardDetails)
+    WorkoutCard(
+      stopwatchManager: StopwatchManager(),
+      workoutSheet: $workoutSheet
+    )
+    .environmentObject(IronNotesModelFactory.getWorkout())
+    .environmentObject(cardDetails)
   }
 }
 #endif

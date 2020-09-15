@@ -34,6 +34,10 @@ class WorkoutStore: NSObject, ObservableObject {
   func setupPrimaryWorkout(with workoutTemplate: WorkoutTemplate) {
     primaryWorkout = Workout.getNewWorkout(from: workoutTemplate)
   }
+  
+  func finishPrimaryWorkout() {
+    primaryWorkout = nil
+  }
 }
 
 extension WorkoutStore: NSFetchedResultsControllerDelegate {

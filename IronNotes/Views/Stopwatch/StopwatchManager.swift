@@ -7,48 +7,51 @@
 //
 
 import SwiftUI
+import Combine
 
 enum StopWatchMode {
   case running(workout: Workout, startTime: Date)
   case stopped
 }
 
-//class Model: ObservableObject, Identifiable {
-//    @Published var offset: CGFloat = 0
-//
-//    let id = UUID()
-//
-//    private var tickets: [AnyCancellable] = []
-//
-//    init() {
-//        Timer.publish(every: 0.5, on: RunLoop.main, in: .common)
-//            .autoconnect()
-//            .map { _ in CGFloat.random(in: 0...300) }
-//            .sink { [weak self] in self?.offset = $0 }
-//            .store(in: &tickets)
-//    }
-//}
+class Model: ObservableObject, Identifiable {
+    @Published var offset: CGFloat = 0
+
+    let id = UUID()
+
+    private var tickets: [AnyCancellable] = []
+  
+
+    init() {
+        Timer.publish(every: 0.5, on: RunLoop.main, in: .common)
+            .autoconnect()
+            .map { _ in CGFloat.random(in: 0...300) }
+            .sink { [weak self] in self?.offset = $0 }
+            .store(in: &tickets)
+    }
+}
 
 class StopwatchManager: ObservableObject {
   
   @Published var mode: StopWatchMode = .stopped
   @Published var secondsElapsed: Double = 0
   
+  private var cancellable: AnyCancellable?
+
   let formatter = DateComponentsFormatter()
-  
-  var timer = Timer()
-  
-  func stop() {
-    timer.invalidate()
-    secondsElapsed = 0
-    mode = .stopped
+    
+  func start(_ workout: Workout) {
+    self.mode = .running(workout: workout, startTime: Date())
+    
+    self.cancellable = Timer.publish(every: 1, on: .main, in: .common)
+        .autoconnect()
+        .sink { _ in self.secondsElapsed += 1 }
   }
   
-  func start(_ workout: Workout) {
-    mode = .running(workout: workout, startTime: Date())
-    timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-      self.secondsElapsed += 1
-    }
+  func stop() {
+    self.cancellable?.cancel()
+    self.secondsElapsed = 0
+    self.mode = .stopped
   }
   
   func resumeFromBackground() {

@@ -33,44 +33,40 @@ struct ExerciseCardRow: View {
     HStack(alignment: .center) {
       CompletionCircle(exerciseSet: exerciseSet)
       
-        Text("Set \(exerciseSet.setPosition + 1):")
-          .foregroundColor(Color.gray)
-        
-        Spacer()
-        
+      Text("Set \(exerciseSet.setPosition + 1):")
+        .foregroundColor(Color.gray)
+      
+      Spacer()
+      
       HStack(alignment: .firstTextBaseline) {
-
-          TextField("lbs", text: weight)
-            .keyboardType(.decimalPad)
-            .multilineTextAlignment(.trailing)
-            .frame(maxWidth: 45)
-            .font(.headline)
-          
-          Text("lbs")
-            .font(.caption)
-            .foregroundColor(Color.gray)
+        
+        TextField("lbs", text: weight)
+          .keyboardType(.decimalPad)
+          .multilineTextAlignment(.trailing)
+          .frame(maxWidth: 45)
+          .font(.headline)
+        
+        Text("lbs")
+          .font(.caption)
+          .foregroundColor(Color.gray)
         
         Image(systemName: "multiply")
           .foregroundColor(Color.gray)
           .font(.headline)
           .padding(.leading)
         
-          TextField("reps", text: reps)
-            .keyboardType(.decimalPad)
-            .multilineTextAlignment(.trailing)
-            .frame(maxWidth: 30)
-            .font(.headline)
-          
-          
-          Text("reps")
-            .font(.caption)
-            .foregroundColor(Color.gray)
+        TextField("reps", text: reps)
+          .keyboardType(.decimalPad)
+          .multilineTextAlignment(.trailing)
+          .frame(maxWidth: 30)
+          .font(.headline)
         
+  
+        Text("reps")
+          .font(.caption)
+          .foregroundColor(Color.gray)
       }
-      
-    }
-    .frame(height: 20)
-    
+    }    
   }
 }
 

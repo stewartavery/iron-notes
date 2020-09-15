@@ -10,12 +10,14 @@ import SwiftUI
 
 struct BottomBarContent: View {
   @ObservedObject var stopwatchManager: StopwatchManager
+  @ObservedObject var workout: Workout
   @Environment(\.presentationMode) var presentationMode
   
   var body: some View {
     switch stopwatchManager.mode {
     case .running:
       Button {
+        workout.duration = Int16(stopwatchManager.secondsElapsed)
         stopwatchManager.stop()
         presentationMode.wrappedValue.dismiss()
       } label: {

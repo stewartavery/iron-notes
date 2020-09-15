@@ -28,7 +28,10 @@ struct DelayedSlideOverCard: View {
       }
     case (.hidden, false):
       SlideOverCard {
-        WorkoutCard(stopwatchManager: stopwatchManager, workoutSheet: $workoutSheet)
+        WorkoutCard(
+          stopwatchManager: stopwatchManager,
+          workoutSheet: $workoutSheet
+        )
       }
       .transition(.move(edge: .bottom))
       .animation(/*@START_MENU_TOKEN@*/.easeIn/*@END_MENU_TOKEN@*/)

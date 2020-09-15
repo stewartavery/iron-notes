@@ -27,18 +27,6 @@ struct ExerciseCard: View {
   @ObservedObject var exercise: Exercise
   @State private var showDetail = false
   
-  var isNotePresent: Bool {
-    return exercise.note.count > 0
-  }
-  
-  var exerciseNote: Binding<String> {
-    return Binding<String>(get: {
-      exercise.note
-    }, set: { value in
-      exercise.note = value
-    })
-  }
-  
   var body: some View {
     VStack(alignment: .leading) {
       HStack {
@@ -48,26 +36,24 @@ struct ExerciseCard: View {
         Spacer()
       }
       
-      TextField("Notes", text: exerciseNote)
+      TextField("Notes", text: $exercise.note)
         .font(.subheadline)
         .foregroundColor(Color.gray)
-        .padding(.top, 5)
-        .padding(.bottom, 10)
+        .padding(.vertical, 5)
     }
-    ForEach(exercise.exerciseSetArray, id: \.self) { exerciseSet in
+    ForEach(exercise.exerciseSetArray) { exerciseSet in
       ExerciseCardRow(exerciseSet: exerciseSet)
     }
     .onDelete(perform: deleteSet)
     .animation(showDetail ? .spring() : nil)
     .transition(.move(edge: .bottom))
-    .frame(height: 30)
     
     Button {
       withAnimation {
         createNewSet()
       }
     } label: {
-      AddSet().frame(height: 35)
+      AddSet()
     }
     .onAppear() {
       DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {

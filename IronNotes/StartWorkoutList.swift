@@ -17,27 +17,20 @@ struct StartWorkoutList : View {
   @EnvironmentObject var stopwatchManager: StopwatchManager
   
   @State var isCreateViewVisible = false
-  @State var isFullScreenModalVisible = false
+  @State var selectedTemplate: WorkoutTemplate? = nil
   
   var body: some View {
     NavigationView {
       List {
-        ForEach(workoutTemplateStore.items, id: \.self) { workoutTemplate in
+        ForEach(workoutTemplateStore.items) { workoutTemplate in
           Button {
-            workoutStore.setupPrimaryWorkout(with: workoutTemplate)
-            isFullScreenModalVisible.toggle()
+            if workoutStore.primaryWorkout == nil {
+              workoutStore.setupPrimaryWorkout(with: workoutTemplate)
+            }
+            selectedTemplate = workoutTemplate
           } label: {
             WorkoutRow(workoutTemplate: workoutTemplate)
           }
-          .fullScreenCover(item: $workoutStore.primaryWorkout) { workout in
-              ActiveWorkout(
-                stopwatchManager: stopwatchManager,
-                keyboardMonitor: keyboardMonitor,
-                workout: workout
-              )
-            }
-            
-          
         }
         Button {
           isCreateViewVisible.toggle()
@@ -52,7 +45,36 @@ struct StartWorkoutList : View {
         content: {
           NewWorkout(isPresented: self.$isCreateViewVisible)
         })
+      .fullScreenCover(
+        item: $selectedTemplate,
+        onDismiss: dismissModal) { _ in
+        switch workoutStore.primaryWorkout {
+        case .some(let workout):
+          ActiveWorkout(
+            stopwatchManager: stopwatchManager,
+            keyboardMonitor: keyboardMonitor,
+            workout: workout
+          )
+        default:
+          EmptyView()
+        }
+       
+      }
       .navigationBarTitle("Workouts")
+    }
+  }
+  
+  private func dismissModal() -> Void {
+    switch (stopwatchManager.mode, workoutStore.primaryWorkout)  {
+    case (.stopped, .some(let workout)) where workout.duration > 0:
+      print("deallocating finished workout")
+      workoutStore.finishPrimaryWorkout()
+    case (.stopped, .some(let workout)):
+      print("deleting unstarted workout")
+      workout.deleteWorkout()
+      workoutStore.finishPrimaryWorkout()
+    default:
+      break
     }
   }
 }

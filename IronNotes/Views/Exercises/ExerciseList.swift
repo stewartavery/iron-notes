@@ -34,7 +34,7 @@ struct ExerciseList: View {
   var body: some View {
     NavigationView {
       List {
-        ForEach(exerciseTemplates, id: \.self) { exerciseTemplate in
+        ForEach(exerciseTemplates) { exerciseTemplate in
           NavigationLink(destination: ExerciseDetails()) {
             Text(exerciseTemplate.name)
               .font(.system(size: 16))
