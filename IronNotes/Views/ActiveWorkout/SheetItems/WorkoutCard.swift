@@ -9,8 +9,8 @@
 import SwiftUI
 
 struct WorkoutCard: View {
-  @ObservedObject var stopwatchManager: StopwatchManager
   
+  @EnvironmentObject var stopwatchManager: StopwatchManager
   @EnvironmentObject var cardDetails: CardDetails
   @EnvironmentObject var workout: Workout
   
@@ -21,9 +21,9 @@ struct WorkoutCard: View {
       switch stopwatchManager.mode {
       case .running:
         HStack {
-          StatusContent(stopwatchManager: stopwatchManager)
+          StatusContent()
           Spacer()
-          BottomBarContent(stopwatchManager: stopwatchManager, workout: workout)
+          BottomBarContent()
         }
       case .stopped:
         StartButton()
@@ -90,21 +90,22 @@ struct WorkoutCard: View {
       }
     }
     .padding(.horizontal)
+    
   }
 }
 
 #if DEBUG
 struct WorkoutCard_Previews: PreviewProvider {
   @State static var workoutSheet: WorkoutSheet? = nil
+  @State static var workoutStatus: WorkoutStatus = .stopped
   @StateObject static var cardDetails: CardDetails = CardDetails(position: .top)
   
   static var previews: some View {
-    WorkoutCard(
-      stopwatchManager: StopwatchManager(),
-      workoutSheet: $workoutSheet
-    )
-    .environmentObject(IronNotesModelFactory.getWorkout())
-    .environmentObject(cardDetails)
+    WorkoutCard(workoutSheet: $workoutSheet)
+      .environmentObject(StopwatchManager())
+      .environmentObject(IronNotesModelFactory.getWorkout())
+      .environmentObject(cardDetails)
+      .environmentObject(WorkoutStore(managedObjectContext: PersistenceController.shared.container.viewContext))
   }
 }
 #endif

@@ -10,25 +10,7 @@ import SwiftUI
 import Combine
 
 enum StopWatchMode {
-  case running(workout: Workout, startTime: Date)
-  case stopped
-}
-
-class Model: ObservableObject, Identifiable {
-    @Published var offset: CGFloat = 0
-
-    let id = UUID()
-
-    private var tickets: [AnyCancellable] = []
-  
-
-    init() {
-        Timer.publish(every: 0.5, on: RunLoop.main, in: .common)
-            .autoconnect()
-            .map { _ in CGFloat.random(in: 0...300) }
-            .sink { [weak self] in self?.offset = $0 }
-            .store(in: &tickets)
-    }
+  case running, stopped
 }
 
 class StopwatchManager: ObservableObject {
@@ -40,8 +22,8 @@ class StopwatchManager: ObservableObject {
 
   let formatter = DateComponentsFormatter()
     
-  func start(_ workout: Workout) {
-    self.mode = .running(workout: workout, startTime: Date())
+  func start() {
+    self.mode = .running
     
     self.cancellable = Timer.publish(every: 1, on: .main, in: .common)
         .autoconnect()
@@ -54,14 +36,9 @@ class StopwatchManager: ObservableObject {
     self.mode = .stopped
   }
   
-  func resumeFromBackground() {
-    switch mode {
-    case .running(_, let startTime):
-      self.secondsElapsed = Date().timeIntervalSince(startTime)
-      break
-    default:
-      break
-    }
+  func resumeFromBackground(startTime: Date) {
+    self.secondsElapsed = Date().timeIntervalSince(startTime)
+    self.start()
   }
 }
 

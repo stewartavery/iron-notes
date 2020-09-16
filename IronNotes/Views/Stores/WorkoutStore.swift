@@ -8,9 +8,14 @@
 
 import CoreData
 
+enum WorkoutStatus {
+  case stopped, running
+}
+
 class WorkoutStore: NSObject, ObservableObject {
   @Published var items: [Workout] = []
   @Published var primaryWorkout: Workout? = nil
+  @Published var workoutStatus: WorkoutStatus = .stopped
   
   private let workoutController: NSFetchedResultsController<Workout>
   
@@ -32,10 +37,12 @@ class WorkoutStore: NSObject, ObservableObject {
   }
   
   func setupPrimaryWorkout(with workoutTemplate: WorkoutTemplate) {
+    workoutStatus = .stopped
     primaryWorkout = Workout.getNewWorkout(from: workoutTemplate)
   }
   
   func finishPrimaryWorkout() {
+    workoutStatus = .stopped
     primaryWorkout = nil
   }
 }

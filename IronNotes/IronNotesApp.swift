@@ -17,7 +17,6 @@ struct IronNotesApp: App {
   
   let persistenceController: PersistenceController
   
-  @StateObject var stopwatchManager: StopwatchManager
   @StateObject var keyboardMonitor: KeyboardMonitor
   @StateObject var workoutTemplateStore: WorkoutTemplateStore
   @StateObject var workoutStore: WorkoutStore
@@ -25,7 +24,6 @@ struct IronNotesApp: App {
   init() {
     persistenceController = PersistenceController.shared
     
-    _stopwatchManager = StateObject(wrappedValue: StopwatchManager())
     _keyboardMonitor = StateObject(wrappedValue: KeyboardMonitor())
     
     let templateStorage = WorkoutTemplateStore(managedObjectContext: persistenceController.container.viewContext)
@@ -43,7 +41,6 @@ struct IronNotesApp: App {
     WindowGroup {
       IronNotesTabNavigation()
         .environment(\.managedObjectContext, moc)
-        .environmentObject(stopwatchManager)
         .environmentObject(keyboardMonitor)
         .environmentObject(workoutTemplateStore)
         .environmentObject(workoutStore)
@@ -57,7 +54,6 @@ struct IronNotesApp: App {
           isFirstTime.toggle()
         }
         
-        stopwatchManager.resumeFromBackground()
         break
       case .background:
         persistenceController.saveContext()

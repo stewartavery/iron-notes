@@ -9,8 +9,9 @@
 import SwiftUI
 
 struct BottomBarContent: View {
-  @ObservedObject var stopwatchManager: StopwatchManager
-  @ObservedObject var workout: Workout
+  @EnvironmentObject var stopwatchManager: StopwatchManager
+  @EnvironmentObject var workout: Workout
+  @EnvironmentObject var workoutStore: WorkoutStore
   @Environment(\.presentationMode) var presentationMode
   
   var body: some View {
@@ -19,6 +20,7 @@ struct BottomBarContent: View {
       Button {
         workout.duration = Int16(stopwatchManager.secondsElapsed)
         stopwatchManager.stop()
+        workoutStore.workoutStatus = .stopped
         presentationMode.wrappedValue.dismiss()
       } label: {
         Image(systemName: "stop.fill")
@@ -30,7 +32,7 @@ struct BottomBarContent: View {
 }
 
 struct StatusContent: View {
-  @ObservedObject var stopwatchManager: StopwatchManager
+  @EnvironmentObject var stopwatchManager: StopwatchManager
   
   var body: some View {
     switch stopwatchManager.mode {
@@ -48,6 +50,7 @@ struct StatusContent: View {
 struct StartButton: View {
   @EnvironmentObject var stopwatchManager: StopwatchManager
   @EnvironmentObject var workout: Workout
+  @EnvironmentObject var workoutStore: WorkoutStore
   
   var body: some View {
     HStack {
@@ -66,7 +69,8 @@ struct StartButton: View {
     .foregroundColor(Color.white)
     .onTapGesture {
       workout.startTime = Date()
-      stopwatchManager.start(workout)
+      stopwatchManager.start()
+      workoutStore.workoutStatus = .running
     }
   }
 }
@@ -74,9 +78,11 @@ struct StartButton: View {
 
 #if DEBUG
 struct StartButton_Previews: PreviewProvider {
+  @State static var workoutStatus: WorkoutStatus = .stopped
   static var previews: some View {
     StartButton()
       .environmentObject(StopwatchManager())
+      .environmentObject(WorkoutStore(managedObjectContext: PersistenceController.shared.container.viewContext))
   }
 }
 #endif

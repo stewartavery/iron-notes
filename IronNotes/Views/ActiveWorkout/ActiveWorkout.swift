@@ -11,7 +11,6 @@ import CoreData
 import Combine
 
 
-
 enum WorkoutSheet: String, Identifiable {
   var id: String {
     return rawValue
@@ -27,12 +26,16 @@ enum ScrollDirection: Equatable {
 }
 
 struct ActiveWorkout: View {
-  @ObservedObject var stopwatchManager: StopwatchManager
+  @Environment(\.scenePhase) private var scenePhase
+  
+  @StateObject var stopwatchManager = StopwatchManager()
+  
   @ObservedObject var keyboardMonitor: KeyboardMonitor
   @ObservedObject var workout: Workout
+  @ObservedObject var workoutStore: WorkoutStore
   
   @State private var workoutSheet: WorkoutSheet? = nil
- 
+  
   var body: some View {
     ZStack {
       ExerciseCardList(
@@ -41,11 +44,29 @@ struct ActiveWorkout: View {
         workoutSheet: $workoutSheet
       )
       
-      DelayedSlideOverCard(
-        stopwatchManager: stopwatchManager,
-        keyboardMonitor: keyboardMonitor,
-        workoutSheet: $workoutSheet
-      ).environmentObject(workout)
+      DelayedSlideOverCard(workoutSheet: $workoutSheet)
+      .environmentObject(stopwatchManager)
+      .environmentObject(keyboardMonitor)
+      .environmentObject(workoutStore)
+    }
+    .onAppear {
+      resumeTimer()
+    }
+    .environmentObject(workout)
+    .onChange(of: scenePhase) { phase in
+      switch phase {
+      case .active:
+        resumeTimer()
+        break
+      default:
+        break
+      }
+    }
+  }
+  
+  func resumeTimer() {
+    if let startTime = workout.startTime {
+      stopwatchManager.resumeFromBackground(startTime: startTime)
     }
   }
 }
@@ -58,11 +79,12 @@ extension View {
 
 #if DEBUG
 struct ActiveWorkout_Previews: PreviewProvider {
+  @State static var workoutStatus: WorkoutStatus = .stopped
   static var previews: some View {
     ActiveWorkout(
-      stopwatchManager: StopwatchManager(),
       keyboardMonitor: KeyboardMonitor(),
-      workout: IronNotesModelFactory.getWorkout()
+      workout: IronNotesModelFactory.getWorkout(),
+      workoutStore: WorkoutStore(managedObjectContext: PersistenceController.shared.container.viewContext)
     )
     .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
     .environmentObject(IronNotesModelFactory.getWorkout())
@@ -73,6 +95,7 @@ struct ActiveWorkout_Previews: PreviewProvider {
 struct ExerciseCardList: View {
   @Environment(\.managedObjectContext) var moc
   @Environment(\.presentationMode) var presentationMode
+  @EnvironmentObject var stopwatchManager: StopwatchManager
   
   @ObservedObject var keyboardMonitor: KeyboardMonitor
   @ObservedObject var workout: Workout
@@ -84,15 +107,15 @@ struct ExerciseCardList: View {
   var body: some View {
     NavigationView {
       List {
-//        if workout.routinesArray.count == 0 {
-//          VStack {
-//            Text("There's nothing here.")
-//            Button("Add some workouts") {
-//              print("HEY")
-//            }
-//            Text("to get started.")
-//          }
-//        }
+        //        if workout.routinesArray.count == 0 {
+        //          VStack {
+        //            Text("There's nothing here.")
+        //            Button("Add some workouts") {
+        //              print("HEY")
+        //            }
+        //            Text("to get started.")
+        //          }
+        //        }
         ForEach(workout.routinesArray) { exercise in
           Section {
             ExerciseCard(exercise: exercise)
@@ -140,5 +163,5 @@ struct ExerciseCardList: View {
       return 0
     }
   }
-
+  
 }

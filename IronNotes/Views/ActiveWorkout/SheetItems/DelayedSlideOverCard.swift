@@ -9,8 +9,8 @@
 import SwiftUI
 
 struct DelayedSlideOverCard: View {
-  @ObservedObject var stopwatchManager: StopwatchManager
-  @ObservedObject var keyboardMonitor: KeyboardMonitor
+  @Environment(\.scenePhase) private var scenePhase
+  @EnvironmentObject var keyboardMonitor: KeyboardMonitor
   
   @State var isViewHidden = true
   @State var delay = 0.0
@@ -28,11 +28,9 @@ struct DelayedSlideOverCard: View {
       }
     case (.hidden, false):
       SlideOverCard {
-        WorkoutCard(
-          stopwatchManager: stopwatchManager,
-          workoutSheet: $workoutSheet
-        )
+        WorkoutCard(workoutSheet: $workoutSheet)
       }
+      
       .transition(.move(edge: .bottom))
       .animation(/*@START_MENU_TOKEN@*/.easeIn/*@END_MENU_TOKEN@*/)
     case (.presented(_), _):
@@ -41,5 +39,6 @@ struct DelayedSlideOverCard: View {
         self.delay = 0.1
       }
     }
+    
   }
 }

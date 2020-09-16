@@ -13,7 +13,6 @@
 		50160AAA24F203C600F07622 /* SlideOverCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50160AA924F203C600F07622 /* SlideOverCard.swift */; };
 		50160AAC24F2059E00F07622 /* Handle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50160AAB24F2059E00F07622 /* Handle.swift */; };
 		501B3DDD25070BA100722F56 /* CardDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501B3DDC25070BA100722F56 /* CardDetails.swift */; };
-		501BA5F324D0FDC600D4E9AF /* WorkoutDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501BA5F224D0FDC600D4E9AF /* WorkoutDescription.swift */; };
 		501DCFA124FEFAD000D87926 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501DCFA024FEFAD000D87926 /* Persistence.swift */; };
 		501DCFA324FEFD9000D87926 /* IronNotesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501DCFA224FEFD9000D87926 /* IronNotesApp.swift */; };
 		501DCFA7250085FB00D87926 /* WorkoutHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501DCFA6250085FB00D87926 /* WorkoutHistory.swift */; };
@@ -74,7 +73,6 @@
 		50160AA924F203C600F07622 /* SlideOverCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideOverCard.swift; sourceTree = "<group>"; };
 		50160AAB24F2059E00F07622 /* Handle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Handle.swift; sourceTree = "<group>"; };
 		501B3DDC25070BA100722F56 /* CardDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetails.swift; sourceTree = "<group>"; };
-		501BA5F224D0FDC600D4E9AF /* WorkoutDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDescription.swift; sourceTree = "<group>"; };
 		501DCFA024FEFAD000D87926 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		501DCFA224FEFD9000D87926 /* IronNotesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IronNotesApp.swift; sourceTree = "<group>"; };
 		501DCFA6250085FB00D87926 /* WorkoutHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistory.swift; sourceTree = "<group>"; };
@@ -288,7 +286,6 @@
 				65760CBD248C95D1003F5299 /* CompletionCircle.swift */,
 				654EEC01241B2066006C917A /* ExerciseCard.swift */,
 				6506506E24B6CFAB003E1415 /* ExerciseCardRow.swift */,
-				501BA5F224D0FDC600D4E9AF /* WorkoutDescription.swift */,
 			);
 			path = ActiveWorkout;
 			sourceTree = "<group>";
@@ -491,7 +488,6 @@
 				6574530D2487456700DD76B6 /* ExerciseEditor.swift in Sources */,
 				65D61B1324849BBD00A5B561 /* WorkoutTemplate+CoreDataProperties.swift in Sources */,
 				50222E5E24DC0BB6005BBF61 /* StopwatchManager.swift in Sources */,
-				501BA5F324D0FDC600D4E9AF /* WorkoutDescription.swift in Sources */,
 				508CFCD024E645DE00F9D77B /* UIResponder+Current.swift in Sources */,
 				6544A4F423FA20AB0039D705 /* ExerciseType.swift in Sources */,
 				65789B84240F4686000ABE40 /* ExerciseSet+CoreDataProperties.swift in Sources */,

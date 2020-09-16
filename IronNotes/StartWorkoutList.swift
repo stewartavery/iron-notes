@@ -10,11 +10,11 @@ import SwiftUI
 
 struct StartWorkoutList : View {
   @Environment(\.managedObjectContext) var moc
-  
+  @Environment(\.scenePhase) private var scenePhase
+
   @EnvironmentObject var workoutStore: WorkoutStore
   @EnvironmentObject var workoutTemplateStore: WorkoutTemplateStore
   @EnvironmentObject var keyboardMonitor: KeyboardMonitor
-  @EnvironmentObject var stopwatchManager: StopwatchManager
   
   @State var isCreateViewVisible = false
   @State var selectedTemplate: WorkoutTemplate? = nil
@@ -51,10 +51,10 @@ struct StartWorkoutList : View {
         switch workoutStore.primaryWorkout {
         case .some(let workout):
           ActiveWorkout(
-            stopwatchManager: stopwatchManager,
             keyboardMonitor: keyboardMonitor,
-            workout: workout
-          )
+            workout: workout,
+            workoutStore: workoutStore
+          ).environment(\.scenePhase, scenePhase)
         default:
           EmptyView()
         }
@@ -65,12 +65,10 @@ struct StartWorkoutList : View {
   }
   
   private func dismissModal() -> Void {
-    switch (stopwatchManager.mode, workoutStore.primaryWorkout)  {
+    switch (workoutStore.workoutStatus, workoutStore.primaryWorkout)  {
     case (.stopped, .some(let workout)) where workout.duration > 0:
-      print("deallocating finished workout")
       workoutStore.finishPrimaryWorkout()
     case (.stopped, .some(let workout)):
-      print("deleting unstarted workout")
       workout.deleteWorkout()
       workoutStore.finishPrimaryWorkout()
     default:
