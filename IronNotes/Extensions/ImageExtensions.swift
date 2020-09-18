@@ -1,5 +1,5 @@
 //
-//  WorkoutImageModifier.swift
+//  ImagExtensions.swift
 //  IronNotes
 //
 //  Created by Stewart Avery on 6/2/20.

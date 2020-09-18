@@ -74,10 +74,10 @@ struct SlideOverCard<Content: View> : View {
   private func onDragEnded(drag: DragGesture.Value, geometryHeight: CGFloat) {
     let middleHeight = getCardHeight(geometryHeight: geometryHeight, cardPosition: CardPosition.middle)
     let currentHeight = getCardHeight(geometryHeight: geometryHeight, cardPosition: cardDetails.position)
-
+    
     let verticalDirection = drag.predictedEndLocation.y - drag.location.y
     let cardTopEdgeLocation = currentHeight + drag.translation.height
-        
+    
     let positionAbove: CardPosition
     let positionBelow: CardPosition
     let closestPosition: CardPosition
@@ -96,7 +96,7 @@ struct SlideOverCard<Content: View> : View {
     } else {
       closestPosition = positionBelow
     }
-        
+    
     if verticalDirection > 100 {
       cardDetails.position = positionBelow
     } else if verticalDirection < -100 {
