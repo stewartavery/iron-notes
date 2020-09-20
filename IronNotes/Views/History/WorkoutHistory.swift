@@ -9,34 +9,58 @@
 import SwiftUI
 
 struct WorkoutHistory: View {
-  @EnvironmentObject var workoutStore: WorkoutStore
+  var groupedWorkouts: [DateComponents : [Workout]]
   
   var body: some View {
-    NavigationView {
+    print(Array(groupedWorkouts.keys))
+    return NavigationView {
       ScrollView {
-        VStack(alignment: .leading) {
-          ForEach(workoutStore.items) { workout in
-            HStack {
-            VStack(alignment: .leading) {
-              Text(workout.meta.name)
-              Text(workout.readableDate)
+        LazyVStack(spacing: 10) {
+          
+          ForEach(Array(groupedWorkouts.keys), id: \.self) { key in
+            Section(header: Text(getMonthAndYear(key))) {
+              Text("hey")
+//              ForEach(workouts) { workout in
+//                VStack(alignment: .leading) {
+//                  HStack {
+//                    VStack(alignment: .leading) {
+//                      Text(workout.meta.name).font(.headline)
+//                      Text(workout.readableDate)
+//
+//                    }
+//                  }
+//                }
+              
             }
-              Spacer()
-            }
-  
           }
+          .padding()
         }
-        .padding()
       }
+      
       .navigationBarTitle("History")
     }
   }
-}
-
-struct WorkoutHistory_Previews: PreviewProvider {
-  static var previews: some View {
-    WorkoutHistory()
-      .environmentObject(WorkoutStore(managedObjectContext: PersistenceController.shared.container.viewContext))
-      .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
+  
+  private func getMonthAndYear(_ components: DateComponents) -> String {
+    guard let month = components.month else {
+      return ""
+    }
+    
+    guard let year = components.year else {
+      return ""
+    }
+    
+    // TODO: consider locale
+    let formatter = DateFormatter()
+    let monthName = formatter.monthSymbols[month - 1]
+    
+    return monthName + String(year)
   }
 }
+
+//struct WorkoutHistory_Previews: PreviewProvider {
+//  static var previews: some View {
+//    WorkoutHistory(workouts: IronNotesModelFactory.getWorkouts())
+//
+//  }
+//}

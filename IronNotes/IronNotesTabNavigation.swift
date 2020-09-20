@@ -27,7 +27,7 @@ struct IronNotesTabNavigation: View {
           }
         })
         .tag(1)
-      WorkoutHistory()
+      WorkoutHistoryContainer()
         .tabItem({
           VStack {
             Image(systemName: "clock.fill")

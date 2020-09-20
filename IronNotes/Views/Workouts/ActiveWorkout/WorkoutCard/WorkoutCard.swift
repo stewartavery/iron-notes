@@ -31,58 +31,64 @@ struct WorkoutCard: View {
       
       switch cardDetails.position {
       case .middle, .top:
-        VStack(alignment: .leading) {
-          WorkoutRowLabel(workoutTemplate: workout.meta)
-          
-          Divider()
-          
-          if workout.isNotePresent {
-            Text(workout.wrappedNote)
-              .font(.body)
-              .padding(.top)
-          }
-          
+        ScrollView {
           VStack(alignment: .leading) {
-            
-            Button {
-              workoutSheet = .workout
-            } label: {
-              HStack {
-                Label("Change Workout", systemImage: "note.text")
-                Spacer()
-              }.padding()
-            }
-            
-            
-            Divider()
-            Button {
-              workoutSheet = .exercises
-            } label: {
-              HStack {
-                Label("Edit Exercises", systemImage: "pencil")
-                Spacer()
-              }.padding()
-            }
-            
+            WorkoutRowLabel(workoutTemplate: workout.meta)
             
             Divider()
             
-            Button {
-              print("remove")
-            } label: {
-              HStack {
-                Label("Remove Workout", systemImage: "trash")
-                Spacer()
-              }.padding()
+            if workout.isNotePresent {
+              Text(workout.wrappedNote)
+                .font(.body)
+                .padding(.top)
             }
-            .foregroundColor(Color.red)
             
+            VStack(alignment: .leading) {
+              
+              Button {
+                workoutSheet = .workout
+              } label: {
+                HStack {
+                  Label("Change Workout", systemImage: "note.text")
+                  Spacer()
+                }.padding()
+                .gesture(DragGesture(minimumDistance: 0)
+                          .onChanged { _ in }
+                          .onEnded { _ in }
+                      )
+              }
+              
+              
+              Divider()
+              Button {
+                workoutSheet = .exercises
+              } label: {
+                HStack {
+                  Label("Edit Exercises", systemImage: "pencil")
+                  Spacer()
+                }.padding()
+              }
+              
+              
+              Divider()
+              
+              Button {
+                print("remove")
+              } label: {
+                HStack {
+                  Label("Remove Workout", systemImage: "trash")
+                  Spacer()
+                }.padding()
+              }
+              .foregroundColor(Color.red)
+              
+            }
+            .foregroundColor(Color.orange)
+            .font(.headline)
+            
+            
+            Spacer()
           }
-          .foregroundColor(Color.orange)
-          .font(.headline)
-          
-          
-          Spacer()
         }.padding(.top)
         
       case .bottom:

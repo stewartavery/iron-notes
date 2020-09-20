@@ -21,7 +21,7 @@ class IronNotesModelFactory {
   
   // TODO: use proper methods
   static func getWorkout() -> Workout {
-    let workout = Workout(context: PersistenceController.shared.container.viewContext)
+    let workout = Workout.newWorkout()
     let workoutMeta = WorkoutTemplate(context: PersistenceController.shared.container.viewContext)
     
     workoutMeta.name = "Extra Test Workout"
@@ -31,20 +31,20 @@ class IronNotesModelFactory {
     workout.note = "This is an example of a relevant note to Bench Pressing."
     workout.startTime = Date()
     
-    let exercise = Exercise(context: PersistenceController.shared.container.viewContext)
+    let exercise = Exercise.newExercise()
     let exerciseMeta = ExerciseTemplate(context: PersistenceController.shared.container.viewContext)
     exerciseMeta.name = "Bench Press"
     exercise.meta = exerciseMeta
     exercise.position = 0
     exercise.note = "This is a useful note for Bench Pressing."
     
-    let exerciseSet = ExerciseSet(context: PersistenceController.shared.container.viewContext)
+    let exerciseSet = ExerciseSet.newExerciseSet()
     exerciseSet.setPosition = 0
     exerciseSet.reps = 3
     exerciseSet.weight = 135
     exercise.addToSets(exerciseSet)
     
-    let exerciseSet5 = ExerciseSet(context: PersistenceController.shared.container.viewContext)
+    let exerciseSet5 = ExerciseSet.newExerciseSet()
     exerciseSet5.setPosition = 1
     exerciseSet5.reps = 3
     exerciseSet5.weight = 225
@@ -52,7 +52,7 @@ class IronNotesModelFactory {
     
     workout.addToRoutines(exercise)
     
-    let exercise2 = Exercise(context: PersistenceController.shared.container.viewContext)
+    let exercise2 = Exercise.newExercise()
     let exerciseMeta2 = ExerciseTemplate(context: PersistenceController.shared.container.viewContext)
     
     exerciseMeta2.name = "Shoulder Press"
@@ -60,7 +60,7 @@ class IronNotesModelFactory {
     exercise2.position = 1
     exercise2.note = "Hurt my shoulder last time, focus on form."
     
-    let exerciseSet2 = ExerciseSet(context: PersistenceController.shared.container.viewContext)
+    let exerciseSet2 = ExerciseSet.newExerciseSet()
     exerciseSet2.setPosition = 0
     exerciseSet2.reps = 5
     exerciseSet2.weight = 39
@@ -69,6 +69,10 @@ class IronNotesModelFactory {
     workout.addToRoutines(exercise2)
     
     return workout
+  }
+  
+  static func getWorkouts() -> [Workout] {
+    return [getWorkout(), getWorkout(), getWorkout(), getWorkout(), getWorkout()]
   }
   
   static func getExercise() -> Exercise {

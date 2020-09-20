@@ -14,6 +14,7 @@ enum WorkoutStatus {
 
 class WorkoutStore: NSObject, ObservableObject {
   @Published var items: [Workout] = []
+  @Published var groupedItems: [DateComponents : [Workout]] = [DateComponents: [Workout]]()
   @Published var primaryWorkout: Workout? = nil
   @Published var workoutStatus: WorkoutStatus = .stopped
   
@@ -52,6 +53,11 @@ extension WorkoutStore: NSFetchedResultsControllerDelegate {
     guard let templates = controller.fetchedObjects as? [Workout]
       else { return }
 
-    items = templates
+    items = templates.filter {$0.startTime != nil}
+    groupedItems = Dictionary.init(grouping: items) {
+      return Calendar.current.dateComponents([.month, .year], from: ($0.startTime)!)
+    }
+    
+    print(groupedItems)
   }
 }

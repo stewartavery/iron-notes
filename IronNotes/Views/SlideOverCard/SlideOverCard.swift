@@ -15,7 +15,7 @@ struct SlideOverCard<Content: View> : View {
   @GestureState private var dragState = DragState.inactive
   @StateObject var cardDetails = CardDetails()
   
-  
+
   var content: () -> Content
   
   var body: some View {
@@ -29,8 +29,8 @@ struct SlideOverCard<Content: View> : View {
       .shadow(color: Color(.sRGBLinear, white: 0, opacity: 0.13), radius: 10.0)
       .offset(y: getCardHeight(geometryHeight: geometry.size.height, cardPosition: cardDetails.position) + getThrottledOffset())
       .animation(self.dragState.isDragging ? nil : .interpolatingSpring(stiffness: 300.0, damping: 30.0, initialVelocity: 10.0))
-      .gesture(
-        DragGesture()
+      .highPriorityGesture(
+        DragGesture(minimumDistance: 50.0)
           .updating($dragState) { drag, state, transaction in
             if drag.predictedEndLocation.y - drag.location.y > 0 {
               state = .draggingDown(translation: drag.translation)

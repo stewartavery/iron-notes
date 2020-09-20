@@ -76,9 +76,11 @@ extension Workout {
   static var getWorkouts: NSFetchRequest<Workout> {
     let request: NSFetchRequest<Workout> = Workout.fetchRequest()
     request.sortDescriptors = [
-      NSSortDescriptor(keyPath: \Workout.startTime, ascending: false)
+      NSSortDescriptor(keyPath: \Workout.startTime, ascending: true)
     ]
-
+    
+    // TODO: figure out filtering out null dates
+    
     return request
   }
 }

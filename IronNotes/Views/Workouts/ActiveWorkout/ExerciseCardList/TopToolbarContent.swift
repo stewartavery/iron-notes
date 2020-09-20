@@ -36,7 +36,7 @@ struct TopToolbarContent: View {
       }
     case .presented(_):
       Button {
-        self.hideKeyboard()
+        hideKeyboard()
       } label: {
         Image(systemName: "keyboard.chevron.compact.down")
       }
