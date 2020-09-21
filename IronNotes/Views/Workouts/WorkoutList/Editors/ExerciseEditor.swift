@@ -119,7 +119,6 @@ struct ExerciseEditor: View {
 
 struct RemoveExerciseRow: View {
   var exerciseTemplate: ExerciseTemplate
-  @Environment(\.colorScheme) var colorScheme: ColorScheme
   
   var body: some View {
     Text(exerciseTemplate.name)

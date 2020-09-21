@@ -10,6 +10,9 @@ import SwiftUI
 
 struct DateHeader: View {
   var components: DateComponents
+  var itemCount: Int
+  
+  @Environment(\.colorScheme) var colorScheme: ColorScheme
   
   var body: some View {
     VStack(alignment: .leading, spacing: 0) {
@@ -18,7 +21,10 @@ struct DateHeader: View {
           .font(.headline)
           .padding(.vertical, 10)
         Spacer()
-      }.background(Color.white)
+        Text("Total: \(String(itemCount))" )
+      }.background(colorScheme == .light ? Color.white :Color.black)
+      .padding(.horizontal, 20)
+
       
       Divider()
     }
@@ -50,22 +56,25 @@ struct WorkoutHistory: View {
       ScrollView {
         LazyVStack(alignment: .leading, spacing: 10, pinnedViews: [.sectionHeaders]) {
           ForEach(Array(groupedWorkouts.keys), id: \.self) { key in
-            Section(header: DateHeader(components: key)) {
-              ForEach(groupedWorkouts[key] ?? []) { workout in
-                VStack(alignment: .leading) {
-                  HStack {
-                    VStack(alignment: .leading) {
-                      Text(workout.meta.name).font(.headline)
-                      Text(workout.readableDate)
+            if let workouts = groupedWorkouts[key] {
+              Section(header: DateHeader(components: key, itemCount: workouts.count)) {
+                ForEach(workouts) { workout in
+                  VStack(alignment: .leading) {
+                    HStack {
+                      VStack(alignment: .leading) {
+                        Text(workout.meta.name).font(.headline)
+                        Text(workout.readableDate)
+                      }
                     }
-                  }
+                  }          .padding(.horizontal, 20)
+
+                  
                 }
-                
               }
             }
+          
           }
         }
-        .padding()
       }
       
       .navigationBarTitle("History")
