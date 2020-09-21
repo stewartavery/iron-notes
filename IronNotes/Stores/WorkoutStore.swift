@@ -31,7 +31,13 @@ class WorkoutStore: NSObject, ObservableObject {
 
     do {
       try workoutController.performFetch()
-      items = workoutController.fetchedObjects ?? []
+      let fetchedItems = workoutController.fetchedObjects ?? []
+      items = fetchedItems.filter { $0.startTime != nil }
+    
+      groupedItems = Dictionary.init(grouping: items) {
+        return Calendar.current.dateComponents([.month, .year], from: ($0.startTime)!)
+      }
+      
     } catch {
       print("failed to fetch workouts!")
     }
