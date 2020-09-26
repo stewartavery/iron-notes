@@ -33,7 +33,7 @@ struct ExerciseCardList: View {
         //        }
         ForEach(workout.routinesArray) { exercise in
           Section {
-            ExerciseCard(exercise: exercise)
+            ExerciseCard(exercise: exercise, isActive: true)
           }
         }
       }

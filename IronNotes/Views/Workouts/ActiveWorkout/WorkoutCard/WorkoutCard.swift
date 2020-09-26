@@ -58,7 +58,6 @@ struct WorkoutCard: View {
                       )
               }
               
-              
               Divider()
               Button {
                 workoutSheet = .exercises

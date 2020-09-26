@@ -18,37 +18,32 @@ struct DateHeader: View {
     VStack(alignment: .leading, spacing: 0) {
       HStack {
         Text(getMonthAndYear(components))
-          .font(.headline)
           .padding(.vertical, 10)
         Spacer()
         Text("Total: \(String(itemCount))" )
-      }.background(colorScheme == .light ? Color.white :Color.black)
+      }
       .padding(.horizontal, 20)
-
+      .font(.headline)
+      .background(Color(UIColor.systemGray6))
       
-      Divider()
     }
   }
   
   
   private func getMonthAndYear(_ components: DateComponents) -> String {
-    guard let month = components.month else {
-      return ""
-    }
-
-    guard let year = components.year else {
-      return ""
-    }
-
+    guard let month = components.month else { return "" }
+    guard let year = components.year else { return "" }
+    
     // TODO: consider locale
     let formatter = DateFormatter()
     let monthName = formatter.monthSymbols[month - 1]
-
+    
     return "\(monthName) \(String(year))"
   }
 }
 
 struct WorkoutHistory: View {
+  @Environment(\.colorScheme) var colorScheme: ColorScheme
   var groupedWorkouts: [DateComponents : [Workout]]
   
   var body: some View {
@@ -59,25 +54,19 @@ struct WorkoutHistory: View {
             if let workouts = groupedWorkouts[key] {
               Section(header: DateHeader(components: key, itemCount: workouts.count)) {
                 ForEach(workouts) { workout in
-                  VStack(alignment: .leading) {
-                    HStack {
-                      VStack(alignment: .leading) {
-                        Text(workout.meta.name).font(.headline)
-                        Text(workout.readableDate)
-                      }
-                    }
-                  }          .padding(.horizontal, 20)
-
-                  
+                  NavigationLink(destination: WorkoutHistoryDetail(workout: workout)) {
+                    WorkoutHistoryRow(workout: workout)
+                      .accentColor(colorScheme == .light ? Color.black : Color.white)
+                  }
+                  .padding(.horizontal, 20)
                 }
               }
             }
-          
           }
         }
       }
-      
       .navigationBarTitle("History")
+      
     }
   }
   

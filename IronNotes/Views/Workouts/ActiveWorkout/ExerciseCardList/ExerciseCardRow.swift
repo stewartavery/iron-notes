@@ -12,6 +12,7 @@ let spacing: CGFloat = 50
 
 struct ExerciseCardRow: View {
   @ObservedObject var exerciseSet: ExerciseSet
+  var isActive: Bool
   
   var reps: Binding<String> {
     return Binding<String>(get: {
@@ -31,7 +32,9 @@ struct ExerciseCardRow: View {
   
   var body: some View {
     HStack(alignment: .center) {
-      CompletionCircle(exerciseSet: exerciseSet)
+      if isActive {
+        CompletionCircle(exerciseSet: exerciseSet)
+      }
       
       Text("Set \(exerciseSet.setPosition + 1):")
         .foregroundColor(Color.gray)
@@ -45,6 +48,7 @@ struct ExerciseCardRow: View {
           .multilineTextAlignment(.trailing)
           .frame(maxWidth: 45)
           .font(.headline)
+          .disabled(!isActive)
         
         Text("lbs")
           .font(.caption)
@@ -60,8 +64,9 @@ struct ExerciseCardRow: View {
           .multilineTextAlignment(.trailing)
           .frame(maxWidth: 30)
           .font(.headline)
+          .disabled(!isActive)
         
-  
+        
         Text("reps")
           .font(.caption)
           .foregroundColor(Color.gray)
@@ -73,7 +78,7 @@ struct ExerciseCardRow: View {
 #if DEBUG
 struct ExerciseCardRow_Previews: PreviewProvider {
   static var previews: some View {
-    return ExerciseCardRow(exerciseSet: IronNotesModelFactory.getExerciseSet())
+    return ExerciseCardRow(exerciseSet: IronNotesModelFactory.getExerciseSet(), isActive: true)
   }
 }
 #endif

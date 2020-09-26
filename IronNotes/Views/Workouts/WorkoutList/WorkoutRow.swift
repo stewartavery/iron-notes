@@ -26,8 +26,8 @@ struct WorkoutRowLabel: View {
     return VStack(alignment: .leading) {
       Text(workoutTemplate.name)
         .font(.headline)
-      Text(workoutTemplate.desc)
-        .font(.subheadline)
+//      Text(workoutTemplate.desc)
+//        .font(.subheadline)
       if let unwrappedWorkout = workout {
         Text(getWorkoutDate(workout: unwrappedWorkout))
           .font(.subheadline)
@@ -60,7 +60,7 @@ struct WorkoutRow: View {
       WorkoutRowLabel(workoutTemplate: workoutTemplate)
         .padding(.leading, CGFloat(10))
     }
-    .frame(height: 80)
+    .frame(height: 65)
   }
 }
 

@@ -18,7 +18,7 @@ struct RowImage: View {
         .workoutImageModifier()
       if(colorScheme == .dark) {
         Color.white.blendMode(.sourceAtop)
-          .frame(width: 65)
+          .frame(width: 40)
           .padding(.bottom, 10)
       }
      

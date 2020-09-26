@@ -12,7 +12,7 @@ extension Image {
   func workoutImageModifier() -> some View {
     self
       .resizable()
-      .frame(width: 65, height: 65)
+      .frame(width: 40, height: 40)
       .padding()
   }
   

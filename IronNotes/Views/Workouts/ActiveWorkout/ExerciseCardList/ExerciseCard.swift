@@ -25,6 +25,9 @@ struct AddSet: View {
 struct ExerciseCard: View {
   @Environment(\.managedObjectContext) var moc
   @ObservedObject var exercise: Exercise
+  
+  var isActive: Bool
+  
   @State private var showDetail = false
   
   var body: some View {
@@ -42,24 +45,27 @@ struct ExerciseCard: View {
         .padding(.vertical, 5)
     }
     ForEach(exercise.exerciseSetArray) { exerciseSet in
-      ExerciseCardRow(exerciseSet: exerciseSet)
+      ExerciseCardRow(exerciseSet: exerciseSet, isActive: isActive)
     }
     .onDelete(perform: deleteSet)
     .animation(showDetail ? .spring() : nil)
     .transition(.move(edge: .bottom))
-    
-    Button {
-      withAnimation {
-        createNewSet()
-      }
-    } label: {
-      AddSet()
-    }
     .onAppear() {
       DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
         showDetail = true
       }
     }
+    
+    if isActive {
+      Button {
+        withAnimation {
+          createNewSet()
+        }
+      } label: {
+        AddSet()
+      }
+    }
+    
   }
   
   func deleteSet(at offsets: IndexSet) {
@@ -100,7 +106,7 @@ struct ExerciseCard_Previews: PreviewProvider {
     return NavigationView {
       List {
         Section {
-          ExerciseCard(exercise: IronNotesModelFactory.getExercise())
+          ExerciseCard(exercise: IronNotesModelFactory.getExercise(), isActive: true)
         }
       }
       .listStyle(InsetGroupedListStyle())
