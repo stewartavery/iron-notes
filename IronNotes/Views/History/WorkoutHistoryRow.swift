@@ -14,8 +14,11 @@ struct WorkoutHistoryRow: View {
   var body: some View {
     HStack {
       VStack(alignment: .leading) {
-        Text(workout.meta.name).font(.headline)
+        Text(workout.meta.name)
+          .font(.headline)
         Text(workout.readableDate)
+          .font(.headline)
+          .foregroundColor(Color.gray)
       }
       
       Spacer()
@@ -25,14 +28,18 @@ struct WorkoutHistoryRow: View {
         .scaledToFit()
         .frame(width: 12, height: 12)
         .foregroundColor(Color.gray)
-
-      
     }
+    .padding()
+    .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
   }
 }
 
 struct WorkoutHistoryRow_Previews: PreviewProvider {
   static var previews: some View {
-    WorkoutHistoryRow(workout: IronNotesModelFactory.getWorkout())
+    ZStack {
+      Color(UIColor.systemGray6)
+      WorkoutHistoryRow(workout: IronNotesModelFactory.getWorkout())
+        .padding()
+    }
   }
 }

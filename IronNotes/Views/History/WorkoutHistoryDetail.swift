@@ -17,13 +17,12 @@ struct WorkoutHistoryDetail: View {
         Section {
           ExerciseCard(exercise: exercise, isActive: false)
         }
-
       }
-      .navigationBarTitle("history", displayMode: .inline)
       .listStyle(InsetGroupedListStyle())
     }
-    
+    .navigationBarTitle("History", displayMode: .inline)
   }
+  
 }
 
 struct WorkoutHistoryDetail_Previews: PreviewProvider {

@@ -24,7 +24,7 @@ struct DateHeader: View {
       }
       .padding(.horizontal, 20)
       .font(.headline)
-      .background(Color(UIColor.systemGray6))
+      .background(Color(UIColor.systemGray4))
       
     }
   }
@@ -48,8 +48,11 @@ struct WorkoutHistory: View {
   
   var body: some View {
     NavigationView {
+      ZStack {
+        Color(UIColor.systemGray6).edgesIgnoringSafeArea(.all)
+
       ScrollView {
-        LazyVStack(alignment: .leading, spacing: 10, pinnedViews: [.sectionHeaders]) {
+        LazyVStack(alignment: .leading, spacing: 8, pinnedViews: [.sectionHeaders]) {
           ForEach(Array(groupedWorkouts.keys), id: \.self) { key in
             if let workouts = groupedWorkouts[key] {
               Section(header: DateHeader(components: key, itemCount: workouts.count)) {
@@ -65,6 +68,7 @@ struct WorkoutHistory: View {
           }
         }
       }
+      }
       .navigationBarTitle("History")
       
     }
@@ -72,9 +76,15 @@ struct WorkoutHistory: View {
   
 }
 
-//struct WorkoutHistory_Previews: PreviewProvider {
-//  static var previews: some View {
-//    WorkoutHistory(workouts: IronNotesModelFactory.getWorkouts())
-//
-//  }
-//}
+struct WorkoutHistory_Previews: PreviewProvider {
+  static var groupedWorkouts: [DateComponents : [Workout]] {
+    return Dictionary.init(grouping: IronNotesModelFactory.getWorkouts()) {
+      return Calendar.current.dateComponents([.month, .year], from: ($0.startTime)!)
+    }
+  }
+  
+  static var previews: some View {
+    WorkoutHistory(groupedWorkouts: groupedWorkouts)
+
+  }
+}
