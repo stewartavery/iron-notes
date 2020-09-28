@@ -24,7 +24,11 @@ struct DateHeader: View {
       }
       .padding(.horizontal, 20)
       .font(.headline)
-      .background(Color(UIColor.systemGray4))
+      .background(colorScheme == .light ? Color.white : Color.black)
+      
+      if colorScheme == .light {
+        Divider()
+      }
       
     }
   }
@@ -49,28 +53,38 @@ struct WorkoutHistory: View {
   var body: some View {
     NavigationView {
       ZStack {
-        Color(UIColor.systemGray6).edgesIgnoringSafeArea(.all)
-
-      ScrollView {
-        LazyVStack(alignment: .leading, spacing: 8, pinnedViews: [.sectionHeaders]) {
-          ForEach(Array(groupedWorkouts.keys), id: \.self) { key in
-            if let workouts = groupedWorkouts[key] {
-              Section(header: DateHeader(components: key, itemCount: workouts.count)) {
-                ForEach(workouts) { workout in
-                  NavigationLink(destination: WorkoutHistoryDetail(workout: workout)) {
-                    WorkoutHistoryRow(workout: workout)
-                      .accentColor(colorScheme == .light ? Color.black : Color.white)
+        switch colorScheme {
+        case .light:
+          Color(UIColor.systemGray6).edgesIgnoringSafeArea(.all)
+        case .dark:
+          Color.black.edgesIgnoringSafeArea(.all)
+        @unknown default:
+          Color(UIColor.systemGray6).edgesIgnoringSafeArea(.all)
+        }
+        
+        VStack {
+          WorkoutCalendar()
+          
+          ScrollView {
+            LazyVStack(alignment: .leading, spacing: 5, pinnedViews: [.sectionHeaders]) {
+              ForEach(Array(groupedWorkouts.keys), id: \.self) { key in
+                if let workouts = groupedWorkouts[key] {
+                  Section(header: DateHeader(components: key, itemCount: workouts.count)) {
+                    ForEach(workouts) { workout in
+                      NavigationLink(destination: WorkoutHistoryDetail(workout: workout)) {
+                        WorkoutHistoryRow(workout: workout)
+                          .accentColor(colorScheme == .light ? Color.black : Color.white)
+                      }
+                      .padding(.horizontal, 20)
+                    }
                   }
-                  .padding(.horizontal, 20)
                 }
               }
             }
           }
         }
       }
-      }
       .navigationBarTitle("History")
-      
     }
   }
   
@@ -84,7 +98,11 @@ struct WorkoutHistory_Previews: PreviewProvider {
   }
   
   static var previews: some View {
-    WorkoutHistory(groupedWorkouts: groupedWorkouts)
-
+    Group {
+      WorkoutHistory(groupedWorkouts: groupedWorkouts)
+      WorkoutHistory(groupedWorkouts: groupedWorkouts)
+        .environment(\.colorScheme, .dark)
+    }
+    
   }
 }
