@@ -53,17 +53,27 @@ struct WorkoutHistory: View {
   var body: some View {
     NavigationView {
       ZStack {
-        switch colorScheme {
-        case .light:
-          Color(UIColor.systemGray6).edgesIgnoringSafeArea(.all)
-        case .dark:
-          Color.black.edgesIgnoringSafeArea(.all)
-        @unknown default:
-          Color(UIColor.systemGray6).edgesIgnoringSafeArea(.all)
-        }
+        Group {
+          switch colorScheme {
+          case .light:
+            Color(UIColor.systemGray6)
+          case .dark:
+            Color.black
+          @unknown default:
+            Color(UIColor.systemGray6)
+          }
+        }.edgesIgnoringSafeArea(.all)
         
         VStack {
-          WorkoutCalendar()
+          WorkoutCalendar(
+            interval: DateInterval(
+              start: Date(timeIntervalSinceNow: -1080000),
+              end: Date()
+            )) { _ in
+            Text("30")
+              .padding(4)
+              .cornerRadius(8)
+          }
           
           ScrollView {
             LazyVStack(alignment: .leading, spacing: 5, pinnedViews: [.sectionHeaders]) {

@@ -15,7 +15,6 @@ struct SlideOverCard<Content: View> : View {
   @GestureState private var dragState = DragState.inactive
   @StateObject var cardDetails = CardDetails()
   
-
   var content: () -> Content
   
   var body: some View {
@@ -29,13 +28,13 @@ struct SlideOverCard<Content: View> : View {
       .shadow(color: Color(.sRGBLinear, white: 0, opacity: 0.13), radius: 10.0)
       .offset(y: getCardHeight(geometryHeight: geometry.size.height, cardPosition: cardDetails.position) + getThrottledOffset())
       .animation(self.dragState.isDragging ? nil : .interpolatingSpring(stiffness: 300.0, damping: 30.0, initialVelocity: 10.0))
-      .highPriorityGesture(
+      .gesture(
         DragGesture(minimumDistance: 50.0)
           .updating($dragState) { drag, state, transaction in
             if drag.predictedEndLocation.y - drag.location.y > 0 {
-              state = .draggingDown(translation: drag.translation)
+              state = .down(translation: drag.translation)
             } else {
-              state = .draggingUp(translation: drag.translation)
+              state = .up(translation: drag.translation)
             }
           }
           .onEnded { drag in
@@ -110,14 +109,16 @@ struct SlideOverCard<Content: View> : View {
 
 enum DragState {
   case inactive
-  case draggingUp(translation: CGSize)
-  case draggingDown(translation: CGSize)
+  case up(translation: CGSize)
+  case down(translation: CGSize)
+  case left(translation: CGSize)
+  case right(translation: CGSize)
   
   var translation: CGSize {
     switch self {
     case .inactive:
       return .zero
-    case .draggingUp(let translation), .draggingDown(let translation):
+    case .up(let translation), .down(let translation), .left(let translation), .right(let translation):
       return translation
     }
   }
@@ -126,7 +127,7 @@ enum DragState {
     switch self {
     case .inactive:
       return false
-    case .draggingUp, .draggingDown:
+    default:
       return true
     }
   }
