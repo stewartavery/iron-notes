@@ -32,7 +32,7 @@ struct DelayedSlideOverCard: View {
       }
       
       .transition(.move(edge: .bottom))
-      .animation(/*@START_MENU_TOKEN@*/.easeIn/*@END_MENU_TOKEN@*/)
+      .animation(.easeIn)
     case (.presented(_), _):
       Text("").onAppear {
         self.isViewHidden = true

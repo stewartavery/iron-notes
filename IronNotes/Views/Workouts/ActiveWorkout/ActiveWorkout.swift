@@ -26,9 +26,6 @@ enum ScrollDirection: Equatable {
 }
 
 struct ActiveWorkout: View {
-  @Environment(\.scenePhase) private var scenePhase
-  
-  @StateObject var stopwatchManager = StopwatchManager()
   
   @ObservedObject var keyboardMonitor: KeyboardMonitor
   @ObservedObject var workout: Workout
@@ -37,35 +34,10 @@ struct ActiveWorkout: View {
   @State private var workoutSheet: WorkoutSheet? = nil
   
   var body: some View {
-    ZStack {
-      ExerciseCardList(workoutSheet: $workoutSheet)
-        .environmentObject(keyboardMonitor)
-        .environmentObject(workout)
-      
-      DelayedSlideOverCard(workoutSheet: $workoutSheet)
-        .environmentObject(stopwatchManager)
-        .environmentObject(keyboardMonitor)
-        .environmentObject(workoutStore)
-    }
-    .onAppear {
-      resumeTimer()
-    }
-    .environmentObject(workout)
-    .onChange(of: scenePhase) { phase in
-      switch phase {
-      case .active:
-        resumeTimer()
-        break
-      default:
-        break
-      }
-    }
-  }
-  
-  func resumeTimer() {
-    if let startTime = workout.startTime {
-      stopwatchManager.resumeFromBackground(startTime: startTime)
-    }
+    ExerciseCardList(workoutSheet: $workoutSheet)
+      .environmentObject(keyboardMonitor)
+      .environmentObject(workout)
+      .environmentObject(workoutStore)
   }
 }
 

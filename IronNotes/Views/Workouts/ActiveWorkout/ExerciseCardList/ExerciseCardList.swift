@@ -8,12 +8,92 @@
 
 import SwiftUI
 
+struct WorkoutToolbar: View {
+  @Environment(\.scenePhase) private var scenePhase
+  
+  @Environment(\.presentationMode) var presentationMode
+  
+  @StateObject var stopwatchManager = StopwatchManager()
+  
+  @EnvironmentObject var keyboardMonitor: KeyboardMonitor
+  @EnvironmentObject var workout: Workout
+  @EnvironmentObject var workoutStore: WorkoutStore
+  
+  @Binding var workoutSheet: WorkoutSheet?
+  
+  var body: some View {
+    Group {
+    ToolbarItem(placement: .cancellationAction) {
+      Button("Dismiss") {
+        presentationMode.wrappedValue.dismiss()
+      }
+    }
+
+    ToolbarItem(placement: .primaryAction) {
+      TopToolbarContent(workoutSheet: $workoutSheet)
+        .environmentObject(keyboardMonitor)
+    }
+
+    ToolbarItem(placement: .bottomBar) {
+      Text("hey bitch")
+    }
+
+    ToolbarItem(placement: .bottomBar) {
+      WorkoutToolbarItem()
+        .environmentObject(workout)
+        .environmentObject(workoutStore)
+        .environmentObject(stopwatchManager)
+        .onAppear {
+          resumeTimer()
+        }
+        .onChange(of: scenePhase) { phase in
+          switch phase {
+          case .active:
+            resumeTimer()
+            break
+          default:
+            break
+          }
+        }
+    }
+    }
+  }
+  
+  private func resumeTimer() {
+    if let startTime = workout.startTime {
+      stopwatchManager.resumeFromBackground(startTime: startTime)
+    }
+  }
+}
+
+struct WorkoutToolbarItem: View {
+  @EnvironmentObject var stopwatchManager: StopwatchManager
+  @EnvironmentObject var workout: Workout
+  @EnvironmentObject var workoutStore: WorkoutStore
+  
+  var body: some View {
+    Group {
+      switch stopwatchManager.mode {
+      case .running:
+        HStack {
+          StatusContent()
+          Spacer()
+          BottomBarContent()
+        }
+      case .stopped:
+        StartButton()
+      }
+    }
+  }
+}
+
 struct ExerciseCardList: View {
   @Environment(\.managedObjectContext) var moc
   @Environment(\.presentationMode) var presentationMode
   
   @EnvironmentObject var keyboardMonitor: KeyboardMonitor
   @EnvironmentObject var workout: Workout
+  @EnvironmentObject var workoutStore: WorkoutStore
   
   @Binding var workoutSheet: WorkoutSheet?
   
@@ -22,38 +102,18 @@ struct ExerciseCardList: View {
   var body: some View {
     NavigationView {
       List {
-        //        if workout.routinesArray.count == 0 {
-        //          VStack {
-        //            Text("There's nothing here.")
-        //            Button("Add some workouts") {
-        //              print("HEY")
-        //            }
-        //            Text("to get started.")
-        //          }
-        //        }
         ForEach(workout.routinesArray) { exercise in
           Section {
             ExerciseCard(exercise: exercise, isActive: true)
           }
         }
       }
-      .onChange(of: keyboardMonitor.keyboardStatus, perform: { _ in
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-          bottomPadding = getBottomPadding(keyboardMonitor.keyboardStatus)
-        }
-      })
-      .padding(.bottom, bottomPadding)
       .navigationBarTitle(Text("Workout Log"), displayMode: .inline)
       .toolbar {
-        ToolbarItem(placement: .cancellationAction) {
-          Button("Dismiss") {
-            presentationMode.wrappedValue.dismiss()
-          }
-        }
-        ToolbarItem(placement: .primaryAction) {
-          TopToolbarContent(workoutSheet: $workoutSheet)
-            .environmentObject(keyboardMonitor)
-        }
+        WorkoutToolbar(workoutSheet: $workoutSheet)
+          .environmentObject(keyboardMonitor)
+          .environmentObject(workout)
+          .environmentObject(workoutStore)
       }
       .buttonStyle(BorderlessButtonStyle())
       .sheet(item: $workoutSheet) { workoutSheet in
@@ -69,16 +129,6 @@ struct ExerciseCardList: View {
       .listStyle(InsetGroupedListStyle())
     }
   }
-  
-  private func getBottomPadding(_ keyboardStatus: KeyboardStatus) -> CGFloat {
-    switch keyboardStatus {
-    case .hidden:
-      return minCardHeight
-    case .presented(_):
-      return 0
-    }
-  }
-  
 }
 struct ExerciseCardList_Previews: PreviewProvider {
   @State static var workoutSheet: WorkoutSheet? = nil
@@ -92,8 +142,8 @@ struct ExerciseCardList_Previews: PreviewProvider {
         .previewDevice("iPhone SE")
         .environment(\.sizeCategory, .extraExtraLarge)
         .environment(\.colorScheme, .dark)
-
-
+      
+      
     }
     .environmentObject(KeyboardMonitor())
     .environmentObject(IronNotesModelFactory.getWorkout())

@@ -63,8 +63,6 @@ struct WorkoutHistory: View {
         }
         
         VStack {
-          WorkoutCalendar()
-          
           ScrollView {
             LazyVStack(alignment: .leading, spacing: 5, pinnedViews: [.sectionHeaders]) {
               ForEach(Array(groupedWorkouts.keys), id: \.self) { key in
