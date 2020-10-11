@@ -17,6 +17,7 @@ enum CardPosition: CGFloat {
 
 class CardDetails: ObservableObject {
   @Published var position: CardPosition
+  @Published var opacity: CGFloat = 0
   
   init(position: CardPosition = .bottom) {
     self.position = position

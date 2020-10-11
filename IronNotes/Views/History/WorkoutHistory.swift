@@ -62,9 +62,7 @@ struct WorkoutHistory: View {
           Color(UIColor.systemGray6).edgesIgnoringSafeArea(.all)
         }
         
-        VStack {
-          WorkoutCalendar()
-          
+        VStack {          
           ScrollView {
             LazyVStack(alignment: .leading, spacing: 5, pinnedViews: [.sectionHeaders]) {
               ForEach(Array(groupedWorkouts.keys), id: \.self) { key in

@@ -30,13 +30,18 @@ struct SlideOverCard<Content: View> : View {
       .offset(y: getCardHeight(geometryHeight: geometry.size.height, cardPosition: cardDetails.position) + getThrottledOffset())
       .animation(self.dragState.isDragging ? nil : .interpolatingSpring(stiffness: 300.0, damping: 30.0, initialVelocity: 10.0))
       .highPriorityGesture(
-        DragGesture(minimumDistance: 50.0)
+        DragGesture(minimumDistance: 20)
           .updating($dragState) { drag, state, transaction in
             if drag.predictedEndLocation.y - drag.location.y > 0 {
               state = .draggingDown(translation: drag.translation)
             } else {
               state = .draggingUp(translation: drag.translation)
             }
+            
+            let bottomOrigin = getCardHeight(geometryHeight: geometry.size.height, cardPosition: CardPosition.bottom)
+            let yPos = getCardHeight(geometryHeight: geometry.size.height, cardPosition: cardDetails.position) + getThrottledOffset()
+            
+            cardDetails.opacity = min(((bottomOrigin - yPos) / 40), 1.0)
           }
           .onEnded { drag in
             onDragEnded(drag: drag, geometryHeight: geometry.size.height)
@@ -74,6 +79,7 @@ struct SlideOverCard<Content: View> : View {
   private func onDragEnded(drag: DragGesture.Value, geometryHeight: CGFloat) {
     let middleHeight = getCardHeight(geometryHeight: geometryHeight, cardPosition: CardPosition.middle)
     let currentHeight = getCardHeight(geometryHeight: geometryHeight, cardPosition: cardDetails.position)
+    let bottomHeight = getCardHeight(geometryHeight: geometryHeight, cardPosition: CardPosition.bottom)
     
     let verticalDirection = drag.predictedEndLocation.y - drag.location.y
     let cardTopEdgeLocation = currentHeight + drag.translation.height
@@ -104,6 +110,10 @@ struct SlideOverCard<Content: View> : View {
     } else {
       cardDetails.position = closestPosition
     }
+    
+    let currentCardHeight = getCardHeight(geometryHeight: geometryHeight, cardPosition: cardDetails.position)
+    
+    cardDetails.opacity = min(((bottomHeight - currentCardHeight) / 40), 1.0)
   }
 }
 

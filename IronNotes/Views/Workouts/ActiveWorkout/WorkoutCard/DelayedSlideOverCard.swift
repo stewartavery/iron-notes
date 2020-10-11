@@ -30,7 +30,6 @@ struct DelayedSlideOverCard: View {
       SlideOverCard {
         WorkoutCard(workoutSheet: $workoutSheet)
       }
-      
       .transition(.move(edge: .bottom))
       .animation(/*@START_MENU_TOKEN@*/.easeIn/*@END_MENU_TOKEN@*/)
     case (.presented(_), _):
