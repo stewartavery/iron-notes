@@ -15,7 +15,7 @@ let minimumDragDistance: CGFloat = 20
 struct SlideOverCard<Content: View> : View {
   @Environment(\.colorScheme) var colorScheme: ColorScheme
   @GestureState private var dragState = DragState.inactive
-
+  
   @StateObject var cardDetails = CardDetails()
   
   
@@ -35,18 +35,24 @@ struct SlideOverCard<Content: View> : View {
       .highPriorityGesture(
         DragGesture(minimumDistance: minimumDragDistance)
           .updating($dragState) { drag, state, transaction in
-            print(drag)
-            if drag.predictedEndLocation.y - drag.location.y > 0 {
-              state = .draggingDown(translation: drag.translation)
-            } else {
-              state = .draggingUp(translation: drag.translation)
-            }
             
-            print(drag.translation)
-            
+            // Set initial direcion, then maintain that direction
+            state = {
+              switch(state) {
+              case .draggingDown(_):
+                return .draggingDown(translation: drag.translation)
+              case .draggingUp(_):
+                return .draggingUp(translation: drag.translation)
+              case .inactive where drag.predictedEndLocation.y - drag.location.y > 0:
+                return .draggingDown(translation: drag.translation)
+              case .inactive:
+                return .draggingUp(translation: drag.translation)
+              }
+            }()
+                 
             let bottomOrigin = getCardHeight(geometryHeight: geometry.size.height, cardPosition: CardPosition.bottom)
             let yPos = getThrottledOffset(geometryHeight: geometry.size.height)
-                        
+            
             cardDetails.opacity = min(((bottomOrigin - yPos) / 40), 1.0)
           }
           .onEnded { drag in
@@ -68,9 +74,9 @@ struct SlideOverCard<Content: View> : View {
   private func getCardHeight(geometryHeight: CGFloat, cardPosition: CardPosition) -> CGFloat {
     switch cardPosition {
     case .top:
-      return geometryHeight * 0.66
+      return geometryHeight * 0.6
     case .middle:
-      return geometryHeight * 0.66
+      return geometryHeight * 0.6
     case .bottom:
       return geometryHeight - minCardHeight
     }
@@ -79,16 +85,18 @@ struct SlideOverCard<Content: View> : View {
   private func getThrottledOffset(geometryHeight: CGFloat) -> CGFloat {
     let currentHeight = getCardHeight(geometryHeight: geometryHeight, cardPosition: cardDetails.position)
     let maxHeight = getCardHeight(geometryHeight: geometryHeight, cardPosition: CardPosition.middle)
+    let minHeight = getCardHeight(geometryHeight: geometryHeight, cardPosition: CardPosition.bottom)
+
     
     let offset = dragState.translationHeightWithAdjustment
     let throttledOffset = offset * 0.2
-//    print(maxHeight)
-//    print(currentHeight)
-//    print(offset)
-//    print(currentHeight + offset)
-    print("\n")
+
     if (currentHeight + offset - throttledOffset) < maxHeight {
       return maxHeight + throttledOffset
+    }
+    
+    if (currentHeight + offset - throttledOffset) > minHeight {
+      return minHeight + throttledOffset
     }
     
     return currentHeight + offset
@@ -156,9 +164,9 @@ enum DragState {
     case .inactive:
       return .zero
     case .draggingUp(let translation):
-      return translation.height
+      return translation.height + 20
     case .draggingDown(let translation):
-      return translation.height
+      return translation.height - 20
     }
   }
   
