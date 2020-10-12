@@ -53,25 +53,19 @@ struct StartButton: View {
   @EnvironmentObject var workoutStore: WorkoutStore
   
   var body: some View {
-    HStack {
-      Label {
-        Text("Start")
-          .fontWeight(.bold)
-      } icon: {
-        Image(systemName: "play.fill")
+    Text("Start")
+      .fontWeight(.bold)
+      .frame(maxWidth: .infinity)
+      .padding()
+      .background(Color.orange)
+      .font(.headline)
+      .cornerRadius(10)
+      .foregroundColor(Color.white)
+      .onTapGesture {
+        workout.startTime = Date()
+        stopwatchManager.start()
+        workoutStore.workoutStatus = .running
       }
-    }
-    .frame(maxWidth: .infinity)
-    .padding()
-    .background(Color.orange)
-    .font(.headline)
-    .cornerRadius(7)
-    .foregroundColor(Color.white)
-    .onTapGesture {
-      workout.startTime = Date()
-      stopwatchManager.start()
-      workoutStore.workoutStatus = .running
-    }
   }
 }
 

@@ -18,22 +18,27 @@ struct WorkoutCard: View {
   
   var body: some View {
     VStack(alignment: .leading) {
-      switch stopwatchManager.mode {
-      case .running:
-        HStack {
-          StatusContent()
-          Spacer()
-          BottomBarContent()
+      HStack {
+        WorkoutRowLabel(workoutTemplate: workout.meta)
+        
+        Spacer()
+        
+        Group {
+        switch stopwatchManager.mode {
+        case .running:
+          HStack {
+            StatusContent()
+            Spacer()
+            BottomBarContent()
+          }
+        case .stopped:
+          StartButton()
         }
-      case .stopped:
-        StartButton()
+      }.frame(width: 75)
       }
       
       VStack(alignment: .leading) {
-        WorkoutRowLabel(workoutTemplate: workout.meta)
-        
         Divider()
-        
         if workout.isNotePresent {
           Text(workout.wrappedNote)
             .font(.body)
@@ -80,7 +85,7 @@ struct WorkoutCard: View {
         }
         .foregroundColor(Color.orange)
         .font(.headline)
-       
+        
         Spacer()
         
       }.padding(.top)

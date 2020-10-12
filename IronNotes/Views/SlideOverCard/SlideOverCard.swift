@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-let minCardHeight: CGFloat = 75
+let minCardHeight: CGFloat = 100
 
 let minimumDragDistance: CGFloat = 20
 
@@ -87,7 +87,6 @@ struct SlideOverCard<Content: View> : View {
     let maxHeight = getCardHeight(geometryHeight: geometryHeight, cardPosition: CardPosition.middle)
     let minHeight = getCardHeight(geometryHeight: geometryHeight, cardPosition: CardPosition.bottom)
 
-    
     let offset = dragState.translationHeightWithAdjustment
     let throttledOffset = offset * 0.2
 
