@@ -10,12 +10,15 @@ import SwiftUI
 
 let minCardHeight: CGFloat = 75
 
+let minimumDragDistance: CGFloat = 20
+
 struct SlideOverCard<Content: View> : View {
   @Environment(\.colorScheme) var colorScheme: ColorScheme
   @GestureState private var dragState = DragState.inactive
+
   @StateObject var cardDetails = CardDetails()
   
-
+  
   var content: () -> Content
   
   var body: some View {
@@ -27,20 +30,23 @@ struct SlideOverCard<Content: View> : View {
       .background(colorScheme == .light ? Color.white : Color(UIColor.systemGray6))
       .cornerRadius(10.0)
       .shadow(color: Color(.sRGBLinear, white: 0, opacity: 0.13), radius: 10.0)
-      .offset(y: getCardHeight(geometryHeight: geometry.size.height, cardPosition: cardDetails.position) + getThrottledOffset())
+      .offset(y: getThrottledOffset(geometryHeight: geometry.size.height))
       .animation(self.dragState.isDragging ? nil : .interpolatingSpring(stiffness: 300.0, damping: 30.0, initialVelocity: 10.0))
       .highPriorityGesture(
-        DragGesture(minimumDistance: 20)
+        DragGesture(minimumDistance: minimumDragDistance)
           .updating($dragState) { drag, state, transaction in
+            print(drag)
             if drag.predictedEndLocation.y - drag.location.y > 0 {
               state = .draggingDown(translation: drag.translation)
             } else {
               state = .draggingUp(translation: drag.translation)
             }
             
-            let bottomOrigin = getCardHeight(geometryHeight: geometry.size.height, cardPosition: CardPosition.bottom)
-            let yPos = getCardHeight(geometryHeight: geometry.size.height, cardPosition: cardDetails.position) + getThrottledOffset()
+            print(drag.translation)
             
+            let bottomOrigin = getCardHeight(geometryHeight: geometry.size.height, cardPosition: CardPosition.bottom)
+            let yPos = getThrottledOffset(geometryHeight: geometry.size.height)
+                        
             cardDetails.opacity = min(((bottomOrigin - yPos) / 40), 1.0)
           }
           .onEnded { drag in
@@ -62,17 +68,30 @@ struct SlideOverCard<Content: View> : View {
   private func getCardHeight(geometryHeight: CGFloat, cardPosition: CardPosition) -> CGFloat {
     switch cardPosition {
     case .top:
-      return 50
+      return geometryHeight * 0.66
     case .middle:
-      return geometryHeight / 2
+      return geometryHeight * 0.66
     case .bottom:
       return geometryHeight - minCardHeight
     }
   }
   
-  private func getThrottledOffset() -> CGFloat {
-    // TODO: fix bug with dragging up at the top
-    return (dragState.translation.height * 0.5)
+  private func getThrottledOffset(geometryHeight: CGFloat) -> CGFloat {
+    let currentHeight = getCardHeight(geometryHeight: geometryHeight, cardPosition: cardDetails.position)
+    let maxHeight = getCardHeight(geometryHeight: geometryHeight, cardPosition: CardPosition.middle)
+    
+    let offset = dragState.translationHeightWithAdjustment
+    let throttledOffset = offset * 0.2
+//    print(maxHeight)
+//    print(currentHeight)
+//    print(offset)
+//    print(currentHeight + offset)
+    print("\n")
+    if (currentHeight + offset - throttledOffset) < maxHeight {
+      return maxHeight + throttledOffset
+    }
+    
+    return currentHeight + offset
   }
   
   
@@ -129,6 +148,17 @@ enum DragState {
       return .zero
     case .draggingUp(let translation), .draggingDown(let translation):
       return translation
+    }
+  }
+  
+  var translationHeightWithAdjustment: CGFloat {
+    switch self {
+    case .inactive:
+      return .zero
+    case .draggingUp(let translation):
+      return translation.height
+    case .draggingDown(let translation):
+      return translation.height
     }
   }
   
