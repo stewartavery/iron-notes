@@ -27,7 +27,7 @@ struct SlideOverCard<Content: View> : View {
         Handle()
         content().environmentObject(cardDetails)
       }
-      .background(colorScheme == .light ? Color.white : Color(UIColor.systemGray6))
+      .background(Color(UIColor.systemGray6))
       .cornerRadius(10.0)
       .shadow(color: Color(.sRGBLinear, white: 0, opacity: 0.13), radius: 10.0)
       .offset(y: getThrottledOffset(geometryHeight: geometry.size.height))

@@ -16,83 +16,60 @@ struct WorkoutCard: View {
   
   @Binding var workoutSheet: WorkoutSheet?
   
+  let columns = [
+    GridItem(.flexible()),
+    GridItem(.flexible())
+  ]
+  
   var body: some View {
     VStack(alignment: .leading) {
       HStack {
-        WorkoutRowLabel(workoutTemplate: workout.meta)
+        VStack(alignment: .leading) {
+          Text(workout.meta.name)
+            .font(.headline)
+          CurrentRunningTime()
+          
+        }
         
         Spacer()
         
-        Group {
-        switch stopwatchManager.mode {
-        case .running:
-          HStack {
-            StatusContent()
-            Spacer()
-            BottomBarContent()
-          }
-        case .stopped:
-          StartButton()
-        }
-      }.frame(width: 75)
-      }
+        WorkoutCardButton()
+      }          .padding(.horizontal)
+
       
-      VStack(alignment: .leading) {
+      Group {
         Divider()
-        if workout.isNotePresent {
-          Text(workout.wrappedNote)
-            .font(.body)
-            .padding(.top)
-        }
         
         VStack(alignment: .leading) {
-          Button {
-            workoutSheet = .workout
-          } label: {
-            HStack {
-              Label("Change Workout", systemImage: "note.text")
-              Spacer()
-            }.padding()
-            .gesture(DragGesture(minimumDistance: 0)
-                      .onChanged { _ in }
-                      .onEnded { _ in }
-            )
+          if workout.isNotePresent {
+            Text(workout.wrappedNote)
+              .font(.body)
+              .padding(.vertical)
+            Divider()
           }
           
-          Divider()
-          Button {
-            workoutSheet = .exercises
-          } label: {
-            HStack {
-              Label("Edit Exercises", systemImage: "pencil")
-              Spacer()
-            }.padding()
+          LazyVGrid(columns: columns, spacing: 15) {
+            WorkoutAction(title: "Change", icon: "note.text") {
+              workoutSheet = .workout
+            }
+            
+            WorkoutAction(title: "Edit", icon: "pencil") {
+              workoutSheet = .exercises
+            }
+            
+            WorkoutAction(title: "Remove", icon: "trash") {
+              print("remove")
+            }
           }
-          
-          
-          Divider()
-          
-          Button {
-            print("remove")
-          } label: {
-            HStack {
-              Label("Remove Workout", systemImage: "trash")
-              Spacer()
-            }.padding()
-          }
-          .foregroundColor(Color.red)
-          
+          .padding(.top)
         }
-        .foregroundColor(Color.orange)
-        .font(.headline)
-        
-        Spacer()
-        
-      }.padding(.top)
+        .padding(.top)
+        .padding(.horizontal)
+      }
       .opacity(Double(cardDetails.opacity))
+      
+      Spacer()
     }
-    .padding(.horizontal)
-    
   }
 }
 
@@ -100,7 +77,7 @@ struct WorkoutCard: View {
 struct WorkoutCard_Previews: PreviewProvider {
   @State static var workoutSheet: WorkoutSheet? = nil
   @State static var workoutStatus: WorkoutStatus = .stopped
-  @StateObject static var cardDetails: CardDetails = CardDetails(position: .top)
+  @StateObject static var cardDetails: CardDetails = CardDetails(position: .top, opacity: 1.0)
   
   static var previews: some View {
     WorkoutCard(workoutSheet: $workoutSheet)
@@ -108,6 +85,9 @@ struct WorkoutCard_Previews: PreviewProvider {
       .environmentObject(IronNotesModelFactory.getWorkout())
       .environmentObject(cardDetails)
       .environmentObject(WorkoutStore(managedObjectContext: PersistenceController.shared.container.viewContext))
+      .background(Color(UIColor.systemGray6))
   }
 }
 #endif
+
+

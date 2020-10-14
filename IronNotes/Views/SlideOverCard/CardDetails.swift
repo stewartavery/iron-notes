@@ -19,7 +19,8 @@ class CardDetails: ObservableObject {
   @Published var position: CardPosition
   @Published var opacity: CGFloat = 0
   
-  init(position: CardPosition = .bottom) {
+  init(position: CardPosition = .bottom, opacity: CGFloat = 0.0) {
     self.position = position
+    self.opacity = opacity
   }
 }
