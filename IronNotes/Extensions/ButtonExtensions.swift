@@ -42,7 +42,7 @@ struct WorkoutActionStyle: ButtonStyle {
   var colorScheme: ColorScheme
   
   func makeBody(configuration: Configuration) -> some View {
-    let primaryColor = colorScheme == .light ? Color(UIColor.systemGray6) : Color(UIColor.systemGray4)
+    let primaryColor = colorScheme == .light ? Color.white : Color(UIColor.systemGray4)
     let pressedColor = colorScheme == .light ? Color(UIColor.systemGray2) : Color(UIColor.systemGray2)
     let fontColor = colorScheme == .light ? Color.black : Color.white
     
