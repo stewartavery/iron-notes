@@ -17,9 +17,9 @@ extension WorkoutTemplate {
     return NSFetchRequest<WorkoutTemplate>(entityName: "WorkoutTemplate")
   }
   
-  @NSManaged public var desc: String
-  @NSManaged public var iconName: String
-  @NSManaged public var name: String
+  @NSManaged public var desc: String?
+  @NSManaged public var iconName: String?
+  @NSManaged public var name: String?
   @NSManaged public var workouts: NSSet?
   @NSManaged public var defaultExerciseTemplates: NSSet?
   @NSManaged public var id: UUID?

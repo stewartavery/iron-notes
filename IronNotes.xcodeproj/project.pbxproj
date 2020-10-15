@@ -27,6 +27,7 @@
 		50760627251449F600F2E5E0 /* ImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50760626251449F600F2E5E0 /* ImageExtensions.swift */; };
 		5076062F25144AB300F2E5E0 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5076062E25144AB300F2E5E0 /* ViewExtensions.swift */; };
 		507606362514551000F2E5E0 /* WorkoutHistoryContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507606352514551000F2E5E0 /* WorkoutHistoryContainer.swift */; };
+		508B9C942537EC5B003AF920 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 508B9C932537EC5B003AF920 /* StoreKit.framework */; };
 		508CFCCE24E645C100F9D77B /* KeyboardHeightPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508CFCCD24E645C100F9D77B /* KeyboardHeightPublisher.swift */; };
 		508CFCD024E645DE00F9D77B /* UIResponder+Current.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508CFCCF24E645DE00F9D77B /* UIResponder+Current.swift */; };
 		509288A224DF269300328EDF /* IronNotesModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509288A124DF269300328EDF /* IronNotesModelFactory.swift */; };
@@ -92,6 +93,7 @@
 		50760626251449F600F2E5E0 /* ImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageExtensions.swift; sourceTree = "<group>"; };
 		5076062E25144AB300F2E5E0 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		507606352514551000F2E5E0 /* WorkoutHistoryContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistoryContainer.swift; sourceTree = "<group>"; };
+		508B9C932537EC5B003AF920 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		508CFCCD24E645C100F9D77B /* KeyboardHeightPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardHeightPublisher.swift; sourceTree = "<group>"; };
 		508CFCCF24E645DE00F9D77B /* UIResponder+Current.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Current.swift"; sourceTree = "<group>"; };
 		509288A124DF269300328EDF /* IronNotesModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IronNotesModelFactory.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5044A5042507201400085739 /* CloudKit.framework in Frameworks */,
+				508B9C942537EC5B003AF920 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,6 +199,7 @@
 		5044A5022507201400085739 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				508B9C932537EC5B003AF920 /* StoreKit.framework */,
 				5044A5032507201400085739 /* CloudKit.framework */,
 			);
 			name = Frameworks;

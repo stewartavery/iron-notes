@@ -22,7 +22,7 @@ extension Workout {
   @NSManaged public var startTime: Date?
   @NSManaged public var id: UUID?
   @NSManaged public var routines: NSSet?
-  @NSManaged public var meta: WorkoutTemplate
+  @NSManaged public var meta: WorkoutTemplate?
   
   public var wrappedNote: String {
     return note ?? ""

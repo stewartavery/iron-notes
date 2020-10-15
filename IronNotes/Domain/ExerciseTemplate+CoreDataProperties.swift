@@ -17,11 +17,11 @@ extension ExerciseTemplate {
     return NSFetchRequest<ExerciseTemplate>(entityName: "ExerciseTemplate")
   }
   
-  @NSManaged public var desc: String
+  @NSManaged public var desc: String?
   @NSManaged public var exercises: NSSet?
   @NSManaged public var exerciseType: String
   @NSManaged public var muscleGroups: NSSet?
-  @NSManaged public var name: String
+  @NSManaged public var name: String?
   @NSManaged public var workoutTemplates: NSSet?
   @NSManaged public var id: UUID?
 

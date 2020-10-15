@@ -17,7 +17,7 @@ extension MuscleGroup {
     return NSFetchRequest<MuscleGroup>(entityName: "MuscleGroup")
   }
   
-  @NSManaged public var name: String
+  @NSManaged public var name: String?
   @NSManaged public var exercises: NSSet?
 }
 
