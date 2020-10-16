@@ -65,4 +65,5 @@ public class Workout: NSManagedObject {
     df.dateFormat = "yyyy-MM-dd hh:mm:ss"
     return df.string(from: wrappedStartTime)
   }
+  
 }

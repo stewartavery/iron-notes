@@ -14,7 +14,7 @@ enum WorkoutStatus {
 
 class WorkoutStore: NSObject, ObservableObject {
   @Published var items: [Workout] = []
-  @Published var groupedItems: [DateComponents : [Workout]] = [DateComponents: [Workout]]()
+  @Published var groupedItems: [String : [Workout]] = [String: [Workout]]()
   @Published var primaryWorkout: Workout? = nil
   @Published var workoutStatus: WorkoutStatus = .stopped
   
@@ -34,10 +34,7 @@ class WorkoutStore: NSObject, ObservableObject {
       let fetchedItems = workoutController.fetchedObjects ?? []
       items = fetchedItems.filter { $0.startTime != nil }
     
-      groupedItems = Dictionary.init(grouping: items) {
-        return Calendar.current.dateComponents([.month, .year], from: ($0.startTime)!)
-      }
-      
+      createGroupedList(with: items)
     } catch {
       print("failed to fetch workouts!")
     }
@@ -52,6 +49,13 @@ class WorkoutStore: NSObject, ObservableObject {
     workoutStatus = .stopped
     primaryWorkout = nil
   }
+  
+  func createGroupedList(with workouts: [Workout]) -> Void {
+    self.groupedItems = Dictionary.init(grouping: workouts) {
+      let comps = Calendar.current.dateComponents([.month, .year], from: $0.wrappedStartTime)
+      return String(format: "%ld-%.2ld", comps.year!, comps.month!)
+    }
+  }
 }
 
 extension WorkoutStore: NSFetchedResultsControllerDelegate {
@@ -60,9 +64,8 @@ extension WorkoutStore: NSFetchedResultsControllerDelegate {
       else { return }
 
     items = templates.filter {$0.startTime != nil}
-    groupedItems = Dictionary.init(grouping: items) {
-      return Calendar.current.dateComponents([.month, .year], from: ($0.startTime)!)
-    }
+
+    createGroupedList(with: items)
     
     print(groupedItems)
   }

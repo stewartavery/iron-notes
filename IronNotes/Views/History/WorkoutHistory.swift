@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct DateHeader: View {
-  var components: DateComponents
+  var dateKey: String
   var itemCount: Int
   
   @Environment(\.colorScheme) var colorScheme: ColorScheme
@@ -17,7 +17,7 @@ struct DateHeader: View {
   var body: some View {
     VStack(alignment: .leading, spacing: 0) {
       HStack {
-        Text(getMonthAndYear(components))
+        Text(getMonthAndYear(dateKey))
           .padding(.vertical, 10)
         Spacer()
         Text("Total: \(String(itemCount))" )
@@ -33,10 +33,11 @@ struct DateHeader: View {
     }
   }
   
-  
-  private func getMonthAndYear(_ components: DateComponents) -> String {
-    guard let month = components.month else { return "" }
-    guard let year = components.year else { return "" }
+  private func getMonthAndYear(_ dateKey: String) -> String {
+    let components = dateKey.components(separatedBy: "-")
+    
+    let year = components[0]
+    let month = Int(components[1]) ?? 12
     
     // TODO: consider locale
     let formatter = DateFormatter()
@@ -48,7 +49,7 @@ struct DateHeader: View {
 
 struct WorkoutHistory: View {
   @Environment(\.colorScheme) var colorScheme: ColorScheme
-  var groupedWorkouts: [DateComponents : [Workout]]
+  var groupedWorkouts: [String : [Workout]]
   
   var body: some View {
     NavigationView {
@@ -65,9 +66,9 @@ struct WorkoutHistory: View {
         VStack {          
           ScrollView {
             LazyVStack(alignment: .leading, spacing: 5, pinnedViews: [.sectionHeaders]) {
-              ForEach(Array(groupedWorkouts.keys), id: \.self) { key in
+              ForEach(groupedWorkouts.keys.sorted(by: >), id: \.self) { key in
                 if let workouts = groupedWorkouts[key] {
-                  Section(header: DateHeader(components: key, itemCount: workouts.count)) {
+                  Section(header: DateHeader(dateKey: key, itemCount: workouts.count)) {
                     ForEach(workouts) { workout in
                       NavigationLink(destination: WorkoutHistoryDetail(workout: workout)) {
                         WorkoutHistoryRow(workout: workout)
@@ -89,9 +90,10 @@ struct WorkoutHistory: View {
 }
 
 struct WorkoutHistory_Previews: PreviewProvider {
-  static var groupedWorkouts: [DateComponents : [Workout]] {
+  static var groupedWorkouts: [String : [Workout]] {
     return Dictionary.init(grouping: IronNotesModelFactory.getWorkouts()) {
-      return Calendar.current.dateComponents([.month, .year], from: ($0.startTime)!)
+      let comps = Calendar.current.dateComponents([.month, .year], from: $0.wrappedStartTime)
+      return String(format: "%ld-%.2ld", comps.year!, comps.month!)
     }
   }
   

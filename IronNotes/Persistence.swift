@@ -33,6 +33,8 @@ struct PersistenceController {
     container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
     container.viewContext.automaticallyMergesChangesFromParent = true
     container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+      print(storeDescription)
+      
       if let error = error as NSError? {
         fatalError("Unresolved error \(error), \(error.userInfo)")
       }
