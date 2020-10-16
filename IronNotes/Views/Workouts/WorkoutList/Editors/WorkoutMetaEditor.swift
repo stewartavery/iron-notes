@@ -18,8 +18,8 @@ struct WorkoutMetaEditor: View {
   
   init(workout: Workout) {
     self.workout = workout
-    self._workoutName = State<String>(initialValue: workout.meta.name)
-    self._workoutDescription = State<String>(initialValue: workout.meta.desc)
+    self._workoutName = State<String>(initialValue: workout.meta?.wrappedName ?? "")
+    self._workoutDescription = State<String>(initialValue: workout.meta?.wrappedDesc ?? "")
   }
   
   var body: some View {

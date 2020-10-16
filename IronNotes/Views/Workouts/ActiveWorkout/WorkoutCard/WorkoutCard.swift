@@ -21,11 +21,15 @@ struct WorkoutCard: View {
     GridItem(.flexible())
   ]
   
+  var workoutMetaName: String {
+    return workout.meta?.wrappedName ?? ""
+  }
+    
   var body: some View {
     VStack(alignment: .leading) {
       HStack {
         VStack(alignment: .leading) {
-          Text(workout.meta.name)
+          Text(workoutMetaName)
             .font(.headline)
           CurrentRunningTime()
           

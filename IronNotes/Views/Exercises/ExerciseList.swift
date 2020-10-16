@@ -36,7 +36,7 @@ struct ExerciseList: View {
       List {
         ForEach(exerciseTemplates) { exerciseTemplate in
           NavigationLink(destination: ExerciseDetails()) {
-            Text(exerciseTemplate.name)
+            Text(exerciseTemplate.wrappedName)
               .font(.system(size: 16))
           }
         }

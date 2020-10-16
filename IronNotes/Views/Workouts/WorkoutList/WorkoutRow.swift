@@ -24,7 +24,7 @@ struct WorkoutRowLabel: View {
   
   var body: some View {
     return VStack(alignment: .leading) {
-      Text(workoutTemplate.name)
+      Text(workoutTemplate.wrappedName)
         .font(.headline)
 //      Text(workoutTemplate.desc)
 //        .font(.subheadline)
@@ -55,7 +55,7 @@ struct WorkoutRow: View {
   
   var body: some View {
     HStack {
-      RowImage(iconName: workoutTemplate.iconName)
+      RowImage(iconName: workoutTemplate.wrappedIconName)
       
       WorkoutRowLabel(workoutTemplate: workoutTemplate)
         .padding(.leading, CGFloat(10))

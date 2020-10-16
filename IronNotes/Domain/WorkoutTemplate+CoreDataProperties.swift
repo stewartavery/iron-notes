@@ -24,6 +24,22 @@ extension WorkoutTemplate {
   @NSManaged public var defaultExerciseTemplates: NSSet?
   @NSManaged public var id: UUID?
   
+  public var wrappedDesc: String {
+    return desc ?? ""
+  }
+  
+  public var wrappedIconName: String {
+    return iconName ?? ""
+  }
+  
+  public var wrappedName: String {
+    return name ?? ""
+  }
+  
+  public var wrappedId: UUID {
+    return id ?? UUID()
+  }
+  
   public var workoutSetArray: [Workout] {
      let set = workouts as? Set<Workout> ?? []
      
@@ -36,7 +52,7 @@ extension WorkoutTemplate {
       let set = defaultExerciseTemplates as? Set<ExerciseTemplate> ?? []
       
       return set.sorted {
-        $0.name > $1.name
+        $0.wrappedName > $1.wrappedName
       }
     }
    

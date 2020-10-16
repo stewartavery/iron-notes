@@ -28,12 +28,12 @@ extension Workout {
     return note ?? ""
   }
   
-  public var isNotePresent: Bool {
-    return wrappedNote.count > 0
-  }
-  
   public var wrappedStartTime: Date {
     return startTime ?? Date()
+  }
+  
+  public var wrappedId: UUID {
+    return id ?? UUID()
   }
 
   public var routinesArray: [Exercise] {
@@ -42,12 +42,6 @@ extension Workout {
     return set.sorted {
       $0.position < $1.position
     }
-  }
-  
-  public var readableDate: String {
-    let df = DateFormatter()
-    df.dateFormat = "yyyy-MM-dd hh:mm:ss"
-    return df.string(from: wrappedStartTime)
   }
   
 }

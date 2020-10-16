@@ -30,16 +30,20 @@ struct ExerciseCard: View {
   
   @State private var showDetail = false
   
+  var exerciseMetaName: String {
+    return exercise.meta?.wrappedName ?? ""
+  }
+    
   var body: some View {
     VStack(alignment: .leading) {
       HStack {
-        Text(exercise.meta.name)
+        Text(exerciseMetaName)
           .font(.headline)
           .padding(.top, 10)
         Spacer()
       }
       
-      TextField("Notes", text: $exercise.note)
+      TextField("Notes", text: $exercise.note ?? "")
         .font(.subheadline)
         .foregroundColor(Color.gray)
         .padding(.vertical, 5)

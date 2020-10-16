@@ -19,11 +19,27 @@ extension ExerciseTemplate {
   
   @NSManaged public var desc: String?
   @NSManaged public var exercises: NSSet?
-  @NSManaged public var exerciseType: String
+  @NSManaged public var exerciseType: String?
   @NSManaged public var muscleGroups: NSSet?
   @NSManaged public var name: String?
   @NSManaged public var workoutTemplates: NSSet?
   @NSManaged public var id: UUID?
+  
+  public var wrappedDesc: String {
+    return desc ?? ""
+  }
+  
+  public var wrappedExerciseType: String {
+    return exerciseType ?? "barbell"
+  }
+  
+  public var wrappedName: String {
+    return name ?? ""
+  }
+  
+  public var wrappedId: UUID {
+    return id ?? UUID()
+  }
 
   
 }

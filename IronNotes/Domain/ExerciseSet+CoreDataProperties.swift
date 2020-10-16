@@ -24,6 +24,10 @@ extension ExerciseSet {
   @NSManaged public var exercise: Exercise?
   @NSManaged public var isCompleted: Bool
   
+  public var wrappedId: UUID {
+    return id ?? UUID()
+  }
+  
 }
 
 extension ExerciseSet: Identifiable {

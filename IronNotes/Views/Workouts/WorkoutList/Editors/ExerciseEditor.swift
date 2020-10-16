@@ -24,7 +24,7 @@ struct ExerciseEditor: View {
     )]) var exerciseTemplates: FetchedResults<ExerciseTemplate>
   
   var addedTemplates: [ExerciseTemplate] {
-    return workout.routinesArray.map { $0.meta }
+    return workout.routinesArray.compactMap { $0.meta }
   }
   
   var unaddedExercises: [ExerciseTemplate] {
@@ -110,7 +110,7 @@ struct ExerciseEditor: View {
     
     do {
       try moc.save()
-      print("Exercise added: \(newExercise.meta.name)")
+      print("Exercise added: \(exercise.wrappedName)")
     } catch {
       print(error.localizedDescription)
     }
@@ -121,7 +121,7 @@ struct RemoveExerciseRow: View {
   var exerciseTemplate: ExerciseTemplate
   
   var body: some View {
-    Text(exerciseTemplate.name)
+    Text(exerciseTemplate.wrappedName)
   }
 }
 
@@ -132,7 +132,7 @@ struct AddExerciseRow: View {
   
   var body: some View {
     Label {
-      Text(exerciseTemplate.name)
+      Text(exerciseTemplate.wrappedName)
     } icon: {
       Image(systemName: "plus.circle.fill")
         .foregroundColor(Color.green)

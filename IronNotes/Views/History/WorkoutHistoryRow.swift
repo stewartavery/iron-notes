@@ -12,10 +12,14 @@ struct WorkoutHistoryRow: View {
   @Environment(\.colorScheme) var colorScheme: ColorScheme
   var workout: Workout
   
+  var workoutMetaName: String {
+    return workout.meta?.wrappedName ?? ""
+  }
+  
   var body: some View {
     HStack {
       VStack(alignment: .leading) {
-        Text(workout.meta.name)
+        Text(workoutMetaName)
           .font(.headline)
         Text(workout.readableDate)
           .font(.body)

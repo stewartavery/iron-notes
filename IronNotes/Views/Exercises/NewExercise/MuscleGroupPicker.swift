@@ -9,16 +9,18 @@
 import SwiftUI
 
 struct MultipleSelectionRow: View {
-  var muscleGroup: MuscleGroup
   @Binding var unsavedMuscleGroups: [MuscleGroup]
   @Environment(\.colorScheme) var colorScheme: ColorScheme
+  
+  var muscleGroup: MuscleGroup
   
   var body: some View {
     Button(action: handleSelection) {
       HStack {
-        Text(self.muscleGroup.name)
+        Text(muscleGroup.name ?? "")
           .font(.body)
-        if self.unsavedMuscleGroups.contains(self.muscleGroup) {
+        
+        if unsavedMuscleGroups.contains(muscleGroup) {
           Spacer()
           Image(systemName: "checkmark").foregroundColor(.blue)
         }
@@ -39,7 +41,7 @@ struct MultipleSelectionRow: View {
 struct MuscleGroupPicker: View {
   @FetchRequest(entity: MuscleGroup.entity(),
                 sortDescriptors: [NSSortDescriptor(keyPath: \MuscleGroup.name, ascending: true)
-  ]) var muscleGroups: FetchedResults<MuscleGroup>
+                ]) var muscleGroups: FetchedResults<MuscleGroup>
   
   @State private var unsavedMuscleGroups = [MuscleGroup]()
   @ObservedObject var selectedMuscleGroups: SelectedMuscleGroups
@@ -48,7 +50,7 @@ struct MuscleGroupPicker: View {
     List {
       Section(header: Text("APPLICABLE MUSCLE GROUPS").padding(.top, 20)) {
         ForEach(muscleGroups, id: \.self) { muscleGroup in
-          MultipleSelectionRow(muscleGroup: muscleGroup, unsavedMuscleGroups: self.$unsavedMuscleGroups)
+          MultipleSelectionRow(unsavedMuscleGroups: $unsavedMuscleGroups, muscleGroup: muscleGroup)
         }
       }
     }
@@ -56,8 +58,8 @@ struct MuscleGroupPicker: View {
     .onDisappear(perform: {
       self.selectedMuscleGroups.muscleGroups = self.unsavedMuscleGroups
     })
-      .listStyle(GroupedListStyle())
-      .navigationBarTitle("Muscle Groups", displayMode: .inline)
+    .listStyle(GroupedListStyle())
+    .navigationBarTitle("Muscle Groups", displayMode: .inline)
   }
   
 }

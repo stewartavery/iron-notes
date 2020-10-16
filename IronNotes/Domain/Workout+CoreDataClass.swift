@@ -55,4 +55,14 @@ public class Workout: NSManagedObject {
   func deleteWorkout() -> Void {
     PersistenceController.shared.container.viewContext.delete(self)
   }
+  
+  public var isNotePresent: Bool {
+    return wrappedNote.count > 0
+  }
+  
+  public var readableDate: String {
+    let df = DateFormatter()
+    df.dateFormat = "yyyy-MM-dd hh:mm:ss"
+    return df.string(from: wrappedStartTime)
+  }
 }

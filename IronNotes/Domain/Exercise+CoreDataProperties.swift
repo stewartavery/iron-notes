@@ -23,6 +23,14 @@ extension Exercise {
   @NSManaged public var id: UUID?
   @NSManaged public var sets: NSSet?
   @NSManaged public var workout: Workout?
+  
+  public var wrappedNote: String {
+    return note ?? ""
+  }
+  
+  public var wrappedId: UUID {
+    return id ?? UUID()
+  }
 
   public var exerciseSetArray: [ExerciseSet] {
     let set = sets as? Set<ExerciseSet> ?? []
