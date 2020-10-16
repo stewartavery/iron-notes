@@ -24,11 +24,7 @@ struct DateHeader: View {
       }
       .padding(.horizontal, 20)
       .font(.headline)
-      .background(colorScheme == .light ? Color.white : Color.black)
-      
-      if colorScheme == .light {
-        Divider()
-      }
+      .background(colorScheme == .light ? Color(UIColor.systemGray5) : Color.black)
       
     }
   }
