@@ -10,7 +10,6 @@ import SwiftUI
 import CoreData
 
 struct WorkoutRowLabel: View {
-  @Environment(\.colorScheme) var colorScheme: ColorScheme
   @EnvironmentObject var workoutStore: WorkoutStore
   
   var workoutTemplate: WorkoutTemplate
@@ -26,8 +25,6 @@ struct WorkoutRowLabel: View {
     return VStack(alignment: .leading) {
       Text(workoutTemplate.wrappedName)
         .font(.headline)
-//      Text(workoutTemplate.desc)
-//        .font(.subheadline)
       if let unwrappedWorkout = workout {
         Text(getWorkoutDate(workout: unwrappedWorkout))
           .font(.subheadline)
@@ -38,7 +35,7 @@ struct WorkoutRowLabel: View {
           .foregroundColor(.gray)
       }
       
-    }.accentColor(colorScheme == .light ? Color.black : Color.white)
+    }.accentColor(Color(.label))
     
   }
   

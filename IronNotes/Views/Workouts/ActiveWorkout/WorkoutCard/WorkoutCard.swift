@@ -24,7 +24,7 @@ struct WorkoutCard: View {
   var workoutMetaName: String {
     return workout.meta?.wrappedName ?? ""
   }
-    
+  
   var body: some View {
     VStack(alignment: .leading) {
       HStack {
@@ -39,7 +39,7 @@ struct WorkoutCard: View {
         
         WorkoutCardButton()
       }          .padding(.horizontal)
-
+      
       
       Group {
         Divider()
@@ -89,7 +89,7 @@ struct WorkoutCard_Previews: PreviewProvider {
       .environmentObject(IronNotesModelFactory.getWorkout())
       .environmentObject(cardDetails)
       .environmentObject(WorkoutStore(managedObjectContext: PersistenceController.shared.container.viewContext))
-      .background(Color(UIColor.systemGray6))
+      .background(Color(.systemGroupedBackground))
   }
 }
 #endif

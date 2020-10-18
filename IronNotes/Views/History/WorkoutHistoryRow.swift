@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct WorkoutHistoryRow: View {
-  @Environment(\.colorScheme) var colorScheme: ColorScheme
   var workout: Workout
   
   var workoutMetaName: String {
@@ -37,7 +36,7 @@ struct WorkoutHistoryRow: View {
     .padding()
     .background(
       RoundedRectangle(cornerRadius: 10)
-        .fill(colorScheme == .light ? Color.white : Color(UIColor.systemGray6))
+        .fill(Color(.secondarySystemGroupedBackground))
     )
   }
 }
@@ -46,12 +45,12 @@ struct WorkoutHistoryRow_Previews: PreviewProvider {
   static var previews: some View {
     Group {
       ZStack {
-        Color(UIColor.systemGray6)
+        Color(.systemGroupedBackground)
         WorkoutHistoryRow(workout: IronNotesModelFactory.getWorkout())
           .padding()
       }
       ZStack {
-        Color.black
+        Color(.systemGroupedBackground)
         WorkoutHistoryRow(workout: IronNotesModelFactory.getWorkout())
           .padding()
           .environment(\.colorScheme, .dark)

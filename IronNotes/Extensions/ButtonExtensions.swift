@@ -44,15 +44,12 @@ struct WorkoutActionStyle: ButtonStyle {
   func makeBody(configuration: Configuration) -> some View {
     let primaryColor = colorScheme == .light ? Color.white : Color(UIColor.systemGray4)
     let pressedColor = colorScheme == .light ? Color(UIColor.systemGray2) : Color(UIColor.systemGray2)
-    let fontColor = colorScheme == .light ? Color.black : Color.white
     
     return configuration.label
       .padding()
       .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-      .foregroundColor(fontColor)
-      .background(
-        RoundedRectangle(cornerRadius: 10)
-          .fill(configuration.isPressed ? pressedColor : primaryColor)
-      )
+      .foregroundColor(Color(.label))
+      .background(configuration.isPressed ? pressedColor : primaryColor)
+      .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
   }
 }

@@ -23,6 +23,7 @@ struct WorkoutAction: View {
     } label : {
       Label {
         Text(title)
+          .font(.headline)
       } icon: {
         Image(systemName: icon)
       }

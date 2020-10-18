@@ -44,20 +44,13 @@ struct DateHeader: View {
 }
 
 struct WorkoutHistory: View {
-  @Environment(\.colorScheme) var colorScheme: ColorScheme
   var groupedWorkouts: [String : [Workout]]
   
   var body: some View {
     NavigationView {
       ZStack {
-        switch colorScheme {
-        case .light:
-          Color(UIColor.systemGray6).edgesIgnoringSafeArea(.all)
-        case .dark:
-          Color.black.edgesIgnoringSafeArea(.all)
-        @unknown default:
-          Color(UIColor.systemGray6).edgesIgnoringSafeArea(.all)
-        }
+        Color(.systemGroupedBackground)
+          .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
         
         VStack {          
           ScrollView {
@@ -68,7 +61,7 @@ struct WorkoutHistory: View {
                     ForEach(workouts) { workout in
                       NavigationLink(destination: WorkoutHistoryDetail(workout: workout)) {
                         WorkoutHistoryRow(workout: workout)
-                          .accentColor(colorScheme == .light ? Color.black : Color.white)
+                          .accentColor(Color(.label))
                       }
                       .padding(.horizontal, 20)
                     }

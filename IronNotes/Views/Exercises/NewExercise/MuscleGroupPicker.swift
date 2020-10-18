@@ -10,7 +10,6 @@ import SwiftUI
 
 struct MultipleSelectionRow: View {
   @Binding var unsavedMuscleGroups: [MuscleGroup]
-  @Environment(\.colorScheme) var colorScheme: ColorScheme
   
   var muscleGroup: MuscleGroup
   
@@ -24,7 +23,7 @@ struct MultipleSelectionRow: View {
           Spacer()
           Image(systemName: "checkmark").foregroundColor(.blue)
         }
-      }.foregroundColor(colorScheme == .light ? Color.black : Color.white)
+      }.foregroundColor(Color(.label))
     }
   }
   
