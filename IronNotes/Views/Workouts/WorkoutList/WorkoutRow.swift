@@ -78,6 +78,7 @@ struct WorkoutRow_Previews: PreviewProvider {
     return Group {
       WorkoutRow(workoutTemplate: workoutMeta)
         .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
+        .environmentObject(WorkoutStore(managedObjectContext: PersistenceController.shared.container.viewContext))
     }
     
     

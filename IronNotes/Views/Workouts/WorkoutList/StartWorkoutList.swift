@@ -11,7 +11,7 @@ import SwiftUI
 struct StartWorkoutList : View {
   @Environment(\.managedObjectContext) var moc
   @Environment(\.scenePhase) private var scenePhase
-
+  
   @EnvironmentObject var workoutStore: WorkoutStore
   @EnvironmentObject var workoutTemplateStore: WorkoutTemplateStore
   @EnvironmentObject var keyboardMonitor: KeyboardMonitor
@@ -19,23 +19,56 @@ struct StartWorkoutList : View {
   @State var isCreateViewVisible = false
   @State var selectedTemplate: WorkoutTemplate? = nil
   
+  var nonActiveWorkouts: [WorkoutTemplate] {
+    switch (workoutStore.workoutStatus, workoutStore.primaryWorkout)  {
+    case (.running, .some(let workout)):
+      guard let meta = workout.meta else {
+        return workoutTemplateStore.items
+      }
+      
+      return workoutTemplateStore.items.filter {
+        meta !== $0
+      }
+    default:
+      return workoutTemplateStore.items
+    }
+  }
+  
   var body: some View {
     NavigationView {
       List {
-        ForEach(workoutTemplateStore.items) { workoutTemplate in
-          Button {
-            if workoutStore.primaryWorkout == nil {
-              workoutStore.setupPrimaryWorkout(with: workoutTemplate)
+        Group {
+          switch (workoutStore.workoutStatus, workoutStore.primaryWorkout) {
+          case (.running, .some(let workout)):
+            if let meta = workout.meta {
+              Section(header: Text("Active Workout")) {
+                Button {
+                  selectedTemplate = meta
+                } label: {
+                  WorkoutRow(workoutTemplate: meta)
+                }
+              }
             }
-            selectedTemplate = workoutTemplate
-          } label: {
-            WorkoutRow(workoutTemplate: workoutTemplate)
+          default:
+            EmptyView()
           }
         }
-        Button {
-          isCreateViewVisible.toggle()
-        } label: {
-          AddWorkoutRow()
+        Section {
+          ForEach(nonActiveWorkouts) { workoutTemplate in
+            Button {
+              if workoutStore.primaryWorkout == nil {
+                workoutStore.setupPrimaryWorkout(with: workoutTemplate)
+              }
+              selectedTemplate = workoutTemplate
+            } label: {
+              WorkoutRow(workoutTemplate: workoutTemplate)
+            }
+          }
+          Button {
+            isCreateViewVisible.toggle()
+          } label: {
+            AddWorkoutRow()
+          }
         }
         
       }
@@ -58,7 +91,7 @@ struct StartWorkoutList : View {
         default:
           EmptyView()
         }
-       
+        
       }
       .navigationBarTitle("Workouts")
     }
@@ -72,6 +105,7 @@ struct StartWorkoutList : View {
       workout.deleteWorkout()
       workoutStore.finishPrimaryWorkout()
     default:
+      // a workout is currently going on
       break
     }
   }
