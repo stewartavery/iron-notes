@@ -34,6 +34,12 @@ struct StartWorkoutList : View {
     }
   }
   
+  var activeWorkoutHeader: some View {
+    Text("Active Workout")
+      .font(.headline)
+      .textCase(nil)
+  }
+  
   var body: some View {
     NavigationView {
       List {
@@ -41,7 +47,7 @@ struct StartWorkoutList : View {
           switch (workoutStore.workoutStatus, workoutStore.primaryWorkout) {
           case (.running, .some(let workout)):
             if let meta = workout.meta {
-              Section(header: Text("Active Workout")) {
+              Section(header: activeWorkoutHeader) {
                 Button {
                   selectedTemplate = meta
                 } label: {
