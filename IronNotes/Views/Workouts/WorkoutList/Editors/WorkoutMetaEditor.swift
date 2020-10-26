@@ -33,10 +33,8 @@ struct WorkoutMetaEditor: View {
       .listStyle(InsetGroupedListStyle())
       .navigationBarTitle(Text("Workout Details"), displayMode: .inline)
       .toolbar {
-        ToolbarItem(placement: .primaryAction) {
-          Button("Done") {
-            presentationMode.wrappedValue.dismiss()
-          }
+        Button("Done") {
+          presentationMode.wrappedValue.dismiss()
         }
       }
     }

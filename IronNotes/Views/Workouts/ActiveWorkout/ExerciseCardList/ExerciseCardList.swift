@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+
 struct ExerciseCardList: View {
   @Environment(\.managedObjectContext) var moc
   @Environment(\.presentationMode) var presentationMode
@@ -17,26 +18,30 @@ struct ExerciseCardList: View {
   
   @Binding var workoutSheet: WorkoutSheet?
   
+  @State private var editMode = EditMode.inactive
+
   @State private var bottomPadding: CGFloat = minCardHeight
+  @State private var isOnlyTitleVisible: Bool = false
   
   var body: some View {
     NavigationView {
       List {
-        //        if workout.routinesArray.count == 0 {
-        //          VStack {
-        //            Text("There's nothing here.")
-        //            Button("Add some workouts") {
-        //              print("HEY")
-        //            }
-        //            Text("to get started.")
-        //          }
-        //        }
         ForEach(workout.routinesArray) { exercise in
-          Section {
-            ExerciseCard(exercise: exercise, isActive: true)
+          ExerciseCard(exercise: exercise, isActive: true, isOnlyTitleVisible: isOnlyTitleVisible)
+            .environment(\.editMode, Binding.constant(EditMode.active))
+
+        }.onMove(perform: moveRow)
+
+        
+        Button("toggle") {
+          withAnimation {
+            isOnlyTitleVisible.toggle()
+            editMode = isOnlyTitleVisible ? EditMode.active : EditMode.inactive
           }
         }
       }
+      .environment(\.editMode, $editMode)
+
       .onChange(of: keyboardMonitor.keyboardStatus, perform: { _ in
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
           bottomPadding = getBottomPadding(keyboardMonitor.keyboardStatus)
@@ -70,6 +75,27 @@ struct ExerciseCardList: View {
     }
   }
   
+  func moveRow(from source: IndexSet, to destination: Int) {
+    print(destination)
+    var modifiedRoutines = workout.routinesArray
+    modifiedRoutines.move(fromOffsets: source, toOffset: destination)
+    
+    for reverseIndex in stride(
+      from: modifiedRoutines.count - 1,
+      through: 0,
+      by: -1) {
+      modifiedRoutines[reverseIndex].position = Int16(reverseIndex)
+    }
+    
+    print(modifiedRoutines)
+    
+    do {
+      try moc.save()
+    } catch {
+      print(error.localizedDescription)
+    }
+  }
+  
   private func getBottomPadding(_ keyboardStatus: KeyboardStatus) -> CGFloat {
     switch keyboardStatus {
     case .hidden:
@@ -92,8 +118,8 @@ struct ExerciseCardList_Previews: PreviewProvider {
         .previewDevice("iPhone SE")
         .environment(\.sizeCategory, .extraExtraLarge)
         .environment(\.colorScheme, .dark)
-
-
+      
+      
     }
     .environmentObject(KeyboardMonitor())
     .environmentObject(IronNotesModelFactory.getWorkout())

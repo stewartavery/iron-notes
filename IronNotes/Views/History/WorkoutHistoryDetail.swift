@@ -15,7 +15,7 @@ struct WorkoutHistoryDetail: View {
     List {
       ForEach(workout.routinesArray) { exercise in
         Section {
-          ExerciseCard(exercise: exercise, isActive: false)
+          ExerciseCard(exercise: exercise, isActive: false, isOnlyTitleVisible: false)
         }
       }
       .listStyle(InsetGroupedListStyle())

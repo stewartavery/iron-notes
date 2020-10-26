@@ -38,7 +38,7 @@ struct WorkoutCard: View {
         Spacer()
         
         WorkoutCardButton()
-      }          .padding(.horizontal)
+      }.padding(.horizontal)
       
       
       Group {
@@ -49,10 +49,11 @@ struct WorkoutCard: View {
             Text(workout.wrappedNote)
               .font(.body)
               .padding(.vertical)
+            
             Divider()
           }
           
-          LazyVGrid(columns: columns, spacing: 15) {
+          LazyVGrid(columns: columns, spacing: 10) {
             WorkoutAction(title: "Change", icon: "note.text") {
               workoutSheet = .workout
             }
@@ -84,12 +85,22 @@ struct WorkoutCard_Previews: PreviewProvider {
   @StateObject static var cardDetails: CardDetails = CardDetails(position: .top, opacity: 1.0)
   
   static var previews: some View {
-    WorkoutCard(workoutSheet: $workoutSheet)
-      .environmentObject(StopwatchManager())
-      .environmentObject(IronNotesModelFactory.getWorkout())
-      .environmentObject(cardDetails)
-      .environmentObject(WorkoutStore(managedObjectContext: PersistenceController.shared.container.viewContext))
-      .background(Color(.systemGroupedBackground))
+    Group {
+      WorkoutCard(workoutSheet: $workoutSheet)
+        .environmentObject(StopwatchManager())
+        .environmentObject(IronNotesModelFactory.getWorkout())
+        .environmentObject(cardDetails)
+        .environmentObject(WorkoutStore(managedObjectContext: PersistenceController.shared.container.viewContext))
+        .background(Color(.systemGroupedBackground))
+      WorkoutCard(workoutSheet: $workoutSheet)
+        .preferredColorScheme(.dark)
+        .environment(\.sizeCategory, .extraExtraExtraLarge)
+        .environmentObject(StopwatchManager())
+        .environmentObject(IronNotesModelFactory.getWorkout())
+        .environmentObject(cardDetails)
+        .environmentObject(WorkoutStore(managedObjectContext: PersistenceController.shared.container.viewContext))
+        .background(Color(.systemGroupedBackground))
+    }
   }
 }
 #endif

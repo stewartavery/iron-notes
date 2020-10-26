@@ -23,50 +23,63 @@ struct AddSet: View {
 }
 
 struct ExerciseCard: View {
+  @Namespace private var animation
+  
   @Environment(\.managedObjectContext) var moc
   @ObservedObject var exercise: Exercise
   
   var isActive: Bool
+  
+  var isOnlyTitleVisible: Bool
   
   @State private var showDetail = false
   
   var exerciseMetaName: String {
     return exercise.meta?.wrappedName ?? ""
   }
-    
+  
   var body: some View {
-    VStack(alignment: .leading) {
-      HStack {
+    
+    Section {
+      VStack(alignment: .leading) {
         Text(exerciseMetaName)
           .font(.headline)
-          .padding(.top, 10)
-        Spacer()
-      }
-      
-      TextField("Notes", text: $exercise.note ?? "")
-        .font(.subheadline)
-        .foregroundColor(Color.gray)
-        .padding(.vertical, 5)
-    }
-    ForEach(exercise.exerciseSetArray) { exerciseSet in
-      ExerciseCardRow(exerciseSet: exerciseSet, isActive: isActive)
-    }
-    .onDelete(perform: deleteSet)
-    .animation(showDetail ? .spring() : nil)
-    .transition(.move(edge: .bottom))
-    .onAppear() {
-      DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-        showDetail = true
-      }
-    }
-    
-    if isActive {
-      Button {
-        withAnimation {
-          createNewSet()
+//            .padding(.top, 10)        
+        
+        if !isOnlyTitleVisible {
+          
+          TextField("Notes", text: $exercise.note ?? "")
+            .font(.subheadline)
+            .foregroundColor(Color.gray)
+            .padding(.vertical, 5)
         }
-      } label: {
-        AddSet()
+        
+      }
+      if !isOnlyTitleVisible {
+        ForEach(exercise.exerciseSetArray) { exerciseSet in
+          ExerciseCardRow(exerciseSet: exerciseSet, isActive: isActive)
+        }
+        .onMove(perform: { indices, newOffset in
+          print("hey")
+        })
+        .onDelete(perform: deleteSet)
+        .animation(showDetail ? .spring() : nil)
+        .transition(.move(edge: .bottom))
+        .onAppear() {
+          DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            showDetail = true
+          }
+        }
+        
+        if isActive {
+          Button {
+            withAnimation {
+              createNewSet()
+            }
+          } label: {
+            AddSet()
+          }
+        }
       }
     }
     
@@ -110,7 +123,7 @@ struct ExerciseCard_Previews: PreviewProvider {
     return NavigationView {
       List {
         Section {
-          ExerciseCard(exercise: IronNotesModelFactory.getExercise(), isActive: true)
+          ExerciseCard(exercise: IronNotesModelFactory.getExercise(), isActive: true, isOnlyTitleVisible: false)
         }
       }
       .listStyle(InsetGroupedListStyle())

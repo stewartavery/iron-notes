@@ -19,7 +19,7 @@ struct WorkoutStartStyle: ButtonStyle {
         Color.orange.opacity(configuration.isPressed ? 0.5 : 1)
       )
       .cornerRadius(10)
-      .frame(width: 75)
+      .frame(width: 100)
   }
 }
 
@@ -34,7 +34,7 @@ struct WorkoutStopStyle: ButtonStyle {
         Color.red.opacity(configuration.isPressed ? 0.5 : 1)
       )
       .cornerRadius(10)
-      .frame(width: 75)
+      .frame(width: 100)
   }
 }
 

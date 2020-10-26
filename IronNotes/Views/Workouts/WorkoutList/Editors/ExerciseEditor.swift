@@ -55,10 +55,8 @@ struct ExerciseEditor: View {
       .listStyle(InsetGroupedListStyle())
       .navigationBarTitle(Text("Modify Exercises"), displayMode: .inline)
       .toolbar {
-        ToolbarItem(placement: .primaryAction) {
-          Button("Done") {
-            presentationMode.wrappedValue.dismiss()
-          }
+        Button("Done") {
+          presentationMode.wrappedValue.dismiss()
         }
       }
     }

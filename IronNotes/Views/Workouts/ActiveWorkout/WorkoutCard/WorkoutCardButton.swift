@@ -59,9 +59,15 @@ struct CurrentRunningTime: View {
 struct WorkoutCardButton_Previews: PreviewProvider {
   @State static var workoutStatus: WorkoutStatus = .stopped
   static var previews: some View {
-    WorkoutCardButton()
-      .environmentObject(StopwatchManager())
-      .environmentObject(WorkoutStore(managedObjectContext: PersistenceController.shared.container.viewContext))
+    Group {
+      WorkoutCardButton()
+        .environmentObject(StopwatchManager())
+        .environmentObject(WorkoutStore(managedObjectContext: PersistenceController.shared.container.viewContext))
+      WorkoutCardButton()
+        .environment(\.sizeCategory, .extraExtraExtraLarge)
+        .environmentObject(StopwatchManager())
+        .environmentObject(WorkoutStore(managedObjectContext: PersistenceController.shared.container.viewContext))
+    }
   }
 }
 #endif
