@@ -32,11 +32,12 @@ struct ExerciseList: View {
   @State var isCreateViewVisible = false
   
   var body: some View {
-    NavigationView {
+    print(exerciseTemplates.map{ $0.wrappedId })
+    return NavigationView {
       List {
         ForEach(exerciseTemplates) { exerciseTemplate in
           NavigationLink(destination: ExerciseDetails()) {
-            Text(exerciseTemplate.wrappedName)
+            Text(exerciseTemplate.displayName)
               .font(.system(size: 16))
           }
         }

@@ -24,6 +24,8 @@ extension ExerciseTemplate {
   @NSManaged public var name: String?
   @NSManaged public var workoutTemplates: NSSet?
   @NSManaged public var id: UUID?
+  @NSManaged public var dateAdded: Date?
+  @NSManaged public var isReadOnly: Bool
   
   public var wrappedDesc: String {
     return desc ?? ""
@@ -40,8 +42,17 @@ extension ExerciseTemplate {
   public var wrappedId: UUID {
     return id ?? UUID()
   }
-
   
+  public var wrappedDateAdded: Date {
+    return dateAdded ?? Date()
+  }
+}
+
+// MARK: Helper utilities for views
+extension ExerciseTemplate {
+  public var displayName: String {
+    return "\(wrappedName)" + (exerciseType != nil ? " (\(wrappedExerciseType))" : "")
+  }
 }
 
 // MARK: Generated accessors for muscleGroups
@@ -95,6 +106,16 @@ extension ExerciseTemplate {
 
 }
 
-extension ExerciseTemplate : Identifiable {
+// MARK:- Identifable
+extension ExerciseTemplate : Identifiable {}
 
+// MARK:- FetchRequest
+extension ExerciseTemplate {
+  static var getTemplates: NSFetchRequest<ExerciseTemplate> {
+    let request: NSFetchRequest<ExerciseTemplate> = ExerciseTemplate.fetchRequest()
+    request.sortDescriptors = []
+
+    return request
+  }
 }
+

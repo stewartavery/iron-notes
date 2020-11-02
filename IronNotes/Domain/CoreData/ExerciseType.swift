@@ -13,6 +13,10 @@ enum ExerciseType: String, CaseIterable, Identifiable {
   case dumbbell = "Dumbbell"
   case machine = "Machine"
   case bodyweight = "Bodyweight"
+  case band = "Band"
+  case kettlebell = "Kettlebell"
+  case smithMachine = "Smith Machine"
+  case cable = "Cable"
   
   var id: String {
     return self.rawValue
