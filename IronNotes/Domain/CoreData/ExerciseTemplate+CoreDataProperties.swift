@@ -117,5 +117,13 @@ extension ExerciseTemplate {
 
     return request
   }
+  
+  static var getUserTemplates: NSFetchRequest<ExerciseTemplate> {
+    let request: NSFetchRequest<ExerciseTemplate> = ExerciseTemplate.fetchRequest()
+    request.sortDescriptors = []
+    request.predicate = NSPredicate(format: "seedingGroup = nil")
+
+    return request
+  }
 }
 

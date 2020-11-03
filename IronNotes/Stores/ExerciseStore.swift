@@ -2,99 +2,76 @@
 //  ExerciseStore.swift
 //  IronNotes
 //
-//  Created by Stewart Avery on 10/29/20.
+//  Created by Stewart Avery on 11/3/20.
 //  Copyright © 2020 Stewart Avery. All rights reserved.
 //
 
 import CoreData
+import Combine
 
 class ExerciseStore: NSObject, ObservableObject {
-  @Published var templates: [ExerciseTemplate] = []
-  @Published var muscleGroups: [MuscleGroup] = []
+  @Published private(set) var exerciseTemplates: [ExerciseTemplate] = []
+  @Published private(set) var muscleGroups: [MuscleGroup] = []
   
-  private let managedObjectContext: NSManagedObjectContext
-  private let seedingGroupController: NSFetchedResultsController<SeedingGroup>
+  @Published private(set) var userCreatedTemplates: [ExerciseTemplate] = [] {
+    didSet {
+      exerciseTemplates = combineUserAndSeededTemplates(userTemplates: userCreatedTemplates, seededTemplates: seedingStore.templates)
+    }
+  }
+  
+  private let exerciseTemplateController: NSFetchedResultsController<ExerciseTemplate>
+  private let seedingStore: SeedingStore
+  private var templatesCancellable: AnyCancellable?
+  private var muscleGroupsCancellable: AnyCancellable?
   
   init(managedObjectContext: NSManagedObjectContext) {
-
-    self.managedObjectContext = managedObjectContext
-    
-    seedingGroupController = NSFetchedResultsController(
-      fetchRequest: SeedingGroup.getGroups,
+    seedingStore = SeedingStore(managedObjectContext: managedObjectContext)
+    exerciseTemplateController = NSFetchedResultsController(
+      fetchRequest: ExerciseTemplate.getUserTemplates,
       managedObjectContext: managedObjectContext,
-      sectionNameKeyPath: nil, cacheName: nil
+      sectionNameKeyPath: nil,
+      cacheName: nil
     )
     
     super.init()
     
-    seedingGroupController.delegate = self
+    exerciseTemplateController.delegate = self
+    
+    templatesCancellable = seedingStore.$templates.sink { [weak self] seededTemplates in
+      guard let self = self else { return }
+      
+      self.exerciseTemplates = self.combineUserAndSeededTemplates(
+        userTemplates: self.userCreatedTemplates,
+        seededTemplates: seededTemplates
+      )
+    }
+    
+    muscleGroupsCancellable = seedingStore.$muscleGroups.sink { [weak self] seededMuscleGroups in
+      self?.muscleGroups = seededMuscleGroups
+    }
     
     do {
-      try seedingGroupController.performFetch()
-      let unfilteredGroups = seedingGroupController.fetchedObjects ?? []
-    
-      handleDuplicateSeeding(for: unfilteredGroups)
+      try exerciseTemplateController.performFetch()
+      userCreatedTemplates = exerciseTemplateController.fetchedObjects ?? []
     } catch {
-      print("failed to fetch seeding groups!")
+      print("failed to fetch workout templates!")
     }
   }
-
-  /** If there's more than one container with the same version, then we have a duplicate seeding issue .*/
-  private func handleDuplicateSeeding(for groups: [SeedingGroup]) {
-    var groupsToBeMerged = groups.sorted {
-      $0.wrappedDateCreated < $1.wrappedDateCreated
-    }
-
-    let baseGroup = groupsToBeMerged.removeFirst()
+  
+  private func combineUserAndSeededTemplates(userTemplates: [ExerciseTemplate], seededTemplates: [ExerciseTemplate]) -> [ExerciseTemplate] {
+    let combinedTemplates = userTemplates + seededTemplates
     
-    if groupsToBeMerged.count > 1 {
-      let muscleGroupMap = Dictionary(uniqueKeysWithValues: baseGroup.muscleGroupsArray.map {
-        ($0.wrappedName, $0)
-      })
-      
-      let exerciseTemplateMap = Dictionary(uniqueKeysWithValues: baseGroup.exerciseTemplateArray.map {
-        ($0.wrappedId, $0)
-      })
-
-      // All of these containers (duplicates) need to be have their values transferred to the base seeding container
-      groupsToBeMerged.forEach { container in
-        container.muscleGroupsArray.forEach { muscleGroup in
-          // I only care about taking care of the exerciseTemplates that don't appear in the "container".
-          // All others are about to be removed.
-          muscleGroup.exerciseTemplateArray
-            .filter { exerciseTemplateMap[$0.wrappedId] == nil }
-            .forEach { exerciseTemplate in
-              if let originalMuscleGroup = muscleGroupMap[muscleGroup.wrappedName] {
-                exerciseTemplate.addToMuscleGroups(originalMuscleGroup)
-              }
-              
-              exerciseTemplate.removeFromMuscleGroups(muscleGroup)
-            }
-        }
-       
-        container.exerciseTemplateArray.forEach { exerciseTemplate in
-          exerciseTemplate.exerciseArray.forEach { exercise in
-            if let originalExerciseTemplate = exerciseTemplateMap[exerciseTemplate.wrappedId] {
-              exercise.meta = originalExerciseTemplate
-            }
-          }
-        }
-        
-        // this should cascade down to seeded templates/muscle groups
-        managedObjectContext.delete(container)
-      }
+    return combinedTemplates.sorted {
+      $0.displayName < $1.displayName
     }
-    
-    templates = baseGroup.exerciseTemplateArray
-    muscleGroups = baseGroup.muscleGroupsArray
   }
 }
 
 extension ExerciseStore: NSFetchedResultsControllerDelegate {
   func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-    guard let unfilteredGroups = controller.fetchedObjects as? [SeedingGroup]
+    guard let templates = controller.fetchedObjects as? [ExerciseTemplate]
     else { return }
     
-    handleDuplicateSeeding(for: unfilteredGroups)
+    userCreatedTemplates = templates
   }
 }

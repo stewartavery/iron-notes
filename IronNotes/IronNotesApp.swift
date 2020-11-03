@@ -12,8 +12,6 @@ import CoreData
 @main
 struct IronNotesApp: App {
   @AppStorage("isFirstTime") var isFirstTime: Bool = true
-  @AppStorage("hasUnsavedDefaultData") var hasNewDefaultData: Bool = false
-  
   
   @Environment(\.scenePhase) private var scenePhase
   
@@ -22,6 +20,7 @@ struct IronNotesApp: App {
   @StateObject var keyboardMonitor: KeyboardMonitor
   @StateObject var workoutTemplateStore: WorkoutTemplateStore
   @StateObject var workoutStore: WorkoutStore
+  @StateObject var exerciseStore: ExerciseStore
   @StateObject var hasDefaultDataSyncedMonitor: UbiquitousMonitor
   
   init() {
@@ -32,9 +31,11 @@ struct IronNotesApp: App {
     
     let templateStorage = WorkoutTemplateStore(managedObjectContext: persistenceController.container.viewContext)
     let workoutStorage = WorkoutStore(managedObjectContext: persistenceController.container.viewContext)
+    let exerciseStorage = ExerciseStore(managedObjectContext: persistenceController.container.viewContext)
     
     _workoutTemplateStore = StateObject(wrappedValue: templateStorage)
     _workoutStore = StateObject(wrappedValue: workoutStorage)
+    _exerciseStore = StateObject(wrappedValue: exerciseStorage)
   }
   
   var moc: NSManagedObjectContext {
@@ -61,7 +62,6 @@ struct IronNotesApp: App {
           
           isFirstTime.toggle()
           hasDefaultDataSyncedMonitor.value = true
-          hasNewDefaultData.toggle()
         }
         break
       case .background:
@@ -70,27 +70,6 @@ struct IronNotesApp: App {
       default:
         break
       }
-    }
-    .onChange(of: hasDefaultDataSyncedMonitor.value) { hasDefaultDataSynced in
-      CKContainer.default().accountStatus { status, error in
-        print(status)
-        if let error = error {
-          print(error)
-        } else {
-          switch status {
-          case .available:
-            // synced, unhandled (which means the update came from server), and has newDefaultData
-            if hasDefaultDataSynced && hasDefaultDataSyncedMonitor.hasUnhandledValue && hasNewDefaultData {
-              print("I should delete the new default data now")
-              
-              hasNewDefaultData.toggle()
-            }
-          default:
-            return
-          }
-        }
-      }
-      
     }
   }
 }

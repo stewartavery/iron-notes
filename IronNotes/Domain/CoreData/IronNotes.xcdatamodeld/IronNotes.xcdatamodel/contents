@@ -31,7 +31,7 @@
         <relationship name="exerciseTemplates" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ExerciseTemplate" inverseName="muscleGroups" inverseEntity="ExerciseTemplate"/>
         <relationship name="seedingGroup" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SeedingGroup" inverseName="muscleGroups" inverseEntity="SeedingGroup"/>
     </entity>
-    <entity name="SeedingGroup" representedClassName="SeedingGroup" syncable="YES">
+    <entity name="SeedingGroup" representedClassName=".SeedingGroup" syncable="YES">
         <attribute name="dateCreated" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="version" optional="YES" attributeType="String"/>
         <relationship name="exerciseTemplates" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ExerciseTemplate" inverseName="seedingGroup" inverseEntity="ExerciseTemplate"/>

@@ -13,8 +13,8 @@ enum WorkoutStatus {
 }
 
 class WorkoutStore: NSObject, ObservableObject {
-  @Published var items: [Workout] = []
-  @Published var groupedItems: [String : [Workout]] = [String: [Workout]]()
+  @Published private(set) var items: [Workout] = []
+  @Published private(set) var groupedItems: [String : [Workout]] = [String: [Workout]]()
   @Published var primaryWorkout: Workout? = nil
   @Published var workoutStatus: WorkoutStatus = .stopped
   

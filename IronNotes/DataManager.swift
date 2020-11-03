@@ -238,7 +238,7 @@ class DataManager {
       muscleGroups: [pectoral, deltoids, triceps],
       exerciseType: ExerciseType.barbell,
       seedingGroup: seedingGroup,
-      id: UUID(uuidString: "704B62F6-8BF3-40EE-BA76-C42A4BD8AA31") ?? UUID()
+      id: UUID(uuidString: "D7722EDC-A7E9-4566-9387-DEFB266957FC") ?? UUID()
     )
     
     ExerciseTemplate.createExerciseTemplateFor(
@@ -258,7 +258,7 @@ class DataManager {
       muscleGroups: [pectoral, deltoids, triceps],
       exerciseType: ExerciseType.barbell,
       seedingGroup: seedingGroup,
-      id: UUID(uuidString: "1BB9EE73-1622-4287-8C3C-FF28635EE9F9") ?? UUID()
+      id: UUID(uuidString: "B0B40F70-1E1A-46B8-8363-266E7832114C") ?? UUID()
     )
     
     ExerciseTemplate.createExerciseTemplateFor(
