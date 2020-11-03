@@ -17,15 +17,18 @@ public class MuscleGroup: NSManagedObject {
     return meta
   }
   
-  class func createMuscleGroupFor(name: String) -> Void {
+  class func createMuscleGroupFor(name: String, seedingGroup: SeedingGroup) -> Void {
     let muscleGroup = newMuscleGroup()
     muscleGroup.name = name
+    muscleGroup.seedingGroup = seedingGroup
+
     try! PersistenceController.shared.container.viewContext.save()
   }
   
-  class func getMuscleGroupFor(name: String) -> MuscleGroup {
+  class func getMuscleGroupFor(name: String, seedingGroup: SeedingGroup) -> MuscleGroup {
     let muscleGroup = newMuscleGroup()
     muscleGroup.name = name
+    muscleGroup.seedingGroup = seedingGroup
     
     return muscleGroup
   }

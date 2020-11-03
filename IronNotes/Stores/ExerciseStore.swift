@@ -10,33 +10,91 @@ import CoreData
 
 class ExerciseStore: NSObject, ObservableObject {
   @Published var templates: [ExerciseTemplate] = []
+  @Published var muscleGroups: [MuscleGroup] = []
   
-  private let exerciseTemplateController: NSFetchedResultsController<ExerciseTemplate>
+  private let managedObjectContext: NSManagedObjectContext
+  private let seedingGroupController: NSFetchedResultsController<SeedingGroup>
   
   init(managedObjectContext: NSManagedObjectContext) {
-    exerciseTemplateController = NSFetchedResultsController(
-      fetchRequest: ExerciseTemplate.getTemplates,
+
+    self.managedObjectContext = managedObjectContext
+    
+    seedingGroupController = NSFetchedResultsController(
+      fetchRequest: SeedingGroup.getGroups,
       managedObjectContext: managedObjectContext,
       sectionNameKeyPath: nil, cacheName: nil
     )
+    
     super.init()
     
-    exerciseTemplateController.delegate = self
+    seedingGroupController.delegate = self
     
     do {
-      try exerciseTemplateController.performFetch()
-      templates = exerciseTemplateController.fetchedObjects ?? []
+      try seedingGroupController.performFetch()
+      let unfilteredGroups = seedingGroupController.fetchedObjects ?? []
+    
+      handleDuplicateSeeding(for: unfilteredGroups)
     } catch {
-      print("failed to fetch exercise templates!")
+      print("failed to fetch seeding groups!")
     }
+  }
+
+  /** If there's more than one container with the same version, then we have a duplicate seeding issue .*/
+  private func handleDuplicateSeeding(for groups: [SeedingGroup]) {
+    var groupsToBeMerged = groups.sorted {
+      $0.wrappedDateCreated < $1.wrappedDateCreated
+    }
+
+    let baseGroup = groupsToBeMerged.removeFirst()
+    
+    if groupsToBeMerged.count > 1 {
+      let muscleGroupMap = Dictionary(uniqueKeysWithValues: baseGroup.muscleGroupsArray.map {
+        ($0.wrappedName, $0)
+      })
+      
+      let exerciseTemplateMap = Dictionary(uniqueKeysWithValues: baseGroup.exerciseTemplateArray.map {
+        ($0.wrappedId, $0)
+      })
+
+      // All of these containers (duplicates) need to be have their values transferred to the base seeding container
+      groupsToBeMerged.forEach { container in
+        container.muscleGroupsArray.forEach { muscleGroup in
+          // I only care about taking care of the exerciseTemplates that don't appear in the "container".
+          // All others are about to be removed.
+          muscleGroup.exerciseTemplateArray
+            .filter { exerciseTemplateMap[$0.wrappedId] == nil }
+            .forEach { exerciseTemplate in
+              if let originalMuscleGroup = muscleGroupMap[muscleGroup.wrappedName] {
+                exerciseTemplate.addToMuscleGroups(originalMuscleGroup)
+              }
+              
+              exerciseTemplate.removeFromMuscleGroups(muscleGroup)
+            }
+        }
+       
+        container.exerciseTemplateArray.forEach { exerciseTemplate in
+          exerciseTemplate.exerciseArray.forEach { exercise in
+            if let originalExerciseTemplate = exerciseTemplateMap[exerciseTemplate.wrappedId] {
+              exercise.meta = originalExerciseTemplate
+            }
+          }
+        }
+        
+        // this should cascade down to seeded templates/muscle groups
+        managedObjectContext.delete(container)
+      }
+    }
+    
+    templates = baseGroup.exerciseTemplateArray
+    muscleGroups = baseGroup.muscleGroupsArray
   }
 }
 
 extension ExerciseStore: NSFetchedResultsControllerDelegate {
   func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-    guard let templates = controller.fetchedObjects as? [ExerciseTemplate]
+    guard let unfilteredGroups = controller.fetchedObjects as? [SeedingGroup]
     else { return }
     
-    self.templates = templates
+    handleDuplicateSeeding(for: unfilteredGroups)
   }
 }

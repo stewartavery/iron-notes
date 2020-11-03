@@ -24,8 +24,7 @@ extension ExerciseTemplate {
   @NSManaged public var name: String?
   @NSManaged public var workoutTemplates: NSSet?
   @NSManaged public var id: UUID?
-  @NSManaged public var dateAdded: Date?
-  @NSManaged public var isReadOnly: Bool
+  @NSManaged public var seedingGroup: SeedingGroup?
   
   public var wrappedDesc: String {
     return desc ?? ""
@@ -43,9 +42,10 @@ extension ExerciseTemplate {
     return id ?? UUID()
   }
   
-  public var wrappedDateAdded: Date {
-    return dateAdded ?? Date()
+  public var exerciseArray: [Exercise] {
+    return Array(exercises as? Set<Exercise> ?? [])
   }
+  
 }
 
 // MARK: Helper utilities for views

@@ -18,7 +18,20 @@ extension MuscleGroup {
   }
   
   @NSManaged public var name: String?
-  @NSManaged public var exercises: NSSet?
+  @NSManaged public var exerciseTemplates: NSSet?
+  @NSManaged public var seedingGroup: SeedingGroup?
+  
+  public var wrappedName: String {
+    return name ?? ""
+  }
+  
+  public var exerciseTemplateArray: [ExerciseTemplate] {
+    let set = exerciseTemplates as? Set<ExerciseTemplate> ?? []
+    
+    return set.sorted {
+      $0.wrappedName < $1.wrappedName
+    }
+  }
 }
 
 

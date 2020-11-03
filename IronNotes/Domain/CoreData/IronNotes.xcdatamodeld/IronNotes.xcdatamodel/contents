@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17510.1" systemVersion="20A5395g" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17510.1" systemVersion="20B5012d" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="Exercise" representedClassName=".Exercise" syncable="YES">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="note" optional="YES" attributeType="String"/>
@@ -17,15 +17,25 @@
         <relationship name="exercise" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Exercise" inverseName="sets" inverseEntity="Exercise"/>
     </entity>
     <entity name="ExerciseTemplate" representedClassName=".ExerciseTemplate" syncable="YES">
-        <attribute name="dateAdded" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="desc" optional="YES" attributeType="String" defaultValueString=""/>
         <attribute name="exerciseType" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="isReadOnly" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
-        <attribute name="muscleGroups" optional="YES" attributeType="Transformable"/>
         <attribute name="name" optional="YES" attributeType="String" defaultValueString=""/>
         <relationship name="exercises" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Exercise" inverseName="meta" inverseEntity="Exercise"/>
+        <relationship name="muscleGroups" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MuscleGroup" inverseName="exerciseTemplates" inverseEntity="MuscleGroup"/>
+        <relationship name="seedingGroup" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SeedingGroup" inverseName="exerciseTemplates" inverseEntity="SeedingGroup"/>
         <relationship name="workoutTemplates" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WorkoutTemplate" inverseName="defaultExerciseTemplates" inverseEntity="WorkoutTemplate"/>
+    </entity>
+    <entity name="MuscleGroup" representedClassName=".MuscleGroup" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="exerciseTemplates" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ExerciseTemplate" inverseName="muscleGroups" inverseEntity="ExerciseTemplate"/>
+        <relationship name="seedingGroup" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SeedingGroup" inverseName="muscleGroups" inverseEntity="SeedingGroup"/>
+    </entity>
+    <entity name="SeedingGroup" representedClassName="SeedingGroup" syncable="YES">
+        <attribute name="dateCreated" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="version" optional="YES" attributeType="String"/>
+        <relationship name="exerciseTemplates" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ExerciseTemplate" inverseName="seedingGroup" inverseEntity="ExerciseTemplate"/>
+        <relationship name="muscleGroups" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MuscleGroup" inverseName="seedingGroup" inverseEntity="MuscleGroup"/>
     </entity>
     <entity name="Workout" representedClassName=".Workout" syncable="YES">
         <attribute name="duration" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -46,8 +56,10 @@
     <elements>
         <element name="Exercise" positionX="60.08984375" positionY="-15.6640625" width="128" height="133"/>
         <element name="ExerciseSet" positionX="11.875" positionY="161.109375" width="128" height="133"/>
-        <element name="ExerciseTemplate" positionX="18.78125" positionY="-177.859375" width="128" height="164"/>
+        <element name="ExerciseTemplate" positionX="18.78125" positionY="-177.859375" width="128" height="149"/>
+        <element name="MuscleGroup" positionX="-108" positionY="-18" width="128" height="74"/>
         <element name="Workout" positionX="-183.3446044921875" positionY="106.9326477050781" width="128" height="133"/>
         <element name="WorkoutTemplate" positionX="-274.30859375" positionY="-161.59375" width="128" height="119"/>
+        <element name="SeedingGroup" positionX="-108" positionY="-18" width="128" height="89"/>
     </elements>
 </model>

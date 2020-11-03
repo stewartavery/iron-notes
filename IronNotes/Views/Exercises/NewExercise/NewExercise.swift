@@ -59,10 +59,10 @@ struct NewExercise: View {
   
   func onComplete() {
     ExerciseTemplate.createExerciseTemplateFor(
-      name: self.name,
-      desc: self.description,
-      muscleGroups: self.selectedMuscleGroups.muscleGroups,
-      exerciseType: self.exerciseType
+      name: name,
+      desc: description,
+      muscleGroups: selectedMuscleGroups.muscleGroups,
+      exerciseType: exerciseType
     )
     self.isPresented.toggle()
   }
