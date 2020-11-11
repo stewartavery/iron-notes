@@ -33,10 +33,10 @@ struct StartWorkoutList : View {
   @State var isCreateViewVisible = false
   @State var workoutInput: WorkoutInput? = nil {
     didSet {
-      switch (workoutInput, workoutStore.workoutStatus, workoutStore.primaryWorkout) {
-      case (.template(let template), .stopped, .none):
+      switch (workoutInput, workoutStore.activeWorkout) {
+      case (.template(let template), .none):
         workoutStore.setupPrimaryWorkout(with: template)
-      case (.noTemplate, .stopped, .none):
+      case (.noTemplate, .none):
         workoutStore.setupPrimaryWorkout()
       default:
         break
@@ -45,9 +45,13 @@ struct StartWorkoutList : View {
   }
   
   var nonActiveWorkouts: [WorkoutTemplate] {
-    switch (workoutStore.workoutStatus, workoutStore.primaryWorkout)  {
-    case (.running, .some(let workout)):
-      guard let meta = workout.meta else {
+    guard let activeWorkout = workoutStore.activeWorkout else {
+      return workoutTemplateStore.items
+    }
+    
+    switch (activeWorkout.status)  {
+    case .running:
+      guard let meta = activeWorkout.workout.meta else {
         return workoutTemplateStore.items
       }
       
@@ -69,9 +73,9 @@ struct StartWorkoutList : View {
     NavigationView {
       List {
         Group {
-          switch (workoutStore.workoutStatus, workoutStore.primaryWorkout) {
-          case (.running, .some(let workout)):
-            if let meta = workout.meta {
+          switch (workoutStore.activeWorkout) {
+          case (.some(let activeWorkout)) where activeWorkout.status == .running:
+            if let meta = activeWorkout.workout.meta {
               Section(header: activeWorkoutHeader) {
                 Button {
                   workoutInput = .template(meta)
@@ -104,14 +108,13 @@ struct StartWorkoutList : View {
       .fullScreenCover(
         item: $workoutInput,
         onDismiss: dismissModal) { _ in
-        switch workoutStore.primaryWorkout {
-        case .some(let workout):
-          ActiveWorkout(
+        switch workoutStore.activeWorkout {
+        case .some(let activeWorkout):
+          ActiveWorkoutEditor(
             keyboardMonitor: keyboardMonitor,
-            workout: workout,
-            workoutStore: workoutStore
+            activeWorkout: activeWorkout
           ).environment(\.scenePhase, scenePhase)
-        default:
+        case .none:
           EmptyView()
         }
         
@@ -121,11 +124,13 @@ struct StartWorkoutList : View {
   }
   
   private func dismissModal() -> Void {
-    switch (workoutStore.workoutStatus, workoutStore.primaryWorkout)  {
-    case (.stopped, .some(let workout)) where workout.duration > 0:
+    guard let activeWorkout = workoutStore.activeWorkout else { return }
+    
+    switch (activeWorkout.status)  {
+    case .finished where activeWorkout.workout.duration > 0:
       workoutStore.finishPrimaryWorkout()
-    case (.stopped, .some(let workout)):
-      workout.deleteWorkout()
+    case .finished:
+      activeWorkout.workout.deleteWorkout()
       workoutStore.finishPrimaryWorkout()
     default:
       // a workout is currently going on

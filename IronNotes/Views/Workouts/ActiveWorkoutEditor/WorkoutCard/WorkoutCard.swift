@@ -12,7 +12,7 @@ struct WorkoutCard: View {
   
   @EnvironmentObject var stopwatchManager: StopwatchManager
   @EnvironmentObject var cardDetails: CardDetails
-  @EnvironmentObject var workout: Workout
+  @EnvironmentObject var activeWorkout: ActiveWorkout
   
   @Binding var workoutSheet: WorkoutSheet?
   
@@ -20,6 +20,10 @@ struct WorkoutCard: View {
     GridItem(.flexible()),
     GridItem(.flexible())
   ]
+  
+  var workout: Workout {
+    return activeWorkout.workout
+  }
   
   var workoutMetaName: String {
     return workout.meta?.wrappedName ?? "New Workout"
@@ -79,7 +83,6 @@ struct WorkoutCard: View {
 #if DEBUG
 struct WorkoutCard_Previews: PreviewProvider {
   @State static var workoutSheet: WorkoutSheet? = nil
-  @State static var workoutStatus: WorkoutStatus = .stopped
   @StateObject static var cardDetails: CardDetails = CardDetails(position: .top, opacity: 1.0)
   
   static var previews: some View {

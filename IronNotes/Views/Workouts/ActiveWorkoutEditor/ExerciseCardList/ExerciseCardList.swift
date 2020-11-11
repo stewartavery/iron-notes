@@ -13,11 +13,15 @@ struct ExerciseCardList: View {
   @Environment(\.presentationMode) var presentationMode
   
   @EnvironmentObject var keyboardMonitor: KeyboardMonitor
-  @EnvironmentObject var workout: Workout
+  @EnvironmentObject var activeWorkout: ActiveWorkout
   
   @Binding var workoutSheet: WorkoutSheet?
   
   @State private var bottomPadding: CGFloat = minCardHeight
+  
+  var workout: Workout {
+    return activeWorkout.workout
+  }
   
   var body: some View {
     NavigationView {
@@ -44,7 +48,6 @@ struct ExerciseCardList: View {
               }
             }
           }
-          
           .listStyle(InsetGroupedListStyle())
         }
       }
@@ -97,29 +100,21 @@ struct ExerciseCardList_Previews: PreviewProvider {
     Group {
       ExerciseCardList(workoutSheet: $workoutSheet)
         .previewDevice("iPhone 11 Pro Max")
-        .environmentObject(KeyboardMonitor())
-        .environmentObject(IronNotesModelFactory.getWorkout())
       
       ExerciseCardList(workoutSheet: $workoutSheet)
         .previewDevice("iPhone 11 Pro Max")
-        .environmentObject(KeyboardMonitor())
-        .environmentObject(Workout.newWorkout())
       
       ExerciseCardList(workoutSheet: $workoutSheet)
         .previewDevice("iPhone 11 Pro Max")
-        .environmentObject(KeyboardMonitor())
         .environment(\.colorScheme, .dark)
-        .environmentObject(Workout.newWorkout())
       
       ExerciseCardList(workoutSheet: $workoutSheet)
         .previewDevice("iPhone SE")
         .environment(\.sizeCategory, .extraExtraLarge)
         .environment(\.colorScheme, .dark)
-        .environmentObject(IronNotesModelFactory.getWorkout())
       
-      
-    }.environmentObject(KeyboardMonitor())
-    
-    
+    }
+    .environmentObject(KeyboardMonitor())
+    .environmentObject(ActiveWorkout.pendingWorkout)  
   }
 }

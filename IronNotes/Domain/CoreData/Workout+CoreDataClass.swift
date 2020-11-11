@@ -32,6 +32,16 @@ public class Workout: NSManagedObject {
     return workout
   }
   
+  class func newWorkoutWithEmptyMeta() -> Workout {
+    let meta =  WorkoutTemplate.newWorkoutTemplate()
+    meta.name = "New Workout"
+    
+    let workout = newWorkout()
+    workout.meta = meta
+    
+    return workout
+  }
+  
   class func getNewWorkout(from workoutTemplate: WorkoutTemplate) -> Workout {
     let workout = newWorkout()
     workout.meta = workoutTemplate

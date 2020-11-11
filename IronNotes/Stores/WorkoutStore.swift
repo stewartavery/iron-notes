@@ -8,15 +8,10 @@
 
 import CoreData
 
-enum WorkoutStatus {
-  case stopped, running
-}
-
 class WorkoutStore: NSObject, ObservableObject {
   @Published private(set) var items: [Workout] = []
   @Published private(set) var groupedItems: [String : [Workout]] = [String: [Workout]]()
-  @Published var primaryWorkout: Workout? = nil
-  @Published var workoutStatus: WorkoutStatus = .stopped
+  @Published var activeWorkout: ActiveWorkout?
   
   private let workoutController: NSFetchedResultsController<Workout>
   
@@ -41,18 +36,15 @@ class WorkoutStore: NSObject, ObservableObject {
   }
   
   func setupPrimaryWorkout(with workoutTemplate: WorkoutTemplate) {
-    workoutStatus = .stopped
-    primaryWorkout = Workout.getNewWorkout(from: workoutTemplate)
+    activeWorkout = ActiveWorkout(Workout.getNewWorkout(from: workoutTemplate))
   }
   
   func setupPrimaryWorkout() {
-    workoutStatus = .stopped
-    primaryWorkout = Workout.newWorkout()
+    activeWorkout = ActiveWorkout(Workout.newWorkoutWithEmptyMeta())
   }
   
   func finishPrimaryWorkout() {
-    workoutStatus = .stopped
-    primaryWorkout = nil
+    activeWorkout = nil
   }
   
   func createGroupedList(with workouts: [Workout]) -> Void {
@@ -71,7 +63,5 @@ extension WorkoutStore: NSFetchedResultsControllerDelegate {
     items = templates.filter {$0.startTime != nil}
 
     createGroupedList(with: items)
-    
-    print(groupedItems)
   }
 }

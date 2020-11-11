@@ -11,7 +11,7 @@ import SwiftUI
 struct WorkoutCardButton: View {
   @EnvironmentObject var stopwatchManager: StopwatchManager
   @EnvironmentObject var workout: Workout
-  @EnvironmentObject var workoutStore: WorkoutStore
+  @EnvironmentObject var activeWorkout: ActiveWorkout
   @Environment(\.presentationMode) var presentationMode
   
   var body: some View {
@@ -20,22 +20,24 @@ struct WorkoutCardButton: View {
       Button("Stop", action: stopWorkout)
         .buttonStyle(WorkoutStopStyle())
     case .stopped:
-      Button("Start", action: startWorkout)
-        .buttonStyle(WorkoutStartStyle())
+      Button("Start") {
+        startWorkout(with: workout)
+      }.buttonStyle(WorkoutStartStyle())
+        
     }
   }
   
   private func stopWorkout() {
     workout.duration = Int16(stopwatchManager.secondsElapsed)
     stopwatchManager.stop()
-    workoutStore.workoutStatus = .stopped
+    activeWorkout.status = .finished
     presentationMode.wrappedValue.dismiss()
   }
   
-  private func startWorkout() {
+  private func startWorkout(with workout: Workout) {
     workout.startTime = Date()
     stopwatchManager.start()
-    workoutStore.workoutStatus = .running
+    activeWorkout.status = .running
   }
 }
 
@@ -57,11 +59,10 @@ struct CurrentRunningTime: View {
 
 #if DEBUG
 struct WorkoutCardButton_Previews: PreviewProvider {
-  @State static var workoutStatus: WorkoutStatus = .stopped
   static var previews: some View {
     WorkoutCardButton()
       .environmentObject(StopwatchManager())
-      .environmentObject(WorkoutStore(managedObjectContext: PersistenceController.shared.container.viewContext))
+      .environmentObject(ActiveWorkout.pendingWorkout)
   }
 }
 #endif

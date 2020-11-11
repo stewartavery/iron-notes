@@ -25,32 +25,28 @@ enum ScrollDirection: Equatable {
   case down(CGFloat)
 }
 
-struct ActiveWorkout: View {
+struct ActiveWorkoutEditor: View {
   @Environment(\.scenePhase) private var scenePhase
   
   @StateObject var stopwatchManager = StopwatchManager()
   
   @ObservedObject var keyboardMonitor: KeyboardMonitor
-  @ObservedObject var workout: Workout
-  @ObservedObject var workoutStore: WorkoutStore
+  @ObservedObject var activeWorkout: ActiveWorkout
   
   @State private var workoutSheet: WorkoutSheet? = nil
   
   var body: some View {
     ZStack {
       ExerciseCardList(workoutSheet: $workoutSheet)
-        .environmentObject(keyboardMonitor)
-        .environmentObject(workout)
       
       DelayedSlideOverCard(workoutSheet: $workoutSheet)
         .environmentObject(stopwatchManager)
-        .environmentObject(keyboardMonitor)
-        .environmentObject(workoutStore)
     }
     .onAppear {
       resumeTimer()
     }
-    .environmentObject(workout)
+    .environmentObject(activeWorkout)
+    .environmentObject(keyboardMonitor)
     .onChange(of: scenePhase) { phase in
       switch phase {
       case .active:
@@ -63,20 +59,18 @@ struct ActiveWorkout: View {
   }
   
   func resumeTimer() {
-    if let startTime = workout.startTime {
+    if let startTime = activeWorkout.workout.startTime {
       stopwatchManager.resumeFromBackground(startTime: startTime)
     }
   }
 }
 
 #if DEBUG
-struct ActiveWorkout_Previews: PreviewProvider {
-  @State static var workoutStatus: WorkoutStatus = .stopped
+struct ActiveWorkoutEditor_Previews: PreviewProvider {
   static var previews: some View {
-    ActiveWorkout(
+    ActiveWorkoutEditor(
       keyboardMonitor: KeyboardMonitor(),
-      workout: IronNotesModelFactory.getWorkout(),
-      workoutStore: WorkoutStore(managedObjectContext: PersistenceController.shared.container.viewContext)
+      activeWorkout: ActiveWorkout.pendingWorkout
     )
     .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
     .environmentObject(IronNotesModelFactory.getWorkout())
