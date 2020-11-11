@@ -8,6 +8,20 @@
 
 import SwiftUI
 
+enum WorkoutInput: Identifiable {
+  case template(WorkoutTemplate)
+  case noTemplate
+  
+  var id: String {
+    switch self {
+    case .template(_):
+      return "template"
+    case .noTemplate:
+      return "noTemplate"
+    }
+  }
+}
+
 struct StartWorkoutList : View {
   @Environment(\.managedObjectContext) var moc
   @Environment(\.scenePhase) private var scenePhase
@@ -17,7 +31,18 @@ struct StartWorkoutList : View {
   @EnvironmentObject var keyboardMonitor: KeyboardMonitor
   
   @State var isCreateViewVisible = false
-  @State var selectedTemplate: WorkoutTemplate? = nil
+  @State var workoutInput: WorkoutInput? = nil {
+    didSet {
+      switch (workoutInput, workoutStore.workoutStatus, workoutStore.primaryWorkout) {
+      case (.template(let template), .stopped, .none):
+        workoutStore.setupPrimaryWorkout(with: template)
+      case (.noTemplate, .stopped, .none):
+        workoutStore.setupPrimaryWorkout()
+      default:
+        break
+      }
+    }
+  }
   
   var nonActiveWorkouts: [WorkoutTemplate] {
     switch (workoutStore.workoutStatus, workoutStore.primaryWorkout)  {
@@ -49,7 +74,7 @@ struct StartWorkoutList : View {
             if let meta = workout.meta {
               Section(header: activeWorkoutHeader) {
                 Button {
-                  selectedTemplate = meta
+                  workoutInput = .template(meta)
                 } label: {
                   WorkoutRow(workoutTemplate: meta)
                 }
@@ -62,16 +87,13 @@ struct StartWorkoutList : View {
         Section {
           ForEach(nonActiveWorkouts) { workoutTemplate in
             Button {
-              if workoutStore.primaryWorkout == nil {
-                workoutStore.setupPrimaryWorkout(with: workoutTemplate)
-              }
-              selectedTemplate = workoutTemplate
+              workoutInput = .template(workoutTemplate)
             } label: {
               WorkoutRow(workoutTemplate: workoutTemplate)
             }
           }
           Button {
-            isCreateViewVisible.toggle()
+            workoutInput = .noTemplate
           } label: {
             AddWorkoutRow()
           }
@@ -79,13 +101,8 @@ struct StartWorkoutList : View {
         
       }
       .listStyle(InsetGroupedListStyle())
-      .sheet(
-        isPresented: $isCreateViewVisible,
-        content: {
-          NewWorkout(isPresented: self.$isCreateViewVisible)
-        })
       .fullScreenCover(
-        item: $selectedTemplate,
+        item: $workoutInput,
         onDismiss: dismissModal) { _ in
         switch workoutStore.primaryWorkout {
         case .some(let workout):

@@ -45,6 +45,11 @@ class WorkoutStore: NSObject, ObservableObject {
     primaryWorkout = Workout.getNewWorkout(from: workoutTemplate)
   }
   
+  func setupPrimaryWorkout() {
+    workoutStatus = .stopped
+    primaryWorkout = Workout.newWorkout()
+  }
+  
   func finishPrimaryWorkout() {
     workoutStatus = .stopped
     primaryWorkout = nil

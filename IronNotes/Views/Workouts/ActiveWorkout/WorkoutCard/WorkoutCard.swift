@@ -22,7 +22,7 @@ struct WorkoutCard: View {
   ]
   
   var workoutMetaName: String {
-    return workout.meta?.wrappedName ?? ""
+    return workout.meta?.wrappedName ?? "New Workout"
   }
   
   var body: some View {
@@ -38,8 +38,7 @@ struct WorkoutCard: View {
         Spacer()
         
         WorkoutCardButton()
-      }          .padding(.horizontal)
-      
+      }.padding(.horizontal)
       
       Group {
         Divider()
