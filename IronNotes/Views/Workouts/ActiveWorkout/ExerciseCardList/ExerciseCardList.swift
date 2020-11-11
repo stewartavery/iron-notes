@@ -21,20 +21,31 @@ struct ExerciseCardList: View {
   
   var body: some View {
     NavigationView {
-      List {
-        //        if workout.routinesArray.count == 0 {
-        //          VStack {
-        //            Text("There's nothing here.")
-        //            Button("Add some workouts") {
-        //              print("HEY")
-        //            }
-        //            Text("to get started.")
-        //          }
-        //        }
-        ForEach(workout.routinesArray) { exercise in
-          Section {
-            ExerciseCard(exercise: exercise, isActive: true)
+      Group {
+        if workout.routinesArray.count == 0 {
+          VStack {
+            Text("Your workout is empty. Add some")
+            Text("exercises to get started.")
+              .padding(.bottom)
+            
+            Button("Add Exercises") {
+              workoutSheet = .exercises
+            }
+            .font(.headline)
+            .accentColor(Color.orange)
           }
+          .frame(maxWidth: .infinity, maxHeight: .infinity)
+          .background(Color(.systemGroupedBackground))
+        } else {
+          List {
+            ForEach(workout.routinesArray) { exercise in
+              Section {
+                ExerciseCard(exercise: exercise, isActive: true)
+              }
+            }
+          }
+          
+          .listStyle(InsetGroupedListStyle())
         }
       }
       .onChange(of: keyboardMonitor.keyboardStatus, perform: { _ in
@@ -66,7 +77,6 @@ struct ExerciseCardList: View {
             .environment(\.managedObjectContext, moc)
         }
       }
-      .listStyle(InsetGroupedListStyle())
     }
   }
   
@@ -87,15 +97,29 @@ struct ExerciseCardList_Previews: PreviewProvider {
     Group {
       ExerciseCardList(workoutSheet: $workoutSheet)
         .previewDevice("iPhone 11 Pro Max")
+        .environmentObject(KeyboardMonitor())
+        .environmentObject(IronNotesModelFactory.getWorkout())
+      
+      ExerciseCardList(workoutSheet: $workoutSheet)
+        .previewDevice("iPhone 11 Pro Max")
+        .environmentObject(KeyboardMonitor())
+        .environmentObject(Workout.newWorkout())
+      
+      ExerciseCardList(workoutSheet: $workoutSheet)
+        .previewDevice("iPhone 11 Pro Max")
+        .environmentObject(KeyboardMonitor())
+        .environment(\.colorScheme, .dark)
+        .environmentObject(Workout.newWorkout())
       
       ExerciseCardList(workoutSheet: $workoutSheet)
         .previewDevice("iPhone SE")
         .environment(\.sizeCategory, .extraExtraLarge)
         .environment(\.colorScheme, .dark)
-
-
-    }
-    .environmentObject(KeyboardMonitor())
-    .environmentObject(IronNotesModelFactory.getWorkout())
+        .environmentObject(IronNotesModelFactory.getWorkout())
+      
+      
+    }.environmentObject(KeyboardMonitor())
+    
+    
   }
 }
