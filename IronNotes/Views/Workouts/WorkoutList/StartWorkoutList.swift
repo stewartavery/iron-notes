@@ -49,12 +49,8 @@ struct StartWorkoutList : View {
       return workoutTemplateStore.items
     }
     
-    switch (activeWorkout.status)  {
-    case .running:
-      guard let meta = activeWorkout.workout.meta else {
-        return workoutTemplateStore.items
-      }
-      
+    switch activeWorkout.workout.meta  {
+    case .some(let meta) where activeWorkout.status == .running:
       return workoutTemplateStore.items.filter {
         meta !== $0
       }

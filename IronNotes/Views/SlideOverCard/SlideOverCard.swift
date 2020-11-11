@@ -16,8 +16,7 @@ struct SlideOverCard<Content: View> : View {
   @Environment(\.colorScheme) var colorScheme: ColorScheme
   @GestureState private var dragState = DragState.inactive
   
-  @StateObject var cardDetails = CardDetails()
-  
+  @EnvironmentObject var cardDetails: CardDetails
   
   var content: () -> Content
   

@@ -29,14 +29,15 @@ struct ActiveWorkoutEditor: View {
   @Environment(\.scenePhase) private var scenePhase
   
   @StateObject var stopwatchManager = StopwatchManager()
+  @StateObject var cardDetails = CardDetails()
   
   @ObservedObject var keyboardMonitor: KeyboardMonitor
   @ObservedObject var activeWorkout: ActiveWorkout
   
-  @State private var workoutSheet: WorkoutSheet? = nil
+  @State var workoutSheet: WorkoutSheet? = nil
   
   var body: some View {
-    ZStack {
+    return ZStack {
       ExerciseCardList(workoutSheet: $workoutSheet)
       
       DelayedSlideOverCard(workoutSheet: $workoutSheet)
@@ -47,6 +48,7 @@ struct ActiveWorkoutEditor: View {
     }
     .environmentObject(activeWorkout)
     .environmentObject(keyboardMonitor)
+    .environmentObject(cardDetails)
     .onChange(of: scenePhase) { phase in
       switch phase {
       case .active:
@@ -55,6 +57,9 @@ struct ActiveWorkoutEditor: View {
       default:
         break
       }
+    }
+    .onChange(of: workoutSheet) { _ in
+      cardDetails.position = .bottom
     }
   }
   

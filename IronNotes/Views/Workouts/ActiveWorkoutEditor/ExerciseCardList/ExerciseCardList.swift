@@ -15,7 +15,7 @@ struct ExerciseCardList: View {
   @EnvironmentObject var keyboardMonitor: KeyboardMonitor
   @EnvironmentObject var activeWorkout: ActiveWorkout
   
-  @Binding var workoutSheet: WorkoutSheet?
+  @Binding var workoutSheet: WorkoutSheet? 
   
   @State private var bottomPadding: CGFloat = minCardHeight
   
@@ -115,6 +115,6 @@ struct ExerciseCardList_Previews: PreviewProvider {
       
     }
     .environmentObject(KeyboardMonitor())
-    .environmentObject(ActiveWorkout.pendingWorkout)  
+    .environmentObject(ActiveWorkout.pendingWorkout)
   }
 }
