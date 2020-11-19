@@ -18,7 +18,9 @@ struct SummaryView: View {
         VStack {
           ScrollView {
             LazyVStack(spacing: 5) {
-              Section(header: Text("Workouts")) {
+              Section(header: SummaryHeader("Workouts") {
+                StartWorkoutList()
+              }) {
                 ForEach(0..<3) { _ in
                   GroupBox(label: ContainerRelativeShape()
                             .fill(Color.blue)
@@ -33,7 +35,9 @@ struct SummaryView: View {
                   }.groupBoxStyle(CardGroupBoxStyle())
                 }
               }
-              Section(header: Text("History")) {
+              Section(header: SummaryHeader("History") {
+                WorkoutHistoryContainer()
+              }) {
                 
                 ForEach(0..<3) { _ in
                   GroupBox(label: ContainerRelativeShape()
