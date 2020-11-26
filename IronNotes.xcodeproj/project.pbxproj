@@ -30,6 +30,8 @@
 		5076062F25144AB300F2E5E0 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5076062E25144AB300F2E5E0 /* ViewExtensions.swift */; };
 		507606362514551000F2E5E0 /* WorkoutHistoryContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507606352514551000F2E5E0 /* WorkoutHistoryContainer.swift */; };
 		508145592566239E008919E9 /* SummaryHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508145582566239E008919E9 /* SummaryHeader.swift */; };
+		5086C679256F611700606386 /* CardGroupBoxStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5086C678256F611700606386 /* CardGroupBoxStyle.swift */; };
+		5086C67C256F612E00606386 /* SummaryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5086C67B256F612E00606386 /* SummaryRow.swift */; };
 		508B9C942537EC5B003AF920 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 508B9C932537EC5B003AF920 /* StoreKit.framework */; };
 		508CFCCE24E645C100F9D77B /* KeyboardHeightPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508CFCCD24E645C100F9D77B /* KeyboardHeightPublisher.swift */; };
 		508CFCD024E645DE00F9D77B /* UIResponder+Current.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508CFCCF24E645DE00F9D77B /* UIResponder+Current.swift */; };
@@ -107,6 +109,8 @@
 		5076062E25144AB300F2E5E0 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		507606352514551000F2E5E0 /* WorkoutHistoryContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistoryContainer.swift; sourceTree = "<group>"; };
 		508145582566239E008919E9 /* SummaryHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryHeader.swift; sourceTree = "<group>"; };
+		5086C678256F611700606386 /* CardGroupBoxStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGroupBoxStyle.swift; sourceTree = "<group>"; };
+		5086C67B256F612E00606386 /* SummaryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryRow.swift; sourceTree = "<group>"; };
 		508B9C932537EC5B003AF920 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		508CFCCD24E645C100F9D77B /* KeyboardHeightPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardHeightPublisher.swift; sourceTree = "<group>"; };
 		508CFCCF24E645DE00F9D77B /* UIResponder+Current.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Current.swift"; sourceTree = "<group>"; };
@@ -231,6 +235,8 @@
 			children = (
 				503AD3132562D9FA0023B704 /* SummaryView.swift */,
 				508145582566239E008919E9 /* SummaryHeader.swift */,
+				5086C678256F611700606386 /* CardGroupBoxStyle.swift */,
+				5086C67B256F612E00606386 /* SummaryRow.swift */,
 			);
 			path = Summary;
 			sourceTree = "<group>";
@@ -622,6 +628,7 @@
 				50965B5C25466B88004A52BF /* ExerciseSelector.swift in Sources */,
 				50E92AA2251EDABC0040D8FC /* WorkoutHistoryDetail.swift in Sources */,
 				501B3DDD25070BA100722F56 /* CardDetails.swift in Sources */,
+				5086C67C256F612E00606386 /* SummaryRow.swift in Sources */,
 				508145592566239E008919E9 /* SummaryHeader.swift in Sources */,
 				6514CB9A22FE5075002907BC /* RowImage.swift in Sources */,
 				5061A7212536A09F0002B3F1 /* WorkoutAction.swift in Sources */,
@@ -652,6 +659,7 @@
 				655D291A246E31D90022C241 /* MuscleGroupPicker.swift in Sources */,
 				654EEC02241B2066006C917A /* ExerciseCard.swift in Sources */,
 				507606232514477D00F2E5E0 /* ExerciseCardList.swift in Sources */,
+				5086C679256F611700606386 /* CardGroupBoxStyle.swift in Sources */,
 				6544A4F023FA1ECB0039D705 /* NewWorkout.swift in Sources */,
 				6540EFC723FE19180042D81F /* IronNotes.xcdatamodeld in Sources */,
 				5076062F25144AB300F2E5E0 /* ViewExtensions.swift in Sources */,

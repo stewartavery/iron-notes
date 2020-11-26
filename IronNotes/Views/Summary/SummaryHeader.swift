@@ -20,18 +20,24 @@ struct SummaryHeader<Content: View> : View {
   var body: some View {
     HStack {
       Text(title)
+        .font(.headline)
       Spacer()
       NavigationLink(destination: content()) {
         Text("View All")
-      }
-    }
+      }.frame(height: 25)
+      
+    }.padding(.top)
   }
 }
 
 struct SummaryHeader_Previews: PreviewProvider {
   static var previews: some View {
-    SummaryHeader("Workouts") {
-      Text("Hey")
-    }
+    VStack {
+      Spacer()
+      SummaryHeader("Workouts") {
+        Text("Hey")
+      }.background(Color.white)
+      Spacer()
+    }.background(Color.gray)
   }
 }
