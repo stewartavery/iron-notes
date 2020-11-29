@@ -9,9 +9,17 @@
 import CoreData
 
 class WorkoutStore: NSObject, ObservableObject {
-  @Published private(set) var items: [Workout] = []
+  @Published private(set) var items: [Workout] = [] {
+    didSet {
+      self.summaryItems = Array(self.items.prefix(3))
+    }
+  }
+  
+  @Published private(set) var summaryItems: [Workout] = []
   @Published private(set) var groupedItems: [String : [Workout]] = [String: [Workout]]()
   @Published var activeWorkout: ActiveWorkout?
+  
+  
   
   private let workoutController: NSFetchedResultsController<Workout>
   

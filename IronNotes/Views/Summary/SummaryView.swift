@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct SummaryView: View {
+  var workouts: [Workout]
   
   var body: some View {
     NavigationView {
@@ -32,9 +33,9 @@ struct SummaryView: View {
             Section(header: SummaryHeader("History") {
               WorkoutHistoryContainer()
             }) {
-              ForEach(0..<3) { _ in
+              ForEach(workouts) { workout in
                 SummaryRow(
-                  title: "Heart Rate",
+                  title: workout.meta?.wrappedName ?? "Untitled",
                   description: "Your heart rate is 90 BPM.",
                   color: .blue
                 )
@@ -43,7 +44,6 @@ struct SummaryView: View {
           }
           .padding(.horizontal)
         }
-        
       }
       .navigationTitle("Summary")
     }
@@ -54,6 +54,6 @@ struct SummaryView: View {
 
 struct SummaryView_Previews: PreviewProvider {
   static var previews: some View {
-    SummaryView()
+    SummaryView(workouts: [])
   }
 }

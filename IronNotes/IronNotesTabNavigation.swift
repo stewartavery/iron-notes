@@ -44,7 +44,6 @@ struct IronNotesTabNavigation: View {
         })
         .tag(3)
     }
-    .accentColor(Color.orange)
   }
 }
 

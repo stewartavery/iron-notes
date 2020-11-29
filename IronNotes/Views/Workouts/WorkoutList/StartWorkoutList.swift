@@ -67,57 +67,56 @@ struct StartWorkoutList : View {
   }
   
   var body: some View {
-    NavigationView {
-      List {
-        Group {
-          switch (workoutStore.activeWorkout) {
-          case (.some(let activeWorkout)) where activeWorkout.status == .running:
-            if let meta = activeWorkout.workout.meta {
-              Section(header: activeWorkoutHeader) {
-                Button {
-                  workoutInput = .template(meta)
-                } label: {
-                  WorkoutRow(workoutTemplate: meta)
-                }
+    List {
+      Group {
+        switch (workoutStore.activeWorkout) {
+        case (.some(let activeWorkout)) where activeWorkout.status == .running:
+          if let meta = activeWorkout.workout.meta {
+            Section(header: activeWorkoutHeader) {
+              Button {
+                workoutInput = .template(meta)
+              } label: {
+                WorkoutRow(workoutTemplate: meta)
               }
             }
-          default:
-            EmptyView()
           }
-        }
-        Section {
-          ForEach(nonActiveWorkouts) { workoutTemplate in
-            Button {
-              workoutInput = .template(workoutTemplate)
-            } label: {
-              WorkoutRow(workoutTemplate: workoutTemplate)
-            }
-          }
-          Button {
-            workoutInput = .noTemplate
-          } label: {
-            AddWorkoutRow()
-          }
-        }
-        
-      }
-      .listStyle(InsetGroupedListStyle())
-      .fullScreenCover(
-        item: $workoutInput,
-        onDismiss: dismissModal) { _ in
-        switch workoutStore.activeWorkout {
-        case .some(let activeWorkout):
-          ActiveWorkoutEditor(
-            keyboardMonitor: keyboardMonitor,
-            activeWorkout: activeWorkout
-          ).environment(\.scenePhase, scenePhase)
-        case .none:
+        default:
           EmptyView()
         }
-        
       }
-      .navigationBarTitle("Workouts")
+      Section {
+        ForEach(nonActiveWorkouts) { workoutTemplate in
+          Button {
+            workoutInput = .template(workoutTemplate)
+          } label: {
+            WorkoutRow(workoutTemplate: workoutTemplate)
+          }
+        }
+        Button {
+          workoutInput = .noTemplate
+        } label: {
+          AddWorkoutRow()
+        }
+      }
+      
     }
+    .listStyle(InsetGroupedListStyle())
+    .fullScreenCover(
+      item: $workoutInput,
+      onDismiss: dismissModal) { _ in
+      switch workoutStore.activeWorkout {
+      case .some(let activeWorkout):
+        ActiveWorkoutEditor(
+          keyboardMonitor: keyboardMonitor,
+          activeWorkout: activeWorkout
+        ).environment(\.scenePhase, scenePhase)
+      case .none:
+        EmptyView()
+      }
+      
+    }
+    .navigationBarTitle("Workouts")
+    
   }
   
   private func dismissModal() -> Void {

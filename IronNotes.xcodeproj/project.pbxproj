@@ -22,6 +22,7 @@
 		5044A5072508708B00085739 /* WorkoutTemplateStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5044A5062508708B00085739 /* WorkoutTemplateStore.swift */; };
 		5044A5092508770800085739 /* WorkoutStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5044A5082508770800085739 /* WorkoutStore.swift */; };
 		5044A50B2509B90500085739 /* TopToolbarContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5044A50A2509B90500085739 /* TopToolbarContent.swift */; };
+		5045749C25746B5C006D44D6 /* SummaryContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5045749B25746B5C006D44D6 /* SummaryContainer.swift */; };
 		5061A71D25369AC30002B3F1 /* TextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5061A71C25369AC30002B3F1 /* TextExtensions.swift */; };
 		5061A7212536A09F0002B3F1 /* WorkoutAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5061A7202536A09F0002B3F1 /* WorkoutAction.swift */; };
 		5061A7242536ABBC0002B3F1 /* ButtonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5061A7232536ABBC0002B3F1 /* ButtonExtensions.swift */; };
@@ -101,6 +102,7 @@
 		5044A5062508708B00085739 /* WorkoutTemplateStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTemplateStore.swift; sourceTree = "<group>"; };
 		5044A5082508770800085739 /* WorkoutStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutStore.swift; sourceTree = "<group>"; };
 		5044A50A2509B90500085739 /* TopToolbarContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopToolbarContent.swift; sourceTree = "<group>"; };
+		5045749B25746B5C006D44D6 /* SummaryContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryContainer.swift; sourceTree = "<group>"; };
 		5061A71C25369AC30002B3F1 /* TextExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextExtensions.swift; sourceTree = "<group>"; };
 		5061A7202536A09F0002B3F1 /* WorkoutAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutAction.swift; sourceTree = "<group>"; };
 		5061A7232536ABBC0002B3F1 /* ButtonExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonExtensions.swift; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 		503AD3122562D46D0023B704 /* Summary */ = {
 			isa = PBXGroup;
 			children = (
+				5045749B25746B5C006D44D6 /* SummaryContainer.swift */,
 				503AD3132562D9FA0023B704 /* SummaryView.swift */,
 				508145582566239E008919E9 /* SummaryHeader.swift */,
 				5086C678256F611700606386 /* CardGroupBoxStyle.swift */,
@@ -651,6 +654,7 @@
 				503AD3142562D9FA0023B704 /* SummaryView.swift in Sources */,
 				65F4CCF72464E8610000F786 /* MuscleGroup+CoreDataProperties.swift in Sources */,
 				501DCFA124FEFAD000D87926 /* Persistence.swift in Sources */,
+				5045749C25746B5C006D44D6 /* SummaryContainer.swift in Sources */,
 				5044A5092508770800085739 /* WorkoutStore.swift in Sources */,
 				650EB89B2484A056009AD355 /* Workout+CoreDataProperties.swift in Sources */,
 				5029B49824F3528700468268 /* DelayedSlideOverCard.swift in Sources */,

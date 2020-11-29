@@ -47,24 +47,22 @@ struct WorkoutHistory: View {
   var groupedWorkouts: [String : [Workout]]
   
   var body: some View {
-    NavigationView {
-      ZStack {
-        Color(.systemGroupedBackground)
-          .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
-        
-        VStack {          
-          ScrollView {
-            LazyVStack(alignment: .leading, spacing: 5, pinnedViews: [.sectionHeaders]) {
-              ForEach(groupedWorkouts.keys.sorted(by: >), id: \.self) { key in
-                if let workouts = groupedWorkouts[key] {
-                  Section(header: DateHeader(dateKey: key, itemCount: workouts.count)) {
-                    ForEach(workouts) { workout in
-                      NavigationLink(destination: WorkoutHistoryDetail(workout: workout)) {
-                        WorkoutHistoryRow(workout: workout)
-                          .accentColor(Color(.label))
-                      }
-                      .padding(.horizontal, 20)
+    ZStack {
+      Color(.systemGroupedBackground)
+        .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+      
+      VStack {
+        ScrollView {
+          LazyVStack(alignment: .leading, spacing: 5, pinnedViews: [.sectionHeaders]) {
+            ForEach(groupedWorkouts.keys.sorted(by: >), id: \.self) { key in
+              if let workouts = groupedWorkouts[key] {
+                Section(header: DateHeader(dateKey: key, itemCount: workouts.count)) {
+                  ForEach(workouts) { workout in
+                    NavigationLink(destination: WorkoutHistoryDetail(workout: workout)) {
+                      WorkoutHistoryRow(workout: workout)
+                        .accentColor(Color(.label))
                     }
+                    .padding(.horizontal, 20)
                   }
                 }
               }
@@ -72,10 +70,9 @@ struct WorkoutHistory: View {
           }
         }
       }
-      .navigationBarTitle("History")
     }
+    .navigationBarTitle("History")
   }
-  
 }
 
 struct WorkoutHistory_Previews: PreviewProvider {

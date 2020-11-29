@@ -44,11 +44,12 @@ struct IronNotesApp: App {
   
   var body: some Scene {
     WindowGroup {
-      IronNotesTabNavigation()
+      SummaryContainer()
         .environment(\.managedObjectContext, moc)
         .environmentObject(keyboardMonitor)
         .environmentObject(workoutTemplateStore)
         .environmentObject(workoutStore)
+        .accentColor(.orange)
     }
     .onChange(of: scenePhase) { phase in
       print(hasDefaultDataSyncedMonitor.value)
