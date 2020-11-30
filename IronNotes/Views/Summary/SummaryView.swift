@@ -36,7 +36,7 @@ struct SummaryView: View {
               ForEach(workouts) { workout in
                 SummaryRow(
                   title: workout.meta?.wrappedName ?? "Untitled",
-                  description: "Your heart rate is 90 BPM.",
+                  description: workout.readableDate,
                   color: .blue
                 )
               }
