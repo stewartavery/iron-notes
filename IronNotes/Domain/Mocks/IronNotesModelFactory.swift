@@ -75,6 +75,10 @@ class IronNotesModelFactory {
     return [getWorkout(), getWorkout(), getWorkout(), getWorkout(), getWorkout()]
   }
   
+  static func getWorkoutTemplates() -> [WorkoutTemplate] {
+    return [getWorkoutTemplate(), getWorkoutTemplate(), getWorkoutTemplate(), getWorkoutTemplate(), getWorkoutTemplate()]
+  }
+  
   static func getExercise() -> Exercise {
     return getWorkout().routinesArray[0]
   }

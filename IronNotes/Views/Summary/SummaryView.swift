@@ -9,7 +9,20 @@
 import SwiftUI
 
 struct SummaryView: View {
+  var templates: [WorkoutTemplate]
   var workouts: [Workout]
+  
+  var workoutsHeader: some View {
+    SummaryHeader("Workouts") {
+      StartWorkoutList()
+    }
+  }
+  
+  var historyHeader: some View {
+    SummaryHeader("History") {
+      WorkoutHistoryContainer()
+    }
+  }
   
   var body: some View {
     NavigationView {
@@ -19,26 +32,21 @@ struct SummaryView: View {
         
         ScrollView {
           LazyVStack(spacing: 5) {
-            Section(header: SummaryHeader("Workouts") {
-              StartWorkoutList()
-            }) {
-              ForEach(0..<3) { _ in
+            Section(header: workoutsHeader) {
+              ForEach(templates) { template in
                 SummaryRow(
-                  title: "Heart Rate",
-                  description: "Your heart rate is 90 BPM.",
+                  title: template.wrappedName,
+                  description: template.wrappedDesc,
                   color: .red
-                )
+                ) {
+                  Text("Hi")
+                }
               }
             }
-            Section(header: SummaryHeader("History") {
-              WorkoutHistoryContainer()
-            }) {
+            
+            Section(header: historyHeader) {
               ForEach(workouts) { workout in
-                SummaryRow(
-                  title: workout.meta?.wrappedName ?? "Untitled",
-                  description: workout.readableDate,
-                  color: .blue
-                )
+                WorkoutHistoryRow(workout)
               }
             }
           }
@@ -54,6 +62,8 @@ struct SummaryView: View {
 
 struct SummaryView_Previews: PreviewProvider {
   static var previews: some View {
-    SummaryView(workouts: [])
+    SummaryView(
+      templates: Array(IronNotesModelFactory.getWorkoutTemplates().prefix(3)),
+      workouts: Array(IronNotesModelFactory.getWorkouts().prefix(3)))
   }
 }

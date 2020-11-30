@@ -21,22 +21,25 @@ struct WorkoutRowLabel: View {
       })
   }
   
+  var description: String {
+    switch workout {
+    case .some(let workout):
+      return getWorkoutDate(workout: workout)
+    case .none:
+      return "Last Workout: Never"
+    }
+  }
+  
+  
+  
   var body: some View {
-    return VStack(alignment: .leading) {
-      Text(workoutTemplate.wrappedName)
-        .font(.headline)
-      if let unwrappedWorkout = workout {
-        Text(getWorkoutDate(workout: unwrappedWorkout))
-          .font(.subheadline)
-          .foregroundColor(.gray)
-      } else {
-        Text("Last Workout: Never")
-          .font(.subheadline)
-          .foregroundColor(.gray)
-      }
-      
-    }.accentColor(Color(.label))
-    
+    SummaryRow(
+      title: workoutTemplate.wrappedName,
+      description: description,
+      color: .blue
+    ) {
+      WorkoutHistoryDetail(workout: workout)
+    }
   }
   
   func getWorkoutDate(workout: Workout) -> String {

@@ -23,6 +23,7 @@
 		5044A5092508770800085739 /* WorkoutStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5044A5082508770800085739 /* WorkoutStore.swift */; };
 		5044A50B2509B90500085739 /* TopToolbarContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5044A50A2509B90500085739 /* TopToolbarContent.swift */; };
 		5045749C25746B5C006D44D6 /* SummaryContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5045749B25746B5C006D44D6 /* SummaryContainer.swift */; };
+		504574A125749E72006D44D6 /* WorkoutHistoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504574A025749E72006D44D6 /* WorkoutHistoryRow.swift */; };
 		5061A71D25369AC30002B3F1 /* TextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5061A71C25369AC30002B3F1 /* TextExtensions.swift */; };
 		5061A7212536A09F0002B3F1 /* WorkoutAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5061A7202536A09F0002B3F1 /* WorkoutAction.swift */; };
 		5061A7242536ABBC0002B3F1 /* ButtonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5061A7232536ABBC0002B3F1 /* ButtonExtensions.swift */; };
@@ -47,7 +48,6 @@
 		50C8C08625510D29008AB81C /* SeedingGroup+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C8C08425510D29008AB81C /* SeedingGroup+CoreDataProperties.swift */; };
 		50C8C08C2551B66B008AB81C /* ExerciseStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C8C08B2551B66B008AB81C /* ExerciseStore.swift */; };
 		50E92AA2251EDABC0040D8FC /* WorkoutHistoryDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E92AA1251EDABC0040D8FC /* WorkoutHistoryDetail.swift */; };
-		50E92AA5251EDCAA0040D8FC /* WorkoutHistoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E92AA4251EDCAA0040D8FC /* WorkoutHistoryRow.swift */; };
 		50EF1C3824FB358E00D2E092 /* WorkoutCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EF1C3724FB358E00D2E092 /* WorkoutCard.swift */; };
 		50EF1C3A24FB35F000D2E092 /* WorkoutCardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EF1C3924FB35F000D2E092 /* WorkoutCardButton.swift */; };
 		6506506F24B6CFAB003E1415 /* ExerciseCardRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6506506E24B6CFAB003E1415 /* ExerciseCardRow.swift */; };
@@ -103,6 +103,7 @@
 		5044A5082508770800085739 /* WorkoutStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutStore.swift; sourceTree = "<group>"; };
 		5044A50A2509B90500085739 /* TopToolbarContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopToolbarContent.swift; sourceTree = "<group>"; };
 		5045749B25746B5C006D44D6 /* SummaryContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryContainer.swift; sourceTree = "<group>"; };
+		504574A025749E72006D44D6 /* WorkoutHistoryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistoryRow.swift; sourceTree = "<group>"; };
 		5061A71C25369AC30002B3F1 /* TextExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextExtensions.swift; sourceTree = "<group>"; };
 		5061A7202536A09F0002B3F1 /* WorkoutAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutAction.swift; sourceTree = "<group>"; };
 		5061A7232536ABBC0002B3F1 /* ButtonExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonExtensions.swift; sourceTree = "<group>"; };
@@ -127,7 +128,6 @@
 		50C8C08425510D29008AB81C /* SeedingGroup+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SeedingGroup+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		50C8C08B2551B66B008AB81C /* ExerciseStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseStore.swift; sourceTree = "<group>"; };
 		50E92AA1251EDABC0040D8FC /* WorkoutHistoryDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistoryDetail.swift; sourceTree = "<group>"; };
-		50E92AA4251EDCAA0040D8FC /* WorkoutHistoryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistoryRow.swift; sourceTree = "<group>"; };
 		50EF1C3724FB358E00D2E092 /* WorkoutCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCard.swift; sourceTree = "<group>"; };
 		50EF1C3924FB35F000D2E092 /* WorkoutCardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCardButton.swift; sourceTree = "<group>"; };
 		6506506E24B6CFAB003E1415 /* ExerciseCardRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCardRow.swift; sourceTree = "<group>"; };
@@ -208,7 +208,7 @@
 				501DCFA6250085FB00D87926 /* WorkoutHistory.swift */,
 				507606352514551000F2E5E0 /* WorkoutHistoryContainer.swift */,
 				50E92AA1251EDABC0040D8FC /* WorkoutHistoryDetail.swift */,
-				50E92AA4251EDCAA0040D8FC /* WorkoutHistoryRow.swift */,
+				504574A025749E72006D44D6 /* WorkoutHistoryRow.swift */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -635,6 +635,7 @@
 				508145592566239E008919E9 /* SummaryHeader.swift in Sources */,
 				6514CB9A22FE5075002907BC /* RowImage.swift in Sources */,
 				5061A7212536A09F0002B3F1 /* WorkoutAction.swift in Sources */,
+				504574A125749E72006D44D6 /* WorkoutHistoryRow.swift in Sources */,
 				50C8C08C2551B66B008AB81C /* ExerciseStore.swift in Sources */,
 				50965B682548B442004A52BF /* Ubiquitous.swift in Sources */,
 				501DCFA7250085FB00D87926 /* WorkoutHistory.swift in Sources */,
@@ -642,7 +643,6 @@
 				50C8C08525510D29008AB81C /* SeedingGroup+CoreDataClass.swift in Sources */,
 				655D291C246E3C920022C241 /* SelectedMuscleGroups.swift in Sources */,
 				6574530D2487456700DD76B6 /* ExerciseEditor.swift in Sources */,
-				50E92AA5251EDCAA0040D8FC /* WorkoutHistoryRow.swift in Sources */,
 				65D61B1324849BBD00A5B561 /* WorkoutTemplate+CoreDataProperties.swift in Sources */,
 				50222E5E24DC0BB6005BBF61 /* StopwatchManager.swift in Sources */,
 				508CFCD024E645DE00F9D77B /* UIResponder+Current.swift in Sources */,

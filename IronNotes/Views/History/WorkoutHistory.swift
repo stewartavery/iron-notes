@@ -59,8 +59,7 @@ struct WorkoutHistory: View {
                 Section(header: DateHeader(dateKey: key, itemCount: workouts.count)) {
                   ForEach(workouts) { workout in
                     NavigationLink(destination: WorkoutHistoryDetail(workout: workout)) {
-                      WorkoutHistoryRow(workout: workout)
-                        .accentColor(Color(.label))
+                      WorkoutHistoryRow(workout)
                     }
                     .padding(.horizontal, 20)
                   }

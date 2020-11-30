@@ -10,9 +10,13 @@ import SwiftUI
 
 struct SummaryContainer: View {
   @EnvironmentObject var workoutStore: WorkoutStore
+  @EnvironmentObject var workoutTemplateStore: WorkoutTemplateStore
   
   var body: some View {
-    SummaryView(workouts: workoutStore.summaryItems)
+    SummaryView(
+      templates: workoutTemplateStore.summaryItems,
+      workouts: workoutStore.summaryItems
+    )
   }
 }
 

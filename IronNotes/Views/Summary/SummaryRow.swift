@@ -41,6 +41,7 @@ struct SummaryRow<Content: View> : View {
         VStack(alignment: .leading) {
           Text(title)
             .font(.headline)
+            .foregroundColor(Color.primary)
           
           Text(description)
             .foregroundColor(.gray)
@@ -61,7 +62,6 @@ struct SummaryRow_Previews: PreviewProvider {
           SummaryRow(title: "Some title", description: "Some text", color: .red) {
             Text("hey")
           }.padding()
-          
         }
       }
       ZStack {
@@ -69,9 +69,9 @@ struct SummaryRow_Previews: PreviewProvider {
           .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
         
         ScrollView {
-          SummaryRow(title: "Some title", description: "Some text", color: .red)
-            .padding()
-          
+          SummaryRow(title: "Some title", description: "Some text", color: .red) {
+            Text("Yo")
+          }.padding()
         }
         
       }.environment(\.colorScheme, .dark)
