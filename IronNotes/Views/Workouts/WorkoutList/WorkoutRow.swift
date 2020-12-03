@@ -33,13 +33,21 @@ struct WorkoutRowLabel: View {
   
   
   var body: some View {
-    SummaryRow(
-      title: workoutTemplate.wrappedName,
-      description: description,
-      color: .blue
-    ) {
-      WorkoutHistoryDetail(workout: workout)
-    }
+    VStack(alignment: .leading) {
+      Text(workoutTemplate.wrappedName)
+        .font(.headline)
+      if let unwrappedWorkout = workout {
+        Text(getWorkoutDate(workout: unwrappedWorkout))
+          .font(.subheadline)
+          .foregroundColor(.gray)
+      } else {
+        Text("Last Workout: Never")
+          .font(.subheadline)
+          .foregroundColor(.gray)
+      }
+      
+    }.accentColor(Color(.label))
+    
   }
   
   func getWorkoutDate(workout: Workout) -> String {

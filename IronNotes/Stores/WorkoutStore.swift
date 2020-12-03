@@ -7,23 +7,66 @@
 //
 
 import CoreData
+import Combine
+
+enum WorkoutInput: Identifiable {
+  case template(WorkoutTemplate)
+  case noTemplate
+  
+  var id: String {
+    switch self {
+    case .template(_):
+      return "template"
+    case .noTemplate:
+      return "noTemplate"
+    }
+  }
+}
 
 class WorkoutStore: NSObject, ObservableObject {
-  @Published private(set) var items: [Workout] = [] {
+  @Published private(set) var workouts: [Workout] = [] {
     didSet {
-      self.summaryItems = Array(self.items.prefix(3))
+      self.groupedItems = Dictionary.init(grouping: workouts) {
+        let comps = Calendar.current.dateComponents([.month, .year], from: $0.wrappedStartTime)
+        return String(format: "%ld-%.2ld", comps.year!, comps.month!)
+      }
     }
   }
   
-  @Published private(set) var summaryItems: [Workout] = []
+  @Published private(set) var workoutTemplates: [WorkoutTemplate] = [] {
+    didSet {
+      nonActiveWorkoutTemplates = getNonActiveTemplates()
+    }
+  }
+  
+  @Published var activeWorkout: ActiveWorkout? {
+    didSet {
+      nonActiveWorkoutTemplates = getNonActiveTemplates()
+    }
+  }
+  
+  @Published private(set) var nonActiveWorkoutTemplates: [WorkoutTemplate] = []
   @Published private(set) var groupedItems: [String : [Workout]] = [String: [Workout]]()
-  @Published var activeWorkout: ActiveWorkout?
   
-  
+  @Published var workoutInput: WorkoutInput? = nil {
+    didSet {
+      switch (workoutInput, activeWorkout) {
+      case (.template(let template), .none):
+        setupPrimaryWorkout(with: template)
+      case (.noTemplate, .none):
+        setupPrimaryWorkout()
+      default:
+        break
+      }
+    }
+  }
   
   private let workoutController: NSFetchedResultsController<Workout>
+  private let workoutTemplateStore: WorkoutTemplateStore
+  private var workoutTemplatesCancellable: AnyCancellable?
   
   init(managedObjectContext: NSManagedObjectContext) {
+    workoutTemplateStore = WorkoutTemplateStore(managedObjectContext: managedObjectContext)
     workoutController = NSFetchedResultsController(fetchRequest: Workout.getWorkouts,
     managedObjectContext: managedObjectContext,
     sectionNameKeyPath: nil, cacheName: nil)
@@ -31,45 +74,71 @@ class WorkoutStore: NSObject, ObservableObject {
     super.init()
 
     workoutController.delegate = self
-
+    
+    workoutTemplatesCancellable = workoutTemplateStore.$items.sink { [weak self] workoutTemplates in
+      guard let self = self else { return }
+      self.workoutTemplates = workoutTemplates
+    }
+    
     do {
       try workoutController.performFetch()
       let fetchedItems = workoutController.fetchedObjects ?? []
-      items = fetchedItems.filter { $0.startTime != nil }
-    
-      createGroupedList(with: items)
+      workouts = fetchedItems.filter { $0.startTime != nil }
     } catch {
       print("failed to fetch workouts!")
     }
   }
   
-  func setupPrimaryWorkout(with workoutTemplate: WorkoutTemplate) {
+  private func setupPrimaryWorkout(with workoutTemplate: WorkoutTemplate) {
     activeWorkout = ActiveWorkout(Workout.getNewWorkout(from: workoutTemplate))
   }
   
-  func setupPrimaryWorkout() {
+  private func setupPrimaryWorkout() {
     activeWorkout = ActiveWorkout(Workout.newWorkoutWithEmptyMeta())
   }
   
-  func finishPrimaryWorkout() {
+  private func resetActiveWorkout() {
     activeWorkout = nil
   }
   
-  func createGroupedList(with workouts: [Workout]) -> Void {
-    self.groupedItems = Dictionary.init(grouping: workouts) {
-      let comps = Calendar.current.dateComponents([.month, .year], from: $0.wrappedStartTime)
-      return String(format: "%ld-%.2ld", comps.year!, comps.month!)
+  private func getNonActiveTemplates() -> [WorkoutTemplate] {
+    guard let activeWorkout = activeWorkout,
+          let meta = activeWorkout.workout.meta else {
+      return workoutTemplates
+    }
+    
+    switch activeWorkout.status {
+    case .running:
+      return workoutTemplates.filter {
+        meta !== $0
+      }
+    default:
+      return workoutTemplates
     }
   }
+  
+  func finishWorkout() -> Void {
+   guard let activeWorkout = activeWorkout else { return }
+   
+   switch (activeWorkout.status)  {
+   case .finished where activeWorkout.workout.duration > 0:
+    resetActiveWorkout()
+   case .finished:
+     activeWorkout.workout.deleteWorkout()
+    resetActiveWorkout()
+   default:
+     // a workout is currently going on
+     break
+   }
+ }
+
 }
 
 extension WorkoutStore: NSFetchedResultsControllerDelegate {
   func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-    guard let templates = controller.fetchedObjects as? [Workout]
+    guard let workouts = controller.fetchedObjects as? [Workout]
       else { return }
 
-    items = templates.filter {$0.startTime != nil}
-
-    createGroupedList(with: items)
+    self.workouts = workouts.filter {$0.startTime != nil}
   }
 }

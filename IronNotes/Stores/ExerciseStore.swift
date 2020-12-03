@@ -47,7 +47,8 @@ class ExerciseStore: NSObject, ObservableObject {
     }
     
     muscleGroupsCancellable = seedingStore.$muscleGroups.sink { [weak self] seededMuscleGroups in
-      self?.muscleGroups = seededMuscleGroups
+      guard let self = self else { return }
+      self.muscleGroups = seededMuscleGroups
     }
     
     do {

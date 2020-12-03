@@ -8,19 +8,7 @@
 
 import SwiftUI
 
-enum WorkoutInput: Identifiable {
-  case template(WorkoutTemplate)
-  case noTemplate
-  
-  var id: String {
-    switch self {
-    case .template(_):
-      return "template"
-    case .noTemplate:
-      return "noTemplate"
-    }
-  }
-}
+
 
 struct StartWorkoutList : View {
   @Environment(\.managedObjectContext) var moc
@@ -31,34 +19,6 @@ struct StartWorkoutList : View {
   @EnvironmentObject var keyboardMonitor: KeyboardMonitor
   
   @State var isCreateViewVisible = false
-  @State var workoutInput: WorkoutInput? = nil {
-    didSet {
-      switch (workoutInput, workoutStore.activeWorkout) {
-      case (.template(let template), .none):
-        workoutStore.setupPrimaryWorkout(with: template)
-      case (.noTemplate, .none):
-        workoutStore.setupPrimaryWorkout()
-      default:
-        break
-      }
-    }
-  }
-  
-  var nonActiveWorkouts: [WorkoutTemplate] {
-    guard let activeWorkout = workoutStore.activeWorkout,
-          let meta = activeWorkout.workout.meta else {
-      return workoutTemplateStore.items
-    }
-    
-    switch activeWorkout.status {
-    case .running:
-      return workoutTemplateStore.items.filter {
-        meta !== $0
-      }
-    default:
-      return workoutTemplateStore.items
-    }
-  }
   
   var activeWorkoutHeader: some View {
     Text("Active Workout")
@@ -74,7 +34,7 @@ struct StartWorkoutList : View {
           if let meta = activeWorkout.workout.meta {
             Section(header: activeWorkoutHeader) {
               Button {
-                workoutInput = .template(meta)
+                workoutStore.workoutInput = .template(meta)
               } label: {
                 WorkoutRow(workoutTemplate: meta)
               }
@@ -85,15 +45,15 @@ struct StartWorkoutList : View {
         }
       }
       Section {
-        ForEach(nonActiveWorkouts) { workoutTemplate in
+        ForEach(workoutStore.nonActiveWorkoutTemplates) { workoutTemplate in
           Button {
-            workoutInput = .template(workoutTemplate)
+            workoutStore.workoutInput = .template(workoutTemplate)
           } label: {
             WorkoutRow(workoutTemplate: workoutTemplate)
           }
         }
         Button {
-          workoutInput = .noTemplate
+          workoutStore.workoutInput = .noTemplate
         } label: {
           AddWorkoutRow()
         }
@@ -102,8 +62,8 @@ struct StartWorkoutList : View {
     }
     .listStyle(InsetGroupedListStyle())
     .fullScreenCover(
-      item: $workoutInput,
-      onDismiss: dismissModal) { _ in
+      item: $workoutStore.workoutInput,
+      onDismiss: workoutStore.finishWorkout) { _ in
       switch workoutStore.activeWorkout {
       case .some(let activeWorkout):
         ActiveWorkoutEditor(
@@ -115,23 +75,7 @@ struct StartWorkoutList : View {
       }
       
     }
-    .navigationBarTitle("Workouts")
-    
-  }
-  
-  private func dismissModal() -> Void {
-    guard let activeWorkout = workoutStore.activeWorkout else { return }
-    
-    switch (activeWorkout.status)  {
-    case .finished where activeWorkout.workout.duration > 0:
-      workoutStore.finishPrimaryWorkout()
-    case .finished:
-      activeWorkout.workout.deleteWorkout()
-      workoutStore.finishPrimaryWorkout()
-    default:
-      // a workout is currently going on
-      break
-    }
+    .navigationBarTitle("Workouts", displayMode: .inline)
   }
 }
 

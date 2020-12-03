@@ -9,13 +9,7 @@
 import CoreData
 
 class WorkoutTemplateStore: NSObject, ObservableObject {
-  @Published private(set) var items: [WorkoutTemplate] = [] {
-    didSet {
-      self.summaryItems = Array(self.items.prefix(3))
-    }
-  }
-  
-  @Published private(set) var summaryItems: [WorkoutTemplate] = []
+  @Published private(set) var items: [WorkoutTemplate] = []
   
   private let workoutTemplateController: NSFetchedResultsController<WorkoutTemplate>
 
