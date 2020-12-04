@@ -18,7 +18,6 @@ struct IronNotesApp: App {
   let persistenceController: PersistenceController
   
   @StateObject var keyboardMonitor: KeyboardMonitor
-  @StateObject var workoutTemplateStore: WorkoutTemplateStore
   @StateObject var workoutStore: WorkoutStore
   @StateObject var exerciseStore: ExerciseStore
   @StateObject var hasDefaultDataSyncedMonitor: UbiquitousMonitor
@@ -29,11 +28,10 @@ struct IronNotesApp: App {
     _keyboardMonitor = StateObject(wrappedValue: KeyboardMonitor())
     _hasDefaultDataSyncedMonitor = StateObject(wrappedValue: UbiquitousMonitor(key: .didSyncDefaultData))
     
-    let templateStorage = WorkoutTemplateStore(managedObjectContext: persistenceController.container.viewContext)
+ 
     let workoutStorage = WorkoutStore(managedObjectContext: persistenceController.container.viewContext)
     let exerciseStorage = ExerciseStore(managedObjectContext: persistenceController.container.viewContext)
     
-    _workoutTemplateStore = StateObject(wrappedValue: templateStorage)
     _workoutStore = StateObject(wrappedValue: workoutStorage)
     _exerciseStore = StateObject(wrappedValue: exerciseStorage)
   }
@@ -47,7 +45,6 @@ struct IronNotesApp: App {
       SummaryContainer()
         .environment(\.managedObjectContext, moc)
         .environmentObject(keyboardMonitor)
-        .environmentObject(workoutTemplateStore)
         .environmentObject(workoutStore)
         .accentColor(.orange)
     }

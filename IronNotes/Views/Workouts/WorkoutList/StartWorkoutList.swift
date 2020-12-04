@@ -11,12 +11,7 @@ import SwiftUI
 
 
 struct StartWorkoutList : View {
-  @Environment(\.managedObjectContext) var moc
-  @Environment(\.scenePhase) private var scenePhase
-  
   @EnvironmentObject var workoutStore: WorkoutStore
-  @EnvironmentObject var workoutTemplateStore: WorkoutTemplateStore
-  @EnvironmentObject var keyboardMonitor: KeyboardMonitor
   
   @State var isCreateViewVisible = false
   
@@ -61,20 +56,6 @@ struct StartWorkoutList : View {
       
     }
     .listStyle(InsetGroupedListStyle())
-    .fullScreenCover(
-      item: $workoutStore.workoutInput,
-      onDismiss: workoutStore.finishWorkout) { _ in
-      switch workoutStore.activeWorkout {
-      case .some(let activeWorkout):
-        ActiveWorkoutEditor(
-          keyboardMonitor: keyboardMonitor,
-          activeWorkout: activeWorkout
-        ).environment(\.scenePhase, scenePhase)
-      case .none:
-        EmptyView()
-      }
-      
-    }
     .navigationBarTitle("Workouts", displayMode: .inline)
   }
 }
@@ -84,9 +65,6 @@ struct StartWorkoutList_Preview : PreviewProvider {
   static var previews: some View {
     StartWorkoutList()
       .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
-      .environmentObject(KeyboardMonitor())
-      .environmentObject(StopwatchManager())
-      .environmentObject(WorkoutTemplateStore(managedObjectContext: PersistenceController.shared.container.viewContext))
       .environmentObject(WorkoutStore(managedObjectContext: PersistenceController.shared.container.viewContext))
   }
 }
