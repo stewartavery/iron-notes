@@ -22,33 +22,24 @@ struct ColoredCapsule: View {
   }
 }
 
-struct SummaryRow<Content: View> : View {
+struct SummaryRow: View {
   var title: String
   var description: String
   var color: Color
-  var content: () -> Content
-  
-  init(title: String, description: String, color: Color, content: @escaping () -> Content) {
-    self.title = title
-    self.description = description
-    self.color = color
-    self.content = content
-  }
   
   var body: some View {
-    NavigationLink(destination: content()) {
-      GroupBox(label: ColoredCapsule(color)) {
-        VStack(alignment: .leading) {
-          Text(title)
-            .font(.headline)
-            .foregroundColor(Color.primary)
-          
-          Text(description)
-            .foregroundColor(.gray)
-        }
-      }.groupBoxStyle(CardGroupBoxStyle())
-    }
+    GroupBox(label: ColoredCapsule(color)) {
+      VStack(alignment: .leading) {
+        Text(title)
+          .font(.headline)
+          .foregroundColor(Color.primary)
+        
+        Text(description)
+          .foregroundColor(.gray)
+      }
+    }.groupBoxStyle(CardGroupBoxStyle())
   }
+  
 }
 
 struct SummaryRow_Previews: PreviewProvider {
@@ -59,9 +50,11 @@ struct SummaryRow_Previews: PreviewProvider {
           .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
         
         ScrollView {
-          SummaryRow(title: "Some title", description: "Some text", color: .red) {
-            Text("hey")
-          }.padding()
+          SummaryRow(
+            title: "Some title",
+            description: "Some text",
+            color: .red
+          )
         }
       }
       ZStack {
@@ -69,9 +62,12 @@ struct SummaryRow_Previews: PreviewProvider {
           .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
         
         ScrollView {
-          SummaryRow(title: "Some title", description: "Some text", color: .red) {
-            Text("Yo")
-          }.padding()
+          SummaryRow(
+            title: "Some title",
+            description: "Some text",
+            color: .red
+          )
+          .padding()
         }
         
       }.environment(\.colorScheme, .dark)

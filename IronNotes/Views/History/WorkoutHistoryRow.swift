@@ -16,12 +16,12 @@ struct WorkoutHistoryRow: View {
   }
   
   var body: some View {
-    SummaryRow(
-      title: workout.meta?.wrappedName ?? "Untitled",
-      description: workout.readableDate,
-      color: .blue
-    ) {
-      WorkoutHistoryDetail(workout: workout)
+    NavigationLink(destination:  WorkoutHistoryDetail(workout: workout)) {
+      SummaryRow(
+        title: workout.meta?.wrappedName ?? "Untitled",
+        description: workout.readableDate,
+        color: .blue
+      )
     }
   }
 }

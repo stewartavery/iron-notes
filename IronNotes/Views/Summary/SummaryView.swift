@@ -34,13 +34,7 @@ struct SummaryView: View {
           LazyVStack(spacing: 5) {
             Section(header: workoutsHeader) {
               ForEach(templates) { template in
-                SummaryRow(
-                  title: template.wrappedName,
-                  description: template.wrappedDesc,
-                  color: .red
-                ) {
-                  Text("Hi")
-                }
+                StartWorkoutButton(template: template)
               }
             }
             

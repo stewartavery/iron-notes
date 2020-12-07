@@ -8,7 +8,23 @@
 
 import SwiftUI
 
+struct StartWorkoutButton: View {
+  @EnvironmentObject var workoutStore: WorkoutStore
+  
+  var template: WorkoutTemplate
 
+  var body: some View {
+    Button {
+      workoutStore.workoutInput = .template(template)
+    } label: {
+      SummaryRow(
+        title: template.wrappedName,
+        description: template.wrappedDesc,
+        color: .red
+      )
+    }
+  }
+}
 
 struct StartWorkoutList : View {
   @EnvironmentObject var workoutStore: WorkoutStore
@@ -26,13 +42,9 @@ struct StartWorkoutList : View {
       Group {
         switch (workoutStore.activeWorkout) {
         case (.some(let activeWorkout)) where activeWorkout.status == .running:
-          if let meta = activeWorkout.workout.meta {
+          if let template = activeWorkout.workout.meta {
             Section(header: activeWorkoutHeader) {
-              Button {
-                workoutStore.workoutInput = .template(meta)
-              } label: {
-                WorkoutRow(workoutTemplate: meta)
-              }
+              StartWorkoutButton(template: template)
             }
           }
         default:
@@ -40,12 +52,8 @@ struct StartWorkoutList : View {
         }
       }
       Section {
-        ForEach(workoutStore.nonActiveWorkoutTemplates) { workoutTemplate in
-          Button {
-            workoutStore.workoutInput = .template(workoutTemplate)
-          } label: {
-            WorkoutRow(workoutTemplate: workoutTemplate)
-          }
+        ForEach(workoutStore.nonActiveWorkoutTemplates) { template in
+          StartWorkoutButton(template: template)
         }
         Button {
           workoutStore.workoutInput = .noTemplate

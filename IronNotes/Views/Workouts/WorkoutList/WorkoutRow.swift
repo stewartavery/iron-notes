@@ -15,7 +15,7 @@ struct WorkoutRowLabel: View {
   var workoutTemplate: WorkoutTemplate
   
   var workout: Workout? {
-    return workoutStore.items
+    return workoutStore.workouts
       .first(where: {
         $0.meta == workoutTemplate
       })
