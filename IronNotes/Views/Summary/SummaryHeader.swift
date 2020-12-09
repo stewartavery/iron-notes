@@ -25,7 +25,6 @@ struct SummaryHeader<Content: View> : View {
       NavigationLink(destination: content()) {
         Text("View All")
       }.frame(height: 25)
-      
     }.padding(.top)
   }
 }

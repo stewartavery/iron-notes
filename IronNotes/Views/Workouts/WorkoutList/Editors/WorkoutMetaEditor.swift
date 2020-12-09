@@ -15,6 +15,16 @@ struct WorkoutMetaEditor: View {
   
   @State private var workoutName: String
   @State private var workoutDescription: String
+  @State private var color =
+      Color(.sRGB, red: 0.98, green: 0.9, blue: 0.2)
+  
+//  var reps: Binding<String> {
+//    return Binding<String>(get: {
+//      String(exerciseSet.reps)
+//    }, set: { value in
+//      exerciseSet.reps = Int16(value) ?? 0
+//    })
+//  }
   
   init(workout: Workout) {
     self.workout = workout
@@ -28,6 +38,9 @@ struct WorkoutMetaEditor: View {
         Section(header: Text("Workout Details")) {
           TextField("Workout name", text: $workoutName)
           TextField("Description", text: $workoutDescription)
+        }
+        Section {
+          ColorPicker("Alignment Guides", selection: $color)
         }
       }
       .listStyle(InsetGroupedListStyle())
