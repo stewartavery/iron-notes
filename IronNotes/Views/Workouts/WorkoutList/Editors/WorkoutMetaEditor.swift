@@ -40,7 +40,7 @@ struct WorkoutMetaEditor: View {
           TextField("Description", text: $workoutDescription)
         }
         Section {
-          ColorPicker("Alignment Guides", selection: $color)
+          ColorPicker("Template Color", selection: $color)
         }
       }
       .listStyle(InsetGroupedListStyle())
