@@ -31,16 +31,18 @@ struct SummaryView: View {
           .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
         
         ScrollView {
-          LazyVStack(spacing: 5) {
+          LazyVStack {
             Section(header: workoutsHeader) {
               ForEach(templates) { template in
                 StartWorkoutButton(template: template)
               }
             }
             
-            Section(header: historyHeader) {
-              ForEach(workouts) { workout in
-                WorkoutHistoryRow(workout)
+            if (workouts.count > 0) {
+              Section(header: historyHeader) {
+                ForEach(workouts) { workout in
+                  WorkoutHistoryRow(workout)
+                }
               }
             }
           }
@@ -61,3 +63,4 @@ struct SummaryView_Previews: PreviewProvider {
       workouts: Array(IronNotesModelFactory.getWorkouts().prefix(3)))
   }
 }
+

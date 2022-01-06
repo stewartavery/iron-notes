@@ -29,11 +29,12 @@ struct ExerciseCard: View {
   var isActive: Bool
   
   @State private var showDetail = false
+  @State private var activeRow = 0
   
   var exerciseMetaName: String {
     return exercise.meta?.wrappedName ?? ""
   }
-    
+  
   var body: some View {
     VStack(alignment: .leading) {
       HStack {
@@ -48,11 +49,14 @@ struct ExerciseCard: View {
         .foregroundColor(Color.gray)
         .padding(.vertical, 5)
     }
-    ForEach(exercise.exerciseSetArray) { exerciseSet in
-      ExerciseCardRow(exerciseSet: exerciseSet, isActive: isActive)
+    ForEach(Array(exercise.exerciseSetArray.enumerated()), id: \.offset) { index, exerciseSet in
+      ExerciseCardRow(
+        exerciseSet: exerciseSet,
+        activeRowIndex: $activeRow,
+        isActive: isActive,
+        index: index)
     }
     .onDelete(perform: deleteSet)
-    .animation(showDetail ? .spring() : nil)
     .transition(.move(edge: .bottom))
     .onAppear() {
       DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {

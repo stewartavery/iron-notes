@@ -10,11 +10,20 @@ import SwiftUI
 
 let spacing: CGFloat = 50
 
+enum ExerciseCardRowField: Hashable {
+  case weight
+  case reps
+}
+
 struct ExerciseCardRow: View {
   @ObservedObject var exerciseSet: ExerciseSet
+  @FocusState private var focusedField: ExerciseCardRowField?
+  @Binding var activeRowIndex: Int
+
   var isActive: Bool
-  
-  var reps: Binding<String> {
+  var index: Int
+    
+  private var reps: Binding<String> {
     return Binding<String>(get: {
       String(exerciseSet.reps)
     }, set: { value in
@@ -22,7 +31,7 @@ struct ExerciseCardRow: View {
     })
   }
   
-  var weight: Binding<String> {
+  private var weight: Binding<String> {
     return Binding<String>(get: {
       String(exerciseSet.weight)
     }, set: {
@@ -30,10 +39,18 @@ struct ExerciseCardRow: View {
     })
   }
   
+  func clearFocus() {
+    focusedField = nil
+  }
+  
+  func setActiveRow() {
+    focusedField = .weight
+  }
+  
   var body: some View {
     HStack(alignment: .center) {
       if isActive {
-        CompletionCircle(exerciseSet: exerciseSet)
+        CompletionCircle(exerciseSet: exerciseSet, onComplete: clearFocus)
       }
       
       Text("Set \(exerciseSet.setPosition + 1):")
@@ -49,6 +66,7 @@ struct ExerciseCardRow: View {
           .frame(maxWidth: 45)
           .font(.headline)
           .disabled(!isActive)
+          .focused($focusedField, equals: .weight)
         
         Text("lbs")
           .font(.caption)
@@ -65,20 +83,31 @@ struct ExerciseCardRow: View {
           .frame(maxWidth: 30)
           .font(.headline)
           .disabled(!isActive)
-        
+          .focused($focusedField, equals: .reps)
         
         Text("reps")
           .font(.caption)
           .foregroundColor(Color.gray)
       }
-    }    
+    }.toolbar {
+      ToolbarItem(placement: .keyboard) {
+        Button("next") {
+          focusedField = .reps
+        }
+      }
+    }.onChange(of: activeRowIndex) { activeIndex in
+      if(activeIndex == index) {
+        setActiveRow()
+      }
+    }
   }
 }
 
 #if DEBUG
-struct ExerciseCardRow_Previews: PreviewProvider {
-  static var previews: some View {
-    return ExerciseCardRow(exerciseSet: IronNotesModelFactory.getExerciseSet(), isActive: true)
-  }
-}
+//struct ExerciseCardRow_Previews: PreviewProvider {
+//  static var previews: some View {
+////    return ExerciseCardRow(exerciseSet: IronNotesModelFactory.getExerciseSet(), isActive: true)
+//  }
+//}
 #endif
+

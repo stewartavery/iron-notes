@@ -24,9 +24,11 @@
 		5044A50B2509B90500085739 /* TopToolbarContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5044A50A2509B90500085739 /* TopToolbarContent.swift */; };
 		5045749C25746B5C006D44D6 /* SummaryContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5045749B25746B5C006D44D6 /* SummaryContainer.swift */; };
 		504574A125749E72006D44D6 /* WorkoutHistoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504574A025749E72006D44D6 /* WorkoutHistoryRow.swift */; };
+		505AE4DF274484D200BD336A /* ActiveRowState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505AE4DE274484D200BD336A /* ActiveRowState.swift */; };
 		5061A71D25369AC30002B3F1 /* TextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5061A71C25369AC30002B3F1 /* TextExtensions.swift */; };
 		5061A7212536A09F0002B3F1 /* WorkoutAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5061A7202536A09F0002B3F1 /* WorkoutAction.swift */; };
 		5061A7242536ABBC0002B3F1 /* ButtonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5061A7232536ABBC0002B3F1 /* ButtonExtensions.swift */; };
+		506DA867258103E2009EAFF0 /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506DA866258103E2009EAFF0 /* ColorExtensions.swift */; };
 		507606232514477D00F2E5E0 /* ExerciseCardList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507606222514477D00F2E5E0 /* ExerciseCardList.swift */; };
 		50760627251449F600F2E5E0 /* ImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50760626251449F600F2E5E0 /* ImageExtensions.swift */; };
 		5076062F25144AB300F2E5E0 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5076062E25144AB300F2E5E0 /* ViewExtensions.swift */; };
@@ -104,9 +106,11 @@
 		5044A50A2509B90500085739 /* TopToolbarContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopToolbarContent.swift; sourceTree = "<group>"; };
 		5045749B25746B5C006D44D6 /* SummaryContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryContainer.swift; sourceTree = "<group>"; };
 		504574A025749E72006D44D6 /* WorkoutHistoryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistoryRow.swift; sourceTree = "<group>"; };
+		505AE4DE274484D200BD336A /* ActiveRowState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveRowState.swift; sourceTree = "<group>"; };
 		5061A71C25369AC30002B3F1 /* TextExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextExtensions.swift; sourceTree = "<group>"; };
 		5061A7202536A09F0002B3F1 /* WorkoutAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutAction.swift; sourceTree = "<group>"; };
 		5061A7232536ABBC0002B3F1 /* ButtonExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonExtensions.swift; sourceTree = "<group>"; };
+		506DA866258103E2009EAFF0 /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
 		507606222514477D00F2E5E0 /* ExerciseCardList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCardList.swift; sourceTree = "<group>"; };
 		50760626251449F600F2E5E0 /* ImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageExtensions.swift; sourceTree = "<group>"; };
 		5076062E25144AB300F2E5E0 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
@@ -300,6 +304,7 @@
 				5061A71C25369AC30002B3F1 /* TextExtensions.swift */,
 				5061A7232536ABBC0002B3F1 /* ButtonExtensions.swift */,
 				50A004CF253937A600287E66 /* OptionalExtensions.swift */,
+				506DA866258103E2009EAFF0 /* ColorExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -323,6 +328,7 @@
 				6506506E24B6CFAB003E1415 /* ExerciseCardRow.swift */,
 				65760CBD248C95D1003F5299 /* CompletionCircle.swift */,
 				5044A50A2509B90500085739 /* TopToolbarContent.swift */,
+				505AE4DE274484D200BD336A /* ActiveRowState.swift */,
 			);
 			path = ExerciseCardList;
 			sourceTree = "<group>";
@@ -614,6 +620,7 @@
 				507606362514551000F2E5E0 /* WorkoutHistoryContainer.swift in Sources */,
 				5044A5072508708B00085739 /* WorkoutTemplateStore.swift in Sources */,
 				501DCFA324FEFD9000D87926 /* IronNotesApp.swift in Sources */,
+				506DA867258103E2009EAFF0 /* ColorExtensions.swift in Sources */,
 				652FB8C822F112EB0091D3D4 /* AddWorkoutRow.swift in Sources */,
 				5044A50B2509B90500085739 /* TopToolbarContent.swift in Sources */,
 				65D61AFE247A25AD00A5B561 /* ExerciseTemplate+CoreDataClass.swift in Sources */,
@@ -635,6 +642,7 @@
 				508145592566239E008919E9 /* SummaryHeader.swift in Sources */,
 				6514CB9A22FE5075002907BC /* RowImage.swift in Sources */,
 				5061A7212536A09F0002B3F1 /* WorkoutAction.swift in Sources */,
+				505AE4DF274484D200BD336A /* ActiveRowState.swift in Sources */,
 				504574A125749E72006D44D6 /* WorkoutHistoryRow.swift in Sources */,
 				50C8C08C2551B66B008AB81C /* ExerciseStore.swift in Sources */,
 				50965B682548B442004A52BF /* Ubiquitous.swift in Sources */,
@@ -809,7 +817,7 @@
 				DEVELOPMENT_TEAM = 9UTE485Y3Y;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = IronNotes/Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -832,7 +840,7 @@
 				DEVELOPMENT_TEAM = 9UTE485Y3Y;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = IronNotes/Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

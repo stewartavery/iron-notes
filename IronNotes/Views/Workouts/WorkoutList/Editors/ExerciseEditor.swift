@@ -14,14 +14,9 @@ struct ExerciseEditor: View {
   @ObservedObject var workout: Workout
   
   @FetchRequest(
-    entity: WorkoutTemplate.entity(),
-    sortDescriptors:  [NSSortDescriptor(keyPath: \ExerciseTemplate.name, ascending: true
-    )]) var workoutTemplates: FetchedResults<WorkoutTemplate>
-  
-  @FetchRequest(
     entity: ExerciseTemplate.entity(),
     sortDescriptors: [NSSortDescriptor(keyPath: \ExerciseTemplate.name, ascending: true
-    )]) var exerciseTemplates: FetchedResults<ExerciseTemplate>
+                                      )]) var exerciseTemplates: FetchedResults<ExerciseTemplate>
   
   var addedTemplates: [ExerciseTemplate] {
     return workout.routinesArray.compactMap { $0.meta }
@@ -33,25 +28,32 @@ struct ExerciseEditor: View {
     }
   }
   
+  var hasAddedTemplates: Bool {
+    return addedTemplates.count > 0
+  }
+  
   var body: some View {
     NavigationView {
-      Form {
-        if addedTemplates.count > 0 {
-          Section(header: Text("Added Exercises")) {
+      List {
+        Section(header: Text("Added Exercises")) {
+          if hasAddedTemplates {
             ForEach(addedTemplates) {
               RemoveExerciseRow(exerciseTemplate: $0)
             }
             .onDelete(perform: removeRow)
             .onMove(perform: moveRow)
+          } else {
+            Text("Add some exercises below to get started!")
           }
         }
+        
+        
         Section(header: Text("More Exercises")) {
           ForEach(unaddedExercises) {
             AddExerciseRow(exerciseTemplate: $0, addRow: addRow)
           }
         }
       }
-      .environment(\.editMode, Binding.constant(EditMode.active))
       .listStyle(InsetGroupedListStyle())
       .navigationBarTitle(Text("Modify Exercises"), displayMode: .inline)
       .toolbar {
@@ -121,7 +123,14 @@ struct RemoveExerciseRow: View {
   var exerciseTemplate: ExerciseTemplate
   
   var body: some View {
-    Text(exerciseTemplate.wrappedName)
+    Label {
+      Text(exerciseTemplate.wrappedName)
+      
+    } icon: {
+      Image(systemName: "minus.circle.fill")
+        .foregroundColor(Color.red)
+        .font(.title3)
+    }
   }
 }
 
@@ -138,7 +147,9 @@ struct AddExerciseRow: View {
         .foregroundColor(Color.green)
         .font(.title3)
     }.onTapGesture {
-      addRow(exerciseTemplate)
+      withAnimation(.easeOut(duration: 3).delay(2)) {
+        addRow(exerciseTemplate)
+      }
     }
   }
 }
@@ -147,7 +158,6 @@ struct AddExerciseRow: View {
 struct AddExercise_Previews: PreviewProvider {
   static var previews: some View {
     ExerciseEditor(workout: IronNotesModelFactory.getWorkout())
-      .environmentObject(IronNotesModelFactory.getWorkout())
       .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
   }
 }

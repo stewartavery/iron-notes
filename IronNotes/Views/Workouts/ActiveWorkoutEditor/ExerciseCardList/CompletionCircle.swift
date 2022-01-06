@@ -10,7 +10,9 @@ import SwiftUI
 
 struct CompletionCircle: View {
   @ObservedObject var exerciseSet: ExerciseSet
+  var onComplete: () -> Void
 
+  // FocusState<UUID?>.Binding
   var body: some View {
     Button {
       toggleIsCompleted()
@@ -28,13 +30,16 @@ struct CompletionCircle: View {
   
   func toggleIsCompleted() {
     exerciseSet.isCompleted.toggle()
+    onComplete()
   }
 }
 
 #if DEBUG
-struct ComplettionCircle_Previews: PreviewProvider {
-  static var previews: some View {
-    return CompletionCircle(exerciseSet: IronNotesModelFactory.getExerciseSet())
-  }
-}
+//struct ComplettionCircle_Previews: PreviewProvider {
+//
+//
+//  static var previews: some View {
+//    CompletionCircle(exerciseSet: IronNotesModelFactory.getExerciseSet(), onComplete: () -> {})
+//  }
+//}
 #endif
