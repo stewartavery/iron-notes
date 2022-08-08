@@ -63,7 +63,11 @@ struct StartWorkoutList : View {
             Button {
               workoutStore.workoutInput = .noTemplate
             } label: {
-              AddWorkoutRow()
+                SummaryRow(
+                  title: "Add Workout",
+                  description: "",
+                  color: .orange
+                )
             }
           }
           

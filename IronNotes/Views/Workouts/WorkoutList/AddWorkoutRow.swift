@@ -24,6 +24,18 @@ struct AddWorkoutRow: View {
   }
 }
 
+//var body: some View {
+//  Button {
+//    workoutStore.workoutInput = .template(template)
+//  } label: {
+//    SummaryRow(
+//      title: template.wrappedName,
+//      description: template.wrappedDesc,
+//      color: .red
+//    )
+//  }
+//}
+
 #if DEBUG
 struct AddWorkoutRow_Previews: PreviewProvider {
   static var previews: some View {

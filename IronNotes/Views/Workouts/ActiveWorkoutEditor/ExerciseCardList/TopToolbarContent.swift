@@ -10,11 +10,8 @@ import SwiftUI
 
 struct TopToolbarContent: View {
   @Binding var workoutSheet: WorkoutSheet?
-  @EnvironmentObject var keyboardMonitor: KeyboardMonitor
   
   var body: some View {
-    switch(keyboardMonitor.keyboardStatus) {
-    case .hidden:
       Menu {
         Button {
           workoutSheet = .workout
@@ -34,13 +31,6 @@ struct TopToolbarContent: View {
       } label: {
         Image(systemName: "ellipsis.circle")
       }
-    case .presented(_):
-      Button {
-        hideKeyboard()
-      } label: {
-        Image(systemName: "keyboard.chevron.compact.down")
-      }
-    }
   }
 }
 
